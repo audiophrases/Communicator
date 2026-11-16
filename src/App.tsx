@@ -66,6 +66,21 @@ export default function App() {
     // text box is about to change, so tablet keyboards (which often do not say which key it was) do the same. With
     // the cursor moved back into the text, Backspace deletes one letter as usual, to fix a typo. On an empty box the
     // key is handled in onKeyDown below.
+    // Backspace anywhere on the board does what ⌫ does: after clicking word buttons the keyboard's focus is on the last
+    // button, not the text box. In a text box or a Settings menu, Backspace keeps its usual job.
+    const backspaceNow = useRef(backspace);
+    useEffect(() => { backspaceNow.current = backspace; });
+    useEffect(() => {
+        const onKeyDown = (event: KeyboardEvent) => {
+            if (event.key !== 'Backspace' || event.ctrlKey || event.altKey || event.metaKey || event.defaultPrevented) return;
+            const target = event.target as HTMLElement | null;
+            if (target?.closest('input, textarea, select, [contenteditable="true"]')) return;
+            event.preventDefault();
+            backspaceNow.current();
+        };
+        window.addEventListener('keydown', onKeyDown);
+        return () => window.removeEventListener('keydown', onKeyDown);
+    }, []);
     useEffect(() => {
         const input = typing.current;
         if (!input) return;
