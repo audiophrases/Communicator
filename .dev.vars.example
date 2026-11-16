@@ -1,0 +1,11 @@
+# Copy to .dev.vars for local use. Never commit .dev.vars.
+# With a key: "Fix" makes the phrase correct English, and Speak uses OpenAI's natural voices.
+# Without it the board still works, with the device's own voice and no Fix.
+# Online, set it with `npx wrangler secret put OPENAI_API_KEY`.
+OPENAI_API_KEY=
+# Optional: the chat model that fixes phrases (default gpt-4o-mini, as in HelloChat and Pixel Plaza).
+# OPENAI_PHRASE_MODEL=
+# Optional: the speech model (default gpt-4o-mini-tts).
+# OPENAI_TTS_MODEL=
+# Optional, recommended online: people must type this code once (Settings) before the app spends your key.
+# ACCESS_CODE=

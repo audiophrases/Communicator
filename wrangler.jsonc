@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "communicator",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-01",
+  "observability": { "enabled": true },
+
+  // The built app (npm run build). Only /api/* runs the Worker.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  // Budget for OpenAI calls per visitor. Its own namespace (PinPlay 1001, Dictation Time 2001, Pixel Plaza 3001, HelloChat 4001).
+  "ratelimits": [{ "name": "AI_RL", "namespace_id": "5001", "simple": { "limit": 40, "period": 60 } }]
+}

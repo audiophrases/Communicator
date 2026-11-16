@@ -1,0 +1,11 @@
+*.log
+node_modules
+dist
+.env
+.dev.vars
+.wrangler
+.codegraph
+worker/runtime.d.ts
+*.local
+.vscode/*
+.DS_Store
