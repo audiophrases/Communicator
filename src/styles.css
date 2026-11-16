@@ -52,6 +52,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .key:active { transform: scale(.96); filter: brightness(.94); }
 .key.blank { background: transparent; border-color: transparent; }
 .key { -webkit-touch-callout: none; user-select: none; }
+/* With a mouse, the button under it grows 70% so a small picture is easy to make out, above its neighbours; its
+   Catalan follows a second later (src/tooltip.ts). Key.tsx points the growth inward at the board's edges.
+   Touch screens are left alone: hold a button for its Catalan. */
+@media (hover: hover) and (pointer: fine) {
+    .key:not(.blank) { transition: transform .12s ease-out, box-shadow .12s ease-out; }
+    .key:not(.blank):hover { transform: scale(1.7); position: relative; z-index: 4; box-shadow: 0 8px 22px rgb(0 0 0 / .28); }
+    .key:not(.blank):hover:active { transform: scale(1.62); }
+}
+@media (prefers-reduced-motion: reduce) { .key:not(.blank) { transition: none; } }
 .key-pic { font-size: 1.5rem; line-height: 1.1; }
 /* Mulberry symbols are line drawings: a little bigger than an emoji to read as easily. */
 .key-pic.sym { width: 2.3rem; height: 2.3rem; object-fit: contain; -webkit-user-drag: none; pointer-events: none; }

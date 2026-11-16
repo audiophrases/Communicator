@@ -2,7 +2,7 @@
 // on a touch screen. Holding shows the Catalan without pressing the button, so a learner can check a word
 // without adding it to the message.
 
-const HOVER_MS = 350;
+const HOVER_MS = 1000; // with a mouse: the button grows first (see .key:hover), then its Catalan shows
 const HOLD_MS = 450;
 const TOUCH_SHOW_MS = 2500;
 
