@@ -1,6 +1,20 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { clean, fixPhrase } from '../phrase.ts';
+import { clean, fixPhrase, fixSeed } from '../phrase.ts';
+import { caSeed } from '../translate.ts';
+
+test('the same question shares one saved answer; a different one does not', () => {
+    const env = {};
+    const seed = (text, level = 'A2', language = '') => fixSeed({ text, level, language }, env);
+    assert.equal(seed('I want go home'), seed('  i WANT go   home. '));
+    assert.equal(seed('where bus stop'), seed('Where bus stop?'));
+    assert.notEqual(seed('I want go home'), seed('I want go home', 'B1'));
+    assert.notEqual(seed('I want go home'), seed('I want go home', 'A2', 'Catalan'));
+    assert.notEqual(seed('I want go home'), seed('I want go school'));
+    assert.notEqual(seed('I want go home'), fixSeed({ text: 'I want go home', level: 'A2' }, { OPENAI_PHRASE_MODEL: 'other-model' }));
+    assert.equal(caSeed({ text: ' work ', hint: 'noun on the Places page' }, env), caSeed({ text: 'work', hint: 'noun on the Places page' }, env));
+    assert.notEqual(caSeed({ text: 'work', hint: 'noun on the Places page' }, env), caSeed({ text: 'work', hint: 'verb' }, env));
+});
 
 const answer = (content) => new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(content) } }] }));
 
@@ -35,14 +49,14 @@ test('fixPhrase sends the words as data and returns the fix', async () => {
     const fix = await withFetch(async (url, init) => {
         sent = { url, body: JSON.parse(init.body) };
         return answer({ sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" });
-    }, () => fixPhrase({ text: 'where bus stop', level: 'A1', language: 'Catalan', context: 'I am lost.' }, { OPENAI_API_KEY: 'k', OPENAI_BASE_URL: 'http://ai.test', OPENAI_PHRASE_MODEL: 'test-model' }));
+    }, () => fixPhrase({ text: 'where bus stop', level: 'A1', language: 'Catalan' }, { OPENAI_API_KEY: 'k', OPENAI_BASE_URL: 'http://ai.test', OPENAI_PHRASE_MODEL: 'test-model' }));
     assert.deepEqual(fix, { sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" });
     assert.equal(sent.url, 'http://ai.test/v1/chat/completions');
     assert.equal(sent.body.model, 'test-model');
     assert.match(sent.body.messages[0].content, /CEFR A1/);
     assert.match(sent.body.messages[0].content, /in Catalan/);
     assert.doesNotMatch(sent.body.messages[0].content, /note/);
-    assert.deepEqual(JSON.parse(sent.body.messages[1].content), { words: 'where bus stop', context: 'I am lost.' });
+    assert.deepEqual(JSON.parse(sent.body.messages[1].content), { words: 'where bus stop' });
 });
 
 test('fixPhrase gives up quietly', async () => {

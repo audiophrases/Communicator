@@ -108,7 +108,7 @@ export default function App() {
         try {
             const response = await fetch('/api/fix', {
                 method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
-                body: JSON.stringify({ text: message, level: settings.level, language: settings.language, context: recent[0] ?? '' }),
+                body: JSON.stringify({ text: message, level: settings.level, language: settings.language }),
                 signal: AbortSignal.timeout(12_000)
             });
             const body = await response.json();

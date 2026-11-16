@@ -41,6 +41,22 @@ With `OPENAI_API_KEY` in `.dev.vars`, students can press **Fix** (`gpt-4o-mini`)
 buttons into Catalan. **Fix for students** in `/create` switches Fix off and on at once, for example during a test;
 students' screens follow within 30 seconds. Without a key, Fix is hidden and everything else works.
 
+## Saved answers: each question is paid for once
+
+Like PinPlay's voice cache, every answer is kept on the laptop under a fingerprint of what was asked, and reused for
+the whole class, across lessons and restarts:
+
+- **Fix**: the same words at the same level and language (capitals, spaces and the final full stop do not matter).
+  The second student who writes "I want go home" gets "I want to go home." at once, without calling OpenAI.
+- **Catalan in the editor**: only buttons never translated before are sent.
+- **Voice clips**: the same text, voice and speed (as PinPlay: `voice::rate::text`) comes from the bridge once.
+
+Saved answers do not count against a student's limit. `/create` shows how many are saved and how often they were
+reused. **Forget them** clears them all, for example if a saved correction was wrong (otherwise every student would
+keep getting it). Unused answers are dropped after 60 days, and at most 5,000 corrections, 5,000 translations and
+3,000 clips are kept. Changing the prompt in `worker/phrase.ts` or `worker/translate.ts` should come with a new
+`FIX_VERSION` or `CA_VERSION`, so old answers are not reused.
+
 ## The teacher's editor: /create
 
 Open `/create` and sign in with the teacher password. There you can:
@@ -60,7 +76,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | --- | --- | --- |
 | Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 8 topic pages, 30 quick phrases, each with Catalan; saved and recent phrases |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
-| Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board and the Fix switch are kept in a Durable Object; sessions are signed and last 12 hours |
+| Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
 | Fix | `worker/phrase.ts` | One chat-model call (default `gpt-4o-mini`) with a strict JSON schema: the sentence, up to 2 other meanings, and a Catalan translation when chosen |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons, using the word type and page to pick the meaning |
@@ -78,12 +94,15 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 - **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own:
   the suggestion is spoken only when the speaker taps it, and tapping or typing another word dismisses it. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
-- **The last sentence is sent as context**, because research on AI message expansion found that one turn of context
-  roughly doubles accuracy.
+- **Fix sees only the speaker's words, not their previous sentence.** Research on AI message expansion found that one
+  turn of context helps when guessing words from their first letters. Fixing the grammar of words the speaker chose
+  gains little from it, and leaving it out lets the whole class share saved answers.
 - **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan for now) shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
   check a word without adding it to the message.
-- **Nothing is censored and nothing is stored.** It is the speaker's own voice, so there is no moderation step.
-  Saved and recent phrases live only in the browser; the Worker never logs what was said.
+- **Nothing is censored, and nothing says who said what.** It is the speaker's own voice, so there is no moderation
+  step. Saved and recent phrases live only in each student's browser, and the server never logs what was said. The
+  laptop keeps the saved answers above (the sentences and their corrections, translations and clips), with no name or
+  device attached; **Forget them** in `/create` deletes them.
 - **Emoji as symbols.** They need no licence and no downloads. A proper symbol set such as ARASAAC would be clearer
   for abstract words, but it is CC BY-NC-SA: attribution required and no commercial use.

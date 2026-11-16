@@ -14,5 +14,7 @@ export const MAX_TEXT = 300;
 export type Fix = { sentence: string; alternatives: string[]; translation: string };
 // fix: the teacher has Fix switched on and there is an OpenAI key.
 export type Status = { fix: boolean };
-// What /create shows: whether there is a key, the switch, and the address students open.
-export type TeacherSettings = { key: boolean; fixOn: boolean; lanUrl: string };
+// Answers kept on the laptop so the same question is not paid for twice: corrections, Catalan, voice clips.
+export type Saved = { fix: number; ca: number; speech: number; reused: number };
+// What /create shows: whether there is a key, the switch, the address students open, and what is saved.
+export type TeacherSettings = { key: boolean; fixOn: boolean; lanUrl: string; saved: Saved };

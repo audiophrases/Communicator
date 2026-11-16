@@ -5,11 +5,20 @@
 import { MAX_TEXT, type Fix, type Level } from '../shared/options.ts';
 
 export type PhraseEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; OPENAI_PHRASE_MODEL?: string };
-export type PhraseInput = { text: string; level: Level; language?: string; context?: string };
+export type PhraseInput = { text: string; level: Level; language?: string };
 
 const TIMEOUT_MS = 8000;
+// Change it whenever the instructions change, so saved answers from the old ones are not reused.
+const FIX_VERSION = 2;
 
-const instructions = (level: Level, language?: string) => `You help a person who is learning English and uses a communication board to speak. They tap single words or type short, broken English. You get their words as JSON, and sometimes "context": the last thing they said.
+// What makes two requests the same question: the answers are saved under it and shared by the whole class.
+// Capitals, spacing and the final mark do not change the correction.
+export function fixSeed(input: PhraseInput, env: PhraseEnv): string {
+    const words = input.text.toLowerCase().replace(/\s+/g, ' ').trim().replace(/[\s.!?…]+$/u, '');
+    return JSON.stringify(['fix', FIX_VERSION, env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini', input.level, input.language || '', words]);
+}
+
+const instructions = (level: Level, language?: string) => `You help a person who is learning English and uses a communication board to speak. They tap single words or type short, broken English. You get their words as JSON.
 Write what they most likely want to say as ONE natural, grammatically correct spoken English sentence.
 Rules:
 - Keep their meaning and their words. Add only what grammar needs: articles, prepositions, verb forms, "to", "be", "do".
@@ -68,7 +77,7 @@ export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<Fix
                 model: env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini',
                 messages: [
                     { role: 'system', content: instructions(input.level, input.language) },
-                    { role: 'user', content: JSON.stringify({ words: input.text, ...(input.context ? { context: input.context } : {}) }) }
+                    { role: 'user', content: JSON.stringify({ words: input.text }) }
                 ],
                 response_format: { type: 'json_schema', json_schema: SCHEMA }
             }),

@@ -1,10 +1,10 @@
-import { fixPhrase } from './phrase.ts';
+import { fixPhrase, fixSeed } from './phrase.ts';
 import { synthesize } from './speech.ts';
 import { BoardStore } from './store.ts';
-import { newSession, passwordMatches, sessionValid } from './teacher.ts';
-import { MAX_ITEMS, toCatalan, type Item } from './translate.ts';
+import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
+import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
 import { LIMITS, sanitizeBoard } from '../shared/board.ts';
-import { isLanguage, isLevel, MAX_TEXT, type Status, type TeacherSettings } from '../shared/options.ts';
+import { isLanguage, isLevel, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
 import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../shared/voices.ts';
 
 export { BoardStore };
@@ -26,8 +26,18 @@ export interface Env {
     AUTH_RL?: RateLimit;
 }
 
-const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
+// X-Cache says whether a saved answer was reused (hit) or OpenAI / the voice bridge was asked (miss).
+const json = (body: unknown, status = 200, cache?: 'hit' | 'miss') =>
+    Response.json(body, { status, headers: { 'Cache-Control': 'no-store', ...(cache ? { 'X-Cache': cache } : {}) } });
+const audioResponse = (audio: ArrayBuffer, cache: 'hit' | 'miss') => new Response(audio, { headers: {
+    'Content-Type': 'audio/mpeg', 'Cache-Control': 'private, no-store', 'X-Content-Type-Options': 'nosniff', 'X-Cache': cache
+} });
 const store = (env: Env) => env.BOARD.getByName('main');
+
+async function teacherSettings(env: Env): Promise<TeacherSettings> {
+    const stub = store(env);
+    return { key: !!env.OPENAI_API_KEY, fixOn: await stub.fixOn(), lanUrl: env.LAN_URL || '', saved: await stub.saved() };
+}
 
 async function allowed(limiter: RateLimit | undefined, key: string, slots = 1): Promise<boolean> {
     if (!limiter) return true;
@@ -87,10 +97,12 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
         return json({ error: 'Please sign in again.' }, 401);
     }
     switch (path) {
-        case '/api/teacher/settings': {
+        case '/api/teacher/settings':
             if (typeof body?.fixOn === 'boolean') await store(env).setFixOn(body.fixOn);
-            return json({ key: !!env.OPENAI_API_KEY, fixOn: await store(env).fixOn(), lanUrl: env.LAN_URL || '' } satisfies TeacherSettings);
-        }
+            return json(await teacherSettings(env));
+        case '/api/teacher/forget':
+            await store(env).forget();
+            return json(await teacherSettings(env));
         case '/api/teacher/board': {
             const board = sanitizeBoard(body?.board);
             if (!board) return json({ error: 'That board is not valid.' }, 400);
@@ -108,8 +120,20 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
                 ...(typeof item?.hint === 'string' && item.hint ? { hint: item.hint.slice(0, 60) } : {})
             })) : [];
             if (!items.length || items.length > MAX_ITEMS || items.some(item => !item.text)) return json({ error: 'Nothing to translate.' }, 400);
-            const ca = await toCatalan(items, env);
-            return ca ? json({ ca }) : json({ error: 'Translation is unavailable right now. Try again, or type it yourself.' }, 503);
+            // Only what was never translated before goes to OpenAI.
+            const keys = await Promise.all(items.map(item => sha256Hex(caSeed(item, env))));
+            const saved = await store(env).recall(keys);
+            const ca = keys.map(key => saved[key]?.value ?? '');
+            const missing = items.map((item, i) => ({ item, i })).filter(({ i }) => !ca[i]);
+            if (missing.length) {
+                const fresh = await toCatalan(missing.map(({ item }) => item), env);
+                if (!fresh) return json({ error: 'Translation is unavailable right now. Try again, or type it yourself.' }, 503);
+                for (const [j, { i }] of missing.entries()) {
+                    ca[i] = fresh[j];
+                    if (fresh[j]) await store(env).remember('ca', keys[i], fresh[j]);
+                }
+            }
+            return json({ ca, reused: items.length - missing.length }, 200, missing.length ? 'miss' : 'hit');
         }
         default:
             return json({ error: 'Not found.' }, 404);
@@ -133,19 +157,32 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const words = text(body?.text);
     if (!words) return json({ error: 'Nothing to say yet.' }, 400);
 
+    // Saved answers are reused without counting against the student's limit: only new questions cost anything.
     if (path === '/api/speak') {
+        const voice = isEnglishVoice(body.voice) ? body.voice : DEFAULT_VOICE;
+        const rate = bridgeRate(body.rate);
+        const key = await sha256Hex(`speech::${voice}::${rate}::${words}`); // as PinPlay: voice::rate::text
+        const saved = (await store(env).recall([key]))[key];
+        if (saved?.audio) return audioResponse(saved.audio, 'hit');
         if (!(await allowed(env.USE_RL, `speak:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
-        const audio = await synthesize(env, words, isEnglishVoice(body.voice) ? body.voice : DEFAULT_VOICE, bridgeRate(body.rate), request.signal);
-        return audio ?? json({ error: 'The voice is unavailable.' }, 503);
+        const audio = await synthesize(env, words, voice, rate, request.signal);
+        const bytes = audio ? await audio.arrayBuffer().catch(() => null) : null; // fails past the 4 MB limit
+        if (!bytes) return json({ error: 'The voice is unavailable.' }, 503);
+        await store(env).remember('speech', key, null, bytes);
+        return audioResponse(bytes, 'miss');
     }
 
     if (!env.OPENAI_API_KEY || !(await store(env).fixOn())) return json({ error: 'Your teacher has switched Fix off.' }, 403);
+    const level: Level = isLevel(body.level) ? body.level : 'A2';
+    const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined };
+    const key = await sha256Hex(fixSeed(input, env));
+    const saved = (await store(env).recall([key]))[key];
+    if (saved?.value) return json(JSON.parse(saved.value), 200, 'hit');
     if (!(await allowed(env.USE_RL, `fix:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
-    const fix = await fixPhrase({
-        text: words, level: isLevel(body.level) ? body.level : 'A2',
-        language: isLanguage(body.language) ? body.language : undefined, context: text(body.context) || undefined
-    }, env);
-    return fix ? json(fix) : json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
+    const fix = await fixPhrase(input, env);
+    if (!fix) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
+    await store(env).remember('fix', key, JSON.stringify(fix));
+    return json(fix, 200, 'miss');
 }
 
 // Only /api/* reaches the Worker; the built app is served as static assets.

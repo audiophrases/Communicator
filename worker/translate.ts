@@ -5,6 +5,12 @@ export type TranslateEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; 
 export type Item = { text: string; hint?: string };
 
 export const MAX_ITEMS = 60;
+// Change it whenever the instructions change, so saved translations from the old ones are not reused.
+const CA_VERSION = 1;
+
+// What makes two items the same question; the translation is saved under it.
+export const caSeed = (item: Item, env: TranslateEnv) =>
+    JSON.stringify(['ca', CA_VERSION, env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini', item.text.trim(), item.hint || '']);
 
 const INSTRUCTIONS = `You translate the buttons of a communication board for people learning English in Catalonia. Translate each item into Catalan (standard Central Catalan, current IEC spelling).
 - A single word: its usual Catalan equivalent. Verbs in the infinitive, adjectives in the masculine singular. If the word has two common meanings, give both separated by " / ".

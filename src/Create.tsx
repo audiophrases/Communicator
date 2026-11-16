@@ -146,6 +146,14 @@ export default function Create() {
         if (!board) await loadBoard(); // after a session ends mid-edit, the draft is kept
     });
 
+    // For a saved answer that turned out wrong: everything is asked again the next time it is needed.
+    const forget = () => {
+        if (!confirm('Forget every saved correction, translation and voice clip on this laptop? They will be fetched again (and paid for again) when needed.')) return;
+        void run('Forgetting…', async () => {
+            setSettings(await call('/api/teacher/forget', {}));
+            return 'Forgotten. New answers will be saved as students use Fix and Speak.';
+        });
+    };
     // Saved at once, not with the board: it is about the lesson, not the buttons.
     const toggleFix = () => run('Saving…', async () => {
         const next = await call('/api/teacher/settings', { fixOn: !settings?.fixOn }) as TeacherSettings;
@@ -277,6 +285,13 @@ export default function Create() {
                         <span className="knob" aria-hidden="true" /> ✨ Fix for students: <b>{settings.fixOn ? 'On' : 'Off'}</b>
                     </button>
                 ) : <span className="state">No OpenAI key in .dev.vars, so Fix is off.</span>)}
+                {settings && (
+                    <span className="saved" title="Each correction, translation and voice clip is fetched once and then reused for everyone, like PinPlay's voice cache">
+                        ♻️ Saved on this laptop: {settings.saved.fix} corrections, {settings.saved.ca} translations, {settings.saved.speech} voice clips
+                        {' · '}reused {settings.saved.reused} times
+                        <button className="link" onClick={() => void forget()} disabled={!!busy || !(settings.saved.fix + settings.saved.ca + settings.saved.speech)}>Forget them</button>
+                    </span>
+                )}
             </div>
             {message && <div className={message.bad ? 'msg bad' : 'msg'} role="status">{message.text}</div>}
 
