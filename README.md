@@ -51,6 +51,8 @@ screens follow within 30 seconds. Without a key, Fix is hidden and everything el
   suggests: in the test it got about one in four wrong ("estutja" for "pencil case").
 - **A better model:** `OPENAI_PHRASE_MODEL=gpt-6-luna` in `.dev.vars` got every test word right, but it is not on the
   free list: about 5 cents for a busy lesson. The choice and the test are described in `worker/model.ts`.
+- **Free or billed:** [OPENAI-FREE-TOKENS.md](OPENAI-FREE-TOKENS.md) says what the account's data-sharing tokens cover; the same
+  note is in the other apps that call OpenAI.
 
 ## Saved answers: each question is paid for once
 
