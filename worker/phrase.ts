@@ -13,7 +13,7 @@ export type PhraseResult = { fix: Fix; contextUsed: boolean };
 
 const TIMEOUT_MS = 8000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
-const FIX_VERSION = 4;
+const FIX_VERSION = 5; // 5: the Catalan line now comes from Softcatalà
 
 const normalize = (text: string) => text.toLowerCase().replace(/\s+/g, ' ').trim().replace(/[\s.!?…]+$/u, '');
 
