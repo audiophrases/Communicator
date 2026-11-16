@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { clean, fixPhrase, fixSeed } from '../phrase.ts';
-import { caSeed, isSentence, toCatalan } from '../translate.ts';
+import { CATALAN_RULE, clean, fixPhrase, fixSeed } from '../phrase.ts';
+import { caSeed, toCatalan } from '../translate.ts';
 
 test('the same question shares one saved answer; a different one does not', () => {
     const env = {};
@@ -86,7 +86,7 @@ test('an answer that used the sentence before is saved only for that pair', () =
     assert.notEqual(fixSeed(input, env, true), fixSeed({ ...input, context: 'Tomorrow I go to the park.' }, env, true));
 });
 
-test('Fix and the editor use gpt-4o-mini (free on this account); a gpt-6 model gets a little thinking', async () => {
+test('Fix and the editor use gpt-5.4-mini without thinking (free on this account), unless told otherwise', async () => {
     const bodies = [];
     await withFetch(async (url, init) => {
         bodies.push(JSON.parse(init.body));
@@ -94,21 +94,28 @@ test('Fix and the editor use gpt-4o-mini (free on this account); a gpt-6 model g
     }, async () => {
         await fixPhrase({ text: 'hi there', level: 'A2' }, { OPENAI_API_KEY: 'k' });
         await fixPhrase({ text: 'hi there', level: 'A2' }, { OPENAI_API_KEY: 'k', OPENAI_PHRASE_MODEL: 'gpt-6-luna' });
+        await fixPhrase({ text: 'hi there', level: 'A2' }, { OPENAI_API_KEY: 'k', OPENAI_PHRASE_MODEL: 'gpt-4o-mini' });
         await toCatalan([{ text: 'hello' }], { OPENAI_API_KEY: 'k' });
     });
     assert.deepEqual(bodies.map(body => [body.model, body.reasoning_effort ?? null]),
-        [['gpt-4o-mini', null], ['gpt-6-luna', 'low'], ['gpt-4o-mini', null]]); // older models reject the setting
+        [['gpt-5.4-mini', 'none'], ['gpt-6-luna', 'low'], ['gpt-4o-mini', null], ['gpt-5.4-mini', 'none']]); // older models reject the setting
     // Saved answers belong to the model that gave them.
     assert.notEqual(fixSeed({ text: 'x', level: 'A2' }, {}), fixSeed({ text: 'x', level: 'A2' }, { OPENAI_PHRASE_MODEL: 'gpt-6-luna' }));
+    assert.notEqual(caSeed({ text: 'glass' }, {}), caSeed({ text: 'glass' }, { OPENAI_PHRASE_MODEL: 'gpt-6-luna' }));
 });
 
-test('quick phrases are Softcatalà\'s to translate, button words the model\'s', () => {
-    assert.equal(isSentence({ text: 'Can I go to the toilet, please?', hint: 'phrase' }), true);
-    assert.equal(isSentence({ text: 'pencil case', hint: 'noun on the Classroom page' }), false);
-    // A phrase's saved translation belongs to Softcatalà, whatever the model; a word's to the model.
-    const phrase = { text: 'Hello!', hint: 'phrase' }, word = { text: 'glass', hint: 'noun on the Food page' };
-    assert.equal(caSeed(phrase, {}), caSeed(phrase, { OPENAI_PHRASE_MODEL: 'gpt-6-luna' }));
-    assert.notEqual(caSeed(word, {}), caSeed(word, { OPENAI_PHRASE_MODEL: 'gpt-6-luna' }));
+test('the Catalan rule for agradar goes with every Catalan translation, and only then', async () => {
+    const systems = [];
+    await withFetch(async (url, init) => {
+        systems.push(JSON.parse(init.body).messages[0].content);
+        return answer({ sentence: 'I like you.', alternatives: [], translation: '', context_used: false, translations: ['hola'] });
+    }, async () => {
+        await fixPhrase({ text: 'I like you', level: 'A2', language: 'Catalan' }, { OPENAI_API_KEY: 'k' });
+        await fixPhrase({ text: 'I like you', level: 'A2' }, { OPENAI_API_KEY: 'k' });
+        await toCatalan([{ text: 'I like it.', hint: 'phrase' }], { OPENAI_API_KEY: 'k' });
+    });
+    assert.deepEqual(systems.map(text => text.includes(CATALAN_RULE)), [true, false, true]);
+    assert.match(CATALAN_RULE, /M'agrades/);
 });
 
 test('fixPhrase gives up quietly', async () => {

@@ -15,13 +15,13 @@ there again before relying on it: the offer and its list of models can change.
 
 ## What it means for the apps
 
-- **Free:** a model on the 2.5 million list, within the day's amount. `gpt-4o-mini` is the one the apps use. A grammar
+- **Free:** a model on the 2.5 million list, within the day's amount. `gpt-4o-mini` is the one HelloChat and Pixel Plaza use; Communicator uses `gpt-5.4-mini`. A grammar
   correction or hint is about 700 tokens, so the free amount covers a few thousand a day, shared by every app on the
   account.
 - **Billed:** every model not on those lists, such as `gpt-6-luna`, `gpt-5.6-*` and `gpt-6.1-*`, and audio and
   image models such as `whisper-1`. Moderation (`omni-moderation-latest`) costs nothing either way.
 - **Before switching a model**, check it is on the list: a newer model can be better without being free. Prices on
-  developers.openai.com/api/docs/pricing on 2026-11-16, per million tokens in / out: gpt-4o-mini $0.15 / $0.60,
+  developers.openai.com/api/docs/pricing on 2026-11-16, per million tokens in / out: gpt-4o-mini $0.15 / $0.60, gpt-5.4-mini $0.75 / $4.50, gpt-5.4 $2.50 / $15.00,
   gpt-6-luna $0.10 / $0.50, gpt-6.1-terra $1.00 / $5.00.
 - **To keep students' text out of training**, choose *Enabled for selected projects* and leave out the OpenAI project
   whose key the classroom apps use (its calls then get no free tokens), or disable sharing.
@@ -31,9 +31,9 @@ Phone Mirror.
 
 ## In this project
 
-- **Fix** (`worker/phrase.ts`) and the editor's Catalan for button words (`worker/translate.ts`): `gpt-4o-mini`,
-  **free**. The model is chosen in `worker/model.ts`, which also records the 2026-11-16 comparison; `OPENAI_PHRASE_MODEL`
-  overrides it. `gpt-6-luna` translated button words better but is **billed** (about 5 cents for a busy lesson).
-- **Catalan sentences** (Fix's Catalan line, quick phrases in the editor): Softcatalà's free translator
-  (`worker/softcatala.ts`), not OpenAI.
+- **Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
+  `gpt-5.4-mini` with thinking off, **free** (2.5 million list); about 700 tokens per Fix. Chosen after side-by-side
+  tests on 2026-11-16 (`worker/model.ts`): better Catalan than `gpt-4o-mini` and Softcatalà's translator.
+  `OPENAI_PHRASE_MODEL` overrides it: `gpt-5.4` gets Catalan "agradar" sentences right more often but is on the
+  250 thousand list (about 290 Fixes a day free, then $2.50 / $15.00 per million tokens).
 - **Voices**: PinPlay's Edge TTS bridge, not OpenAI.

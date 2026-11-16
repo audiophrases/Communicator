@@ -35,23 +35,25 @@ take a while to wake up. The laptop needs internet for these voices; without it,
 within 10 seconds, each device speaks with its own voice. Single tapped words always use the device's voice, which is
 instant. `EDGE_TTS_URL` and `EDGE_TTS_SECRET` override the bridge.
 
-## OpenAI and Softcatalà: Fix and the editor's Catalan
+## OpenAI: Fix and the editor's Catalan
 
 With `OPENAI_API_KEY` in `.dev.vars`, students can press **Fix**, and the editor can translate new buttons into
 Catalan. **Fix for students** in `/create` switches Fix off and on at once, for example during a test; students'
 screens follow within 30 seconds. Without a key, Fix is hidden and everything else works.
 
-- **Fix:** `gpt-4o-mini` corrects the English. It is free on this account, which shares API traffic with OpenAI for
-  complimentary daily tokens (OpenAI dashboard → Data controls → Sharing). When the student's language is Catalan,
-  the corrected sentence is then put into Catalan by [Softcatalà](https://www.softcatala.org/traductor/), the Catalan
-  language community's free translator, which beat `gpt-4o-mini` on sentences in a side-by-side test. If Softcatalà
-  does not answer within 3 seconds, `gpt-4o-mini`'s own translation is shown.
-- **Editor ✨:** quick phrases go to Softcatalà; button words and page names go to `gpt-4o-mini`, which is told the
-  word type and page so it can pick the meaning (Softcatalà cannot: "glass" came back as "vidre"). Check the words it
-  suggests: in the test it got about one in four wrong ("estutja" for "pencil case").
-- **A better model:** `OPENAI_PHRASE_MODEL=gpt-6-luna` in `.dev.vars` got every test word right, but it is not on the
-  free list: about 5 cents for a busy lesson. The choice and the test are described in `worker/model.ts`.
-- **Free or billed:** [OPENAI-FREE-TOKENS.md](OPENAI-FREE-TOKENS.md) says what the account's data-sharing tokens cover; the same
+- **Model:** `gpt-5.4-mini` with thinking off corrects the English and writes the Catalan in the same call, and
+  translates the editor's buttons and phrases. It is free on this account, which shares API traffic with OpenAI
+  for complimentary daily tokens (up to 2.5 million a day across the small models; a Fix is about 700 tokens).
+  In side-by-side tests (2026-11-16) it got every button word right where `gpt-4o-mini` got about one in four wrong
+  ("estutja" for "pencil case"), and its sentences beat Softcatalà's translator. The tests are described in
+  `worker/model.ts`.
+- **Catalan "agradar":** verbs that work backwards from English (agradar, encantar, fer mal, faltar) come with a rule
+  in the instructions (`CATALAN_RULE` in `worker/phrase.ts`). Everyday sentences come out right ("M'agrades",
+  "Li agrada el meu germà", "Em fan mal les dents"). want + like ("I want to like you more" → "Vull que m'agradis
+  més") is still unreliable with `gpt-5.4-mini`: about half right. `gpt-5.4` got 12 of 14 such sentences right, but
+  its free amount is 250 thousand tokens a day (about 290 Fixes), and past that a Fix costs about a third of a cent.
+  `OPENAI_PHRASE_MODEL=gpt-5.4` in `.dev.vars` switches to it.
+ [OPENAI-FREE-TOKENS.md](OPENAI-FREE-TOKENS.md) says what the account's data-sharing tokens cover; the same
   note is in the other apps that call OpenAI.
 
 ## Saved answers: each question is paid for once
@@ -92,8 +94,8 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
-| Fix | `worker/phrase.ts` | One chat-model call (`gpt-4o-mini`, `worker/model.ts`) with a strict JSON schema: the sentence and up to 2 other meanings; its Catalan comes from Softcatalà (`worker/softcatala.ts`), or the model if Softcatalà does not answer |
-| Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons (the model, told the word type and page) and quick phrases (Softcatalà) |
+| Fix | `worker/phrase.ts` | One chat-model call (`gpt-5.4-mini`, `worker/model.ts`) with a strict JSON schema: the sentence, up to 2 other meanings, and its Catalan |
+| Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons and phrases, told the word type and page to pick the meaning |
 | Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | PinPlay's Edge TTS bridge through the laptop; spoken phrases are kept in memory so repeating is instant; falls back to the device voice |
 | Classroom | `classroom.bat`, `scripts/classroom.mjs`, `scripts/setup-laptop.mjs`, `scripts/warm-speech.mjs` | Serves the school Wi-Fi from the laptop, sets up `.dev.vars`, wakes the voice bridge, refuses to start twice |
 | Limits | `worker/index.ts` | The key stays on the laptop; 40 Fix and 40 voice requests a minute per student device; password guesses rate-limited |
@@ -126,8 +128,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   step. Saved and recent phrases live only in each student's browser, and the server never logs what was said. The
   laptop keeps the saved answers above (the sentences and their corrections, translations and clips), with no name or
   device attached; **Forget them** in `/create` deletes them. What a student sends to Fix goes to OpenAI, and, with
-  this account's data sharing on, OpenAI may use it to train its models; with Catalan on, the corrected sentence also
-  goes to Softcatalà. Spoken sentences go to the voice bridge.
+  this account's data sharing on, OpenAI may use it to train its models. Spoken sentences go to the voice bridge.
 - **Mulberry symbols where they say more than an emoji.** Each word was compared by eye with its Mulberry candidates.
   95 words use a Mulberry symbol: actions (an emoji of a chair for "sit" shows the chair, Mulberry shows someone
   sitting), question words, family relations (who to whom), time words that emoji show as media buttons (⏭️ for
