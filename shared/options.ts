@@ -10,10 +10,8 @@ export type Level = typeof LEVELS[number];
 export const isLevel = (value: unknown): value is Level => LEVELS.includes(value as Level);
 
 // The speaker's own language: Fix shows the sentence in it, so they can check the meaning before speaking.
-export const LANGUAGES = [
-    'Arabic', 'Bengali', 'Catalan', 'Chinese', 'French', 'German', 'Hindi', 'Italian', 'Japanese', 'Korean', 'Persian',
-    'Polish', 'Portuguese', 'Punjabi', 'Romanian', 'Russian', 'Spanish', 'Turkish', 'Ukrainian', 'Urdu', 'Vietnamese'
-] as const;
+// Catalan only for now; phrase.ts can translate into any language named here.
+export const LANGUAGES = ['Catalan'] as const;
 export const isLanguage = (value: unknown): value is typeof LANGUAGES[number] => LANGUAGES.includes(value as typeof LANGUAGES[number]);
 
 export const MAX_TEXT = 300;

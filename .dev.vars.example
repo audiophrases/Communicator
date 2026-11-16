@@ -7,5 +7,8 @@ OPENAI_API_KEY=
 # OPENAI_PHRASE_MODEL=
 # Optional: the speech model (default gpt-4o-mini-tts).
 # OPENAI_TTS_MODEL=
+# The teacher's password for /create: the same CREATE_PASSWORD_HASH as PinPlay, HelloChat and Pixel Plaza.
+# node -e "console.log(require('crypto').createHash('sha256').update(process.argv[1].trim().normalize('NFC')).digest('hex'))" "your password"
+CREATE_PASSWORD_HASH=
 # Optional, recommended online: people must type this code once (Settings) before the app spends your key.
 # ACCESS_CODE=
