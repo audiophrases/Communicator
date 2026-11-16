@@ -196,7 +196,7 @@ export default function App() {
                         <button className="suggest main" onClick={() => hear(fix.fix.sentence)} data-ca={fix.fix.translation ? undefined : 'Escolta aquesta frase'}>
                             <span className="say" aria-hidden="true">🔊</span>
                             <span className="en">{fix.fix.sentence}</span>
-                            {fix.fix.translation && <span className="ca" lang="ca"><span className="badge" aria-hidden="true">CA</span>{fix.fix.translation}</span>}
+                            {fix.fix.translation && <span className="ca" lang="ca">{fix.fix.translation}</span>}
                         </button>
                         {fix.fix.alternatives.length > 0 && <div className="or">Or did you mean:</div>}
                         {fix.fix.alternatives.map(text => (
