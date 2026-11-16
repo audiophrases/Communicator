@@ -3,6 +3,7 @@
 // the page always lets the speaker say their own words instead. No Workers-only APIs, so tests run it in node.
 
 import { MAX_TEXT, type Fix, type Level } from '../shared/options.ts';
+import { modelOf, thinking } from './model.ts';
 
 export type PhraseEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; OPENAI_PHRASE_MODEL?: string };
 // context: the sentence the speaker said just before, when it was recent. It can set the time ("Yesterday I went to
@@ -20,7 +21,7 @@ const normalize = (text: string) => text.toLowerCase().replace(/\s+/g, ' ').trim
 // do not change the correction. Without the context, the answer is shared by the whole class; with it, only by
 // the same pair of sentences.
 export function fixSeed(input: PhraseInput, env: PhraseEnv, withContext = false): string {
-    return JSON.stringify(['fix', FIX_VERSION, env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini', input.level, input.language || '',
+    return JSON.stringify(['fix', FIX_VERSION, modelOf(env), input.level, input.language || '',
         normalize(input.text), ...(withContext && input.context ? [normalize(input.context)] : [])]);
 }
 
@@ -87,7 +88,7 @@ export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<Phr
             method: 'POST',
             headers: { 'content-type': 'application/json', authorization: `Bearer ${env.OPENAI_API_KEY}` },
             body: JSON.stringify({
-                model: env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini',
+                model: modelOf(env), ...thinking(modelOf(env)),
                 messages: [
                     { role: 'system', content: instructions(input.level, input.language) },
                     { role: 'user', content: JSON.stringify({ words: input.text, ...(input.context ? { before: input.context } : {}) }) }

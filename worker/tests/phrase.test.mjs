@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { clean, fixPhrase, fixSeed } from '../phrase.ts';
-import { caSeed } from '../translate.ts';
+import { caSeed, toCatalan } from '../translate.ts';
 
 test('the same question shares one saved answer; a different one does not', () => {
     const env = {};
@@ -84,6 +84,22 @@ test('an answer that used the sentence before is saved only for that pair', () =
     assert.notEqual(fixSeed(input, env, true), fixSeed(input, env));
     assert.equal(fixSeed(input, env, true), fixSeed({ ...input, context: 'yesterday I went to the park' }, env, true));
     assert.notEqual(fixSeed(input, env, true), fixSeed({ ...input, context: 'Tomorrow I go to the park.' }, env, true));
+});
+
+test('Fix and the editor use gpt-6-luna with a little thinking, unless told otherwise', async () => {
+    const bodies = [];
+    await withFetch(async (url, init) => {
+        bodies.push(JSON.parse(init.body));
+        return answer({ sentence: 'Hi there.', alternatives: [], translation: '', context_used: false, translations: ['hola'] });
+    }, async () => {
+        await fixPhrase({ text: 'hi there', level: 'A2' }, { OPENAI_API_KEY: 'k' });
+        await fixPhrase({ text: 'hi there', level: 'A2' }, { OPENAI_API_KEY: 'k', OPENAI_PHRASE_MODEL: 'gpt-4o-mini' });
+        await toCatalan([{ text: 'hello' }], { OPENAI_API_KEY: 'k' });
+    });
+    assert.deepEqual(bodies.map(body => [body.model, body.reasoning_effort ?? null]),
+        [['gpt-6-luna', 'low'], ['gpt-4o-mini', null], ['gpt-6-luna', 'low']]); // older models reject the setting
+    // Saved answers belong to the model that gave them.
+    assert.notEqual(fixSeed({ text: 'x', level: 'A2' }, {}), fixSeed({ text: 'x', level: 'A2' }, { OPENAI_PHRASE_MODEL: 'gpt-4o-mini' }));
 });
 
 test('fixPhrase gives up quietly', async () => {

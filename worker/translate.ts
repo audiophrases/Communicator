@@ -1,6 +1,8 @@
 // Catalan for buttons the teacher adds, so every button has its tooltip. Only the teacher can call it,
 // and the teacher can change any answer before saving. No Workers-only APIs, so tests run it in node.
 
+import { modelOf, thinking } from './model.ts';
+
 export type TranslateEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; OPENAI_PHRASE_MODEL?: string };
 export type Item = { text: string; hint?: string };
 
@@ -10,7 +12,7 @@ const CA_VERSION = 1;
 
 // What makes two items the same question; the translation is saved under it.
 export const caSeed = (item: Item, env: TranslateEnv) =>
-    JSON.stringify(['ca', CA_VERSION, env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini', item.text.trim(), item.hint || '']);
+    JSON.stringify(['ca', CA_VERSION, modelOf(env), item.text.trim(), item.hint || '']);
 
 const INSTRUCTIONS = `You translate the buttons of a communication board for people learning English in Catalonia. Translate each item into Catalan (standard Central Catalan, current IEC spelling).
 - A single word: its usual Catalan equivalent. Verbs in the infinitive, adjectives in the masculine singular. If the word has two common meanings, give both separated by " / ".
@@ -37,7 +39,7 @@ export async function toCatalan(items: Item[], env: TranslateEnv): Promise<strin
             method: 'POST',
             headers: { 'content-type': 'application/json', authorization: `Bearer ${env.OPENAI_API_KEY}` },
             body: JSON.stringify({
-                model: env.OPENAI_PHRASE_MODEL || 'gpt-4o-mini',
+                model: modelOf(env), ...thinking(modelOf(env)),
                 messages: [{ role: 'system', content: INSTRUCTIONS }, { role: 'user', content: JSON.stringify({ items }) }],
                 response_format: { type: 'json_schema', json_schema: SCHEMA }
             }),

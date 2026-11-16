@@ -37,7 +37,7 @@ instant. `EDGE_TTS_URL` and `EDGE_TTS_SECRET` override the bridge.
 
 ## OpenAI: only Fix and the editor's Catalan
 
-With `OPENAI_API_KEY` in `.dev.vars`, students can press **Fix** (`gpt-4o-mini`), and the editor can translate new
+With `OPENAI_API_KEY` in `.dev.vars`, students can press **Fix** (`gpt-6-luna`), and the editor can translate new
 buttons into Catalan. **Fix for students** in `/create` switches Fix off and on at once, for example during a test;
 students' screens follow within 30 seconds. Without a key, Fix is hidden and everything else works.
 
@@ -79,7 +79,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
-| Fix | `worker/phrase.ts` | One chat-model call (default `gpt-4o-mini`) with a strict JSON schema: the sentence, up to 2 other meanings, and a Catalan translation when chosen |
+| Fix | `worker/phrase.ts` | One chat-model call (default `gpt-6-luna` with low thinking, `worker/model.ts`) with a strict JSON schema: the sentence, up to 2 other meanings, and a Catalan translation when chosen |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons, using the word type and page to pick the meaning |
 | Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | PinPlay's Edge TTS bridge through the laptop; spoken phrases are kept in memory so repeating is instant; falls back to the device voice |
 | Classroom | `classroom.bat`, `scripts/classroom.mjs`, `scripts/setup-laptop.mjs`, `scripts/warm-speech.mjs` | Serves the school Wi-Fi from the laptop, sets up `.dev.vars`, wakes the voice bridge, refuses to start twice |
