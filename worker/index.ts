@@ -1,9 +1,8 @@
 import { fixPhrase, fixSeed } from './phrase.ts';
-import { toCatalanSentence } from './softcatala.ts';
 import { synthesize } from './speech.ts';
 import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
-import { caSeed, isSentence, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
+import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
 import { LIMITS, sanitizeBoard } from '../shared/board.ts';
 import { isLanguage, isLevel, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
 import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../shared/voices.ts';
@@ -16,7 +15,6 @@ export interface Env {
     OPENAI_API_KEY?: string;
     OPENAI_BASE_URL?: string; // tests only
     OPENAI_PHRASE_MODEL?: string;
-    SOFTCATALA_URL?: string; // tests only
     // The teacher's password for /create, the same as PinPlay's.
     CREATE_PASSWORD_HASH?: string;
     // Optional override for PinPlay's Render Edge TTS bridge.
@@ -122,26 +120,17 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
                 ...(typeof item?.hint === 'string' && item.hint ? { hint: item.hint.slice(0, 60) } : {})
             })) : [];
             if (!items.length || items.length > MAX_ITEMS || items.some(item => !item.text)) return json({ error: 'Nothing to translate.' }, 400);
-            // Only what was never translated before is asked: sentences of Softcatalà, one at a time so as not to load
-            // a free service; button words, and any sentence Softcatalà did not answer, of the model in one call.
+            // Only what was never translated before goes to OpenAI.
             const keys = await Promise.all(items.map(item => sha256Hex(caSeed(item, env))));
             const saved = await store(env).recall(keys);
             const ca = keys.map(key => saved[key]?.value ?? '');
             const missing = items.map((item, i) => ({ item, i })).filter(({ i }) => !ca[i]);
-            const forModel: typeof missing = [];
-            for (const entry of missing) {
-                const catalan = isSentence(entry.item) ? await toCatalanSentence(entry.item.text, env) : null;
-                if (!catalan) { forModel.push(entry); continue; }
-                ca[entry.i] = catalan;
-                await store(env).remember('ca', keys[entry.i], catalan);
-            }
-            if (forModel.length) {
-                const fresh = await toCatalan(forModel.map(({ item }) => item), env);
+            if (missing.length) {
+                const fresh = await toCatalan(missing.map(({ item }) => item), env);
                 if (!fresh) return json({ error: 'Translation is unavailable right now. Try again, or type it yourself.' }, 503);
-                for (const [j, { i, item }] of forModel.entries()) {
+                for (const [j, { i }] of missing.entries()) {
                     ca[i] = fresh[j];
-                    // A sentence is saved only from Softcatalà, so the next time it is asked there again.
-                    if (fresh[j] && !isSentence(item)) await store(env).remember('ca', keys[i], fresh[j]);
+                    if (fresh[j]) await store(env).remember('ca', keys[i], fresh[j]);
                 }
             }
             return json({ ca, reused: items.length - missing.length }, 200, missing.length ? 'miss' : 'hit');
@@ -198,12 +187,6 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const result = await fixPhrase(input, env);
     if (!result) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
     // When the sentence before did not change the answer, the whole class can reuse it.
-    // The Catalan line comes from Softcatalà, which translates sentences better than the model; the model's own
-    // translation stays if Softcatalà does not answer.
-    if (input.language === 'Catalan') {
-        const catalan = await toCatalanSentence(result.fix.sentence, env);
-        if (catalan) result.fix.translation = catalan;
-    }
     await store(env).remember('fix', paired && result.contextUsed ? paired : shared, JSON.stringify(result.fix));
     if (paired && !result.contextUsed) await store(env).remember('fix', paired, JSON.stringify(result.fix));
     return json(result.fix, 200, 'miss');

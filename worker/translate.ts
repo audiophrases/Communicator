@@ -12,11 +12,7 @@ const CA_VERSION = 1;
 
 // What makes two items the same question; the translation is saved under it.
 export const caSeed = (item: Item, env: TranslateEnv) =>
-    JSON.stringify(['ca', CA_VERSION, isSentence(item) ? 'softcatala' : modelOf(env), item.text.trim(), item.hint || '']);
-
-// Quick phrases are sentences, which Softcatalà translates (softcatala.ts). Button words and page names go to the
-// model, which is told the word type and page so it can pick the meaning.
-export const isSentence = (item: Item) => item.hint === 'phrase';
+    JSON.stringify(['ca', CA_VERSION, modelOf(env), item.text.trim(), item.hint || '']);
 
 const INSTRUCTIONS = `You translate the buttons of a communication board for people learning English in Catalonia. Translate each item into Catalan (standard Central Catalan, current IEC spelling).
 - A single word: its usual Catalan equivalent. Verbs in the infinitive, adjectives in the masculine singular. If the word has two common meanings, give both separated by " / ".
