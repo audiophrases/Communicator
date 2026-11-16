@@ -75,7 +75,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 
 | Part | Where | What it does |
 | --- | --- | --- |
-| Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 8 topic pages, 30 quick phrases, each with Catalan; saved and recent phrases |
+| Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 9 topic pages, 30 quick phrases, each with Catalan; saved and recent phrases |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
@@ -91,7 +91,11 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   place lets the hand learn the route (motor planning), so the home page is core words, not topic nouns.
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
   questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
-  consistent is what matters.
+  consistent is what matters. Page tabs take the colour of most of their words.
+- **Core words are on their pages too.** Each core word also leads the page of its colour (pronouns on People, core
+  verbs on Actions, describing words on Describe, "now" on Time, little words on Things), so a sentence can be built
+  on one page without going back to Core. Question words and yes/no/not/please, whose colours had no page, have
+  **Ask & answer**. It is the same button: same picture, same Catalan.
 - **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own
   and never replaces the speaker's words: tapping a suggestion only says it aloud, so they can hear it, compare it
   with their own attempt and try again. Tapping or typing another word closes the suggestions. The prompt

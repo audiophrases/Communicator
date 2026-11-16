@@ -41,7 +41,9 @@ export default function App() {
     const [draft, setDraft] = useState('');
     const [chosenTab, setTab] = useState('core');
     const [fix, setFix] = useState<FixState>(null);
-    const [status, setStatus] = useState<Status>({ fix: false });
+    // The last status this device saw, so the Fix button is there from the first frame and the board does not jump
+    // down a row when the answer arrives (a tap meant for one word would land on the one above).
+    const [status, setStatus] = useState<Status>(() => load('status', { fix: false }));
     const [settings, setSettings] = useState<Settings>(loadSettings);
     const [saved, setSaved] = useState<string[]>(() => load('saved', []));
     const [recent, setRecent] = useState<string[]>(() => load('recent', []));
@@ -54,6 +56,7 @@ export default function App() {
     useEffect(() => { save('settings', settings); }, [settings]);
     useEffect(() => { save('saved', saved); }, [saved]);
     useEffect(() => { save('recent', recent); }, [recent]);
+    useEffect(() => { save('status', status); }, [status]);
     useEffect(() => {
         const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => setStatus(value)).catch(() => {});
         void check();
