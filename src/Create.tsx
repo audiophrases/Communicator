@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { KINDS, LIMITS, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
-import type { Status } from '../shared/options.ts';
+import type { TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key } from './Key.tsx';
 import { DEFAULT_BOARD } from './vocab.ts';
@@ -61,7 +61,8 @@ export default function Create() {
     const [board, setBoard] = useState<Board | null>(null); // the draft
     const [savedJson, setSavedJson] = useState('');
     const [custom, setCustom] = useState(false);
-    const [ai, setAi] = useState(false);
+    const [settings, setSettings] = useState<TeacherSettings | null>(null);
+    const ai = !!settings?.key; // the editor's ✨ Catalan needs the OpenAI key, whatever the students' switch says
     const [tab, setTab] = useState('core');
     const [selected, setSelected] = useState<number | null>(null);
     const [busy, setBusy] = useState('');
@@ -70,9 +71,6 @@ export default function Create() {
     const dirty = !!board && JSON.stringify(board) !== savedJson;
     const missing = useMemo(() => board ? missingCatalan(board) : [], [board]);
 
-    useEffect(() => {
-        fetch('/api/status').then(response => response.json()).then((status: Status) => setAi(status.ai)).catch(() => {});
-    }, []);
     useEffect(() => {
         if (!dirty) return;
         const warn = (event: BeforeUnloadEvent) => event.preventDefault();
@@ -94,7 +92,10 @@ export default function Create() {
     }
     // Already signed in from earlier in this tab.
     useEffect(() => {
-        if (!readToken()) return;
+        const saved = readToken();
+        if (!saved) return;
+        void fetch('/api/teacher/settings', { method: 'POST', headers: { 'content-type': 'application/json', 'x-teacher-session': saved }, body: '{}' })
+            .then(response => response.ok ? response.json() : null).then(result => { if (result) setSettings(result as TeacherSettings); }).catch(() => {});
         void fetchBoard().then(result => {
             if (!result) return setMessage({ text: 'Could not load the board. Check the connection and reload.', bad: true });
             const clean = sanitizeBoard(result.board) ?? DEFAULT_BOARD;
@@ -110,9 +111,9 @@ export default function Create() {
         if (text) setMessage({ text, bad: true });
     }
 
-    async function call(path: string, body: unknown): Promise<any> {
+    async function call(path: string, body: unknown, session = token): Promise<any> {
         const response = await fetch(path, {
-            method: 'POST', headers: { 'content-type': 'application/json', 'x-teacher-session': token }, body: JSON.stringify(body)
+            method: 'POST', headers: { 'content-type': 'application/json', 'x-teacher-session': session }, body: JSON.stringify(body)
         });
         const result = await response.json().catch(() => ({}));
         if (response.status === 401 && path !== '/api/teacher/login') {
@@ -141,7 +142,15 @@ export default function Create() {
         keepToken(next);
         setToken(next);
         setPassword('');
+        setSettings(await call('/api/teacher/settings', {}, next));
         if (!board) await loadBoard(); // after a session ends mid-edit, the draft is kept
+    });
+
+    // Saved at once, not with the board: it is about the lesson, not the buttons.
+    const toggleFix = () => run('Saving…', async () => {
+        const next = await call('/api/teacher/settings', { fixOn: !settings?.fixOn }) as TeacherSettings;
+        setSettings(next);
+        return next.fixOn ? 'Fix is on: students can correct their sentences with AI.' : 'Fix is off: students only see their own words. Their screens update within 30 seconds.';
     });
 
     if (!token) {
@@ -260,6 +269,15 @@ export default function Create() {
                     <button className="primary" onClick={() => void save()} disabled={!dirty || !!busy}>Save</button>
                 </div>
             </header>
+            <div className="lesson">
+                {settings?.lanUrl && <span>📶 Students open <b className="address">{settings.lanUrl}</b> on the school Wi-Fi</span>}
+                {settings && (settings.key ? (
+                    <button className={`switch${settings.fixOn ? ' on' : ''}`} role="switch" aria-checked={settings.fixOn} onClick={() => void toggleFix()} disabled={!!busy}
+                        title="Whether students can press Fix to correct their sentence with OpenAI">
+                        <span className="knob" aria-hidden="true" /> ✨ Fix for students: <b>{settings.fixOn ? 'On' : 'Off'}</b>
+                    </button>
+                ) : <span className="state">No OpenAI key in .dev.vars, so Fix is off.</span>)}
+            </div>
             {message && <div className={message.bad ? 'msg bad' : 'msg'} role="status">{message.text}</div>}
 
             <nav className="tabs">

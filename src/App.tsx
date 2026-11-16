@@ -1,15 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { LANGUAGES, LEVELS, MAX_TEXT, VOICES, isLanguage, isLevel, isVoice, type Fix, type Level, type Status, type Voice } from '../shared/options.ts';
+import { LANGUAGES, LEVELS, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
+import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
 import type { Board, Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
 import { Key } from './Key.tsx';
-import { say, sayOnDevice, stop } from './speech.ts';
+import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
 type Token = { w: string; e?: string };
-type Settings = { voice: Voice; rate: number; level: Level; language: string; tapSound: boolean; code: string };
+type Settings = { voice: string; rate: number; level: Level; language: string; tapSound: boolean };
 type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'error'; message: string } | null;
 
-const DEFAULTS: Settings = { voice: 'coral', rate: 1, level: 'A2', language: '', tapSound: true, code: '' };
+const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: '', tapSound: true };
+const ACCENTS = [...new Set(ENGLISH_VOICES.map(voice => voice.accent))];
+const STATUS_EVERY_MS = 30_000; // so the teacher's Fix switch reaches students without a reload
 
 function load<T>(key: string, fallback: T): T {
     try {
@@ -21,13 +24,13 @@ function save(key: string, value: unknown) {
     try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private window: nothing is kept */ }
 }
 function loadSettings(): Settings {
-    const settings = load('settings', DEFAULTS);
+    const { voice, rate, level, language, tapSound } = load('settings', DEFAULTS);
     return {
-        ...settings,
-        voice: isVoice(settings.voice) ? settings.voice : DEFAULTS.voice,
-        level: isLevel(settings.level) ? settings.level : DEFAULTS.level,
-        language: isLanguage(settings.language) ? settings.language : '',
-        rate: [0.8, 1, 1.15].includes(settings.rate) ? settings.rate : 1
+        tapSound: tapSound !== false,
+        voice: isEnglishVoice(voice) ? voice : DEFAULTS.voice,
+        level: isLevel(level) ? level : DEFAULTS.level,
+        language: isLanguage(language) ? language : '',
+        rate: String(rate) in RATES ? rate : 1
     };
 }
 
@@ -37,7 +40,7 @@ export default function App() {
     const [draft, setDraft] = useState('');
     const [chosenTab, setTab] = useState('core');
     const [fix, setFix] = useState<FixState>(null);
-    const [status, setStatus] = useState<Status>({ ai: false, locked: false });
+    const [status, setStatus] = useState<Status>({ fix: false });
     const [settings, setSettings] = useState<Settings>(loadSettings);
     const [saved, setSaved] = useState<string[]>(() => load('saved', []));
     const [recent, setRecent] = useState<string[]>(() => load('recent', []));
@@ -49,15 +52,17 @@ export default function App() {
     useEffect(() => { save('saved', saved); }, [saved]);
     useEffect(() => { save('recent', recent); }, [recent]);
     useEffect(() => {
-        fetch('/api/status').then(response => response.json()).then((value: Status) => setStatus(value)).catch(() => {});
+        const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => setStatus(value)).catch(() => {});
+        void check();
         void fetchBoard().then(result => { if (result) setBoard(result.board); });
+        const timer = window.setInterval(check, STATUS_EVERY_MS);
+        return () => window.clearInterval(timer);
     }, []);
 
     // Catalan for a whole phrase, when it is one of the board's quick phrases.
     const phraseCa = useMemo(() => new Map(board.quick.filter(item => item.ca).map(item => [item.t, item.ca!])), [board]);
 
     const message = [...tokens.map(token => token.w), draft.trim()].filter(Boolean).join(' ');
-    const ai = status.ai && (!status.locked || !!settings.code);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
 
     async function speak(text: string) {
@@ -65,9 +70,9 @@ export default function App() {
         setSpeaking(true);
         setNotice('');
         setRecent(current => [text, ...current.filter(item => item !== text)].slice(0, 30));
-        const used = await say(text, { voice: settings.voice, rate: settings.rate, ai, code: settings.code });
+        const used = await say(text, { voice: settings.voice, rate: settings.rate });
         setSpeaking(false);
-        if (ai && used === 'device') setNotice('The natural voice did not answer, so this device spoke.');
+        if (used === 'device') setNotice('The natural voice did not answer, so this device spoke.');
     }
 
     function tap(word: Word) {
@@ -98,15 +103,16 @@ export default function App() {
     }
 
     async function askFix() {
-        if (!message || !ai) return;
+        if (!message || !status.fix) return;
         setFix({ state: 'loading' });
         try {
             const response = await fetch('/api/fix', {
-                method: 'POST', headers: { 'content-type': 'application/json', 'x-access-code': settings.code },
+                method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
                 body: JSON.stringify({ text: message, level: settings.level, language: settings.language, context: recent[0] ?? '' }),
                 signal: AbortSignal.timeout(12_000)
             });
             const body = await response.json();
+            if (response.status === 403) { setFix(null); setStatus({ fix: false }); return; } // the teacher just switched it off
             setFix(response.ok ? { state: 'done', fix: body as Fix } : { state: 'error', message: body.error || 'No suggestion right now.' });
         } catch {
             setFix({ state: 'error', message: 'No suggestion right now. You can still speak your words.' });
@@ -161,7 +167,7 @@ export default function App() {
                     <button className="act" onClick={clear} disabled={!message} data-ca="Esborra-ho tot">Clear</button>
                     <button className="act save" onClick={() => toggleSaved(message)} disabled={!message} aria-label="Save this phrase"
                         data-ca={saved.includes(message) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(message) ? '★' : '☆'}</button>
-                    {status.ai && <button className="act fix" onClick={() => void askFix()} disabled={!message || !ai || fix?.state === 'loading'}
+                    {status.fix && <button className="act fix" onClick={() => void askFix()} disabled={!message || fix?.state === 'loading'}
                         data-ca="Corregeix la frase">✨ Fix</button>}
                     <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : void speak(message)} disabled={!message}
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
@@ -209,19 +215,16 @@ export default function App() {
                 )}
                 {tab === 'settings' && (
                     <div className="settings">
-                        {!status.ai && <p className="hint warn">No OpenAI key is set up, so Fix is off and this device's own voice speaks. See README.</p>}
-                        {status.locked && (
-                            <label>Access code
-                                <input type="password" value={settings.code} onChange={event => set('code', event.target.value)} placeholder="Ask the person who set this up" />
-                            </label>
-                        )}
                         <label>Voice
                             <span className="inline">
-                                <select value={settings.voice} onChange={event => set('voice', event.target.value as Voice)} disabled={!ai}>
-                                    {VOICES.map(voice => <option key={voice} value={voice}>{voice[0].toUpperCase() + voice.slice(1)}</option>)}
+                                <select value={settings.voice} onChange={event => set('voice', event.target.value)}>
+                                    {ACCENTS.map(accent => (
+                                        <optgroup key={accent} label={accent}>
+                                            {ENGLISH_VOICES.filter(voice => voice.accent === accent).map(voice => <option key={voice.id} value={voice.id}>{voice.label}</option>)}
+                                        </optgroup>
+                                    ))}
                                 </select>
-                                <button className="act" onClick={() => void say('Hello! This is my voice.', { voice: settings.voice, rate: settings.rate, ai, code: settings.code })}
-                                    data-ca="Escolta la veu">▶ Listen</button>
+                                <button className="act" onClick={() => void say('Hello! This is my voice.', { voice: settings.voice, rate: settings.rate })} data-ca="Escolta la veu">▶ Listen</button>
                             </span>
                         </label>
                         <label>Speed
@@ -233,7 +236,7 @@ export default function App() {
                             <select value={settings.level} onChange={event => set('level', event.target.value as Level)}>
                                 {LEVELS.map(level => <option key={level}>{level}</option>)}
                             </select>
-                            <small>Fix uses words for this level.</small>
+                            <small>{status.fix ? 'Fix uses words for this level.' : 'Fix is switched off by your teacher.'}</small>
                         </label>
                         <label>My language
                             <select value={settings.language} onChange={event => set('language', event.target.value)}>

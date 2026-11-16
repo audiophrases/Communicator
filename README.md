@@ -6,40 +6,46 @@ Hold any button (or point at it with a mouse) to see it in Catalan.
 
 `I` `want` `go` `doctor` `tomorrow` → ✨ **I want to go to the doctor tomorrow.** 🔊
 
-## Run it
+It runs on the teacher's laptop during class, like Pixel Plaza on the laptop: students open the laptop's address
+over the school Wi-Fi. Nothing is put online.
 
-Double-click `start.bat` (it opens <http://localhost:8790>), or:
+## In class
 
-```sh
-npm install
-npm run start        # builds, then serves http://localhost:8787
-```
+1. Double-click `classroom.bat` and keep the window open. The first time it sets up `.dev.vars`: it copies the teacher
+   password and the OpenAI key from HelloChat or Pixel Plaza next to this folder, or asks for them. Windows asks once
+   whether Node.js may use the network: allow it on **private** networks.
+2. It opens the teacher editor on the laptop (<http://localhost:8790/create>) and prints the address for students,
+   such as `http://192.168.1.20:8790`. The editor shows it too.
+3. Students open that address on the school Wi-Fi. Nothing to sign in to.
 
-Copy `.dev.vars.example` to `.dev.vars` and fill in:
-
-- `OPENAI_API_KEY` for Fix, the natural voice, and AI Catalan in the editor. Without it the board still works: the
-  device's own voice speaks and Fix is hidden.
-- `CREATE_PASSWORD_HASH` for the teacher's editor: the same value as PinPlay, HelloChat and Pixel Plaza, so it is the
-  same password.
+The board, your buttons and the Fix switch are kept on the laptop in `.wrangler/classroom` (not in git).
+It uses port 8790, so Pixel Plaza can run on 8787 at the same time; `PORT` changes it and `COMMUNICATOR_LAN_URL`
+overrides the detected address (for a laptop on more than one network). The address is plain HTTP, so sign in to
+`/create` on the laptop itself, not from a student device.
 
 While changing the code: `npm run dev:worker` in one terminal and `npm run dev` in another.
 `npm test` runs the Worker tests.
 
-## Put it online
+## Voices
 
-Double-click `deploy.bat`. It tests, builds and publishes to <https://communicator.eugenime.workers.dev>, and sends
-`OPENAI_API_KEY`, `CREATE_PASSWORD_HASH` and `ACCESS_CODE` from `.dev.vars` along with the code (secrets that
-`.dev.vars` leaves out stay as they are online). At the end it lists which of them are set online.
-`node scripts/deploy.mjs --dry-run` does everything except the upload.
+Speech goes through PinPlay's Edge TTS bridge on Render, as in HelloChat and Pixel Plaza: the laptop asks the bridge
+and passes the audio to students over the Wi-Fi. No OpenAI. Students pick one of 18 English voices (UK, US, Irish,
+Australian and more) and a speed in Settings. `classroom.bat` wakes the bridge while it starts, because Render can
+take a while to wake up. The laptop needs internet for these voices; without it, or if the bridge does not answer
+within 10 seconds, each device speaks with its own voice. Single tapped words always use the device's voice, which is
+instant. `EDGE_TTS_URL` and `EDGE_TTS_SECRET` override the bridge.
 
-Online, anyone with the link can use Fix and the voice on your key (40 calls a minute each). To require a code that
-people type once in Settings, run `npx wrangler secret put ACCESS_CODE`. Putting `ACCESS_CODE` in `.dev.vars` sends it
-too, but then the local board asks for it as well.
+## OpenAI: only Fix and the editor's Catalan
+
+With `OPENAI_API_KEY` in `.dev.vars`, students can press **Fix** (`gpt-4o-mini`), and the editor can translate new
+buttons into Catalan. **Fix for students** in `/create` switches Fix off and on at once, for example during a test;
+students' screens follow within 30 seconds. Without a key, Fix is hidden and everything else works.
 
 ## The teacher's editor: /create
 
 Open `/create` and sign in with the teacher password. There you can:
 
+- switch **Fix for students** on or off, and see the address students open;
 - change any button's English word, emoji, Catalan and colour, move it, or remove it;
 - add buttons, add, rename, reorder and delete topic pages, and edit the quick phrases;
 - press ✨ next to a Catalan box, or **Fill missing Catalan** for everything at once, to translate with AI, then check
@@ -54,12 +60,13 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | --- | --- | --- |
 | Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 8 topic pages, 30 quick phrases, each with Catalan; saved and recent phrases |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
-| Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board is kept in a Durable Object; sessions are signed and last 12 hours |
+| Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board and the Fix switch are kept in a Durable Object; sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
-| Fix | `worker/phrase.ts` | One chat-model call (default `gpt-4o-mini`) with a strict JSON schema: the sentence, up to 2 other meanings, a one-line note, and a Catalan translation when chosen |
+| Fix | `worker/phrase.ts` | One chat-model call (default `gpt-4o-mini`) with a strict JSON schema: the sentence, up to 2 other meanings, and a Catalan translation when chosen |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons, using the word type and page to pick the meaning |
-| Speak | `worker/speech.ts`, `src/speech.ts` | OpenAI `gpt-4o-mini-tts`, 13 voices; spoken phrases are kept in memory so repeating is instant; falls back to the device voice |
-| Key safety | `worker/index.ts` | The key stays in the Worker; 40 calls a minute per visitor; optional `ACCESS_CODE`; password guesses rate-limited |
+| Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | PinPlay's Edge TTS bridge through the laptop; spoken phrases are kept in memory so repeating is instant; falls back to the device voice |
+| Classroom | `classroom.bat`, `scripts/classroom.mjs`, `scripts/setup-laptop.mjs`, `scripts/warm-speech.mjs` | Serves the school Wi-Fi from the laptop, sets up `.dev.vars`, wakes the voice bridge, refuses to start twice |
+| Limits | `worker/index.ts` | The key stays on the laptop; 40 Fix and 40 voice requests a minute per student device; password guesses rate-limited |
 
 ## Design choices, and the AAC practice behind them
 
@@ -68,13 +75,12 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
   questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
   consistent is what matters.
-- **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own,
-  "Keep my words" is always there, and the prompt forbids adding ideas or politeness the speaker did not choose.
-  The Worker also drops answers that are far longer than the input.
+- **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own:
+  the suggestion is spoken only when the speaker taps it, and tapping or typing another word dismisses it. The prompt
+  forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
 - **The last sentence is sent as context**, because research on AI message expansion found that one turn of context
   roughly doubles accuracy.
-- **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. The note says what
-  changed in very simple English, so each fix is also a small lesson. "My language" (Catalan for now) shows the
+- **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan for now) shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
   check a word without adding it to the message.
 - **Nothing is censored and nothing is stored.** It is the speaker's own voice, so there is no moderation step.

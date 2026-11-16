@@ -1,10 +1,5 @@
 // Choices the page offers and the Worker accepts.
 
-// OpenAI's built-in voices for gpt-4o-mini-tts.
-export const VOICES = ['coral', 'marin', 'cedar', 'alloy', 'ash', 'ballad', 'echo', 'fable', 'nova', 'onyx', 'sage', 'shimmer', 'verse'] as const;
-export type Voice = typeof VOICES[number];
-export const isVoice = (value: unknown): value is Voice => VOICES.includes(value as Voice);
-
 export const LEVELS = ['A1', 'A2', 'B1', 'B2'] as const;
 export type Level = typeof LEVELS[number];
 export const isLevel = (value: unknown): value is Level => LEVELS.includes(value as Level);
@@ -17,4 +12,7 @@ export const isLanguage = (value: unknown): value is typeof LANGUAGES[number] =>
 export const MAX_TEXT = 300;
 
 export type Fix = { sentence: string; alternatives: string[]; translation: string };
-export type Status = { ai: boolean; locked: boolean };
+// fix: the teacher has Fix switched on and there is an OpenAI key.
+export type Status = { fix: boolean };
+// What /create shows: whether there is a key, the switch, and the address students open.
+export type TeacherSettings = { key: boolean; fixOn: boolean; lanUrl: string };

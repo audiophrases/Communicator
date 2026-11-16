@@ -4,35 +4,30 @@ import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid } from './teacher.ts';
 import { MAX_ITEMS, toCatalan, type Item } from './translate.ts';
 import { LIMITS, sanitizeBoard } from '../shared/board.ts';
-import { isLanguage, isLevel, isVoice, MAX_TEXT, type Status } from '../shared/options.ts';
+import { isLanguage, isLevel, MAX_TEXT, type Status, type TeacherSettings } from '../shared/options.ts';
+import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../shared/voices.ts';
 
 export { BoardStore };
 
 export interface Env {
     BOARD: DurableObjectNamespace<BoardStore>;
-    // Optional: without a key the board works with the device's voice and no Fix.
+    // Optional: Fix and the editor's Catalan translation. Without it the board works, without Fix.
     OPENAI_API_KEY?: string;
     OPENAI_BASE_URL?: string; // tests only
     OPENAI_PHRASE_MODEL?: string;
-    OPENAI_TTS_MODEL?: string;
-    // Optional: a code people type once before the app spends the key.
-    ACCESS_CODE?: string;
     // The teacher's password for /create, the same as PinPlay's.
     CREATE_PASSWORD_HASH?: string;
-    AI_RL?: RateLimit;
+    // Optional override for PinPlay's Render Edge TTS bridge.
+    EDGE_TTS_URL?: string;
+    EDGE_TTS_SECRET?: string;
+    // Set by scripts/classroom.mjs: the address students open on the school network.
+    LAN_URL?: string;
+    USE_RL?: RateLimit;
     AUTH_RL?: RateLimit;
 }
 
 const json = (body: unknown, status = 200) => Response.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
 const store = (env: Env) => env.BOARD.getByName('main');
-
-async function codeMatches(given: string, expected: string): Promise<boolean> {
-    const digest = async (text: string) => new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)));
-    const [a, b] = await Promise.all([digest(given), digest(expected)]);
-    let diff = 0;
-    for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
-    return diff === 0;
-}
 
 async function allowed(limiter: RateLimit | undefined, key: string, slots = 1): Promise<boolean> {
     if (!limiter) return true;
@@ -44,14 +39,10 @@ async function allowed(limiter: RateLimit | undefined, key: string, slots = 1): 
     }
 }
 
-// Why an OpenAI call for the speaker may not go ahead, or null.
-async function refused(request: Request, env: Env): Promise<Response | null> {
-    if (!env.OPENAI_API_KEY) return json({ error: 'AI is not set up.' }, 503);
-    if (!(await allowed(env.AI_RL, request.headers.get('CF-Connecting-IP') || 'local'))) return json({ error: 'Too fast. Wait a moment.' }, 429);
-    if (env.ACCESS_CODE && !(await codeMatches(request.headers.get('x-access-code') || '', env.ACCESS_CODE))) {
-        return json({ error: 'Type the access code in Settings.' }, 401);
-    }
-    return null;
+// On the laptop every student can look like the same address, so each device also sends its own random id.
+function visitor(request: Request): string {
+    const device = (request.headers.get('x-device') || '').replace(/[^\w-]/g, '').slice(0, 40);
+    return `${request.headers.get('CF-Connecting-IP') || 'local'}:${device}`;
 }
 
 // The JSON body, read no further than max bytes.
@@ -77,7 +68,7 @@ const text = (value: unknown): string => typeof value === 'string' && value.trim
 
 async function teacher(request: Request, env: Env, path: string): Promise<Response> {
     if (request.method !== 'POST') return json({ error: 'Not found.' }, 404);
-    if (!env.CREATE_PASSWORD_HASH) return json({ error: 'The teacher password is not set up. See README.' }, 503);
+    if (!env.CREATE_PASSWORD_HASH) return json({ error: 'The teacher password is not set up. Run classroom.bat.' }, 503);
     const read = await readJson(request, path === '/api/teacher/board' ? LIMITS.json + 40_000 : 16_384);
     if ('error' in read) return read.error;
     const body = read.body;
@@ -96,6 +87,10 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
         return json({ error: 'Please sign in again.' }, 401);
     }
     switch (path) {
+        case '/api/teacher/settings': {
+            if (typeof body?.fixOn === 'boolean') await store(env).setFixOn(body.fixOn);
+            return json({ key: !!env.OPENAI_API_KEY, fixOn: await store(env).fixOn(), lanUrl: env.LAN_URL || '' } satisfies TeacherSettings);
+        }
         case '/api/teacher/board': {
             const board = sanitizeBoard(body?.board);
             if (!board) return json({ error: 'That board is not valid.' }, 400);
@@ -107,7 +102,7 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
             await store(env).reset();
             return json({ board: null });
         case '/api/teacher/translate': {
-            if (!env.OPENAI_API_KEY) return json({ error: 'AI is not set up, so type the Catalan yourself.' }, 503);
+            if (!env.OPENAI_API_KEY) return json({ error: 'There is no OpenAI key, so type the Catalan yourself.' }, 503);
             const items: Item[] = Array.isArray(body?.items) ? body.items.slice(0, MAX_ITEMS + 1).map((item: any) => ({
                 text: typeof item?.text === 'string' ? item.text.trim().slice(0, LIMITS.phrase) : '',
                 ...(typeof item?.hint === 'string' && item.hint ? { hint: item.hint.slice(0, 60) } : {})
@@ -124,8 +119,9 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
 async function handle(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
 
+    if (path === '/api/health') return json({ ok: true });
     if (path === '/api/status' && request.method === 'GET') {
-        return json({ ai: !!env.OPENAI_API_KEY, locked: !!(env.OPENAI_API_KEY && env.ACCESS_CODE) } satisfies Status);
+        return json({ fix: !!env.OPENAI_API_KEY && await store(env).fixOn() } satisfies Status);
     }
     if (path === '/api/board' && request.method === 'GET') return json({ board: await store(env).board() });
     if (path.startsWith('/api/teacher/')) return teacher(request, env, path);
@@ -137,18 +133,19 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const words = text(body?.text);
     if (!words) return json({ error: 'Nothing to say yet.' }, 400);
 
-    const stop = await refused(request, env);
-    if (stop) return stop;
-
-    if (path === '/api/fix') {
-        const fix = await fixPhrase({
-            text: words, level: isLevel(body.level) ? body.level : 'A2',
-            language: isLanguage(body.language) ? body.language : undefined, context: text(body.context) || undefined
-        }, env);
-        return fix ? json(fix) : json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
+    if (path === '/api/speak') {
+        if (!(await allowed(env.USE_RL, `speak:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
+        const audio = await synthesize(env, words, isEnglishVoice(body.voice) ? body.voice : DEFAULT_VOICE, bridgeRate(body.rate), request.signal);
+        return audio ?? json({ error: 'The voice is unavailable.' }, 503);
     }
-    const audio = await synthesize(env, words, isVoice(body.voice) ? body.voice : 'coral', request.signal);
-    return audio ?? json({ error: 'The voice is unavailable.' }, 503);
+
+    if (!env.OPENAI_API_KEY || !(await store(env).fixOn())) return json({ error: 'Your teacher has switched Fix off.' }, 403);
+    if (!(await allowed(env.USE_RL, `fix:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
+    const fix = await fixPhrase({
+        text: words, level: isLevel(body.level) ? body.level : 'A2',
+        language: isLanguage(body.language) ? body.language : undefined, context: text(body.context) || undefined
+    }, env);
+    return fix ? json(fix) : json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
 }
 
 // Only /api/* reaches the Worker; the built app is served as static assets.
