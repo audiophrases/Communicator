@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { LANGUAGES, LEVELS, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
-import type { Board, Word } from '../shared/board.ts';
+import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
@@ -138,9 +138,12 @@ export default function App() {
 
     const toggleSaved = (text: string) => setSaved(current => current.includes(text) ? current.filter(item => item !== text) : [text, ...current]);
 
-    const tabs = [
-        { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '🔤' }, { id: 'quick', name: 'Quick', ca: 'Frases ràpides', icon: '⚡' },
-        ...board.pages, { id: 'saved', name: 'Saved', ca: 'Frases desades', icon: '⭐' }, { id: 'settings', name: 'Settings', ca: 'Configuració', icon: '⚙️' }
+    // Each tab has the colour of what is on it: a page the colour of most of its words, the phrase lists pink like
+    // their buttons. Core (every colour) and Settings stay plain.
+    const tabs: { id: string; name: string; ca?: string; icon: string; kind?: Kind }[] = [
+        { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '🔤' }, { id: 'quick', name: 'Quick', ca: 'Frases ràpides', icon: '⚡', kind: 'social' },
+        ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) })),
+        { id: 'saved', name: 'Saved', ca: 'Frases desades', icon: '⭐', kind: 'social' }, { id: 'settings', name: 'Settings', ca: 'Configuració', icon: '⚙️' }
     ];
     // Back to Core when the teacher removed the page this device was on.
     const tab = tabs.some(item => item.id === chosenTab) ? chosenTab : 'core';
@@ -205,7 +208,7 @@ export default function App() {
 
             <nav className="tabs">
                 {tabs.map(item => (
-                    <button key={item.id} className={`tab${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
+                    <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
                         <span aria-hidden="true">{item.icon}</span> {item.name}
                     </button>
                 ))}

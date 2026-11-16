@@ -16,6 +16,17 @@ export const KINDS: { kind: Kind; name: string }[] = [
     { kind: 'no', name: 'No and not (red)' }, { kind: 'little', name: 'Little words (grey)' }
 ];
 
+// A page's colour for its tab: the colour most of its words have (on a tie, the one that comes first), so a page
+// of actions is green like its buttons. None for an empty page.
+export function pageKind(words: Word[]): Kind | undefined {
+    const counts = new Map<Kind, number>();
+    for (const word of words) if (word.w) counts.set(word.k, (counts.get(word.k) ?? 0) + 1);
+    let best: Kind | undefined;
+    let most = 0;
+    for (const [kind, count] of counts) if (count > most) { best = kind; most = count; }
+    return best;
+}
+
 export const LIMITS = { core: 80, pages: 16, words: 120, quick: 80, word: 40, emoji: 16, ca: 80, phrase: 200, phraseCa: 300, name: 24, json: 120_000 };
 
 const isKind = (value: unknown): value is Kind => KINDS.some(item => item.kind === value);

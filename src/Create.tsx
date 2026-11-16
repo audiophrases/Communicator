@@ -1,7 +1,7 @@
 // /create: the teacher adds, changes and removes the board's buttons, then saves them for everyone.
 
 import { useEffect, useMemo, useState } from 'react';
-import { KINDS, LIMITS, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
+import { KINDS, LIMITS, pageKind, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
 import type { TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key } from './Key.tsx';
@@ -261,7 +261,9 @@ export default function Create() {
         });
     };
 
-    const tabs = [{ id: 'core', name: 'Core', icon: '🔤' }, { id: 'quick', name: 'Quick phrases', icon: '⚡' }, ...board.pages];
+    // Coloured as on the students' board (see App.tsx).
+    const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '🔤' },
+        { id: 'quick', name: 'Quick phrases', icon: '⚡', kind: 'social' }, ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) }))];
 
     return (
         <div className="create">
@@ -298,11 +300,11 @@ export default function Create() {
 
             <nav className="tabs">
                 {tabs.map(item => (
-                    <button key={item.id} className={`tab${tab === item.id ? ' on' : ''}`} onClick={() => choose(item.id)}>
+                    <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => choose(item.id)}>
                         <span aria-hidden="true">{item.icon}</span> {item.name}
                     </button>
                 ))}
-                <button className="tab add" onClick={addPage} disabled={board.pages.length >= LIMITS.pages}>+ Page</button>
+                <button className="tab plain add" onClick={addPage} disabled={board.pages.length >= LIMITS.pages}>+ Page</button>
             </nav>
 
             <fieldset className="create-body" disabled={!!busy}>
