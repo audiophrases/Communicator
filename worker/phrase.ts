@@ -13,7 +13,7 @@ export type PhraseResult = { fix: Fix; contextUsed: boolean };
 
 const TIMEOUT_MS = 8000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
-const FIX_VERSION = 6; // 6: gpt-5.4-mini writes the Catalan line again (5 took it from Softcatalà)
+const FIX_VERSION = 6; // 6: the model writes the Catalan line (5 took it from Softcatalà); the model is in the key too
 
 // Catalan "agradar" and verbs like it work backwards from English, and small models get the people the wrong way
 // round ("I want to like you more" came back as "Vull agradar-te més", which means the opposite). Shared with the

@@ -41,18 +41,15 @@ With `OPENAI_API_KEY` in `.dev.vars`, students can press **Fix**, and the editor
 Catalan. **Fix for students** in `/create` switches Fix off and on at once, for example during a test; students'
 screens follow within 30 seconds. Without a key, Fix is hidden and everything else works.
 
-- **Model:** `gpt-5.4-mini` with thinking off corrects the English and writes the Catalan in the same call, and
-  translates the editor's buttons and phrases. It is free on this account, which shares API traffic with OpenAI
-  for complimentary daily tokens (up to 2.5 million a day across the small models; a Fix is about 700 tokens).
-  In side-by-side tests (2026-11-16) it got every button word right where `gpt-4o-mini` got about one in four wrong
-  ("estutja" for "pencil case"), and its sentences beat Softcatalà's translator. The tests are described in
-  `worker/model.ts`.
+- **Model:** `gpt-6-luna` with thinking off corrects the English and writes the Catalan in the same call, and
+  translates the editor's buttons and phrases: about 1.4 s and 0.01 cents a Fix, so about 5 cents for a busy lesson.
+  It is not among the models this account gets free data-sharing tokens for, so it is always billed. It gave the
+  best Catalan in side-by-side tests (2026-11-16, described in `worker/model.ts`): every button word right where
+  `gpt-4o-mini` got about one in four wrong ("estutja" for "pencil case").
 - **Catalan "agradar":** verbs that work backwards from English (agradar, encantar, fer mal, faltar) come with a rule
-  in the instructions (`CATALAN_RULE` in `worker/phrase.ts`). Everyday sentences come out right ("M'agrades",
-  "Li agrada el meu germà", "Em fan mal les dents"). want + like ("I want to like you more" → "Vull que m'agradis
-  més") is still unreliable with `gpt-5.4-mini`: about half right. `gpt-5.4` got 12 of 14 such sentences right, but
-  its free amount is 250 thousand tokens a day (about 290 Fixes), and past that a Fix costs about a third of a cent.
-  `OPENAI_PHRASE_MODEL=gpt-5.4` in `.dev.vars` switches to it.
+  in the instructions (`CATALAN_RULE` in `worker/phrase.ts`). `gpt-6-luna` got 12 of 14 hard sentences right,
+  "I want to like you more" → "Vull que m'agradis més" included; the free `gpt-5.4-mini` got about 9, varying from
+  run to run. To keep it free, put `OPENAI_PHRASE_MODEL=gpt-5.4-mini` in `.dev.vars`.
  [OPENAI-FREE-TOKENS.md](OPENAI-FREE-TOKENS.md) says what the account's data-sharing tokens cover; the same
   note is in the other apps that call OpenAI.
 
@@ -94,7 +91,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
-| Fix | `worker/phrase.ts` | One chat-model call (`gpt-5.4-mini`, `worker/model.ts`) with a strict JSON schema: the sentence, up to 2 other meanings, and its Catalan |
+| Fix | `worker/phrase.ts` | One chat-model call (`gpt-6-luna`, `worker/model.ts`) with a strict JSON schema: the sentence, up to 2 other meanings, and its Catalan |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons and phrases, told the word type and page to pick the meaning |
 | Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | PinPlay's Edge TTS bridge through the laptop; spoken phrases are kept in memory so repeating is instant; falls back to the device voice |
 | Classroom | `classroom.bat`, `scripts/classroom.mjs`, `scripts/setup-laptop.mjs`, `scripts/warm-speech.mjs` | Serves the school Wi-Fi from the laptop, sets up `.dev.vars`, wakes the voice bridge, refuses to start twice |
