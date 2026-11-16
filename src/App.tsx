@@ -13,6 +13,7 @@ type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'e
 const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: '', tapSound: true };
 const ACCENTS = [...new Set(ENGLISH_VOICES.map(voice => voice.accent))];
 const STATUS_EVERY_MS = 30_000; // so the teacher's Fix switch reaches students without a reload
+const CONTEXT_MS = 2 * 60_000; // a sentence said within this time counts as part of the same conversation
 
 function load<T>(key: string, fallback: T): T {
     try {
@@ -47,6 +48,8 @@ export default function App() {
     const [speaking, setSpeaking] = useState(false);
     const [notice, setNotice] = useState('');
     const typing = useRef<HTMLInputElement>(null);
+    // The last sentence spoken and when: Fix sends it along while it is recent (see CONTEXT_MS).
+    const lastSaid = useRef<{ text: string; at: number } | null>(null);
 
     useEffect(() => { save('settings', settings); }, [settings]);
     useEffect(() => { save('saved', saved); }, [saved]);
@@ -70,6 +73,7 @@ export default function App() {
         setSpeaking(true);
         setNotice('');
         setRecent(current => [text, ...current.filter(item => item !== text)].slice(0, 30));
+        lastSaid.current = { text, at: Date.now() };
         const used = await say(text, { voice: settings.voice, rate: settings.rate });
         setSpeaking(false);
         if (used === 'device') setNotice('The natural voice did not answer, so this device spoke.');
@@ -102,13 +106,20 @@ export default function App() {
         setTokens([]); setDraft(''); setFix(null); setNotice('');
     }
 
+    // The sentence said just before, so Fix can keep its tense ("Yesterday I went…" then "I eat…" → "I ate…").
+    // Only while recent: an old sentence is not part of this conversation any more.
+    function recentContext(words: string): string {
+        const last = lastSaid.current;
+        return last && Date.now() - last.at < CONTEXT_MS && last.text !== words ? last.text : '';
+    }
+
     async function askFix() {
         if (!message || !status.fix) return;
         setFix({ state: 'loading' });
         try {
             const response = await fetch('/api/fix', {
                 method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
-                body: JSON.stringify({ text: message, level: settings.level, language: settings.language }),
+                body: JSON.stringify({ text: message, level: settings.level, language: settings.language, context: recentContext(message) }),
                 signal: AbortSignal.timeout(12_000)
             });
             const body = await response.json();

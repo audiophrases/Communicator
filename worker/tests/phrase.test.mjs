@@ -48,15 +48,42 @@ test('fixPhrase sends the words as data and returns the fix', async () => {
     let sent;
     const fix = await withFetch(async (url, init) => {
         sent = { url, body: JSON.parse(init.body) };
-        return answer({ sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" });
+        return answer({ sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?", context_used: false });
     }, () => fixPhrase({ text: 'where bus stop', level: 'A1', language: 'Catalan' }, { OPENAI_API_KEY: 'k', OPENAI_BASE_URL: 'http://ai.test', OPENAI_PHRASE_MODEL: 'test-model' }));
-    assert.deepEqual(fix, { sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" });
+    assert.deepEqual(fix, { fix: { sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" }, contextUsed: false });
     assert.equal(sent.url, 'http://ai.test/v1/chat/completions');
     assert.equal(sent.body.model, 'test-model');
     assert.match(sent.body.messages[0].content, /CEFR A1/);
     assert.match(sent.body.messages[0].content, /in Catalan/);
     assert.doesNotMatch(sent.body.messages[0].content, /note/);
     assert.deepEqual(JSON.parse(sent.body.messages[1].content), { words: 'where bus stop' });
+});
+
+test('fixPhrase sends the sentence before and says whether it changed the answer', async () => {
+    const env = { OPENAI_API_KEY: 'k' };
+    const input = { text: 'I eat ice cream', level: 'A2', context: 'Yesterday I went to the park.' };
+    let sent;
+    const used = await withFetch(async (url, init) => {
+        sent = JSON.parse(JSON.parse(init.body).messages[1].content);
+        return answer({ sentence: 'I ate ice cream.', alternatives: [], translation: '', context_used: true });
+    }, () => fixPhrase(input, env));
+    assert.deepEqual(sent, { words: 'I eat ice cream', before: 'Yesterday I went to the park.' });
+    assert.deepEqual(used, { fix: { sentence: 'I ate ice cream.', alternatives: [], translation: '' }, contextUsed: true });
+    // Not said, or no sentence before: an answer with a sentence before counts as using it, one without never does.
+    const unsure = await withFetch(async () => answer({ sentence: 'I ate ice cream.', alternatives: [], translation: '' }), () => fixPhrase(input, env));
+    assert.equal(unsure.contextUsed, true);
+    const alone = await withFetch(async () => answer({ sentence: 'I eat ice cream.', alternatives: [], translation: '', context_used: true }),
+        () => fixPhrase({ text: 'I eat ice cream', level: 'A2' }, env));
+    assert.equal(alone.contextUsed, false);
+});
+
+test('an answer that used the sentence before is saved only for that pair', () => {
+    const env = {};
+    const input = { text: 'I eat ice cream', level: 'A2', context: 'Yesterday I went to the park.' };
+    assert.equal(fixSeed(input, env), fixSeed({ text: 'I eat ice cream', level: 'A2' }, env)); // the class-wide key ignores it
+    assert.notEqual(fixSeed(input, env, true), fixSeed(input, env));
+    assert.equal(fixSeed(input, env, true), fixSeed({ ...input, context: 'yesterday I went to the park' }, env, true));
+    assert.notEqual(fixSeed(input, env, true), fixSeed({ ...input, context: 'Tomorrow I go to the park.' }, env, true));
 });
 
 test('fixPhrase gives up quietly', async () => {

@@ -174,15 +174,22 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     if (!env.OPENAI_API_KEY || !(await store(env).fixOn())) return json({ error: 'Your teacher has switched Fix off.' }, 403);
     const level: Level = isLevel(body.level) ? body.level : 'A2';
-    const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined };
-    const key = await sha256Hex(fixSeed(input, env));
-    const saved = (await store(env).recall([key]))[key];
+    const context = text(body.context);
+    const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined, ...(context ? { context } : {}) };
+    // With a recent sentence before it, only an answer made with that same sentence is reused: one made without it
+    // could miss the tense it sets. Without one, the class-wide answer is reused.
+    const shared = await sha256Hex(fixSeed(input, env));
+    const paired = context ? await sha256Hex(fixSeed(input, env, true)) : null;
+    const lookup = paired ?? shared;
+    const saved = (await store(env).recall([lookup]))[lookup];
     if (saved?.value) return json(JSON.parse(saved.value), 200, 'hit');
     if (!(await allowed(env.USE_RL, `fix:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
-    const fix = await fixPhrase(input, env);
-    if (!fix) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
-    await store(env).remember('fix', key, JSON.stringify(fix));
-    return json(fix, 200, 'miss');
+    const result = await fixPhrase(input, env);
+    if (!result) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
+    // When the sentence before did not change the answer, the whole class can reuse it.
+    await store(env).remember('fix', paired && result.contextUsed ? paired : shared, JSON.stringify(result.fix));
+    if (paired && !result.contextUsed) await store(env).remember('fix', paired, JSON.stringify(result.fix));
+    return json(result.fix, 200, 'miss');
 }
 
 // Only /api/* reaches the Worker; the built app is served as static assets.

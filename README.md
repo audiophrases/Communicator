@@ -47,7 +47,8 @@ Like PinPlay's voice cache, every answer is kept on the laptop under a fingerpri
 the whole class, across lessons and restarts:
 
 - **Fix**: the same words at the same level and language (capitals, spaces and the final full stop do not matter).
-  The second student who writes "I want go home" gets "I want to go home." at once, without calling OpenAI.
+  The second student who writes "I want go home" gets "I want to go home." at once, without calling OpenAI. An answer
+  that depended on the sentence said before is reused only after that same sentence (see the design notes below).
 - **Catalan in the editor**: only buttons never translated before are sent.
 - **Voice clips**: the same text, voice and speed (as PinPlay: `voice::rate::text`) comes from the bridge once.
 
@@ -94,9 +95,12 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 - **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own:
   the suggestion is spoken only when the speaker taps it, and tapping or typing another word dismisses it. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
-- **Fix sees only the speaker's words, not their previous sentence.** Research on AI message expansion found that one
-  turn of context helps when guessing words from their first letters. Fixing the grammar of words the speaker chose
-  gains little from it, and leaving it out lets the whole class share saved answers.
+- **Fix sees the sentence said just before (within 2 minutes)**, for one common ESL mistake: setting the time once and
+  going back to the present ("Yesterday I went to the park." then "I eat ice cream" → "I ate ice cream."; "Next week I
+  have an exam." then "I study a lot" → "I will study a lot."). It changes the time only when the sentence before
+  names one, never for questions or needs about now, and never copies words from it. OpenAI says whether the sentence
+  before changed the answer: if not, the answer is shared with the whole class; if so, it is saved only for that pair,
+  and a student with a different sentence before gets a fresh answer.
 - **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan for now) shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
   check a word without adding it to the message.
