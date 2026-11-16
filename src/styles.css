@@ -91,8 +91,6 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 /* Catalan tooltip (src/tooltip.ts) */
 .tip { position: fixed; z-index: 50; max-width: min(320px, calc(100vw - 16px)); pointer-events: none; background: #1d2330; color: #fff;
     border-radius: 10px; padding: 7px 12px; font-size: 1.05rem; font-weight: 600; box-shadow: 0 4px 14px rgb(0 0 0 / .25); }
-.tip::before { content: "CA"; font-size: .65rem; font-weight: 800; letter-spacing: .05em; background: #f5c400; color: #1d2330;
-    border-radius: 4px; padding: 1px 4px; margin-right: 7px; vertical-align: 2px; }
 .tip[hidden] { display: none; }
 
 /* /create */
