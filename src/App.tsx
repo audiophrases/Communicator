@@ -6,7 +6,12 @@ import { cachedBoard, fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
-type Token = { w: string; e?: string; s?: string };
+// typed: words the speaker typed (or a phrase put back to edit), which ⌫ takes away one word at a time.
+// A button's words ("bus stop") go together.
+type Token = { w: string; e?: string; s?: string; typed?: boolean };
+
+// "go to the doctor" → "go to the"
+const withoutLastWord = (text: string) => text.trimEnd().replace(/\s*\S+$/, '');
 type Settings = { voice: string; rate: number; level: Level; language: string; tapSound: boolean };
 type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'error'; message: string } | null;
 
@@ -86,7 +91,7 @@ export default function App() {
         if (!word.w) return;
         // Typed words go first, so the message keeps the order they were added in.
         const typed = draft.trim();
-        setTokens(current => [...current, ...(typed ? [{ w: typed }] : []), { w: word.w, e: word.e, s: word.s }]);
+        setTokens(current => [...current, ...(typed ? [{ w: typed, typed: true }] : []), { w: word.w, e: word.e, s: word.s }]);
         setDraft('');
         setFix(null);
         if (settings.tapSound) { stop(); void sayOnDevice(word.w, settings.rate); }
@@ -94,14 +99,25 @@ export default function App() {
 
     function commitDraft(text = draft) {
         const words = text.trim();
-        if (words) setTokens(current => [...current, { w: words }]);
+        if (words) setTokens(current => [...current, { w: words, typed: true }]);
         setDraft('');
     }
 
+    // ⌫ takes away the last word: from what is being typed first, then from the bar.
     function backspace() {
         setFix(null);
-        if (draft) setDraft('');
-        else setTokens(current => current.slice(0, -1));
+        if (draft.trim()) {
+            const rest = withoutLastWord(draft);
+            setDraft(rest ? `${rest} ` : ''); // the space lets the next word be typed straight on
+            return;
+        }
+        setDraft('');
+        setTokens(current => {
+            const last = current.at(-1);
+            if (!last?.typed) return current.slice(0, -1);
+            const rest = withoutLastWord(last.w);
+            return rest ? [...current.slice(0, -1), { ...last, w: rest }] : current.slice(0, -1);
+        });
     }
 
     function clear() {
@@ -157,7 +173,7 @@ export default function App() {
             <button className="phrase" onClick={() => void speak(text)} data-ca={phraseCa.get(text)}>{text}</button>
             <button className="icon" onClick={() => toggleSaved(text)} aria-label={saved.includes(text) ? 'Remove from saved' : 'Save'}
                 data-ca={saved.includes(text) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(text) ? '★' : '☆'}</button>
-            <button className="icon" onClick={() => { setTokens([{ w: text }]); setDraft(''); setFix(null); setTab('core'); }} aria-label="Edit"
+            <button className="icon" onClick={() => { setTokens([{ w: text, typed: true }]); setDraft(''); setFix(null); setTab('core'); }} aria-label="Edit"
                 data-ca="Edita la frase">✏️</button>
         </div>
     );
