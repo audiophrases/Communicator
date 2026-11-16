@@ -72,7 +72,10 @@ export default function App() {
 
     function tap(word: Word) {
         if (!word.w) return;
-        setTokens(current => [...current, { w: word.w, e: word.e }]);
+        // Typed words go first, so the message keeps the order they were added in.
+        const typed = draft.trim();
+        setTokens(current => [...current, ...(typed ? [{ w: typed }] : []), { w: word.w, e: word.e }]);
+        setDraft('');
         setFix(null);
         if (settings.tapSound) { stop(); void sayOnDevice(word.w, settings.rate); }
     }
@@ -151,7 +154,6 @@ export default function App() {
                             if (event.key === 'Enter') { event.preventDefault(); void speak(message); commitDraft(); }
                             else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
                         }}
-                        onBlur={() => commitDraft()}
                     />
                 </div>
                 <div className="actions">
@@ -168,12 +170,17 @@ export default function App() {
                 {fix?.state === 'error' && <div className="fixbox warn">{fix.message}</div>}
                 {fix?.state === 'done' && (
                     <div className="fixbox">
-                        <button className="suggest main" onClick={() => choose(fix.fix.sentence)} data-ca={fix.fix.translation || 'Tria aquesta frase'}>🔊 {fix.fix.sentence}</button>
-                        {fix.fix.translation && <div className="translation" lang="ca">{fix.fix.translation}</div>}
-                        {fix.fix.note && <div className="note">💡 {fix.fix.note}</div>}
+                        <button className="suggest main" onClick={() => choose(fix.fix.sentence)} data-ca={fix.fix.translation ? undefined : 'Tria aquesta frase'}>
+                            <span className="say" aria-hidden="true">🔊</span>
+                            <span className="en">{fix.fix.sentence}</span>
+                            {fix.fix.translation && <span className="ca" lang="ca"><span className="badge" aria-hidden="true">CA</span>{fix.fix.translation}</span>}
+                        </button>
                         {fix.fix.alternatives.length > 0 && <div className="or">Or did you mean:</div>}
-                        {fix.fix.alternatives.map(text => <button className="suggest" key={text} onClick={() => choose(text)} data-ca="Tria aquesta frase">🔊 {text}</button>)}
-                        <button className="keep" onClick={() => setFix(null)} data-ca="Mantén les meves paraules">Keep my words</button>
+                        {fix.fix.alternatives.map(text => (
+                            <button className="suggest" key={text} onClick={() => choose(text)} data-ca="Tria aquesta frase">
+                                <span className="say" aria-hidden="true">🔊</span><span className="en">{text}</span>
+                            </button>
+                        ))}
                     </div>
                 )}
                 {notice && <div className="notice">{notice}</div>}

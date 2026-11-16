@@ -23,8 +23,18 @@ Copy `.dev.vars.example` to `.dev.vars` and fill in:
   same password.
 
 While changing the code: `npm run dev:worker` in one terminal and `npm run dev` in another.
-`npm test` runs the Worker tests. `npm run deploy` puts it online; first set the secrets with
-`npx wrangler secret put OPENAI_API_KEY`, `… CREATE_PASSWORD_HASH` and, to protect the key, `… ACCESS_CODE`.
+`npm test` runs the Worker tests.
+
+## Put it online
+
+Double-click `deploy.bat`. It tests, builds and publishes to <https://communicator.eugenime.workers.dev>, and sends
+`OPENAI_API_KEY`, `CREATE_PASSWORD_HASH` and `ACCESS_CODE` from `.dev.vars` along with the code (secrets that
+`.dev.vars` leaves out stay as they are online). At the end it lists which of them are set online.
+`node scripts/deploy.mjs --dry-run` does everything except the upload.
+
+Online, anyone with the link can use Fix and the voice on your key (40 calls a minute each). To require a code that
+people type once in Settings, run `npx wrangler secret put ACCESS_CODE`. Putting `ACCESS_CODE` in `.dev.vars` sends it
+too, but then the local board asks for it as well.
 
 ## The teacher's editor: /create
 

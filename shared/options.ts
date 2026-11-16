@@ -16,5 +16,5 @@ export const isLanguage = (value: unknown): value is typeof LANGUAGES[number] =>
 
 export const MAX_TEXT = 300;
 
-export type Fix = { sentence: string; alternatives: string[]; note: string; translation: string };
+export type Fix = { sentence: string; alternatives: string[]; translation: string };
 export type Status = { ai: boolean; locked: boolean };

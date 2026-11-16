@@ -10,7 +10,7 @@
     "start": "npm run build && wrangler dev",
     "lint": "oxlint",
     "test": "node --test \"worker/tests/*.test.mjs\"",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy": "node scripts/deploy.mjs"
   },
   "dependencies": {
     "react": "^19.2.8",

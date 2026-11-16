@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "communicator",
+  "account_id": "b7cc0719d9ecb3485646785035f87ca1", // the same account as HelloChat and Pixel Plaza
   "main": "worker/index.ts",
   "compatibility_date": "2026-09-01",
   "observability": { "enabled": true },

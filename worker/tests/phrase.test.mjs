@@ -14,12 +14,12 @@ test('clean keeps a believable sentence and tidies the rest', () => {
     const fix = clean('I want go doctor', {
         sentence: '  I want to go to the doctor. ',
         alternatives: ['I want to go to the doctor.', 'Do I want to go to the doctor?', 'I wanted to go to the doctor.', 'A fourth one.', 7],
-        note: 'After "want" we say "to".', translation: 'Quiero ir al médico.'
+        translation: 'Vull anar al metge.'
     });
     assert.deepEqual(fix, {
         sentence: 'I want to go to the doctor.',
         alternatives: ['Do I want to go to the doctor?', 'I wanted to go to the doctor.'],
-        note: 'After "want" we say "to".', translation: 'Quiero ir al médico.'
+        translation: 'Vull anar al metge.'
     });
 });
 
@@ -34,13 +34,14 @@ test('fixPhrase sends the words as data and returns the fix', async () => {
     let sent;
     const fix = await withFetch(async (url, init) => {
         sent = { url, body: JSON.parse(init.body) };
-        return answer({ sentence: 'Where is the bus stop?', alternatives: [], note: 'A question needs "is".', translation: '' });
-    }, () => fixPhrase({ text: 'where bus stop', level: 'A1', language: 'Spanish', context: 'I am lost.' }, { OPENAI_API_KEY: 'k', OPENAI_BASE_URL: 'http://ai.test', OPENAI_PHRASE_MODEL: 'test-model' }));
-    assert.equal(fix.sentence, 'Where is the bus stop?');
+        return answer({ sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" });
+    }, () => fixPhrase({ text: 'where bus stop', level: 'A1', language: 'Catalan', context: 'I am lost.' }, { OPENAI_API_KEY: 'k', OPENAI_BASE_URL: 'http://ai.test', OPENAI_PHRASE_MODEL: 'test-model' }));
+    assert.deepEqual(fix, { sentence: 'Where is the bus stop?', alternatives: [], translation: "On és la parada d'autobús?" });
     assert.equal(sent.url, 'http://ai.test/v1/chat/completions');
     assert.equal(sent.body.model, 'test-model');
     assert.match(sent.body.messages[0].content, /CEFR A1/);
-    assert.match(sent.body.messages[0].content, /in Spanish/);
+    assert.match(sent.body.messages[0].content, /in Catalan/);
+    assert.doesNotMatch(sent.body.messages[0].content, /note/);
     assert.deepEqual(JSON.parse(sent.body.messages[1].content), { words: 'where bus stop', context: 'I am lost.' });
 });
 
