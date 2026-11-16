@@ -62,6 +62,25 @@ export default function App() {
     useEffect(() => { save('saved', saved); }, [saved]);
     useEffect(() => { save('recent', recent); }, [recent]);
     useEffect(() => { save('status', status); }, [status]);
+    // The keyboard's Backspace at the end of the typed text takes away the last whole word, like ⌫. Caught as the
+    // text box is about to change, so tablet keyboards (which often do not say which key it was) do the same. With
+    // the cursor moved back into the text, Backspace deletes one letter as usual, to fix a typo. On an empty box the
+    // key is handled in onKeyDown below.
+    useEffect(() => {
+        const input = typing.current;
+        if (!input) return;
+        const onBeforeInput = (event: InputEvent) => {
+            if (event.inputType !== 'deleteContentBackward') return;
+            const { value, selectionStart, selectionEnd } = input;
+            if (!value.trim() || selectionStart !== selectionEnd || selectionEnd !== value.length) return;
+            event.preventDefault();
+            const rest = withoutLastWord(value);
+            setDraft(rest ? `${rest} ` : '');
+            setFix(null);
+        };
+        input.addEventListener('beforeinput', onBeforeInput);
+        return () => input.removeEventListener('beforeinput', onBeforeInput);
+    }, []);
     useEffect(() => {
         const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => setStatus(value)).catch(() => {});
         void check();
