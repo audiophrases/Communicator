@@ -7,7 +7,8 @@ CREATE_PASSWORD_HASH=
 # Fix (students' sentences) and the editor's Catalan translation. Leave empty to run without them.
 # The teacher can also switch Fix off for students in /create.
 OPENAI_API_KEY=
-# Optional: the chat model for Fix and translation (default gpt-6-luna; see worker/model.ts). gpt-4o-mini was used before.
+# Optional: the chat model for Fix and button translation (default gpt-4o-mini, free with OpenAI data sharing;
+# see worker/model.ts). gpt-6-luna translates button words better but is paid.
 # OPENAI_PHRASE_MODEL=
 # Optional: override PinPlay's Render Edge TTS bridge for the voices.
 # EDGE_TTS_URL=https://pinplay-tts-bridge-27sk.onrender.com/tts
