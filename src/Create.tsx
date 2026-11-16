@@ -5,6 +5,7 @@ import { KINDS, LIMITS, sanitizeBoard, type Board, type Kind, type Word } from '
 import type { TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key } from './Key.tsx';
+import { SymbolPicker } from './SymbolPicker.tsx';
 import { DEFAULT_BOARD } from './vocab.ts';
 
 const TOKEN = 'teacher-session';
@@ -364,6 +365,7 @@ export default function Create() {
                                 <p>Click a button to change it, or <b>+ Add</b> for a new one. Saved changes reach students when they open or reload the board.</p>
                                 {tab === 'core' && <p>Core words keep their places so hands learn where they are. To take one away, empty its slot: the others stay put.</p>}
                                 <p>Every button shows its Catalan when students hold it, or point at it with a mouse.</p>
+                                <p>Pictures are Mulberry symbols or emoji. Choose a symbol for any button: search by word.</p>
                             </div>
                         ) : (
                             <div className="word-edit" key={`${tab}-${selected}`}>
@@ -373,7 +375,8 @@ export default function Create() {
                                     <input value={word.w} maxLength={LIMITS.word} autoFocus placeholder={tab === 'core' ? 'Empty slot: type a word' : 'Type a word'}
                                         onChange={event => setWord({ w: event.target.value })} />
                                 </label>
-                                <label>Picture (emoji)
+                                <SymbolPicker value={word.s} word={word.w} onPick={s => setWord({ s })} />
+                                <label>Emoji{word.s ? ' (shown only without a symbol)' : ''}
                                     <input value={word.e ?? ''} maxLength={LIMITS.emoji} placeholder="Optional. Windows: press Win + ." onChange={event => setWord({ e: event.target.value })} />
                                 </label>
                                 <label>Catalan

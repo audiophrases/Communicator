@@ -3,10 +3,10 @@ import { LANGUAGES, LEVELS, MAX_TEXT, isLanguage, isLevel, type Fix, type Level,
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
 import type { Board, Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
-import { Key } from './Key.tsx';
+import { Key, Picture } from './Key.tsx';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
-type Token = { w: string; e?: string };
+type Token = { w: string; e?: string; s?: string };
 type Settings = { voice: string; rate: number; level: Level; language: string; tapSound: boolean };
 type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'error'; message: string } | null;
 
@@ -83,7 +83,7 @@ export default function App() {
         if (!word.w) return;
         // Typed words go first, so the message keeps the order they were added in.
         const typed = draft.trim();
-        setTokens(current => [...current, ...(typed ? [{ w: typed }] : []), { w: word.w, e: word.e }]);
+        setTokens(current => [...current, ...(typed ? [{ w: typed }] : []), { w: word.w, e: word.e, s: word.s }]);
         setDraft('');
         setFix(null);
         if (settings.tapSound) { stop(); void sayOnDevice(word.w, settings.rate); }
@@ -161,7 +161,7 @@ export default function App() {
             <header className="top">
                 <div className="bar" onClick={() => typing.current?.focus()}>
                     {tokens.map((token, index) => (
-                        <span className="chip" key={index}>{token.e && <span aria-hidden="true">{token.e} </span>}{token.w}</span>
+                        <span className="chip" key={index}><Picture word={token} className="chip-pic" />{token.w}</span>
                     ))}
                     <input
                         ref={typing} className="typing" value={draft} maxLength={MAX_TEXT} aria-label="Type words"
@@ -261,6 +261,8 @@ export default function App() {
                             Say each word when I tap it
                         </label>
                         <p className="hint">Hold a button (or point at it with the mouse) to see it in Catalan.</p>
+                        <p className="credit">Symbols: <a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee,{' '}
+                            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Emoji by your device.</p>
                     </div>
                 )}
             </main>

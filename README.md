@@ -109,5 +109,17 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   step. Saved and recent phrases live only in each student's browser, and the server never logs what was said. The
   laptop keeps the saved answers above (the sentences and their corrections, translations and clips), with no name or
   device attached; **Forget them** in `/create` deletes them.
-- **Emoji as symbols.** They need no licence and no downloads. A proper symbol set such as ARASAAC would be clearer
-  for abstract words, but it is CC BY-NC-SA: attribution required and no commercial use.
+- **Mulberry symbols where they say more than an emoji.** Each word was compared by eye with its Mulberry candidates.
+  95 words use a Mulberry symbol: actions (an emoji of a chair for "sit" shows the chair, Mulberry shows someone
+  sitting), question words, family relations (who to whom), time words that emoji show as media buttons (⏭️ for
+  "tomorrow"), body parts, pairs such as open/closed and hungry/thirsty, and words that had no picture. Emoji stay
+  where they are clear: feelings, most food and things, call, wait, write. No two different words share a picture
+  (a test checks it). Pronouns and little words (you, the, because…) have no Mulberry symbol and stay as text or emoji.
+
+## Symbols
+
+The [Mulberry Symbols](https://mulberrysymbols.org) (`mulberry-symbols/`, version in `VERSION.txt`) are © Steve Lee,
+[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); Settings credits them. The build copies them to
+`dist/symbols/` with a search index, leaving out the six the set marks as rated (anatomy), so `mulberry-symbols/` must
+be present to build. The built-in choices are in `src/vocab.ts` (`SYMBOLS`). In `/create`, each button has a symbol
+search that starts from its English word; a symbol replaces the emoji on that button.

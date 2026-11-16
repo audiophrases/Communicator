@@ -1,7 +1,40 @@
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { test } from 'node:test';
-import { LIMITS, sanitizeBoard } from '../../shared/board.ts';
+import { LIMITS, sanitizeBoard, symbolUrl } from '../../shared/board.ts';
 import { DEFAULT_BOARD } from '../../src/vocab.ts';
+
+const everyWord = () => [...DEFAULT_BOARD.core, ...DEFAULT_BOARD.pages.flatMap(page => page.words)].filter(word => word.w);
+
+test('every built-in symbol is in the Mulberry set, and none is a rated one', () => {
+    const dir = new URL('../../mulberry-symbols/EN-symbols/', import.meta.url);
+    const csv = fs.readFileSync(new URL('../../mulberry-symbols/symbol-info.csv', import.meta.url), 'utf8');
+    const used = [...new Set(everyWord().filter(word => word.s).map(word => word.s))];
+    assert.ok(used.length > 50);
+    assert.deepEqual(used.filter(name => !fs.existsSync(new URL(`${name}.svg`, dir))), []);
+    assert.deepEqual(used.filter(name => new RegExp(`,1,[^,]*,"?${name.replace(/[^\w]/g, '.')}"?,`).test(csv)), []);
+    // A word with a symbol shows only the symbol.
+    assert.deepEqual(everyWord().filter(word => word.s && word.e).map(word => word.w), []);
+});
+
+test('no two different words share a picture', () => {
+    const owners = new Map();
+    for (const word of everyWord()) {
+        const picture = word.s ? `symbol ${word.s}` : word.e ? `emoji ${word.e}` : '';
+        if (!picture) continue;
+        if (!owners.has(picture)) owners.set(picture, new Set());
+        owners.get(picture).add(word.w.toLowerCase());
+    }
+    const shared = [...owners].filter(([, words]) => words.size > 1).map(([picture, words]) => `${picture}: ${[...words].join(', ')}`);
+    assert.deepEqual(shared, []); // the same word on two pages (more, less, hurt) may repeat its picture
+});
+
+test('symbol names stay inside /symbols/', () => {
+    const board = sanitizeBoard({ core: [{ w: 'eat', k: 'verb', s: 'eat_,_to' }, { w: 'x', k: 'verb', s: '../../etc/passwd' },
+        { w: 'y', k: 'verb', s: 'a/b' }, { w: '', k: 'verb', s: 'eat_,_to' }, { w: 'z', k: 'noun', s: 'shoe_-_mans' }], pages: [], quick: [] });
+    assert.deepEqual(board.core.map(word => word.s ?? null), ['eat_,_to', null, null, null, 'shoe_-_mans']);
+    assert.equal(symbolUrl('glass_,_drinking'), '/symbols/glass_%2C_drinking.svg');
+});
 
 test('the built-in board is valid and every button has Catalan', () => {
     const board = sanitizeBoard(DEFAULT_BOARD);
