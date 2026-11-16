@@ -2,7 +2,9 @@
 // on a touch screen. Holding shows the Catalan without pressing the button, so a learner can check a word
 // without adding it to the message.
 
-const HOVER_MS = 1000; // with a mouse: the button grows first (see .key:hover), then its Catalan shows
+import { shownRect } from './magnifier.ts';
+
+const HOVER_MS = 1000; // with a mouse: the button is shown bigger at once (magnifier.ts), then its Catalan
 const HOLD_MS = 450;
 const TOUCH_SHOW_MS = 2500;
 
@@ -26,7 +28,7 @@ function show(element: HTMLElement) {
     }
     bubble.textContent = text;
     bubble.hidden = false;
-    const target = element.getBoundingClientRect();
+    const target = shownRect(element); // above the big copy of a word button, when it has one
     const box = bubble.getBoundingClientRect();
     const left = Math.min(Math.max(8, target.left + target.width / 2 - box.width / 2), window.innerWidth - box.width - 8);
     const top = target.top - box.height - 8 >= 8 ? target.top - box.height - 8 : target.bottom + 8;
