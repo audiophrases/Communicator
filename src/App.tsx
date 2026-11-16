@@ -130,9 +130,9 @@ export default function App() {
         }
     }
 
-    // The speaker picked a suggestion: it becomes the message and is spoken.
-    function choose(sentence: string) {
-        setTokens([{ w: sentence }]); setDraft(''); setFix(null);
+    // Tapping a suggestion only says it: the speaker's own words stay in the bar, and the suggestions stay open to
+    // hear again. Tapping or typing another word closes them.
+    function hear(sentence: string) {
         void speak(sentence);
     }
 
@@ -187,14 +187,14 @@ export default function App() {
                 {fix?.state === 'error' && <div className="fixbox warn">{fix.message}</div>}
                 {fix?.state === 'done' && (
                     <div className="fixbox">
-                        <button className="suggest main" onClick={() => choose(fix.fix.sentence)} data-ca={fix.fix.translation ? undefined : 'Tria aquesta frase'}>
+                        <button className="suggest main" onClick={() => hear(fix.fix.sentence)} data-ca={fix.fix.translation ? undefined : 'Escolta aquesta frase'}>
                             <span className="say" aria-hidden="true">🔊</span>
                             <span className="en">{fix.fix.sentence}</span>
                             {fix.fix.translation && <span className="ca" lang="ca"><span className="badge" aria-hidden="true">CA</span>{fix.fix.translation}</span>}
                         </button>
                         {fix.fix.alternatives.length > 0 && <div className="or">Or did you mean:</div>}
                         {fix.fix.alternatives.map(text => (
-                            <button className="suggest" key={text} onClick={() => choose(text)} data-ca="Tria aquesta frase">
+                            <button className="suggest" key={text} onClick={() => hear(text)} data-ca="Escolta aquesta frase">
                                 <span className="say" aria-hidden="true">🔊</span><span className="en">{text}</span>
                             </button>
                         ))}

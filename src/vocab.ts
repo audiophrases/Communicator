@@ -15,10 +15,10 @@ const CORE: Word[] = [
     ...row('verb', `want=🤲=voler|need=❗=necessitar|like=👍=agradar|have=🎒=tenir|go=➡️=anar|come=🫴=venir|get==aconseguir / obtenir|do==fer|make=🛠️=fer / crear|can=💪=poder`),
     ...row('verb', `see=👀=veure|eat=🍽️=menjar|drink=🥤=beure|help=🆘=ajudar|know=💡=saber / conèixer|think=🤔=pensar|feel=💗=sentir|say=🗣️=dir|give=🎁=donar|be==ser / estar`),
     ...row('no', `not=🚫=no (negació)|no=❌=no`), ...row('social', `yes=✅=sí`),
-    ...row('little', `and=➕=i|but==però|because==perquè|to==a / per a|in=📥=a / dins de|with=🤝=amb|for==per / per a`),
+    ...row('little', `and==i|but==però|because==perquè|to==a / per a|in=📥=a / dins de|with=🤝=amb|for==per / per a`),
     ...row('question', `what=❓=què|where=📍=on|when=🕒=quan|who=👤=qui|why==per què|how==com`),
-    ...row('describe', `now=⏱️=ara|here=📌=aquí|more=➕=més|very==molt`),
-    ...row('describe', `good=🙂=bo / bé|bad=🙁=dolent / malament|big=🐘=gran|small=🐜=petit|hot=🔥=calent / calor|cold=🧊=fred|happy=😊=content|tired=😴=cansat|sick=🤒=malalt`),
+    ...row('describe', `now=⏱️=ara|here=📌=aquí|more=➕=més|less=➖=menys`),
+    ...row('describe', `very==molt|good=🙂=bo / bé|bad=🙁=dolent / malament|big=🐘=gran|small=🐜=petit|hot=🔥=calent / calor|cold=🧊=fred|happy=😊=content|tired=😴=cansat`),
     ...row('social', `please=🙏=si us plau`)
 ];
 
@@ -31,8 +31,8 @@ export const DEFAULT_BOARD: Board = {
         { id: 'places', name: 'Places', ca: 'Llocs', icon: '🏠', words: row('noun', `home=🏠=casa|school=🏫=escola|work=🏢=feina|shop=🏪=botiga|supermarket=🛒=supermercat|hospital=🏥=hospital|pharmacy=💊=farmàcia|bank=🏦=banc|post office=📮=oficina de correus|restaurant=🍴=restaurant|bathroom=🚻=lavabo|kitchen=🍳=cuina|bedroom=🛏️=habitació|street=🛣️=carrer|park=🌳=parc|city=🏙️=ciutat|country=🌍=país|station=🚉=estació|bus stop=🚏=parada d'autobús|airport=✈️=aeroport|bus=🚌=autobús|train=🚆=tren|car=🚗=cotxe|taxi=🚕=taxi|bike=🚲=bicicleta|office=🗄️=oficina|library=📚=biblioteca|church=⛪=església|mosque=🕌=mesquita|outside=🌤️=fora`) },
         { id: 'body', name: 'Health', ca: 'Salut', icon: '🩺', words: [
             ...row('noun', `head=🗣️=cap|eye=👁️=ull|ear=👂=orella|tooth=🦷=dent|throat==gola|back==esquena|stomach==estómac / panxa|arm=💪=braç|hand=✋=mà|leg=🦵=cama|foot=🦶=peu|heart=🫀=cor|pain=🤕=dolor|fever=🌡️=febre|cough==tos|medicine=💊=medicament|appointment=📅=cita|allergy=🤧=al·lèrgia|blood=🩸=sang|glasses=👓=ulleres|emergency=🚨=urgència|ambulance=🚑=ambulància`),
-            ...row('describe', `dizzy=😵=marejat|hurt=🤕=ferit / em fa mal|better=📈=millor|worse=📉=pitjor|pregnant=🤰=embarassada|afraid=😨=espantat / tenir por`)] },
-        { id: 'describe', name: 'Describe', ca: 'Descriure', icon: '🎨', words: row('describe', `sad=😢=trist|angry=😠=enfadat|worried=😟=preocupat|hungry=😋=tenir gana|thirsty=🥤=tenir set|ready=✅=a punt|busy==ocupat|free==lliure|late=⌛=tard|early==d'hora|fast=⚡=ràpid|slow=🐢=lent|easy==fàcil|difficult=🧩=difícil|important=❗=important|new=✨=nou|old==vell / antic|cheap==barat|expensive=💰=car|open==obert|closed==tancat|right=✔️=correcte|wrong=✖️=incorrecte / equivocat|same==igual|different==diferent|many==molts|some==alguns / una mica de|all==tot / tots|a little=🤏=una mica|too==massa / també|again=🔁=una altra vegada|also==també|only==només|maybe=🤷=potser|always==sempre|never==mai|sometimes==de vegades|near==a prop|far==lluny|up=⬆️=amunt|down=⬇️=avall|left=⬅️=esquerra|right=➡️=dreta`) },
+            ...row('describe', `sick=🤒=malalt|dizzy=😵=marejat|hurt=🤕=ferit / em fa mal|better=📈=millor|worse=📉=pitjor|pregnant=🤰=embarassada|afraid=😨=espantat / tenir por`)] },
+        { id: 'describe', name: 'Describe', ca: 'Descriure', icon: '🎨', words: row('describe', `sad=😢=trist|angry=😠=enfadat|worried=😟=preocupat|hungry=😋=tenir gana|thirsty=🥤=tenir set|ready=✅=a punt|busy==ocupat|free==lliure|late=⌛=tard|early==d'hora|fast=⚡=ràpid|slow=🐢=lent|easy==fàcil|difficult=🧩=difícil|important=❗=important|new=✨=nou|old==vell / antic|cheap==barat|expensive=💰=car|open==obert|closed==tancat|right=✔️=correcte|wrong=✖️=incorrecte / equivocat|same==igual|different==diferent|many==molts|some==alguns / una mica de|all==tot / tots|a little=🤏=una mica|more=➕=més|less=➖=menys|too==massa / també|again=🔁=una altra vegada|also==també|only==només|maybe=🤷=potser|always==sempre|never==mai|sometimes==de vegades|near==a prop|far==lluny|up=⬆️=amunt|down=⬇️=avall|left=⬅️=esquerra|right=➡️=dreta`) },
         { id: 'time', name: 'Time', ca: 'Temps', icon: '🕒', words: [
             ...row('describe', `today=📅=avui|tomorrow=⏭️=demà|yesterday=⏮️=ahir|morning=🌅=matí|afternoon=☀️=tarda|evening=🌇=vespre|night=🌙=nit|soon==aviat|later==més tard|before==abans|after==després|next==següent / vinent|last==últim / passat|every day==cada dia`),
             ...row('noun', `time=🕒=temps / hora|hour==hora|minute==minut|day==dia|week==setmana|month==mes|year==any|Monday==dilluns|Tuesday==dimarts|Wednesday==dimecres|Thursday==dijous|Friday==divendres|Saturday==dissabte|Sunday==diumenge|weekend==cap de setmana`),

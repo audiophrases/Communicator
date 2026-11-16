@@ -92,8 +92,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
   questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
   consistent is what matters.
-- **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own:
-  the suggestion is spoken only when the speaker taps it, and tapping or typing another word dismisses it. The prompt
+- **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own
+  and never replaces the speaker's words: tapping a suggestion only says it aloud, so they can hear it, compare it
+  with their own attempt and try again. Tapping or typing another word closes the suggestions. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
 - **Fix sees the sentence said just before (within 2 minutes)**, for one common ESL mistake: setting the time once and
   going back to the present ("Yesterday I went to the park." then "I eat ice cream" → "I ate ice cream."; "Next week I
