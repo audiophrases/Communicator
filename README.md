@@ -31,7 +31,7 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 ## Voices
 
 Speech goes through PinPlay's Edge TTS bridge on Render, as in HelloChat and Pixel Plaza: the laptop asks the bridge
-and passes the audio to students over the Wi-Fi. No OpenAI. Students pick one of 18 English voices (UK, US, Irish,
+and passes the audio to students over the Wi-Fi. No OpenAI. Students pick one of 18 English voices (Emma, American, by default; also UK, Irish,
 Australian and more) and a speed in Settings. `classroom.bat` wakes the bridge while it starts, because Render can
 take a while to wake up. The laptop needs internet for these voices; without it, or if the bridge does not answer
 within 10 seconds, each device speaks with its own voice. Single tapped words always use the device's voice, which is

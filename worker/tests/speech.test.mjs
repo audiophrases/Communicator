@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { DEFAULT_EDGE_TTS_URL, synthesize } from '../speech.ts';
-import { bridgeRate, isEnglishVoice } from '../../shared/voices.ts';
+import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../../shared/voices.ts';
 
 async function withFetch(fake, run) {
     const real = globalThis.fetch;
@@ -36,6 +36,8 @@ test('speech sends the bridge secret when there is one, and gives up quietly', a
 
 test('voices and speeds are checked', () => {
     assert.equal(isEnglishVoice('en-GB-SoniaNeural'), true);
+    assert.equal(DEFAULT_VOICE, 'en-US-EmmaMultilingualNeural'); // Emma, American English
+    assert.equal(isEnglishVoice(DEFAULT_VOICE), true);
     assert.equal(isEnglishVoice('coral'), false);
     assert.deepEqual([0.8, 1, 1.15, 3, 'x'].map(bridgeRate), ['-20%', '+0%', '+15%', '+0%', '+0%']);
 });
