@@ -90,7 +90,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 
 | Part | Where | What it does |
 | --- | --- | --- |
-| Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 9 topic pages, 30 quick phrases, each with Catalan; saved and recent phrases |
+| Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 15 topic pages (about 880 words, covering CEFR A1), 30 quick phrases, each with Catalan; saved and recent phrases |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
@@ -108,7 +108,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
   consistent is what matters. Page tabs take the colour of most of their words.
 - **Core words are on their pages too.** Each core word also leads the page of its colour (pronouns on People, core
-  verbs on Actions, describing words on Describe, "now" on Time, little words on Things), so a sentence can be built
+  verbs on Actions, describing words on Describe, "now" on Time, little words on Little words), so a sentence can be built
   on one page without going back to Core. Question words and yes/no/not/please, whose colours had no page, have
   **Ask & answer**. It is the same button: same picture, same Catalan.
 - **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own
@@ -121,6 +121,13 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   names one, never for questions or needs about now, and never copies words from it. OpenAI says whether the sentence
   before changed the answer: if not, the answer is shared with the whole class; if so, it is saved only for that pair,
   and a student with a different sentence before gets a fresh answer.
+- **The A1 words are all there.** The pages hold the CEFR A1 vocabulary: the A1 words of the
+  [Oxford 3000](https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000) and Cambridge's
+  [A1 Movers](https://www.cambridgeenglish.org/Images/351850-a1-movers-word-list-2018.pdf) word list, about 900 words. Most
+  sit on the page of their topic (Numbers, Clothes & colours, Nature & weather, School, Free time); verbs, describing
+  words and little words that fit no topic go on Actions, Describe and Little words. Left out: alcohol, CDs and DVDs,
+  and second spellings of a word already there (bicycle for bike, telephone for phone, cannot for can't). Spelling is
+  British, as in the Oxford list.
 - **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan, on by default on every device; a student can choose "Do not translate") shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
   check a word without adding it to the message.
@@ -130,10 +137,11 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   device attached; **Forget them** in `/create` deletes them. What a student sends to Fix goes to OpenAI, and, with
   this account's data sharing on, OpenAI may use it to train its models. Spoken sentences go to the voice bridge.
 - **Mulberry symbols where they say more than an emoji.** Each word was compared by eye with its Mulberry candidates.
-  95 words use a Mulberry symbol: actions (an emoji of a chair for "sit" shows the chair, Mulberry shows someone
+  About 210 words use a Mulberry symbol: actions (an emoji of a chair for "sit" shows the chair, Mulberry shows someone
   sitting), question words, family relations (who to whom), time words that emoji show as media buttons (⏭️ for
-  "tomorrow"), body parts, pairs such as open/closed and hungry/thirsty, and words that had no picture. Emoji stay
-  where they are clear: feelings, most food and things, call, wait, write. No two different words share a picture
+  "tomorrow"), body parts, pairs such as open/closed and hungry/thirsty, numbers past ten, colours, seasons and weather,
+  where things are (above, behind, between), and words that had no picture. Emoji stay where they are clear: feelings,
+  most food and things, animals, call, wait, write. No two different words share a picture
   (a test checks it). Pronouns and little words (you, the, because…) have no Mulberry symbol and stay as text or emoji.
 
 ## Symbols

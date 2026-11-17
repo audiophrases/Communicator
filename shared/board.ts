@@ -27,7 +27,7 @@ export function pageKind(words: Word[]): Kind | undefined {
     return best;
 }
 
-export const LIMITS = { core: 80, pages: 16, words: 120, quick: 80, word: 40, emoji: 16, ca: 80, phrase: 200, phraseCa: 300, name: 24, json: 120_000 };
+export const LIMITS = { core: 80, pages: 24, words: 160, quick: 80, word: 40, emoji: 16, ca: 80, phrase: 200, phraseCa: 300, name: 24, json: 120_000 };
 
 const isKind = (value: unknown): value is Kind => KINDS.some(item => item.kind === value);
 const str = (value: unknown, max: number) => typeof value === 'string' ? value.trim().replace(/\s+/g, ' ').slice(0, max) : '';
