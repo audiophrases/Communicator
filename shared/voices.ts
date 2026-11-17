@@ -2,7 +2,7 @@
 // The page offers them and the Worker accepts only these.
 export type EnglishVoice = Readonly<{ id: string; label: string; accent: string }>;
 
-export const DEFAULT_VOICE = 'en-GB-SoniaNeural';
+export const DEFAULT_VOICE = 'en-US-EmmaMultilingualNeural'; // Emma, American English
 
 export const ENGLISH_VOICES: readonly EnglishVoice[] = [
     { id: 'en-GB-SoniaNeural', label: 'Sonia', accent: 'United Kingdom' },

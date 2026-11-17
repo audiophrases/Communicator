@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { KINDS, LIMITS, pageKind, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
 import type { TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
-import { Key } from './Key.tsx';
+import { Key, Picture } from './Key.tsx';
+import { findButtons } from './search.ts';
 import { SymbolPicker } from './SymbolPicker.tsx';
 import { DEFAULT_BOARD } from './vocab.ts';
 
@@ -66,6 +67,7 @@ export default function Create() {
     const ai = !!settings?.key; // the editor's ✨ Catalan needs the OpenAI key, whatever the students' switch says
     const [tab, setTab] = useState('core');
     const [selected, setSelected] = useState<number | null>(null);
+    const [findText, setFindText] = useState('');
     const [busy, setBusy] = useState('');
     const [message, setMessage] = useState<{ text: string; bad?: boolean } | null>(null);
 
@@ -297,6 +299,30 @@ export default function Create() {
                 )}
             </div>
             {message && <div className={message.bad ? 'msg bad' : 'msg'} role="status">{message.text}</div>}
+
+            {/* Find a button by its English or Catalan; a result opens its page with it selected. Every place a word is
+                (Core and its page) is listed, to edit that one. */}
+            <div className="find">
+                <input value={findText} onChange={event => setFindText(event.target.value)} aria-label="Find a button"
+                    placeholder="🔍 Find a button: English or Catalan (? one letter, * any letters)"
+                    onKeyDown={event => { if (event.key === 'Escape') setFindText(''); }} />
+                {findText.trim() && (() => {
+                    const hits = findButtons(board, findText, { distinct: false, limit: 30 });
+                    return (
+                        <div className="find-results">
+                            {hits.length === 0 && <p className="hint">No button matches “{findText.trim()}”.</p>}
+                            {hits.map(hit => (
+                                <button key={`${hit.page}-${hit.index}`} className={`found-key k-${hit.word.k}`}
+                                    onClick={() => { setTab(hit.page); setSelected(hit.index); setFindText(''); }}>
+                                    <Picture word={hit.word} className="found-pic" />
+                                    <span className="found-word">{hit.word.w} <small className="found-page">· {hit.pageName}</small></span>
+                                    {hit.word.ca && <span className="found-ca" lang="ca">{hit.word.ca}</span>}
+                                </button>
+                            ))}
+                        </div>
+                    );
+                })()}
+            </div>
 
             <nav className="tabs">
                 {tabs.map(item => (

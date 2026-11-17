@@ -1,5 +1,7 @@
 // Speaks with the Edge voice the laptop fetches, or with this device's own voice when that is not available.
 
+import { DEFAULT_VOICE } from '../shared/voices.ts';
+
 export type SpeakOptions = { voice: string; rate: number };
 
 const WAIT_MS = 10_000; // a sleeping bridge can take longer; the device's voice speaks instead
@@ -29,19 +31,25 @@ export function stop() {
     window.speechSynthesis?.cancel();
 }
 
-function deviceVoice(): SpeechSynthesisVoice | undefined {
+// The device's own English voice with the accent of the chosen voice ("en-US-EmmaMultilingualNeural" → en-US):
+// a natural-sounding one if there is one, any with that accent, or any English one.
+function deviceVoice(lang: string): SpeechSynthesisVoice | undefined {
     const english = window.speechSynthesis.getVoices().filter(voice => voice.lang.startsWith('en'));
-    return english.find(voice => /natural|google|samantha/i.test(voice.name)) ?? english.find(voice => voice.lang === 'en-GB') ?? english[0];
+    const accent = english.filter(voice => voice.lang.replace('_', '-') === lang);
+    const natural = (list: SpeechSynthesisVoice[]) => list.find(voice => /natural|google|samantha/i.test(voice.name));
+    return natural(accent) ?? accent[0] ?? natural(english) ?? english[0];
 }
 
-// The device's voice: instant and offline, used for single words and as the fallback.
-export function sayOnDevice(text: string, rate = 1): Promise<void> {
+// The device's voice: instant and offline, used for single words and as the fallback. voiceId is the chosen Edge
+// voice, whose accent the device voice follows.
+export function sayOnDevice(text: string, rate = 1, voiceId = DEFAULT_VOICE): Promise<void> {
     return new Promise(resolve => {
         if (!window.speechSynthesis) return resolve();
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-GB';
+        const lang = /^en-[A-Z]{2}/.exec(voiceId)?.[0] ?? 'en-US';
+        utterance.lang = lang;
         utterance.rate = rate;
-        const voice = deviceVoice();
+        const voice = deviceVoice(lang);
         if (voice) utterance.voice = voice;
         utterance.onend = utterance.onerror = () => resolve();
         window.speechSynthesis.speak(utterance);
@@ -87,6 +95,6 @@ export async function say(text: string, options: SpeakOptions): Promise<'natural
         } catch { /* the browser refused to play: use the device voice */ }
         if (mine !== turn) return 'natural';
     }
-    await sayOnDevice(text, options.rate);
+    await sayOnDevice(text, options.rate, options.voice);
     return 'device';
 }

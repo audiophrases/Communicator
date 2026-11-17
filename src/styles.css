@@ -95,6 +95,22 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .inline { display: flex; gap: 6px; }
 .inline select { flex: 1; }
 
+/* Buttons found by typing (src/search.ts): under the text box, best first, scrolling sideways. */
+.found { grid-column: 1 / -1; display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: thin; }
+.found-key { flex: none; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 8px; align-items: center;
+    border: 2px solid rgb(0 0 0 / .28); border-radius: 12px; padding: 6px 12px 6px 8px; min-height: 52px; text-align: left; }
+.found-key:first-child { box-shadow: 0 0 0 3px var(--accent); } /* Tab picks this one */
+.found-pic { grid-row: span 2; font-size: 1.5rem; line-height: 1; }
+.found-pic.sym { width: 2rem; height: 2rem; object-fit: contain; }
+.found-word { font-weight: 700; font-size: 1.05rem; }
+.found-ca { font-size: .8rem; color: var(--soft); max-width: 14em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* /create: Find a button */
+.find { margin: 0 10px 8px; display: grid; gap: 6px; }
+.find input { max-width: 560px; }
+.find-results { display: flex; flex-wrap: wrap; gap: 6px; }
+.found-page { font-weight: 400; color: var(--soft); }
+
 /* Catalan tooltip (src/tooltip.ts) */
 .tip { position: fixed; z-index: 50; max-width: min(320px, calc(100vw - 16px)); pointer-events: none; background: #1d2330; color: #fff;
     border-radius: 10px; padding: 7px 12px; font-size: 1.05rem; font-weight: 600; box-shadow: 0 4px 14px rgb(0 0 0 / .25); }

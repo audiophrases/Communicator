@@ -2,7 +2,9 @@
 
 An AAC (augmentative and alternative communication) board for people who are learning English.
 Tap words or type broken English, press **Fix** to get the correct sentence, and **Speak** says it in a natural voice.
-Hold any button (or point at it with a mouse) to see it in Catalan.
+Hold any button (or point at it with a mouse) to see it in Catalan. Type a few letters, in English or Catalan, and the
+matching buttons appear under the text box, narrowing as you type: tap one, or press Tab for the first. `?` stands for
+one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are optional (`germa` → germà).
 
 `I` `want` `go` `doctor` `tomorrow` → ✨ **I want to go to the doctor tomorrow.** 🔊
 
@@ -75,6 +77,7 @@ keep getting it). Unused answers are dropped after 60 days, and at most 5,000 co
 Open `/create` and sign in with the teacher password. There you can:
 
 - switch **Fix for students** on or off, and see the address students open;
+- **find a button** by its English or Catalan (same `?` and `*`): a result opens its page with it selected;
 - change any button's English word, emoji, Catalan and colour, move it, or remove it;
 - add buttons, add, rename, reorder and delete topic pages, and edit the quick phrases;
 - press ✨ next to a Catalan box, or **Fill missing Catalan** for everything at once, to translate with AI, then check
@@ -118,7 +121,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   names one, never for questions or needs about now, and never copies words from it. OpenAI says whether the sentence
   before changed the answer: if not, the answer is shared with the whole class; if so, it is saved only for that pair,
   and a student with a different sentence before gets a fresh answer.
-- **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan for now) shows the
+- **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan, on by default on every device; a student can choose "Do not translate") shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
   check a word without adding it to the message.
 - **Nothing is censored, and nothing says who said what.** It is the speaker's own voice, so there is no moderation

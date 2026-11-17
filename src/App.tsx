@@ -4,6 +4,7 @@ import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/
 import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
+import { typedQuery, type Hit } from './search.ts';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
 // typed: words the speaker typed (or a phrase put back to edit), which ⌫ takes away one word at a time.
@@ -12,10 +13,12 @@ type Token = { w: string; e?: string; s?: string; typed?: boolean };
 
 // "go to the doctor" → "go to the"
 const withoutLastWord = (text: string) => text.trimEnd().replace(/\s*\S+$/, '');
-type Settings = { voice: string; rate: number; level: Level; language: string; tapSound: boolean };
+// languageChosen: the speaker picked the language in Settings. Until then Fix translates into Catalan, the class's
+// language; a device that saved "Do not translate" only because it was the old default goes back to Catalan.
+type Settings = { voice: string; voiceChosen?: boolean; rate: number; level: Level; language: string; languageChosen?: boolean; tapSound: boolean };
 type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'error'; message: string } | null;
 
-const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: '', tapSound: true };
+const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: 'Catalan', tapSound: true };
 const ACCENTS = [...new Set(ENGLISH_VOICES.map(voice => voice.accent))];
 const STATUS_EVERY_MS = 30_000; // so the teacher's Fix switch reaches students without a reload
 const CONTEXT_MS = 2 * 60_000; // a sentence said within this time counts as part of the same conversation
@@ -30,12 +33,15 @@ function save(key: string, value: unknown) {
     try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private window: nothing is kept */ }
 }
 function loadSettings(): Settings {
-    const { voice, rate, level, language, tapSound } = load('settings', DEFAULTS);
+    const { voice, voiceChosen, rate, level, language, languageChosen, tapSound } = load('settings', DEFAULTS);
     return {
         tapSound: tapSound !== false,
-        voice: isEnglishVoice(voice) ? voice : DEFAULTS.voice,
+        // A voice the speaker picked stays; any other (the old default, saved just by opening the page) becomes Emma.
+        ...(voiceChosen === true && isEnglishVoice(voice) ? { voice, voiceChosen: true } : { voice: DEFAULTS.voice }),
         level: isLevel(level) ? level : DEFAULTS.level,
-        language: isLanguage(language) ? language : '',
+        ...(languageChosen === true
+            ? { language: isLanguage(language) ? language : '', languageChosen: true }
+            : { language: DEFAULTS.language }),
         rate: String(rate) in RATES ? rate : 1
     };
 }
@@ -108,6 +114,8 @@ export default function App() {
     const phraseCa = useMemo(() => new Map(board.quick.filter(item => item.ca).map(item => [item.t, item.ca!])), [board]);
 
     const message = [...tokens.map(token => token.w), draft.trim()].filter(Boolean).join(' ');
+    // Buttons matching what is being typed (English or Catalan; ? one letter, * any letters).
+    const found = useMemo(() => typedQuery(board, draft), [board, draft]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
 
     async function speak(text: string) {
@@ -128,7 +136,17 @@ export default function App() {
         setTokens(current => [...current, ...(typed ? [{ w: typed, typed: true }] : []), { w: word.w, e: word.e, s: word.s }]);
         setDraft('');
         setFix(null);
-        if (settings.tapSound) { stop(); void sayOnDevice(word.w, settings.rate); }
+        if (settings.tapSound) { stop(); void sayOnDevice(word.w, settings.rate, settings.voice); }
+    }
+
+    // A button found by typing: it takes the place of the letters typed for it, and earlier typed words stay.
+    function pick(hit: Hit, typedWords: number) {
+        const before = draft.trim().split(/\s+/).slice(0, -typedWords).join(' ');
+        setTokens(current => [...current, ...(before ? [{ w: before, typed: true }] : []), { w: hit.word.w, e: hit.word.e, s: hit.word.s }]);
+        setDraft('');
+        setFix(null);
+        if (settings.tapSound) { stop(); void sayOnDevice(hit.word.w, settings.rate, settings.voice); }
+        typing.current?.focus(); // keep typing
     }
 
     function commitDraft(text = draft) {
@@ -221,10 +239,11 @@ export default function App() {
                     ))}
                     <input
                         ref={typing} className="typing" value={draft} maxLength={MAX_TEXT} aria-label="Type words"
-                        placeholder={tokens.length ? '' : 'Tap words, or type here'}
+                        placeholder={tokens.length ? '' : 'Tap words, or type to find them'}
                         onChange={event => { setDraft(event.target.value); setFix(null); }}
                         onKeyDown={event => {
-                            if (event.key === 'Enter') { event.preventDefault(); void speak(message); commitDraft(); }
+                            if (event.key === 'Tab' && found && !event.shiftKey) { event.preventDefault(); pick(found.hits[0], found.words); }
+                            else if (event.key === 'Enter') { event.preventDefault(); void speak(message); commitDraft(); }
                             else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
                         }}
                     />
@@ -239,6 +258,18 @@ export default function App() {
                     <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : void speak(message)} disabled={!message}
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
                 </div>
+                {found && (
+                    <div className="found" aria-label={`Buttons for "${found.query}"`}>
+                        {found.hits.map(hit => (
+                            <button key={`${hit.page}-${hit.index}`} className={`found-key k-${hit.word.k}`} onClick={() => pick(hit, found.words)}
+                                data-ca={hit.word.ca || undefined} title={hit.page === 'core' ? 'Core' : hit.pageName}>
+                                <Picture word={hit.word} className="found-pic" />
+                                <span className="found-word">{hit.word.w}</span>
+                                {hit.word.ca && <span className="found-ca" lang="ca">{hit.word.ca}</span>}
+                            </button>
+                        ))}
+                    </div>
+                )}
                 {fix?.state === 'loading' && <div className="fixbox">Thinking…</div>}
                 {fix?.state === 'error' && <div className="fixbox warn">{fix.message}</div>}
                 {fix?.state === 'done' && (
@@ -284,7 +315,7 @@ export default function App() {
                     <div className="settings">
                         <label>Voice
                             <span className="inline">
-                                <select value={settings.voice} onChange={event => set('voice', event.target.value)}>
+                                <select value={settings.voice} onChange={event => { const voice = event.target.value; setSettings(current => ({ ...current, voice, voiceChosen: true })); }}>
                                     {ACCENTS.map(accent => (
                                         <optgroup key={accent} label={accent}>
                                             {ENGLISH_VOICES.filter(voice => voice.accent === accent).map(voice => <option key={voice.id} value={voice.id}>{voice.label}</option>)}
@@ -306,7 +337,7 @@ export default function App() {
                             <small>{status.fix ? 'Fix uses words for this level.' : 'Fix is switched off by your teacher.'}</small>
                         </label>
                         <label>My language
-                            <select value={settings.language} onChange={event => set('language', event.target.value)}>
+                            <select value={settings.language} onChange={event => { const language = event.target.value; setSettings(current => ({ ...current, language, languageChosen: true })); }}>
                                 <option value="">Do not translate</option>
                                 {LANGUAGES.map(language => <option key={language} value={language}>{language === 'Catalan' ? 'Catalan (català)' : language}</option>)}
                             </select>
@@ -317,6 +348,7 @@ export default function App() {
                             Say each word when I tap it
                         </label>
                         <p className="hint">Hold a button (or point at it with the mouse) to see it in Catalan.</p>
+                        <p className="hint">Type a few letters, in English or Catalan, to find a button: tap it or press Tab. ? stands for one letter and * for any number (h?t, *ppy).</p>
                         <p className="credit">Symbols: <a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee,{' '}
                             <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Emoji by your device.</p>
                     </div>
