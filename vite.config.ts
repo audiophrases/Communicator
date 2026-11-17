@@ -5,10 +5,15 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig, type Plugin } from 'vite'
 
 // The Mulberry Symbols (mulberry-symbols/, © Steve Lee, CC BY-SA 4.0) at /symbols/<name>.svg, plus /symbols/index.json
-// for the editor's search. The few symbols the set marks as rated (anatomy) are left out.
+// for the editor's search. The few symbols the set marks as rated (anatomy) are left out. The app's own symbols
+// (own-symbols/, for words Mulberry has no picture for, such as "I") are served the same way.
+const OWN: { n: string; t: string; c: string }[] = [{ n: 'I_me', t: 'I me myself pronoun person', c: 'Communicator' }]
+
 function mulberry(): Plugin {
   const root = fileURLToPath(new URL('./mulberry-symbols', import.meta.url))
   const svgs = path.join(root, 'EN-symbols')
+  const own = fileURLToPath(new URL('./own-symbols', import.meta.url))
+  const fileOf = (name: string) => OWN.some(symbol => symbol.n === name) ? path.join(own, `${name}.svg`) : path.join(svgs, `${name}.svg`)
   let outDir = 'dist'
 
   // One CSV line's fields. Names with commas ("eat_,_to") are quoted.
@@ -34,7 +39,7 @@ function mulberry(): Plugin {
       const [, , , rated, tags, name, category] = fields(line)
       if (rated === '0' && name && fs.existsSync(path.join(svgs, `${name}.svg`))) symbols.push({ n: name, t: tags, c: category })
     }
-    return symbols
+    return [...OWN, ...symbols]
   }
 
   return {
@@ -48,14 +53,14 @@ function mulberry(): Plugin {
         if (file === 'index.json') { res.setHeader('Content-Type', 'application/json'); res.end(index); return }
         if (!allowed.has(file)) return next()
         res.setHeader('Content-Type', 'image/svg+xml')
-        fs.createReadStream(path.join(svgs, file)).pipe(res)
+        fs.createReadStream(fileOf(file.replace(/\.svg$/, ''))).pipe(res)
       })
     },
     closeBundle() {
       const symbols = readIndex()
       const target = path.join(outDir, 'symbols')
       fs.mkdirSync(target, { recursive: true })
-      for (const symbol of symbols) fs.copyFileSync(path.join(svgs, `${symbol.n}.svg`), path.join(target, `${symbol.n}.svg`))
+      for (const symbol of symbols) fs.copyFileSync(fileOf(symbol.n), path.join(target, `${symbol.n}.svg`))
       fs.writeFileSync(path.join(target, 'index.json'), JSON.stringify(symbols))
     },
   }

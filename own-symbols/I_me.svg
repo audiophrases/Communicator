@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="850" height="850" viewBox="0 0 850 850">
+  <!-- "I" / "me": a person pointing at their own chest. Drawn for Communicator in the style of the Mulberry Symbols. -->
+  <g stroke="#1b1b1b" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M190 835 V545 Q190 400 330 388 H520 Q660 400 660 545 V835 Z" fill="#3f88d6" stroke-width="12"/>
+    <path d="M380 318 H470 V400 Q425 428 380 400 Z" fill="#f2c9a0" stroke-width="12"/>
+    <circle cx="425" cy="210" r="122" fill="#fbdcbc" stroke-width="12"/>
+    <path d="M304 214 Q296 84 425 82 Q554 84 546 214 Q530 142 425 140 Q320 142 304 214 Z" fill="#5a3820" stroke-width="10"/>
+    <circle cx="380" cy="218" r="13" fill="#1b1b1b" stroke="none"/>
+    <circle cx="470" cy="218" r="13" fill="#1b1b1b" stroke="none"/>
+    <path d="M378 272 Q425 306 472 272" fill="none" stroke-width="12"/>
+    <path d="M262 468 Q222 600 258 700 Q290 735 340 676" fill="none" stroke-width="96"/>
+    <path d="M262 468 Q222 600 258 700 Q290 735 340 676" fill="none" stroke="#235c9e" stroke-width="72"/>
+    <path d="M380 630 L436 548" fill="none" stroke-width="50"/>
+    <path d="M380 630 L436 548" fill="none" stroke="#fbdcbc" stroke-width="30"/>
+    <circle cx="362" cy="656" r="56" fill="#fbdcbc" stroke-width="12"/>
+    <path d="M336 630 Q366 648 346 684" fill="none" stroke-width="9"/>
+    <path d="M376 624 Q392 646 378 668" fill="none" stroke-width="9"/>
+    <path d="M474 520 L504 496 M484 562 L522 560 M444 488 L450 456" fill="none" stroke="#ffffff" stroke-width="14"/>
+  </g>
+</svg>

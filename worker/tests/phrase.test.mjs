@@ -7,7 +7,10 @@ test('the same question shares one saved answer; a different one does not', () =
     const env = {};
     const seed = (text, level = 'A2', language = '') => fixSeed({ text, level, language }, env);
     assert.equal(seed('I want go home'), seed('  i WANT go   home. '));
-    assert.equal(seed('where bus stop'), seed('Where bus stop?'));
+    // The ? button asks: "you want coffee?" is not "you want coffee", however the mark was spaced.
+    assert.notEqual(seed('you want coffee'), seed('you want coffee?'));
+    assert.equal(seed('you want coffee?'), seed('You want coffee ?'));
+    assert.equal(seed('where bus stop?'), seed('Where bus stop ? '));
     assert.notEqual(seed('I want go home'), seed('I want go home', 'B1'));
     assert.notEqual(seed('I want go home'), seed('I want go home', 'A2', 'Catalan'));
     assert.notEqual(seed('I want go home'), seed('I want go school'));

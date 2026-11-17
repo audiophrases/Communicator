@@ -113,7 +113,9 @@ export default function App() {
     // Catalan for a whole phrase, when it is one of the board's quick phrases.
     const phraseCa = useMemo(() => new Map(board.quick.filter(item => item.ca).map(item => [item.t, item.ca!])), [board]);
 
-    const message = [...tokens.map(token => token.w), draft.trim()].filter(Boolean).join(' ');
+    // A question mark sits on the word before it, as it is written: "you want coffee?".
+    const message = [...tokens.map(token => token.w), draft.trim()].filter(Boolean).join(' ').replace(/ \?/g, '?');
+    const asking = message.endsWith('?');
     // Buttons matching what is being typed (English or Catalan; ? one letter, * any letters).
     const found = useMemo(() => typedQuery(board, draft), [board, draft]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
@@ -131,12 +133,15 @@ export default function App() {
 
     function tap(word: Word) {
         if (!word.w) return;
+        // ? makes the words so far a question ("you want coffee" → "you want coffee?"): Speak asks it, Fix makes a
+        // question of it. It needs words before it, and once is enough; ⌫ takes it away.
+        if (word.w === '?' && (!message || asking)) return;
         // Typed words go first, so the message keeps the order they were added in.
         const typed = draft.trim();
         setTokens(current => [...current, ...(typed ? [{ w: typed, typed: true }] : []), { w: word.w, e: word.e, s: word.s }]);
         setDraft('');
         setFix(null);
-        if (settings.tapSound) { stop(); void sayOnDevice(word.w, settings.rate, settings.voice); }
+        if (settings.tapSound && word.w !== '?') { stop(); void sayOnDevice(word.w, settings.rate, settings.voice); }
     }
 
     // A button found by typing: it takes the place of the letters typed for it, and earlier typed words stay.
@@ -235,7 +240,7 @@ export default function App() {
             <header className="top">
                 <div className="bar" onClick={() => typing.current?.focus()}>
                     {tokens.map((token, index) => (
-                        <span className="chip" key={index}><Picture word={token} className="chip-pic" />{token.w}</span>
+                        <span className={token.w === '?' ? 'chip mark' : 'chip'} key={index}><Picture word={token} className="chip-pic" />{token.w}</span>
                     ))}
                     <input
                         ref={typing} className="typing" value={draft} maxLength={MAX_TEXT} aria-label="Type words"

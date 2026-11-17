@@ -8,6 +8,9 @@ one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are
 
 `I` `want` `go` `doctor` `tomorrow` → ✨ **I want to go to the doctor tomorrow.** 🔊
 
+The **?** key in Core makes the words a question: `you` `want` `coffee` says "you want coffee", `you` `want`
+`coffee` `?` asks "you want coffee?", and Fix turns it into ✨ **Do you want coffee?**
+
 It runs on the teacher's laptop during class, like Pixel Plaza on the laptop: students open the laptop's address
 over the school Wi-Fi. Nothing is put online.
 
@@ -60,7 +63,8 @@ screens follow within 30 seconds. Without a key, Fix is hidden and everything el
 Like PinPlay's voice cache, every answer is kept on the laptop under a fingerprint of what was asked, and reused for
 the whole class, across lessons and restarts:
 
-- **Fix**: the same words at the same level and language (capitals, spaces and the final full stop do not matter).
+- **Fix**: the same words at the same level and language (capitals, spaces and the final full stop do not matter;
+  a question mark does).
   The second student who writes "I want go home" gets "I want to go home." at once, without calling OpenAI. An answer
   that depended on the sentence said before is reused only after that same sentence (see the design notes below).
 - **Catalan in the editor**: only buttons never translated before are sent.
@@ -151,3 +155,7 @@ The [Mulberry Symbols](https://mulberrysymbols.org) (`mulberry-symbols/`, versio
 `dist/symbols/` with a search index, leaving out the six the set marks as rated (anatomy), so `mulberry-symbols/` must
 be present to build. The built-in choices are in `src/vocab.ts` (`SYMBOLS`). In `/create`, each button has a symbol
 search that starts from its English word; a symbol replaces the emoji on that button.
+
+Mulberry has no picture for "I", so `own-symbols/I_me.svg` (a person pointing at their own chest, the usual AAC
+picture for "I") was drawn for this app in the Mulberry style. Own symbols are listed in `vite.config.ts` (`OWN`),
+served and searched like the Mulberry ones.

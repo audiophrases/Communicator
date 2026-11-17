@@ -20,7 +20,7 @@ const row = (kind: Kind, items: string): Word[] => items.split('|').map(item => 
 // Emoji stay where they are clear: feelings, most food and things, animals, call, wait, write.
 const SYMBOLS: Record<string, Record<string, string>> = {
     core: {
-        want: 'want_,_to', go: 'go_,_to', come: 'come_,_to', get: 'get_,_to', make: 'make_,_to', see: 'look_,_to', eat: 'eat_,_to',
+        I: 'I_me', want: 'want_,_to', go: 'go_,_to', come: 'come_,_to', get: 'get_,_to', make: 'make_,_to', see: 'look_,_to', eat: 'eat_,_to',
         drink: 'drink_,_to', help: 'help_,_to', give: 'give_,_to', in: 'in', what: 'what', when: 'when', who: 'who', why: 'why', how: 'how',
         now: 'now', good: 'good', bad: 'bad', hot: 'hot'
     },
@@ -99,7 +99,7 @@ const CORE: Word[] = [
     ...row('no', `not=🚫=no (negació)|no=❌=no`), ...row('social', `yes=✅=sí`),
     ...row('little', `and==i|but==però|because==perquè|to==a / per a|in=📥=a / dins de|with=🤝=amb|for==per / per a`),
     ...row('question', `what=❓=què|where=📍=on|when=🕒=quan|who=👤=qui|why==per què|how==com`),
-    ...row('describe', `now=⏱️=ara|here=📌=aquí|more=➕=més|less=➖=menys`),
+    ...row('describe', `now=⏱️=ara|here=📌=aquí|more=➕=més`), ...row('question', `?==interrogant: és una pregunta`),
     ...row('describe', `very==molt|good=🙂=bo / bé|bad=🙁=dolent / malament|big=🐘=gran|small=🐜=petit|hot=🔥=calent / calor|cold=🧊=fred|happy=😊=content|tired=😴=cansat`),
     ...row('social', `please=🙏=si us plau`)
 ];
@@ -126,7 +126,7 @@ export const DEFAULT_BOARD: Board = {
             ...row('describe', `sick=🤒=malalt|healthy==sa / sana|dizzy=😵=marejat|hurt=🩹=ferit / em fa mal|better=📈=millor|worse=📉=pitjor|pregnant=🤰=embarassada|afraid=😨=espantat / tenir por`)]) },
         { id: 'describe', name: 'Describe', ca: 'Descriure', icon: '🎨', words: [...fromCore('here', 'very', 'good', 'bad', 'big', 'small', 'hot', 'cold', 'happy', 'tired'), ...withSymbols('describe', row('describe', `sad=😢=trist|angry=😠=enfadat|worried=😟=preocupat|excited=🤩=il·lusionat|bored=🥱=avorrit|hungry=😋=tenir gana|thirsty=🥤=tenir set|ready=✅=a punt|busy==ocupat|free==lliure|late=⌛=tard|early==d'hora|fast=⚡=ràpid|slow=🐢=lent|easy==fàcil|difficult=🧩=difícil|hard==dur / difícil|important=⭐=important|new=✨=nou|old==vell / antic|young==jove|tall==alt|short==baix / curt|long==llarg|high==alt|large==gran|strong==fort|cheap=🪙=barat|expensive=💰=car|rich==ric|poor==pobre|full==ple|clean==net|dirty==brut|quiet=🤫=tranquil / silenciós|beautiful==bonic / preciós|pretty==bonic / maco|nice==agradable / maco|friendly==simpàtic|funny==divertit / graciós|interesting==interessant|interested==interessat|boring==avorrit (que avorreix)|exciting==emocionant|great==genial|fantastic==fantàstic|wonderful==meravellós|amazing==increïble|cool==guai|perfect==perfecte|best==el millor|fine==bé|terrible==terrible|delicious==deliciós|dangerous==perillós|famous==famós|popular==popular|special==especial|favourite=💖=preferit|married=💍=casat / casada|modern==modern|online==en línia|useful==útil|open==obert|closed==tancat|right=✔️=correcte|wrong=✖️=incorrecte / equivocat|true==cert / veritat|false==fals|real==real / de veritat|sure==segur|possible==possible|same==igual|different==diferent|many==molts|some==alguns / una mica de|all==tot / tots|a little=🤏=una mica|more=➕=més|less=➖=menys|too==massa / també|really==de veritat / molt|quite==bastant|well==bé|again=🔁=una altra vegada|also==també|only==només|just==només / acabar de|still==encara|even==fins i tot|together==junts|maybe=🤷=potser|probably==probablement|always==sempre|usually==normalment|often==sovint|sometimes==de vegades|ever==alguna vegada|never==mai|near==a prop|far==lluny|up=⬆️=amunt|down=⬇️=avall|left=⬅️=esquerra|right=➡️=dreta`))] },
         { id: 'questions', name: 'Ask & answer', ca: 'Preguntar i respondre', icon: '❓', words: [
-            ...fromCore('what', 'where', 'when', 'who', 'why', 'how'), ...row('question', `which==quin / quina|how much==quant / quanta|how many==quants / quantes`),
+            ...fromCore('what', 'where', 'when', 'who', 'why', 'how', '?'), ...row('question', `which==quin / quina|how much==quant / quanta|how many==quants / quantes`),
             ...fromCore('yes', 'no', 'not', 'please'),
             ...withSymbols('questions', row('social', `ok=👌=d'acord|sorry=😔=perdó / ho sento|excuse me==perdoni|thank you==gràcies|thanks==gràcies|hello==hola|hi=👋=hola|goodbye==adéu|bye==adéu|welcome==benvingut / de res|yeah==sí / ja`))] },
         { id: 'time', name: 'Time', ca: 'Temps', icon: '🕒', words: [...fromCore('now'), ...withSymbols('time', [

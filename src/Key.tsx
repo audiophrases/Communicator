@@ -16,7 +16,7 @@ export function Key({ word, onTap, selected }: { word: Word; onTap: () => void; 
     return (
         <button className={className} onClick={onTap} data-ca={word.ca || undefined}>
             <Picture word={word} />
-            <span className={`key-word${word.w.length > 8 ? ' long' : ''}`}>{word.w}</span>
+            <span className={`key-word${word.w.length > 8 ? ' long' : ''}${word.w === '?' ? ' mark' : ''}`}>{word.w}</span>
         </button>
     );
 }

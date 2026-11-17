@@ -6,12 +6,16 @@ import { DEFAULT_BOARD } from '../../src/vocab.ts';
 
 const everyWord = () => [...DEFAULT_BOARD.core, ...DEFAULT_BOARD.pages.flatMap(page => page.words)].filter(word => word.w);
 
-test('every built-in symbol is in the Mulberry set, and none is a rated one', () => {
+test("every built-in symbol is in the Mulberry set or the app's own, and none is a rated one", () => {
     const dir = new URL('../../mulberry-symbols/EN-symbols/', import.meta.url);
     const csv = fs.readFileSync(new URL('../../mulberry-symbols/symbol-info.csv', import.meta.url), 'utf8');
     const used = [...new Set(everyWord().filter(word => word.s).map(word => word.s))];
     assert.ok(used.length > 50);
-    assert.deepEqual(used.filter(name => !fs.existsSync(new URL(`${name}.svg`, dir))), []);
+    const own = new URL('../../own-symbols/', import.meta.url); // the app's own, for words Mulberry has no picture for
+    assert.deepEqual(used.filter(name => !fs.existsSync(new URL(`${name}.svg`, dir)) && !fs.existsSync(new URL(`${name}.svg`, own))), []);
+    // The build serves only the own symbols vite.config.ts lists.
+    const config = fs.readFileSync(new URL('../../vite.config.ts', import.meta.url), 'utf8');
+    assert.deepEqual(fs.readdirSync(own).map(file => file.replace(/\.svg$/, '')).filter(name => !config.includes(`n: '${name}'`)), []);
     assert.deepEqual(used.filter(name => new RegExp(`,1,[^,]*,"?${name.replace(/[^\w]/g, '.')}"?,`).test(csv)), []);
     // A word with a symbol shows only the symbol.
     assert.deepEqual(everyWord().filter(word => word.s && word.e).map(word => word.w), []);

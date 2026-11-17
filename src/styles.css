@@ -21,6 +21,9 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .actions { display: flex; gap: 6px; }
 .act { border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 14px; min-height: 52px; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
 .act.fix { background: #fff3c4; border-color: #d9a400; }
+/* The ? key shows the mark itself, as big as a picture; in the bar it has the colour of the question words. */
+.key-word.mark { font-size: 2.6rem; line-height: 1; }
+.chip.mark { background: #dccbf5; border-color: #8a64c8; }
 .act.speak { background: #1f8a4c; border-color: #14663a; color: #fff; font-size: 1.2rem; padding: 0 22px; }
 .fixbox, .notice { grid-column: 1 / -1; background: #fffbe8; border: 2px solid #d9a400; border-radius: 14px; padding: 10px; display: grid; gap: 8px; }
 .fixbox.warn, .notice { background: #fdecea; border-color: #c9483b; }
