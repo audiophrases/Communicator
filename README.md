@@ -82,7 +82,7 @@ Open `/create` and sign in with the teacher password. There you can:
 - add buttons, add, rename, reorder and delete topic pages, and edit the quick phrases;
 - press ✨ next to a Catalan box, or **Fill missing Catalan** for everything at once, to translate with AI, then check
   and correct it;
-- **Save** for everyone (students get it when they open or reload the board), **Undo changes**, or **Reset to built-in**.
+- **Save** for everyone (students get it when they open or reload the board), or **Undo changes** since the last save.
 
 Removing a core word with **Empty this slot** keeps its place empty, so the words around it do not move.
 

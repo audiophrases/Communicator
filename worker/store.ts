@@ -30,9 +30,6 @@ export class BoardStore extends DurableObject {
     async save(board: Board): Promise<void> {
         await this.ctx.storage.put('board', board);
     }
-    async reset(): Promise<void> {
-        await this.ctx.storage.delete('board');
-    }
     // Whether students can use Fix (OpenAI). On until the teacher switches it off.
     async fixOn(): Promise<boolean> {
         return (await this.ctx.storage.get<boolean>('fixOn')) ?? true;

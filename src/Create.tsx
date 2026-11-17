@@ -253,16 +253,6 @@ export default function Create() {
         setSelected(null);
         return `Saved. Students get the new board when they open or reload the page.${empty ? ` ${empty} empty button${empty === 1 ? ' was' : 's were'} left out.` : ''}`;
     });
-    const reset = () => {
-        if (!confirm('Go back to the built-in board? Your buttons, pages and phrases will be replaced for everyone.')) return;
-        void run('Resetting…', async () => {
-            await call('/api/teacher/reset', {});
-            start(DEFAULT_BOARD, false);
-            choose('core');
-            return 'The built-in board is back.';
-        });
-    };
-
     // Coloured as on the students' board (see App.tsx).
     const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '🔤' },
         { id: 'quick', name: 'Quick phrases', icon: '⚡', kind: 'social' }, ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) }))];
@@ -276,7 +266,6 @@ export default function Create() {
                     {ai && <button onClick={() => void translate(missing)} disabled={!missing.length || !!busy}
                         title="Translate every button, page name and phrase that has no Catalan">✨ Fill missing Catalan{missing.length ? ` (${missing.length})` : ''}</button>}
                     <button onClick={() => { setBoard(JSON.parse(savedJson)); setSelected(null); }} disabled={!dirty || !!busy}>Undo changes</button>
-                    <button onClick={reset} disabled={!!busy}>Reset to built-in</button>
                     <a className="button" href="/" target="_blank" rel="noopener">Open the board ↗</a>
                     <button onClick={() => { if (!dirty || confirm('Sign out and lose the unsaved changes?')) { signOut(); setBoard(null); } }}>Sign out</button>
                     <button className="primary" onClick={() => void save()} disabled={!dirty || !!busy}>Save</button>

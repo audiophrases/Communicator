@@ -110,9 +110,6 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
             await store(env).save(board);
             return json({ board });
         }
-        case '/api/teacher/reset':
-            await store(env).reset();
-            return json({ board: null });
         case '/api/teacher/translate': {
             if (!env.OPENAI_API_KEY) return json({ error: 'There is no OpenAI key, so type the Catalan yourself.' }, 503);
             const items: Item[] = Array.isArray(body?.items) ? body.items.slice(0, MAX_ITEMS + 1).map((item: any) => ({
