@@ -9,13 +9,23 @@ const CACHE = 'board';
 // "break" in School gets a recess picture and "break" in Actions keeps its verb picture.
 export function readBoard(value: unknown): Board | null {
     const board = sanitizeBoard(value);
-    if (!board || board.pictureVersion === 2) return board;
-    const fillBlanks = board.pictureVersion === undefined;
+    if (!board || board.pictureVersion === 4) return board;
+    const previousVersion = board.pictureVersion;
     function fill(words: Word[], defaults: Word[]) {
         for (const word of words) {
+            if (word.w === 'too' && word.k === 'describe' && word.e === '🥛💦' && !word.s) {
+                delete word.e;
+                word.s = 'scene_too';
+            }
+            if (previousVersion === 3) continue;
+            if (word.w === 'arrive' && word.k === 'verb' && word.e === '🛬' && !word.s) {
+                delete word.e;
+                word.s = 'scene_arrive';
+            }
+            if (previousVersion === 2) continue;
             if (!word.w || word.e) continue;
             if (word.s && !word.s.startsWith('bliss_')) continue;
-            if (!word.s && !fillBlanks) continue;
+            if (!word.s && previousVersion !== undefined) continue;
             const match = defaults.find(item => item.w === word.w && item.k === word.k && (!word.ca || word.ca === item.ca));
             // Only replace the former default for this word. Keep a teacher's choice of a different sign.
             if (word.s && match?.s !== word.s.replace(/^bliss_/, 'scene_')) continue;
@@ -26,9 +36,9 @@ export function readBoard(value: unknown): Board | null {
     fill(board.core, DEFAULT_BOARD.core);
     for (const page of board.pages) {
         const original = DEFAULT_BOARD.pages.find(item => item.id === page.id);
-        if (original) fill(page.words, original.words);
+        fill(page.words, original?.words ?? []);
     }
-    board.pictureVersion = 2;
+    board.pictureVersion = 4;
     return board;
 }
 

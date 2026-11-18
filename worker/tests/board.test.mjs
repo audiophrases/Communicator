@@ -42,7 +42,7 @@ test('saved boards gain the new scenes while keeping chosen pictures and deliber
         { w: 'sell', k: 'verb', s: 'bliss_sell' }, { w: 'spend', k: 'verb', s: 'bliss_business' }, { w: 'do', k: 'verb' }
     ] }] });
     assert.deepEqual(board.pages[0].words.map(word => word.s), ['scene_sell', 'bliss_business', undefined]);
-    assert.equal(board.pictureVersion, 2);
+    assert.equal(board.pictureVersion, 4);
     board.pages[0].words[0].s = 'bliss_sell';
     assert.deepEqual(readBoard(board), board);
 });
