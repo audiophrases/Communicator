@@ -39,6 +39,7 @@
     {
       "w": "it",
       "k": "person",
+      "e": "📦",
       "ca": "ho / això"
     },
     {
@@ -56,7 +57,8 @@
     {
       "w": "my",
       "k": "person",
-      "ca": "el meu / la meva"
+      "ca": "el meu / la meva",
+      "s": "scene_my"
     },
     {
       "w": "want",
@@ -103,7 +105,8 @@
     {
       "w": "do",
       "k": "verb",
-      "ca": "fer"
+      "ca": "fer",
+      "s": "scene_do"
     },
     {
       "w": "make",
@@ -174,7 +177,8 @@
     {
       "w": "be",
       "k": "verb",
-      "ca": "ser / estar"
+      "ca": "ser / estar",
+      "s": "scene_be"
     },
     {
       "w": "not",
@@ -197,22 +201,26 @@
     {
       "w": "and",
       "k": "little",
-      "ca": "i"
+      "ca": "i",
+      "s": "scene_and"
     },
     {
       "w": "but",
       "k": "little",
-      "ca": "però"
+      "ca": "però",
+      "s": "scene_but"
     },
     {
       "w": "because",
       "k": "little",
-      "ca": "perquè"
+      "ca": "perquè",
+      "s": "scene_because"
     },
     {
       "w": "to",
       "k": "little",
-      "ca": "a / per a"
+      "ca": "a / per a",
+      "s": "scene_to"
     },
     {
       "w": "in",
@@ -229,7 +237,8 @@
     {
       "w": "for",
       "k": "little",
-      "ca": "per / per a"
+      "ca": "per / per a",
+      "s": "scene_for"
     },
     {
       "w": "what",
@@ -294,6 +303,7 @@
     {
       "w": "very",
       "k": "describe",
+      "e": "‼️",
       "ca": "molt"
     },
     {
@@ -397,7 +407,8 @@
         {
           "w": "it",
           "k": "person",
-          "ca": "ho / això"
+          "ca": "ho / això",
+          "s": "scene_it"
         },
         {
           "w": "this",
@@ -414,62 +425,74 @@
         {
           "w": "my",
           "k": "person",
-          "ca": "el meu / la meva"
+          "ca": "el meu / la meva",
+          "s": "scene_my"
         },
         {
           "w": "me",
           "k": "person",
-          "ca": "em / mi"
+          "ca": "em / mi",
+          "s": "scene_me"
         },
         {
           "w": "him",
           "k": "person",
-          "ca": "ell / el / li"
+          "ca": "ell / el / li",
+          "s": "scene_him"
         },
         {
           "w": "us",
           "k": "person",
-          "ca": "nosaltres / ens"
+          "ca": "nosaltres / ens",
+          "s": "scene_us"
         },
         {
           "w": "them",
           "k": "person",
-          "ca": "ells / els"
+          "ca": "ells / els",
+          "s": "scene_them"
         },
         {
           "w": "your",
           "k": "person",
-          "ca": "el teu / la teva"
+          "ca": "el teu / la teva",
+          "s": "scene_your"
         },
         {
           "w": "his",
           "k": "person",
-          "ca": "el seu (d'ell)"
+          "ca": "el seu (d'ell)",
+          "s": "scene_his"
         },
         {
           "w": "her",
           "k": "person",
-          "ca": "el seu (d'ella)"
+          "ca": "el seu (d'ella)",
+          "s": "scene_her"
         },
         {
           "w": "its",
           "k": "person",
-          "ca": "el seu (d'això)"
+          "ca": "el seu (d'això)",
+          "s": "scene_its"
         },
         {
           "w": "our",
           "k": "person",
-          "ca": "el nostre / la nostra"
+          "ca": "el nostre / la nostra",
+          "s": "scene_our"
         },
         {
           "w": "their",
           "k": "person",
-          "ca": "el seu (d'ells)"
+          "ca": "el seu (d'ells)",
+          "s": "scene_their"
         },
         {
           "w": "yourself",
           "k": "person",
-          "ca": "tu mateix / tu mateixa"
+          "ca": "tu mateix / tu mateixa",
+          "s": "scene_yourself"
         },
         {
           "w": "someone",
@@ -480,17 +503,20 @@
         {
           "w": "anyone",
           "k": "person",
-          "ca": "algú / qualsevol"
+          "ca": "algú / qualsevol",
+          "s": "scene_anyone"
         },
         {
           "w": "everyone",
           "k": "person",
-          "ca": "tothom"
+          "ca": "tothom",
+          "s": "scene_everyone"
         },
         {
           "w": "nobody",
           "k": "person",
-          "ca": "ningú"
+          "ca": "ningú",
+          "s": "scene_nobody"
         },
         {
           "w": "family",
@@ -513,11 +539,13 @@
         {
           "w": "mum",
           "k": "person",
+          "e": "👩‍🍼",
           "ca": "mama"
         },
         {
           "w": "dad",
           "k": "person",
+          "e": "👨‍🍼",
           "ca": "papa"
         },
         {
@@ -589,7 +617,8 @@
         {
           "w": "cousin",
           "k": "person",
-          "ca": "cosí / cosina"
+          "ca": "cosí / cosina",
+          "s": "scene_cousin"
         },
         {
           "w": "child",
@@ -618,7 +647,8 @@
         {
           "w": "teenager",
           "k": "person",
-          "ca": "adolescent"
+          "ca": "adolescent",
+          "s": "scene_teenager"
         },
         {
           "w": "adult",
@@ -653,6 +683,7 @@
         {
           "w": "group",
           "k": "person",
+          "e": "👥👥",
           "ca": "grup"
         },
         {
@@ -664,17 +695,20 @@
         {
           "w": "boyfriend",
           "k": "person",
-          "ca": "xicot / nòvio"
+          "ca": "xicot / nòvio",
+          "s": "scene_boyfriend"
         },
         {
           "w": "girlfriend",
           "k": "person",
-          "ca": "xicota / nòvia"
+          "ca": "xicota / nòvia",
+          "s": "scene_girlfriend"
         },
         {
           "w": "partner",
           "k": "person",
-          "ca": "parella"
+          "ca": "parella",
+          "s": "partner"
         },
         {
           "w": "neighbor",
@@ -685,7 +719,8 @@
         {
           "w": "age",
           "k": "person",
-          "ca": "edat"
+          "ca": "edat",
+          "s": "scene_age"
         },
         {
           "w": "teacher",
@@ -732,7 +767,8 @@
         {
           "w": "driver",
           "k": "person",
-          "ca": "conductor / conductora"
+          "ca": "conductor / conductora",
+          "s": "taxi_driver_2a"
         },
         {
           "w": "farmer",
@@ -743,12 +779,14 @@
         {
           "w": "waiter",
           "k": "person",
+          "e": "🧑‍🍳🍽️",
           "ca": "cambrer / cambrera"
         },
         {
           "w": "writer",
           "k": "person",
-          "ca": "escriptor / escriptora"
+          "ca": "escriptor / escriptora",
+          "s": "scene_writer"
         },
         {
           "w": "singer",
@@ -759,7 +797,8 @@
         {
           "w": "actor",
           "k": "person",
-          "ca": "actor / actriu"
+          "ca": "actor / actriu",
+          "s": "scene_actor"
         },
         {
           "w": "artist",
@@ -776,22 +815,26 @@
         {
           "w": "tourist",
           "k": "person",
+          "e": "🧳📷",
           "ca": "turista"
         },
         {
           "w": "visitor",
           "k": "person",
-          "ca": "visitant"
+          "ca": "visitant",
+          "s": "visitor_1b"
         },
         {
           "w": "customer",
           "k": "person",
-          "ca": "client / clienta"
+          "ca": "client / clienta",
+          "s": "scene_customer"
         },
         {
           "w": "member",
           "k": "person",
-          "ca": "membre"
+          "ca": "membre",
+          "s": "scene_member"
         }
       ]
     },
@@ -846,7 +889,8 @@
         {
           "w": "do",
           "k": "verb",
-          "ca": "fer"
+          "ca": "fer",
+          "s": "scene_do"
         },
         {
           "w": "make",
@@ -917,7 +961,8 @@
         {
           "w": "be",
           "k": "verb",
-          "ca": "ser / estar"
+          "ca": "ser / estar",
+          "s": "scene_be"
         },
         {
           "w": "work",
@@ -940,7 +985,8 @@
         {
           "w": "sell",
           "k": "verb",
-          "ca": "vendre"
+          "ca": "vendre",
+          "s": "scene_sell"
         },
         {
           "w": "pay",
@@ -951,7 +997,8 @@
         {
           "w": "spend",
           "k": "verb",
-          "ca": "gastar / passar (temps)"
+          "ca": "gastar / passar (temps)",
+          "s": "scene_spend"
         },
         {
           "w": "order",
@@ -1064,7 +1111,8 @@
         {
           "w": "use",
           "k": "verb",
-          "ca": "fer servir"
+          "ca": "fer servir",
+          "s": "scene_use"
         },
         {
           "w": "open",
@@ -1105,18 +1153,20 @@
         {
           "w": "arrive",
           "k": "verb",
-          "e": "🛬",
-          "ca": "arribar"
+          "ca": "arribar",
+          "s": "scene_arrive"
         },
         {
           "w": "leave",
           "k": "verb",
-          "ca": "marxar / sortir"
+          "ca": "marxar / sortir",
+          "s": "scene_leave"
         },
         {
           "w": "stay",
           "k": "verb",
-          "ca": "quedar-se"
+          "ca": "quedar-se",
+          "s": "scene_stay"
         },
         {
           "w": "return",
@@ -1235,32 +1285,38 @@
         {
           "w": "thank",
           "k": "verb",
-          "ca": "agrair"
+          "ca": "agrair",
+          "s": "scene_thank"
         },
         {
           "w": "try",
           "k": "verb",
-          "ca": "intentar / provar"
+          "ca": "intentar / provar",
+          "s": "scene_try"
         },
         {
           "w": "choose",
           "k": "verb",
-          "ca": "triar / escollir"
+          "ca": "triar / escollir",
+          "s": "scene_choose"
         },
         {
           "w": "decide",
           "k": "verb",
-          "ca": "decidir"
+          "ca": "decidir",
+          "s": "scene_decide"
         },
         {
           "w": "agree",
           "k": "verb",
-          "ca": "estar d'acord"
+          "ca": "estar d'acord",
+          "s": "scene_agree"
         },
         {
           "w": "forget",
           "k": "verb",
-          "ca": "oblidar"
+          "ca": "oblidar",
+          "s": "scene_forget"
         },
         {
           "w": "remember",
@@ -1271,16 +1327,19 @@
         {
           "w": "believe",
           "k": "verb",
-          "ca": "creure"
+          "ca": "creure",
+          "s": "scene_believe"
         },
         {
           "w": "hope",
           "k": "verb",
-          "ca": "esperar (desitjar)"
+          "ca": "esperar (desitjar)",
+          "s": "scene_hope"
         },
         {
           "w": "imagine",
           "k": "verb",
+          "e": "💭🌈",
           "ca": "imaginar"
         },
         {
@@ -1292,16 +1351,19 @@
         {
           "w": "hate",
           "k": "verb",
-          "ca": "odiar"
+          "ca": "odiar",
+          "s": "scene_hate"
         },
         {
           "w": "enjoy",
           "k": "verb",
-          "ca": "gaudir"
+          "ca": "gaudir",
+          "s": "scene_enjoy"
         },
         {
           "w": "prefer",
           "k": "verb",
+          "e": "☑️❤️",
           "ca": "preferir"
         },
         {
@@ -1325,12 +1387,14 @@
         {
           "w": "lose",
           "k": "verb",
-          "ca": "perdre"
+          "ca": "perdre",
+          "s": "scene_lose"
         },
         {
           "w": "miss",
           "k": "verb",
-          "ca": "trobar a faltar / perdre"
+          "ca": "trobar a faltar / perdre",
+          "s": "scene_miss"
         },
         {
           "w": "break",
@@ -1389,12 +1453,14 @@
         {
           "w": "follow",
           "k": "verb",
-          "ca": "seguir"
+          "ca": "seguir",
+          "s": "scene_follow"
         },
         {
           "w": "let",
           "k": "verb",
-          "ca": "deixar"
+          "ca": "deixar",
+          "s": "scene_let"
         },
         {
           "w": "change",
@@ -1405,106 +1471,127 @@
         {
           "w": "become",
           "k": "verb",
-          "ca": "fer-se / tornar-se"
+          "ca": "fer-se / tornar-se",
+          "s": "scene_become"
         },
         {
           "w": "happen",
           "k": "verb",
-          "ca": "passar (ocórrer)"
+          "ca": "passar (ocórrer)",
+          "s": "scene_happen"
         },
         {
           "w": "prepare",
           "k": "verb",
-          "ca": "preparar"
+          "ca": "preparar",
+          "s": "scene_prepare"
         },
         {
           "w": "plan",
           "k": "verb",
-          "ca": "planificar"
+          "ca": "planificar",
+          "s": "scene_plan"
         },
         {
           "w": "create",
           "k": "verb",
-          "ca": "crear"
+          "ca": "crear",
+          "s": "scene_create"
         },
         {
           "w": "improve",
           "k": "verb",
-          "ca": "millorar"
+          "ca": "millorar",
+          "s": "scene_improve"
         },
         {
           "w": "introduce",
           "k": "verb",
-          "ca": "presentar"
+          "ca": "presentar",
+          "s": "scene_introduce"
         },
         {
           "w": "die",
           "k": "verb",
-          "ca": "morir"
+          "ca": "morir",
+          "s": "die_,_to"
         },
         {
           "w": "born",
           "k": "verb",
+          "e": "🐣",
           "ca": "nascut / néixer"
         },
         {
           "w": "will",
           "k": "verb",
-          "ca": "(futur: faré, aniré…)"
+          "ca": "(futur: faré, aniré…)",
+          "s": "scene_will"
         },
         {
           "w": "would",
           "k": "verb",
+          "e": "💭➡️",
           "ca": "(condicional: faria…)"
         },
         {
           "w": "did",
           "k": "verb",
+          "e": "⏪✔️",
           "ca": "(passat: vaig fer…)"
         },
         {
           "w": "could",
           "k": "verb",
+          "e": "💭💪",
           "ca": "podria / podia"
         },
         {
           "w": "should",
           "k": "verb",
-          "ca": "hauria de"
+          "ca": "hauria de",
+          "s": "scene_should"
         },
         {
           "w": "must",
           "k": "verb",
-          "ca": "haver de"
+          "ca": "haver de",
+          "s": "scene_must"
         },
         {
           "w": "have to",
           "k": "verb",
+          "e": "📋❗",
           "ca": "haver de"
         },
         {
           "w": "can't",
           "k": "verb",
+          "e": "🚫💪",
           "ca": "no poder"
         },
         {
           "w": "am",
           "k": "verb",
+          "e": "🙋＝",
           "ca": "soc / estic"
         },
         {
           "w": "is",
           "k": "verb",
+          "e": "👤＝",
           "ca": "és / està"
         },
         {
           "w": "are",
           "k": "verb",
+          "e": "👥＝",
           "ca": "ets / som / són"
         },
         {
           "w": "was",
           "k": "verb",
+          "e": "⏪＝",
           "ca": "era / estava"
         }
       ]
@@ -1524,6 +1611,7 @@
         {
           "w": "meal",
           "k": "noun",
+          "e": "🍽️",
           "ca": "àpat"
         },
         {
@@ -1709,7 +1797,8 @@
         {
           "w": "cream",
           "k": "noun",
-          "ca": "nata"
+          "ca": "nata",
+          "s": "cream"
         },
         {
           "w": "sugar",
@@ -1744,7 +1833,8 @@
         {
           "w": "dish",
           "k": "noun",
-          "ca": "plat (menjar)"
+          "ca": "plat (menjar)",
+          "s": "dish"
         },
         {
           "w": "menu",
@@ -1761,7 +1851,8 @@
         {
           "w": "cup",
           "k": "noun",
-          "ca": "tassa"
+          "ca": "tassa",
+          "s": "doidy_cup"
         },
         {
           "w": "glass",
@@ -1772,7 +1863,8 @@
         {
           "w": "bottle",
           "k": "noun",
-          "ca": "ampolla"
+          "ca": "ampolla",
+          "s": "milk_bottle"
         },
         {
           "w": "plate",
@@ -1809,12 +1901,14 @@
         {
           "w": "apartment",
           "k": "noun",
-          "ca": "pis / apartament"
+          "ca": "pis / apartament",
+          "s": "scene_apartment"
         },
         {
           "w": "room",
           "k": "noun",
-          "ca": "habitació / sala"
+          "ca": "habitació / sala",
+          "s": "room"
         },
         {
           "w": "bedroom",
@@ -1843,6 +1937,7 @@
         {
           "w": "building",
           "k": "noun",
+          "e": "🏗️🏢",
           "ca": "edifici"
         },
         {
@@ -1860,6 +1955,7 @@
         {
           "w": "college",
           "k": "noun",
+          "e": "🎓🏫",
           "ca": "institut / facultat"
         },
         {
@@ -1889,6 +1985,7 @@
         {
           "w": "market",
           "k": "noun",
+          "e": "🛒🥕",
           "ca": "mercat"
         },
         {
@@ -1960,11 +2057,13 @@
         {
           "w": "gym",
           "k": "noun",
-          "ca": "gimnàs"
+          "ca": "gimnàs",
+          "s": "gym_1"
         },
         {
           "w": "pool",
           "k": "noun",
+          "e": "🏊‍♀️",
           "ca": "piscina"
         },
         {
@@ -2006,7 +2105,8 @@
         {
           "w": "road",
           "k": "noun",
-          "ca": "carretera"
+          "ca": "carretera",
+          "s": "road"
         },
         {
           "w": "traffic",
@@ -2017,11 +2117,13 @@
         {
           "w": "town",
           "k": "noun",
-          "ca": "poble / ciutat"
+          "ca": "poble / ciutat",
+          "s": "scene_town"
         },
         {
           "w": "village",
           "k": "noun",
+          "e": "🏡🏡",
           "ca": "poble"
         },
         {
@@ -2045,17 +2147,20 @@
         {
           "w": "place",
           "k": "noun",
-          "ca": "lloc"
+          "ca": "lloc",
+          "s": "scene_place"
         },
         {
           "w": "area",
           "k": "noun",
-          "ca": "zona"
+          "ca": "zona",
+          "s": "scene_area"
         },
         {
           "w": "centre",
           "k": "noun",
-          "ca": "centre"
+          "ca": "centre",
+          "s": "scene_centre"
         },
         {
           "w": "outside",
@@ -2072,22 +2177,26 @@
         {
           "w": "north",
           "k": "noun",
-          "ca": "nord"
+          "ca": "nord",
+          "s": "north"
         },
         {
           "w": "south",
           "k": "noun",
-          "ca": "sud"
+          "ca": "sud",
+          "s": "south"
         },
         {
           "w": "east",
           "k": "noun",
-          "ca": "est"
+          "ca": "est",
+          "s": "east"
         },
         {
           "w": "west",
           "k": "noun",
-          "ca": "oest"
+          "ca": "oest",
+          "s": "west"
         },
         {
           "w": "station",
@@ -2110,7 +2219,8 @@
         {
           "w": "flight",
           "k": "noun",
-          "ca": "vol"
+          "ca": "vol",
+          "s": "scene_flight"
         },
         {
           "w": "bus",
@@ -2273,7 +2383,8 @@
         {
           "w": "health",
           "k": "noun",
-          "ca": "salut"
+          "ca": "salut",
+          "s": "scene_health"
         },
         {
           "w": "pain",
@@ -2356,7 +2467,8 @@
         {
           "w": "healthy",
           "k": "describe",
-          "ca": "sa / sana"
+          "ca": "sa / sana",
+          "s": "healthy"
         },
         {
           "w": "dizzy",
@@ -2411,6 +2523,7 @@
         {
           "w": "very",
           "k": "describe",
+          "e": "‼️",
           "ca": "molt"
         },
         {
@@ -2518,7 +2631,8 @@
         {
           "w": "free",
           "k": "describe",
-          "ca": "lliure"
+          "ca": "lliure",
+          "s": "scene_free"
         },
         {
           "w": "late",
@@ -2529,7 +2643,8 @@
         {
           "w": "early",
           "k": "describe",
-          "ca": "d'hora"
+          "ca": "d'hora",
+          "s": "scene_early"
         },
         {
           "w": "fast",
@@ -2546,7 +2661,8 @@
         {
           "w": "easy",
           "k": "describe",
-          "ca": "fàcil"
+          "ca": "fàcil",
+          "s": "scene_easy"
         },
         {
           "w": "difficult",
@@ -2557,7 +2673,8 @@
         {
           "w": "hard",
           "k": "describe",
-          "ca": "dur / difícil"
+          "ca": "dur / difícil",
+          "s": "scene_hard"
         },
         {
           "w": "important",
@@ -2574,42 +2691,50 @@
         {
           "w": "old",
           "k": "describe",
-          "ca": "vell / antic"
+          "ca": "vell / antic",
+          "s": "old_object"
         },
         {
           "w": "young",
           "k": "describe",
-          "ca": "jove"
+          "ca": "jove",
+          "s": "young"
         },
         {
           "w": "tall",
           "k": "describe",
-          "ca": "alt"
+          "ca": "alt",
+          "s": "tall"
         },
         {
           "w": "short",
           "k": "describe",
-          "ca": "baix / curt"
+          "ca": "baix / curt",
+          "s": "short"
         },
         {
           "w": "long",
           "k": "describe",
-          "ca": "llarg"
+          "ca": "llarg",
+          "s": "long"
         },
         {
           "w": "high",
           "k": "describe",
-          "ca": "alt"
+          "ca": "alt",
+          "s": "high"
         },
         {
           "w": "large",
           "k": "describe",
-          "ca": "gran"
+          "ca": "gran",
+          "s": "large"
         },
         {
           "w": "strong",
           "k": "describe",
-          "ca": "fort"
+          "ca": "fort",
+          "s": "strong"
         },
         {
           "w": "cheap",
@@ -2626,27 +2751,32 @@
         {
           "w": "rich",
           "k": "describe",
-          "ca": "ric"
+          "ca": "ric",
+          "s": "scene_rich"
         },
         {
           "w": "poor",
           "k": "describe",
-          "ca": "pobre"
+          "ca": "pobre",
+          "s": "scene_poor"
         },
         {
           "w": "full",
           "k": "describe",
-          "ca": "ple"
+          "ca": "ple",
+          "s": "full"
         },
         {
           "w": "clean",
           "k": "describe",
-          "ca": "net"
+          "ca": "net",
+          "s": "clean_hands"
         },
         {
           "w": "dirty",
           "k": "describe",
-          "ca": "brut"
+          "ca": "brut",
+          "s": "dirty"
         },
         {
           "w": "quiet",
@@ -2657,117 +2787,140 @@
         {
           "w": "beautiful",
           "k": "describe",
-          "ca": "bonic / preciós"
+          "ca": "bonic / preciós",
+          "s": "scene_beautiful"
         },
         {
           "w": "pretty",
           "k": "describe",
-          "ca": "bonic / maco"
+          "ca": "bonic / maco",
+          "s": "pretty"
         },
         {
           "w": "nice",
           "k": "describe",
-          "ca": "agradable / maco"
+          "ca": "agradable / maco",
+          "s": "scene_nice"
         },
         {
           "w": "friendly",
           "k": "describe",
+          "e": "👋😊",
           "ca": "simpàtic"
         },
         {
           "w": "funny",
           "k": "describe",
-          "ca": "divertit / graciós"
+          "ca": "divertit / graciós",
+          "s": "funny_laugh"
         },
         {
           "w": "interesting",
           "k": "describe",
-          "ca": "interessant"
+          "ca": "interessant",
+          "s": "scene_interesting"
         },
         {
           "w": "interested",
           "k": "describe",
+          "e": "👀💡",
           "ca": "interessat"
         },
         {
           "w": "boring",
           "k": "describe",
-          "ca": "avorrit (que avorreix)"
+          "ca": "avorrit (que avorreix)",
+          "s": "scene_boring"
         },
         {
           "w": "exciting",
           "k": "describe",
-          "ca": "emocionant"
+          "ca": "emocionant",
+          "s": "scene_exciting"
         },
         {
           "w": "great",
           "k": "describe",
-          "ca": "genial"
+          "ca": "genial",
+          "s": "great"
         },
         {
           "w": "fantastic",
           "k": "describe",
+          "e": "🌠",
           "ca": "fantàstic"
         },
         {
           "w": "wonderful",
           "k": "describe",
+          "e": "🤩✨",
           "ca": "meravellós"
         },
         {
           "w": "amazing",
           "k": "describe",
+          "e": "🤯",
           "ca": "increïble"
         },
         {
           "w": "cool",
           "k": "describe",
+          "e": "😎",
           "ca": "guai"
         },
         {
           "w": "perfect",
           "k": "describe",
-          "ca": "perfecte"
+          "ca": "perfecte",
+          "s": "scene_perfect"
         },
         {
           "w": "best",
           "k": "describe",
-          "ca": "el millor"
+          "ca": "el millor",
+          "s": "scene_best"
         },
         {
           "w": "fine",
           "k": "describe",
+          "e": "🙂👌",
           "ca": "bé"
         },
         {
           "w": "terrible",
           "k": "describe",
-          "ca": "terrible"
+          "ca": "terrible",
+          "s": "scene_terrible"
         },
         {
           "w": "delicious",
           "k": "describe",
-          "ca": "deliciós"
+          "ca": "deliciós",
+          "s": "delicious_food"
         },
         {
           "w": "dangerous",
           "k": "describe",
-          "ca": "perillós"
+          "ca": "perillós",
+          "s": "scene_dangerous"
         },
         {
           "w": "famous",
           "k": "describe",
+          "e": "🌟📸",
           "ca": "famós"
         },
         {
           "w": "popular",
           "k": "describe",
+          "e": "👥❤️",
           "ca": "popular"
         },
         {
           "w": "special",
           "k": "describe",
-          "ca": "especial"
+          "ca": "especial",
+          "s": "scene_special"
         },
         {
           "w": "favourite",
@@ -2784,16 +2937,19 @@
         {
           "w": "modern",
           "k": "describe",
-          "ca": "modern"
+          "ca": "modern",
+          "s": "scene_modern"
         },
         {
           "w": "online",
           "k": "describe",
+          "e": "🟢🌐",
           "ca": "en línia"
         },
         {
           "w": "useful",
           "k": "describe",
+          "e": "🧰✔️",
           "ca": "útil"
         },
         {
@@ -2823,27 +2979,32 @@
         {
           "w": "true",
           "k": "describe",
-          "ca": "cert / veritat"
+          "ca": "cert / veritat",
+          "s": "scene_true"
         },
         {
           "w": "false",
           "k": "describe",
-          "ca": "fals"
+          "ca": "fals",
+          "s": "scene_false"
         },
         {
           "w": "real",
           "k": "describe",
-          "ca": "real / de veritat"
+          "ca": "real / de veritat",
+          "s": "scene_real"
         },
         {
           "w": "sure",
           "k": "describe",
-          "ca": "segur"
+          "ca": "segur",
+          "s": "scene_sure"
         },
         {
           "w": "possible",
           "k": "describe",
-          "ca": "possible"
+          "ca": "possible",
+          "s": "scene_possible"
         },
         {
           "w": "same",
@@ -2854,11 +3015,13 @@
         {
           "w": "different",
           "k": "describe",
-          "ca": "diferent"
+          "ca": "diferent",
+          "s": "scene_different"
         },
         {
           "w": "many",
           "k": "describe",
+          "e": "●●●",
           "ca": "molts"
         },
         {
@@ -2870,7 +3033,8 @@
         {
           "w": "all",
           "k": "describe",
-          "ca": "tot / tots"
+          "ca": "tot / tots",
+          "s": "scene_all"
         },
         {
           "w": "a little",
@@ -2893,22 +3057,26 @@
         {
           "w": "too",
           "k": "describe",
-          "ca": "massa / també"
+          "ca": "massa / també",
+          "s": "scene_too"
         },
         {
           "w": "really",
           "k": "describe",
+          "e": "✔️❗",
           "ca": "de veritat / molt"
         },
         {
           "w": "quite",
           "k": "describe",
+          "e": "◕",
           "ca": "bastant"
         },
         {
           "w": "well",
           "k": "describe",
-          "ca": "bé"
+          "ca": "bé",
+          "s": "scene_well"
         },
         {
           "w": "again",
@@ -2919,32 +3087,38 @@
         {
           "w": "also",
           "k": "describe",
+          "e": "⊕",
           "ca": "també"
         },
         {
           "w": "only",
           "k": "describe",
-          "ca": "només"
+          "ca": "només",
+          "s": "scene_only"
         },
         {
           "w": "just",
           "k": "describe",
+          "e": "☝️",
           "ca": "només / acabar de"
         },
         {
           "w": "still",
           "k": "describe",
-          "ca": "encara"
+          "ca": "encara",
+          "s": "scene_still"
         },
         {
           "w": "even",
           "k": "describe",
+          "e": "＋❕",
           "ca": "fins i tot"
         },
         {
           "w": "together",
           "k": "describe",
-          "ca": "junts"
+          "ca": "junts",
+          "s": "scene_together"
         },
         {
           "w": "maybe",
@@ -2955,37 +3129,44 @@
         {
           "w": "probably",
           "k": "describe",
-          "ca": "probablement"
+          "ca": "probablement",
+          "s": "scene_probably"
         },
         {
           "w": "always",
           "k": "describe",
-          "ca": "sempre"
+          "ca": "sempre",
+          "s": "scene_always"
         },
         {
           "w": "usually",
           "k": "describe",
-          "ca": "normalment"
+          "ca": "normalment",
+          "s": "scene_usually"
         },
         {
           "w": "often",
           "k": "describe",
-          "ca": "sovint"
+          "ca": "sovint",
+          "s": "scene_often"
         },
         {
           "w": "sometimes",
           "k": "describe",
-          "ca": "de vegades"
+          "ca": "de vegades",
+          "s": "scene_sometimes"
         },
         {
           "w": "ever",
           "k": "describe",
-          "ca": "alguna vegada"
+          "ca": "alguna vegada",
+          "s": "scene_ever"
         },
         {
           "w": "never",
           "k": "describe",
-          "ca": "mai"
+          "ca": "mai",
+          "s": "scene_never"
         },
         {
           "w": "near",
@@ -2996,7 +3177,8 @@
         {
           "w": "far",
           "k": "describe",
-          "ca": "lluny"
+          "ca": "lluny",
+          "s": "scene_far"
         },
         {
           "w": "up",
@@ -3069,22 +3251,26 @@
         {
           "w": "?",
           "k": "question",
+          "e": "💬❔",
           "ca": "interrogant: és una pregunta"
         },
         {
           "w": "which",
           "k": "question",
-          "ca": "quin / quina"
+          "ca": "quin / quina",
+          "s": "which"
         },
         {
           "w": "how much",
           "k": "question",
-          "ca": "quant / quanta"
+          "ca": "quant / quanta",
+          "s": "scene_how_much"
         },
         {
           "w": "how many",
           "k": "question",
-          "ca": "quants / quantes"
+          "ca": "quants / quantes",
+          "s": "how_many"
         },
         {
           "w": "yes",
@@ -3125,16 +3311,19 @@
         {
           "w": "excuse me",
           "k": "social",
+          "e": "🙋💬",
           "ca": "perdoni"
         },
         {
           "w": "thank you",
           "k": "social",
-          "ca": "gràcies"
+          "ca": "gràcies",
+          "s": "scene_thank_you"
         },
         {
           "w": "thanks",
           "k": "social",
+          "e": "💬🙏",
           "ca": "gràcies"
         },
         {
@@ -3152,21 +3341,25 @@
         {
           "w": "goodbye",
           "k": "social",
-          "ca": "adéu"
+          "ca": "adéu",
+          "s": "scene_goodbye"
         },
         {
           "w": "bye",
           "k": "social",
+          "e": "👋🚶",
           "ca": "adéu"
         },
         {
           "w": "welcome",
           "k": "social",
-          "ca": "benvingut / de res"
+          "ca": "benvingut / de res",
+          "s": "scene_welcome"
         },
         {
           "w": "yeah",
           "k": "social",
+          "e": "🙌",
           "ca": "sí / ja"
         }
       ]
@@ -3246,12 +3439,14 @@
         {
           "w": "soon",
           "k": "describe",
-          "ca": "aviat"
+          "ca": "aviat",
+          "s": "scene_soon"
         },
         {
           "w": "later",
           "k": "describe",
-          "ca": "més tard"
+          "ca": "més tard",
+          "s": "scene_later"
         },
         {
           "w": "before",
@@ -3280,11 +3475,13 @@
         {
           "w": "ago",
           "k": "describe",
-          "ca": "fa (fa dos dies)"
+          "ca": "fa (fa dos dies)",
+          "s": "scene_ago"
         },
         {
           "w": "every day",
           "k": "describe",
+          "e": "📅🔁",
           "ca": "cada dia"
         },
         {
@@ -3296,6 +3493,7 @@
         {
           "w": "moment",
           "k": "noun",
+          "e": "⏱️🤏",
           "ca": "moment"
         },
         {
@@ -3337,17 +3535,20 @@
         {
           "w": "century",
           "k": "noun",
-          "ca": "segle"
+          "ca": "segle",
+          "s": "scene_century"
         },
         {
           "w": "date",
           "k": "noun",
-          "ca": "data"
+          "ca": "data",
+          "s": "date"
         },
         {
           "w": "beginning",
           "k": "noun",
-          "ca": "començament"
+          "ca": "començament",
+          "s": "scene_beginning"
         },
         {
           "w": "end",
@@ -3358,52 +3559,62 @@
         {
           "w": "past",
           "k": "noun",
-          "ca": "passat"
+          "ca": "passat",
+          "s": "past"
         },
         {
           "w": "future",
           "k": "noun",
-          "ca": "futur"
+          "ca": "futur",
+          "s": "future"
         },
         {
           "w": "routine",
           "k": "noun",
+          "e": "📋🔁",
           "ca": "rutina"
         },
         {
           "w": "Monday",
           "k": "noun",
-          "ca": "dilluns"
+          "ca": "dilluns",
+          "s": "scene_monday"
         },
         {
           "w": "Tuesday",
           "k": "noun",
-          "ca": "dimarts"
+          "ca": "dimarts",
+          "s": "scene_tuesday"
         },
         {
           "w": "Wednesday",
           "k": "noun",
-          "ca": "dimecres"
+          "ca": "dimecres",
+          "s": "scene_wednesday"
         },
         {
           "w": "Thursday",
           "k": "noun",
-          "ca": "dijous"
+          "ca": "dijous",
+          "s": "scene_thursday"
         },
         {
           "w": "Friday",
           "k": "noun",
-          "ca": "divendres"
+          "ca": "divendres",
+          "s": "scene_friday"
         },
         {
           "w": "Saturday",
           "k": "noun",
-          "ca": "dissabte"
+          "ca": "dissabte",
+          "s": "scene_saturday"
         },
         {
           "w": "Sunday",
           "k": "noun",
-          "ca": "diumenge"
+          "ca": "diumenge",
+          "s": "scene_sunday"
         },
         {
           "w": "weekend",
@@ -3414,67 +3625,80 @@
         {
           "w": "January",
           "k": "noun",
-          "ca": "gener"
+          "ca": "gener",
+          "s": "scene_january"
         },
         {
           "w": "February",
           "k": "noun",
-          "ca": "febrer"
+          "ca": "febrer",
+          "s": "scene_february"
         },
         {
           "w": "March",
           "k": "noun",
-          "ca": "març"
+          "ca": "març",
+          "s": "scene_march"
         },
         {
           "w": "April",
           "k": "noun",
-          "ca": "abril"
+          "ca": "abril",
+          "s": "scene_april"
         },
         {
           "w": "May",
           "k": "noun",
-          "ca": "maig"
+          "ca": "maig",
+          "s": "scene_may"
         },
         {
           "w": "June",
           "k": "noun",
-          "ca": "juny"
+          "ca": "juny",
+          "s": "scene_june"
         },
         {
           "w": "July",
           "k": "noun",
-          "ca": "juliol"
+          "ca": "juliol",
+          "s": "scene_july"
         },
         {
           "w": "August",
           "k": "noun",
-          "ca": "agost"
+          "ca": "agost",
+          "s": "scene_august"
         },
         {
           "w": "September",
           "k": "noun",
-          "ca": "setembre"
+          "ca": "setembre",
+          "s": "scene_september"
         },
         {
           "w": "October",
           "k": "noun",
-          "ca": "octubre"
+          "ca": "octubre",
+          "s": "scene_october"
         },
         {
           "w": "November",
           "k": "noun",
-          "ca": "novembre"
+          "ca": "novembre",
+          "s": "scene_november"
         },
         {
           "w": "December",
           "k": "noun",
-          "ca": "desembre"
+          "ca": "desembre",
+          "s": "scene_december"
         },
         {
           "w": "at",
           "k": "little",
-          "ca": "a"
+          "ca": "a",
+          "s": "scene_at"
         },
         {
           "w": "on",
@@ -3485,17 +3709,20 @@
         {
           "w": "from",
           "k": "little",
-          "ca": "de / des de"
+          "ca": "de / des de",
+          "s": "scene_from"
         },
         {
           "w": "until",
           "k": "little",
-          "ca": "fins a"
+          "ca": "fins a",
+          "s": "scene_until"
         },
         {
           "w": "during",
           "k": "little",
-          "ca": "durant"
+          "ca": "durant",
+          "s": "scene_during"
         }
       ]
     },
@@ -3688,6 +3915,7 @@
         {
           "w": "million",
           "k": "little",
+          "e": "10⁶",
           "ca": "milió"
         },
         {
@@ -3699,21 +3927,25 @@
         {
           "w": "second",
           "k": "little",
-          "ca": "segon / segona"
+          "ca": "segon / segona",
+          "s": "second"
         },
         {
           "w": "third",
           "k": "little",
+          "e": "🥉",
           "ca": "tercer / tercera"
         },
         {
           "w": "fourth",
           "k": "little",
+          "e": "4ᵗʰ",
           "ca": "quart / quarta"
         },
         {
           "w": "fifth",
           "k": "little",
+          "e": "5ᵗʰ",
           "ca": "cinquè / cinquena"
         },
         {
@@ -3731,17 +3963,20 @@
         {
           "w": "once",
           "k": "little",
-          "ca": "una vegada"
+          "ca": "una vegada",
+          "s": "scene_once"
         },
         {
           "w": "twice",
           "k": "little",
+          "e": "2×",
           "ca": "dues vegades"
         },
         {
           "w": "pair",
           "k": "noun",
-          "ca": "parell"
+          "ca": "parell",
+          "s": "scene_pair"
         },
         {
           "w": "price",
@@ -3752,11 +3987,13 @@
         {
           "w": "euro",
           "k": "noun",
+          "e": "€",
           "ca": "euro"
         },
         {
           "w": "cent",
           "k": "noun",
+          "e": "¢",
           "ca": "cèntim"
         },
         {
@@ -3774,21 +4011,25 @@
         {
           "w": "metre",
           "k": "noun",
+          "e": "1 m",
           "ca": "metre"
         },
         {
           "w": "kilometre",
           "k": "noun",
+          "e": "1 km",
           "ca": "quilòmetre"
         },
         {
           "w": "mile",
           "k": "noun",
+          "e": "1 mi",
           "ca": "milla"
         },
         {
           "w": "cost",
           "k": "verb",
+          "e": "🏷️💰",
           "ca": "costar"
         }
       ]
@@ -3880,7 +4121,8 @@
         {
           "w": "magazine",
           "k": "noun",
-          "ca": "revista"
+          "ca": "revista",
+          "s": "scene_magazine"
         },
         {
           "w": "computer",
@@ -3897,6 +4139,7 @@
         {
           "w": "website",
           "k": "noun",
+          "e": "🌐🖥️",
           "ca": "web"
         },
         {
@@ -3932,7 +4175,8 @@
         {
           "w": "picture",
           "k": "noun",
-          "ca": "imatge / dibuix"
+          "ca": "imatge / dibuix",
+          "s": "picture"
         },
         {
           "w": "present",
@@ -3961,12 +4205,14 @@
         {
           "w": "wall",
           "k": "noun",
-          "ca": "paret"
+          "ca": "paret",
+          "s": "wall"
         },
         {
           "w": "floor",
           "k": "noun",
-          "ca": "terra / pis"
+          "ca": "terra / pis",
+          "s": "floor"
         },
         {
           "w": "table",
@@ -3989,6 +4235,7 @@
         {
           "w": "machine",
           "k": "noun",
+          "e": "⚙️",
           "ca": "màquina"
         },
         {
@@ -4000,22 +4247,26 @@
         {
           "w": "business",
           "k": "noun",
-          "ca": "negoci"
+          "ca": "negoci",
+          "s": "scene_business"
         },
         {
           "w": "company",
           "k": "noun",
+          "e": "🏢👥",
           "ca": "empresa"
         },
         {
           "w": "meeting",
           "k": "noun",
+          "e": "👥💬",
           "ca": "reunió"
         },
         {
           "w": "advice",
           "k": "noun",
-          "ca": "consell"
+          "ca": "consell",
+          "s": "scene_advice"
         },
         {
           "w": "problem",
@@ -4068,37 +4319,44 @@
         {
           "w": "news",
           "k": "noun",
+          "e": "📺📰",
           "ca": "notícies"
         },
         {
           "w": "life",
           "k": "noun",
-          "ca": "vida"
+          "ca": "vida",
+          "s": "scene_life"
         },
         {
           "w": "way",
           "k": "noun",
+          "e": "🛤️",
           "ca": "manera / camí"
         },
         {
           "w": "reason",
           "k": "noun",
-          "ca": "raó / motiu"
+          "ca": "raó / motiu",
+          "s": "scene_reason"
         },
         {
           "w": "kind",
           "k": "noun",
-          "ca": "tipus"
+          "ca": "tipus",
+          "s": "scene_kind"
         },
         {
           "w": "part",
           "k": "noun",
-          "ca": "part"
+          "ca": "part",
+          "s": "part"
         },
         {
           "w": "piece",
           "k": "noun",
-          "ca": "tros / peça"
+          "ca": "tros / peça",
+          "s": "scene_piece"
         },
         {
           "w": "sound",
@@ -4109,26 +4367,31 @@
         {
           "w": "thing",
           "k": "noun",
-          "ca": "cosa"
+          "ca": "cosa",
+          "s": "scene_thing"
         },
         {
           "w": "something",
           "k": "noun",
-          "ca": "alguna cosa"
+          "ca": "alguna cosa",
+          "s": "scene_something"
         },
         {
           "w": "anything",
           "k": "noun",
+          "e": "🎁❔",
           "ca": "res / qualsevol cosa"
         },
         {
           "w": "nothing",
           "k": "noun",
-          "ca": "res"
+          "ca": "res",
+          "s": "scene_nothing"
         },
         {
           "w": "everything",
           "k": "noun",
+          "e": "🌎✳️",
           "ca": "tot"
         }
       ]
@@ -4226,6 +4489,7 @@
         {
           "w": "wear",
           "k": "verb",
+          "e": "🧍👕",
           "ca": "portar (roba)"
         },
         {
@@ -4303,11 +4567,13 @@
         {
           "w": "dark",
           "k": "describe",
+          "e": "🌑",
           "ca": "fosc"
         },
         {
           "w": "blonde",
           "k": "describe",
+          "e": "👱",
           "ca": "ros / rossa"
         }
       ]
@@ -4321,6 +4587,7 @@
         {
           "w": "weather",
           "k": "noun",
+          "e": "🌦️",
           "ca": "el temps (meteo)"
         },
         {
@@ -4356,6 +4623,7 @@
         {
           "w": "ice",
           "k": "noun",
+          "e": "🧊❄️",
           "ca": "gel"
         },
         {
@@ -4391,7 +4659,8 @@
         {
           "w": "warm",
           "k": "describe",
-          "ca": "càlid"
+          "ca": "càlid",
+          "s": "scene_warm"
         },
         {
           "w": "hot",
@@ -4456,12 +4725,14 @@
         {
           "w": "air",
           "k": "noun",
-          "ca": "aire"
+          "ca": "aire",
+          "s": "scene_air"
         },
         {
           "w": "land",
           "k": "noun",
-          "ca": "terra"
+          "ca": "terra",
+          "s": "scene_land"
         },
         {
           "w": "animal",
@@ -4546,27 +4817,32 @@
         {
           "w": "class",
           "k": "noun",
-          "ca": "classe"
+          "ca": "classe",
+          "s": "scene_class"
         },
         {
           "w": "classroom",
           "k": "noun",
-          "ca": "aula"
+          "ca": "aula",
+          "s": "class_room"
         },
         {
           "w": "lesson",
           "k": "noun",
-          "ca": "lliçó"
+          "ca": "lliçó",
+          "s": "scene_lesson"
         },
         {
           "w": "course",
           "k": "noun",
-          "ca": "curs"
+          "ca": "curs",
+          "s": "scene_course"
         },
         {
           "w": "subject",
           "k": "noun",
-          "ca": "assignatura"
+          "ca": "assignatura",
+          "s": "scene_subject"
         },
         {
           "w": "homework",
@@ -4577,6 +4853,7 @@
         {
           "w": "exercise",
           "k": "noun",
+          "e": "📖✏️",
           "ca": "exercici"
         },
         {
@@ -4588,17 +4865,20 @@
         {
           "w": "exam",
           "k": "noun",
-          "ca": "examen"
+          "ca": "examen",
+          "s": "scene_exam"
         },
         {
           "w": "break",
           "k": "noun",
-          "ca": "pausa"
+          "ca": "pausa",
+          "s": "break_time_1"
         },
         {
           "w": "language",
           "k": "noun",
-          "ca": "llengua / idioma"
+          "ca": "llengua / idioma",
+          "s": "scene_language"
         },
         {
           "w": "maths",
@@ -4615,22 +4895,26 @@
         {
           "w": "history",
           "k": "noun",
-          "ca": "història"
+          "ca": "història",
+          "s": "history"
         },
         {
           "w": "geography",
           "k": "noun",
-          "ca": "geografia"
+          "ca": "geografia",
+          "s": "geography"
         },
         {
           "w": "art",
           "k": "noun",
-          "ca": "art"
+          "ca": "art",
+          "s": "art"
         },
         {
           "w": "project",
           "k": "noun",
-          "ca": "projecte"
+          "ca": "projecte",
+          "s": "scene_project"
         },
         {
           "w": "pencil",
@@ -4665,46 +4949,55 @@
         {
           "w": "sentence",
           "k": "noun",
-          "ca": "frase"
+          "ca": "frase",
+          "s": "scene_sentence"
         },
         {
           "w": "phrase",
           "k": "noun",
+          "e": "💬…",
           "ca": "expressió"
         },
         {
           "w": "paragraph",
           "k": "noun",
+          "e": "¶",
           "ca": "paràgraf"
         },
         {
           "w": "text",
           "k": "noun",
-          "ca": "text"
+          "ca": "text",
+          "s": "scene_text"
         },
         {
           "w": "story",
           "k": "noun",
-          "ca": "història / conte"
+          "ca": "història / conte",
+          "s": "scene_story"
         },
         {
           "w": "article",
           "k": "noun",
-          "ca": "article"
+          "ca": "article",
+          "s": "scene_article"
         },
         {
           "w": "title",
           "k": "noun",
-          "ca": "títol"
+          "ca": "títol",
+          "s": "scene_title"
         },
         {
           "w": "topic",
           "k": "noun",
+          "e": "💬🎯",
           "ca": "tema"
         },
         {
           "w": "dialogue",
           "k": "noun",
+          "e": "🗨️↔️",
           "ca": "diàleg"
         },
         {
@@ -4716,26 +5009,31 @@
         {
           "w": "meaning",
           "k": "noun",
-          "ca": "significat"
+          "ca": "significat",
+          "s": "scene_meaning"
         },
         {
           "w": "example",
           "k": "noun",
-          "ca": "exemple"
+          "ca": "exemple",
+          "s": "scene_example"
         },
         {
           "w": "difference",
           "k": "noun",
-          "ca": "diferència"
+          "ca": "diferència",
+          "s": "scene_difference"
         },
         {
           "w": "mistake",
           "k": "noun",
-          "ca": "error"
+          "ca": "error",
+          "s": "mistake_no_wrong"
         },
         {
           "w": "spelling",
           "k": "noun",
+          "e": "🔠✏️",
           "ca": "ortografia"
         },
         {
@@ -4747,7 +5045,8 @@
         {
           "w": "list",
           "k": "noun",
-          "ca": "llista"
+          "ca": "llista",
+          "s": "scene_list"
         },
         {
           "w": "chart",
@@ -4758,7 +5057,8 @@
         {
           "w": "line",
           "k": "noun",
-          "ca": "línia"
+          "ca": "línia",
+          "s": "line_horizontal"
         },
         {
           "w": "information",
@@ -4769,32 +5069,38 @@
         {
           "w": "idea",
           "k": "noun",
-          "ca": "idea"
+          "ca": "idea",
+          "s": "scene_idea"
         },
         {
           "w": "opinion",
           "k": "noun",
-          "ca": "opinió"
+          "ca": "opinió",
+          "s": "scene_opinion"
         },
         {
           "w": "rule",
           "k": "noun",
-          "ca": "norma"
+          "ca": "norma",
+          "s": "scene_rule"
         },
         {
           "w": "practice",
           "k": "noun",
-          "ca": "pràctica"
+          "ca": "pràctica",
+          "s": "scene_practice"
         },
         {
           "w": "result",
           "k": "noun",
-          "ca": "resultat"
+          "ca": "resultat",
+          "s": "scene_result"
         },
         {
           "w": "teach",
           "k": "verb",
-          "ca": "ensenyar"
+          "ca": "ensenyar",
+          "s": "scene_teach"
         },
         {
           "w": "study",
@@ -4805,12 +5111,14 @@
         {
           "w": "practise",
           "k": "verb",
-          "ca": "practicar"
+          "ca": "practicar",
+          "s": "scene_practise"
         },
         {
           "w": "repeat",
           "k": "verb",
-          "ca": "repetir"
+          "ca": "repetir",
+          "s": "scene_repeat"
         },
         {
           "w": "spell",
@@ -4821,36 +5129,43 @@
         {
           "w": "mean",
           "k": "verb",
-          "ca": "voler dir"
+          "ca": "voler dir",
+          "s": "scene_mean"
         },
         {
           "w": "explain",
           "k": "verb",
-          "ca": "explicar"
+          "ca": "explicar",
+          "s": "scene_explain"
         },
         {
           "w": "describe",
           "k": "verb",
-          "ca": "descriure"
+          "ca": "descriure",
+          "s": "scene_describe"
         },
         {
           "w": "discuss",
           "k": "verb",
-          "ca": "comentar"
+          "ca": "comentar",
+          "s": "scene_discuss"
         },
         {
           "w": "compare",
           "k": "verb",
-          "ca": "comparar"
+          "ca": "comparar",
+          "s": "scene_compare"
         },
         {
           "w": "complete",
           "k": "verb",
+          "e": "🏁✔️",
           "ca": "completar"
         },
         {
           "w": "check",
           "k": "verb",
+          "e": "☑️",
           "ca": "comprovar"
         },
         {
@@ -4888,11 +5203,13 @@
         {
           "w": "hobby",
           "k": "noun",
-          "ca": "afició"
+          "ca": "afició",
+          "s": "scene_hobby"
         },
         {
           "w": "activity",
           "k": "noun",
+          "e": "🏃🎨",
           "ca": "activitat"
         },
         {
@@ -4922,7 +5239,8 @@
         {
           "w": "trip",
           "k": "noun",
-          "ca": "viatge / excursió"
+          "ca": "viatge / excursió",
+          "s": "scene_trip"
         },
         {
           "w": "sport",
@@ -4969,22 +5287,26 @@
         {
           "w": "team",
           "k": "noun",
+          "e": "👕⚽",
           "ca": "equip"
         },
         {
           "w": "player",
           "k": "noun",
+          "e": "⛹️",
           "ca": "jugador / jugadora"
         },
         {
           "w": "match",
           "k": "noun",
+          "e": "⚽🆚",
           "ca": "partit"
         },
         {
           "w": "club",
           "k": "noun",
-          "ca": "club"
+          "ca": "club",
+          "s": "scene_club"
         },
         {
           "w": "music",
@@ -5013,6 +5335,7 @@
         {
           "w": "band",
           "k": "noun",
+          "e": "🎸🥁",
           "ca": "grup (de música)"
         },
         {
@@ -5030,6 +5353,7 @@
         {
           "w": "dancing",
           "k": "noun",
+          "e": "💃",
           "ca": "ball"
         },
         {
@@ -5077,16 +5401,19 @@
         {
           "w": "reading",
           "k": "noun",
+          "e": "📖👀",
           "ca": "lectura"
         },
         {
           "w": "cooking",
           "k": "noun",
-          "ca": "cuina"
+          "ca": "cuina",
+          "s": "scene_cooking"
         },
         {
           "w": "shopping",
           "k": "noun",
+          "e": "🛒🛍️",
           "ca": "anar de compres"
         },
         {
@@ -5122,7 +5449,8 @@
         {
           "w": "ride",
           "k": "verb",
-          "ca": "muntar / anar amb"
+          "ca": "muntar / anar amb",
+          "s": "ride_horse_,_to"
         },
         {
           "w": "draw",
@@ -5183,22 +5511,26 @@
         {
           "w": "and",
           "k": "little",
-          "ca": "i"
+          "ca": "i",
+          "s": "scene_and"
         },
         {
           "w": "but",
           "k": "little",
-          "ca": "però"
+          "ca": "però",
+          "s": "scene_but"
         },
         {
           "w": "because",
           "k": "little",
-          "ca": "perquè"
+          "ca": "perquè",
+          "s": "scene_because"
         },
         {
           "w": "to",
           "k": "little",
-          "ca": "a / per a"
+          "ca": "a / per a",
+          "s": "scene_to"
         },
         {
           "w": "in",
@@ -5215,82 +5547,98 @@
         {
           "w": "for",
           "k": "little",
-          "ca": "per / per a"
+          "ca": "per / per a",
+          "s": "scene_for"
         },
         {
           "w": "the",
           "k": "little",
-          "ca": "el / la"
+          "ca": "el / la",
+          "s": "scene_the"
         },
         {
           "w": "a",
           "k": "little",
-          "ca": "un / una"
+          "ca": "un / una",
+          "s": "scene_a"
         },
         {
           "w": "an",
           "k": "little",
+          "e": "①🍎",
           "ca": "un / una"
         },
         {
           "w": "of",
           "k": "little",
-          "ca": "de"
+          "ca": "de",
+          "s": "scene_of"
         },
         {
           "w": "about",
           "k": "little",
-          "ca": "sobre / de"
+          "ca": "sobre / de",
+          "s": "scene_about"
         },
         {
           "w": "or",
           "k": "little",
-          "ca": "o"
+          "ca": "o",
+          "s": "scene_or"
         },
         {
           "w": "if",
           "k": "little",
-          "ca": "si"
+          "ca": "si",
+          "s": "scene_if"
         },
         {
           "w": "so",
           "k": "little",
-          "ca": "així que"
+          "ca": "així que",
+          "s": "scene_so"
         },
         {
           "w": "as",
           "k": "little",
+          "e": "≍",
           "ca": "com"
         },
         {
           "w": "than",
           "k": "little",
+          "e": "≷",
           "ca": "que"
         },
         {
           "w": "then",
           "k": "little",
+          "e": "①→②",
           "ca": "després / llavors"
         },
         {
           "w": "there",
           "k": "little",
-          "ca": "allà"
+          "ca": "allà",
+          "s": "scene_there"
         },
         {
           "w": "by",
           "k": "little",
-          "ca": "per / al costat de"
+          "ca": "per / al costat de",
+          "s": "scene_by"
         },
         {
           "w": "without",
           "k": "little",
-          "ca": "sense"
+          "ca": "sense",
+          "s": "scene_without"
         },
         {
           "w": "into",
           "k": "little",
-          "ca": "cap a dins de"
+          "ca": "cap a dins de",
+          "s": "scene_into"
         },
         {
           "w": "out",
@@ -5385,71 +5733,85 @@
         {
           "w": "upstairs",
           "k": "little",
-          "ca": "a dalt"
+          "ca": "a dalt",
+          "s": "walk_upstairs_,_to"
         },
         {
           "w": "downstairs",
           "k": "little",
-          "ca": "a baix"
+          "ca": "a baix",
+          "s": "walk_downstairs_,_to"
         },
         {
           "w": "any",
           "k": "little",
-          "ca": "cap / algun"
+          "ca": "cap / algun",
+          "s": "scene_any"
         },
         {
           "w": "another",
           "k": "little",
-          "ca": "un altre / una altra"
+          "ca": "un altre / una altra",
+          "s": "scene_another"
         },
         {
           "w": "other",
           "k": "little",
+          "e": "◯◆",
           "ca": "altre / altra"
         },
         {
           "w": "each",
           "k": "little",
-          "ca": "cada"
+          "ca": "cada",
+          "s": "scene_each"
         },
         {
           "w": "every",
           "k": "little",
-          "ca": "cada / tots"
+          "ca": "cada / tots",
+          "s": "every"
         },
         {
           "w": "both",
           "k": "little",
-          "ca": "tots dos"
+          "ca": "tots dos",
+          "s": "both"
         },
         {
           "w": "few",
           "k": "little",
-          "ca": "pocs"
+          "ca": "pocs",
+          "s": "scene_few"
         },
         {
           "w": "enough",
           "k": "little",
-          "ca": "prou"
+          "ca": "prou",
+          "s": "enough"
         },
         {
           "w": "much",
           "k": "little",
+          "e": "▂▅█",
           "ca": "molt"
         },
         {
           "w": "a lot",
           "k": "little",
+          "e": "●●●＋",
           "ca": "molt / molts"
         },
         {
           "w": "most",
           "k": "little",
-          "ca": "la majoria"
+          "ca": "la majoria",
+          "s": "most"
         },
         {
           "w": "own",
           "k": "little",
+          "e": "🔑🙋",
           "ca": "propi"
         }
       ]
@@ -5576,5 +5938,6 @@
       "t": "One more time, please.",
       "ca": "Una altra vegada, si us plau."
     }
-  ]
+  ],
+  "pictureVersion": 4
 }
