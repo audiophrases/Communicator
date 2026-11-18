@@ -89,6 +89,22 @@ test('an answer that used the sentence before is saved only for that pair', () =
     assert.notEqual(fixSeed(input, env, true), fixSeed({ ...input, context: 'Tomorrow I go to the park.' }, env, true));
 });
 
+test('linked Fix sends the paragraph in order and caches each context separately', async () => {
+    const context = ['Yesterday I went to the park.', 'I saw my friend.'];
+    const input = { text: 'we play football', level: 'A2', context };
+    await withFetch(async (_url, init) => {
+        const [system, user] = JSON.parse(init.body).messages;
+        assert.deepEqual(JSON.parse(user.content), { words: input.text, before: context });
+        assert.match(system.content, /paragraph/);
+        assert.doesNotMatch(system.content, /ONLY when "before" names a past time/);
+        return answer({ sentence: 'We played football.', alternatives: [], translation: '', context_used: true });
+    }, () => fixPhrase(input, { OPENAI_API_KEY: 'k' }));
+    const key = fixSeed(input, {}, true);
+    assert.notEqual(key, fixSeed(input, {}));
+    assert.notEqual(key, fixSeed({ ...input, context: context.toReversed() }, {}, true));
+    assert.notEqual(key, fixSeed({ ...input, context: ['Tomorrow we will meet.', context[1]] }, {}, true));
+});
+
 test('Fix and the editor use gpt-6-luna without thinking, unless told otherwise', async () => {
     const bodies = [];
     await withFetch(async (url, init) => {

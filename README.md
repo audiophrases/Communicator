@@ -11,6 +11,11 @@ one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are
 The **?** key in Core makes the words a question: `you` `want` `coffee` says "you want coffee", `you` `want`
 `coffee` `?` asks "you want coffee?", and Fix turns it into ✨ **Do you want coffee?**
 
+Press **Ctrl+Enter** to fix and speak the main suggestion. **Shift+Enter** (or **New sentence**) clears the
+preview for your next sentence. Turn on **Link sentences** to keep telling the same story. For example, after
+“Yesterday I went to the park” and “I saw my friend”, Fix can turn “we play football” into “We played football.”
+Turn the toggle off to end the paragraph. Each board session starts with it off.
+
 It runs on the teacher's laptop during class, like Pixel Plaza on the laptop: students open the laptop's address
 over the school Wi-Fi. Nothing is put online.
 
@@ -66,7 +71,7 @@ the whole class, across lessons and restarts:
 - **Fix**: the same words at the same level and language (capitals, spaces and the final full stop do not matter;
   a question mark does).
   The second student who writes "I want go home" gets "I want to go home." at once, without calling OpenAI. An answer
-  that depended on the sentence said before is reused only after that same sentence (see the design notes below).
+  made with Link sentences is reused only with the same preceding context.
 - **Catalan in the editor**: only buttons never translated before are sent.
 - **Voice clips**: the same text, voice and speed (as PinPlay: `voice::rate::text`) comes from the bridge once.
 
@@ -115,16 +120,14 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   verbs on Actions, describing words on Describe, "now" on Time, little words on Little words), so a sentence can be built
   on one page without going back to Core. Question words and yes/no/not/please, whose colours had no page, have
   **Ask & answer**. It is the same button: same picture, same Catalan.
-- **Fix suggests, the speaker decides.** AAC users must keep authorship of their words. Fix never speaks on its own
-  and never replaces the speaker's words: tapping a suggestion only says it aloud, so they can hear it, compare it
+- **Fix suggests, the speaker decides.** The Fix button opens suggestions for review. Ctrl+Enter explicitly asks
+  to speak the main suggestion. Tapping a suggestion says it aloud, so the speaker can hear it, compare it
   with their own attempt and try again. Tapping or typing another word closes the suggestions. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
-- **Fix sees the sentence said just before (within 2 minutes)**, for one common ESL mistake: setting the time once and
-  going back to the present ("Yesterday I went to the park." then "I eat ice cream" → "I ate ice cream."; "Next week I
-  have an exam." then "I study a lot" → "I will study a lot."). It changes the time only when the sentence before
-  names one, never for questions or needs about now, and never copies words from it. OpenAI says whether the sentence
-  before changed the answer: if not, the answer is shared with the whole class; if so, it is saved only for that pair,
-  and a student with a different sentence before gets a fresh answer.
+- **Link sentences** keeps paragraph context in memory until the speaker turns it off or reloads. New sentence
+  carries forward the version they chose to speak, or the words in the preview if they skipped playback.
+  Fix receives the opening sentence and up to seven other recent sentences. A new time cue in the current
+  sentence takes precedence, and immediate requests or needs keep their intended tense.
 - **The A1 words are all there.** The pages hold the CEFR A1 vocabulary: the A1 words of the
   [Oxford 3000](https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000) and Cambridge's
   [A1 Movers](https://www.cambridgeenglish.org/Images/351850-a1-movers-word-list-2018.pdf) word list, about 900 words. Most

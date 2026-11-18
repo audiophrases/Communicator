@@ -10,6 +10,8 @@ export const LANGUAGES = ['Catalan'] as const;
 export const isLanguage = (value: unknown): value is typeof LANGUAGES[number] => LANGUAGES.includes(value as typeof LANGUAGES[number]);
 
 export const MAX_TEXT = 300;
+// In longer paragraphs keep the opening sentence, which often establishes the time, and the latest sentences.
+export const MAX_LINKED_SENTENCES = 8;
 
 export type Fix = { sentence: string; alternatives: string[]; translation: string };
 // fix: the teacher has Fix switched on and there is an OpenAI key.

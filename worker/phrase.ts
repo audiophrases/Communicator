@@ -6,14 +6,13 @@ import { MAX_TEXT, type Fix, type Level } from '../shared/options.ts';
 import { modelOf, thinking } from './model.ts';
 
 export type PhraseEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; OPENAI_PHRASE_MODEL?: string };
-// context: the sentence the speaker said just before, when it was recent. It can set the time ("Yesterday I went to
-// the park." then "I eat ice cream" → "I ate ice cream.") or explain a short follow-up.
-export type PhraseInput = { text: string; level: Level; language?: string; context?: string };
+// Linked sentences arrive in paragraph order. Older clients send a single recent sentence.
+export type PhraseInput = { text: string; level: Level; language?: string; context?: string | string[] };
 export type PhraseResult = { fix: Fix; contextUsed: boolean };
 
 const TIMEOUT_MS = 8000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
-const FIX_VERSION = 8; // 8: account for missing auxiliaries and verb forms on the AAC board
+const FIX_VERSION = 9; // 9: linked sentences share a paragraph's tense
 
 // Catalan "agradar" and verbs like it work backwards from English, and small models get the people the wrong way
 // round ("I want to like you more" came back as "Vull agradar-te més", which means the opposite). Shared with the
@@ -24,23 +23,25 @@ const normalize = (text: string) => text.toLowerCase().replace(/\s+/g, ' ').repl
 
 // What makes two requests the same question: the answers are saved under it. Capitals, spacing and a final full
 // stop do not change the correction; a question mark does ("you want coffee" is not "you want coffee?"). Without
-// the context, the answer is shared by the whole class; with it, only by the same pair of sentences.
+// the context, the answer is shared by the whole class; with it, the lookup includes the preceding sentences.
 export function fixSeed(input: PhraseInput, env: PhraseEnv, withContext = false): string {
+    const context = input.context;
     return JSON.stringify(['fix', FIX_VERSION, modelOf(env), input.level, input.language || '',
-        normalize(input.text), ...(withContext && input.context ? [normalize(input.context)] : [])]);
+        normalize(input.text), ...(withContext && context ? [Array.isArray(context) ? context.map(normalize) : normalize(context)] : [])]);
 }
 
-const instructions = (level: Level, language?: string) => `You help a person who is learning English and uses an AAC button board to speak. They can tap words or type. The board often offers only the base verb ("have") and may lack buttons for auxiliaries ("do", "does", "did") or forms like "has", "had" and "having". You get their words as JSON, and sometimes "before": the sentence they said just before.
+const instructions = (level: Level, language?: string, linked = false) => `You help a person who is learning English and uses an AAC button board to speak. They can tap words or type. The board often offers only the base verb ("have") and may lack buttons for auxiliaries ("do", "does", "did") or forms like "has", "had" and "having". You get their words as JSON, and sometimes "before" contains earlier speech.
 Write what they most likely want to say as ONE natural, grammatically correct spoken English sentence.
 Rules:
 - Keep their meaning and chosen words. Supply missing auxiliaries and inflect verbs to fit the subject and time cues. Add articles, prepositions or "to" only where needed.
   "she have a dog" → "She has a dog." With the question button, "she have a dog?" → "Does she have a dog?" With a past time, "she have a dog last year" → "She had a dog last year."
 - Never add new ideas, details, names, reasons or politeness they did not choose.
 - Keep who is speaking: "I" stays "I".
-- "before" is only for the time of a story. Learners often say when something happened once and then go back to the present tense. Change the time ONLY when "before" names a past time (yesterday, last week, ago) or a future time (tomorrow, next week) AND their words clearly continue that same story without saying when. Then past stays past and future uses "will". Even a correct present sentence changes then.
+${linked ? `- "before" contains earlier sentences in this paragraph, oldest first. Use the most recently established time for continuing events, even if intervening sentences lack a time word. After "Yesterday I went to the park." and "I saw my friend.", "we play football" → "We played football."
+- A new time cue in the current words takes precedence. Keep questions, requests and needs about right now in their intended time.` : `- "before" is only for the time of a story. Learners often say when something happened once and then go back to the present tense. Change the time ONLY when "before" names a past time (yesterday, last week, ago) or a future time (tomorrow, next week) AND their words clearly continue that same story without saying when. Then past stays past and future uses "will". Even a correct present sentence changes then.
   Before "Yesterday I went to the park.": "I eat ice cream" → "I ate ice cream.". Before "Next week I have an exam.": "I study a lot" → "I will study a lot.".
 - Do NOT change the time when "before" names no time ("I like football." then "I play every Saturday" → "I play every Saturday."), or for questions, requests, feelings and needs about right now ("what time is it" → "What time is it?", "can you help me" → "Can you help me?").
-- If you are not sure whether their words continue the story or are about now, keep the present and give the story's time as an alternative.
+- If you are not sure whether their words continue the story or are about now, keep the present and give the story's time as an alternative.`}
 - Never copy words or ideas from "before": after "I want to go to the beach.", "my brother too" → "My brother too.".
 - "context_used": true only if "before" changed your answer; false if you would answer the same without it.
 - Use simple, common words that a CEFR ${level} learner knows. American English.
@@ -97,7 +98,7 @@ export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<Phr
             body: JSON.stringify({
                 model: modelOf(env), ...thinking(modelOf(env)),
                 messages: [
-                    { role: 'system', content: instructions(input.level, input.language) },
+                    { role: 'system', content: instructions(input.level, input.language, Array.isArray(input.context)) },
                     { role: 'user', content: JSON.stringify({ words: input.text, ...(input.context ? { before: input.context } : {}) }) }
                 ],
                 response_format: { type: 'json_schema', json_schema: SCHEMA }

@@ -4,7 +4,7 @@ import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
 import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
 import { LIMITS, sanitizeBoard } from '../shared/board.ts';
-import { isLanguage, isLevel, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
+import { isLanguage, isLevel, MAX_LINKED_SENTENCES, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
 import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../shared/voices.ts';
 
 export { BoardStore };
@@ -148,7 +148,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (path.startsWith('/api/teacher/')) return teacher(request, env, path);
     if (request.method !== 'POST' || (path !== '/api/fix' && path !== '/api/speak')) return json({ error: 'Not found.' }, 404);
 
-    const read = await readJson(request, 8192);
+    const read = await readJson(request, path === '/api/fix' ? (MAX_LINKED_SENTENCES + 1) * MAX_TEXT * 6 + 1024 : 8192);
     if ('error' in read) return read.error;
     const body = read.body;
     const words = text(body?.text);
@@ -171,10 +171,12 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
     if (!env.OPENAI_API_KEY || !(await store(env).fixOn())) return json({ error: 'Your teacher has switched Fix off.' }, 403);
     const level: Level = isLevel(body.level) ? body.level : 'A2';
-    const context = text(body.context);
+    const context = Array.isArray(body.context) ? body.context.map(text) : text(body.context);
+    if (Array.isArray(context) && (!context.length || context.length > MAX_LINKED_SENTENCES || context.some(line => !line))) {
+        return json({ error: 'Invalid paragraph context.' }, 400);
+    }
     const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined, ...(context ? { context } : {}) };
-    // With a recent sentence before it, only an answer made with that same sentence is reused: one made without it
-    // could miss the tense it sets. Without one, the class-wide answer is reused.
+    // A lookup includes the paragraph because the same words can have different tenses in different stories.
     const shared = await sha256Hex(fixSeed(input, env));
     const paired = context ? await sha256Hex(fixSeed(input, env, true)) : null;
     const lookup = paired ?? shared;
@@ -183,9 +185,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (!(await allowed(env.USE_RL, `fix:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
     const result = await fixPhrase(input, env);
     if (!result) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
-    // When the sentence before did not change the answer, the whole class can reuse it.
-    await store(env).remember('fix', paired && result.contextUsed ? paired : shared, JSON.stringify(result.fix));
-    if (paired && !result.contextUsed) await store(env).remember('fix', paired, JSON.stringify(result.fix));
+    await store(env).remember('fix', lookup, JSON.stringify(result.fix));
+    // Older clients shared a standalone answer when their single preceding sentence had no effect.
+    if (paired && !Array.isArray(context) && !result.contextUsed) await store(env).remember('fix', shared, JSON.stringify(result.fix));
     return json(result.fix, 200, 'miss');
 }
 

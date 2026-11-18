@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { LANGUAGES, LEVELS, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
+import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
+import { LANGUAGES, LEVELS, MAX_LINKED_SENTENCES, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
 import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
@@ -21,7 +21,6 @@ type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'e
 const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: 'Catalan', tapSound: true };
 const ACCENTS = [...new Set(ENGLISH_VOICES.map(voice => voice.accent))];
 const STATUS_EVERY_MS = 30_000; // so the teacher's Fix switch reaches students without a reload
-const CONTEXT_MS = 2 * 60_000; // a sentence said within this time counts as part of the same conversation
 
 function load<T>(key: string, fallback: T): T {
     try {
@@ -61,8 +60,16 @@ export default function App() {
     const [speaking, setSpeaking] = useState(false);
     const [notice, setNotice] = useState('');
     const typing = useRef<HTMLInputElement>(null);
-    // The last sentence spoken and when: Fix sends it along while it is recent (see CONTEXT_MS).
-    const lastSaid = useRef<{ text: string; at: number } | null>(null);
+    const [linked, setLinked] = useState(false);
+    const paragraph = useRef<string[]>([]);
+    const spokenChoice = useRef('');
+    const pendingFix = useRef<{ play: boolean } | null>(null);
+
+    function resetFix() {
+        pendingFix.current = null;
+        spokenChoice.current = '';
+        setFix(null);
+    }
 
     useEffect(() => { save('settings', settings); }, [settings]);
     useEffect(() => { save('saved', saved); }, [saved]);
@@ -74,16 +81,21 @@ export default function App() {
     // key is handled in onKeyDown below.
     // Backspace anywhere on the board does what ⌫ does: after clicking word buttons the keyboard's focus is on the last
     // button, not the text box. In a text box or a Settings menu, Backspace keeps its usual job.
-    const backspaceNow = useRef(backspace);
-    useEffect(() => { backspaceNow.current = backspace; });
-    useEffect(() => {
-        const onKeyDown = (event: KeyboardEvent) => {
-            if (event.key !== 'Backspace' || event.ctrlKey || event.altKey || event.metaKey || event.defaultPrevented) return;
-            const target = event.target as HTMLElement | null;
-            if (target?.closest('input, textarea, select, [contenteditable="true"]')) return;
+    const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
+        if (event.isComposing || event.defaultPrevented || event.altKey || event.metaKey) return;
+        const target = event.target as HTMLElement | null;
+        if (target !== typing.current && target?.closest('input:not(.linked input), textarea, select, [contenteditable="true"]')) return;
+        if (event.key === 'Enter' && event.ctrlKey !== event.shiftKey) {
             event.preventDefault();
-            backspaceNow.current();
-        };
+            if (event.repeat) return;
+            if (event.ctrlKey) void askFix(true);
+            else newSentence();
+        } else if (event.key === 'Backspace' && !event.ctrlKey && target !== typing.current) {
+            event.preventDefault();
+            backspace();
+        }
+    });
+    useEffect(() => {
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
     }, []);
@@ -97,18 +109,29 @@ export default function App() {
             event.preventDefault();
             const rest = withoutLastWord(value);
             setDraft(rest ? `${rest} ` : '');
-            setFix(null);
+            resetFix();
         };
         input.addEventListener('beforeinput', onBeforeInput);
         return () => input.removeEventListener('beforeinput', onBeforeInput);
     }, []);
     useEffect(() => {
-        const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => setStatus(value)).catch(() => {});
+        const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => {
+            if (typeof value.fix === 'boolean') updateStatus(value);
+        }).catch(() => {});
         void check();
         void fetchBoard().then(result => { if (result) setBoard(result.board); });
         const timer = window.setInterval(check, STATUS_EVERY_MS);
         return () => window.clearInterval(timer);
     }, []);
+
+    function updateStatus(value: Status) {
+        setStatus(value);
+        if (!value.fix) {
+            paragraph.current = [];
+            setLinked(false);
+            resetFix();
+        }
+    }
 
     // Catalan for a whole phrase, when it is one of the board's quick phrases.
     const phraseCa = useMemo(() => new Map(board.quick.filter(item => item.ca).map(item => [item.t, item.ca!])), [board]);
@@ -125,7 +148,7 @@ export default function App() {
         setSpeaking(true);
         setNotice('');
         setRecent(current => [text, ...current.filter(item => item !== text)].slice(0, 30));
-        lastSaid.current = { text, at: Date.now() };
+        if (pendingFix.current) pendingFix.current.play = false;
         const used = await say(text, { voice: settings.voice, rate: settings.rate });
         setSpeaking(false);
         if (used === 'device') setNotice('The natural voice did not answer, so this device spoke.');
@@ -140,7 +163,7 @@ export default function App() {
         const typed = draft.trim();
         setTokens(current => [...current, ...(typed ? [{ w: typed, typed: true }] : []), { w: word.w, e: word.e, s: word.s }]);
         setDraft('');
-        setFix(null);
+        resetFix();
         if (settings.tapSound && word.w !== '?') { stop(); void sayOnDevice(word.w, settings.rate, settings.voice); }
     }
 
@@ -149,7 +172,7 @@ export default function App() {
         const before = draft.trim().split(/\s+/).slice(0, -typedWords).join(' ');
         setTokens(current => [...current, ...(before ? [{ w: before, typed: true }] : []), { w: hit.word.w, e: hit.word.e, s: hit.word.s }]);
         setDraft('');
-        setFix(null);
+        resetFix();
         if (settings.tapSound) { stop(); void sayOnDevice(hit.word.w, settings.rate, settings.voice); }
         typing.current?.focus(); // keep typing
     }
@@ -162,7 +185,7 @@ export default function App() {
 
     // ⌫ takes away the last word: from what is being typed first, then from the bar.
     function backspace() {
-        setFix(null);
+        resetFix();
         if (draft.trim()) {
             const rest = withoutLastWord(draft);
             setDraft(rest ? `${rest} ` : ''); // the space lets the next word be typed straight on
@@ -177,38 +200,50 @@ export default function App() {
         });
     }
 
-    function clear() {
-        stop();
-        setTokens([]); setDraft(''); setFix(null); setNotice('');
+    function newSentence() {
+        if (linked && message) {
+            const lines = paragraph.current;
+            if (lines.length === MAX_LINKED_SENTENCES) lines.splice(1, 1);
+            lines.push((spokenChoice.current || message).slice(0, MAX_TEXT));
+        }
+        resetFix();
+        setTokens([]); setDraft(''); setNotice('');
+        typing.current?.focus();
     }
 
-    // The sentence said just before, so Fix can keep its tense ("Yesterday I went…" then "I eat…" → "I ate…").
-    // Only while recent: an old sentence is not part of this conversation any more.
-    function recentContext(words: string): string {
-        const last = lastSaid.current;
-        return last && Date.now() - last.at < CONTEXT_MS && last.text !== words ? last.text : '';
-    }
-
-    async function askFix() {
+    async function askFix(play = false) {
         if (!message || !status.fix) return;
+        if (play && fix?.state === 'done') { hear(fix.fix.sentence); return; }
+        if (pendingFix.current) {
+            if (play) pendingFix.current.play = true;
+            return;
+        }
+        const request = { play };
+        pendingFix.current = request;
         setFix({ state: 'loading' });
         try {
             const response = await fetch('/api/fix', {
                 method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
-                body: JSON.stringify({ text: message, level: settings.level, language: settings.language, context: recentContext(message) }),
+                body: JSON.stringify({ text: message, level: settings.level, language: settings.language,
+                    ...(linked && paragraph.current.length ? { context: paragraph.current } : {}) }),
                 signal: AbortSignal.timeout(12_000)
             });
             const body = await response.json();
-            if (response.status === 403) { setFix(null); setStatus({ fix: false }); return; } // the teacher just switched it off
+            if (pendingFix.current !== request) return;
+            if (response.status === 403) { updateStatus({ fix: false }); return; }
             setFix(response.ok ? { state: 'done', fix: body as Fix } : { state: 'error', message: body.error || 'No suggestion right now.' });
+            if (response.ok && request.play) hear((body as Fix).sentence);
         } catch {
-            setFix({ state: 'error', message: 'No suggestion right now. You can still speak your words.' });
+            if (pendingFix.current === request) setFix({ state: 'error', message: 'No suggestion right now. You can still speak your words.' });
+        } finally {
+            if (pendingFix.current === request) pendingFix.current = null;
         }
     }
 
     // Tapping a suggestion only says it: the speaker's own words stay in the bar, and the suggestions stay open to
     // hear again. Tapping or typing another word closes them.
     function hear(sentence: string) {
+        spokenChoice.current = sentence;
         void speak(sentence);
     }
 
@@ -230,7 +265,7 @@ export default function App() {
             <button className="phrase" onClick={() => void speak(text)} data-ca={phraseCa.get(text)}>{text}</button>
             <button className="icon" onClick={() => toggleSaved(text)} aria-label={saved.includes(text) ? 'Remove from saved' : 'Save'}
                 data-ca={saved.includes(text) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(text) ? '★' : '☆'}</button>
-            <button className="icon" onClick={() => { setTokens([{ w: text, typed: true }]); setDraft(''); setFix(null); setTab('core'); }} aria-label="Edit"
+            <button className="icon" onClick={() => { setTokens([{ w: text, typed: true }]); setDraft(''); resetFix(); setTab('core'); }} aria-label="Edit"
                 data-ca="Edita la frase">✏️</button>
         </div>
     );
@@ -245,22 +280,31 @@ export default function App() {
                     <input
                         ref={typing} className="typing" value={draft} maxLength={MAX_TEXT} aria-label="Type words"
                         placeholder={tokens.length ? '' : 'Tap words, or type to find them'}
-                        onChange={event => { setDraft(event.target.value); setFix(null); }}
+                        onChange={event => { setDraft(event.target.value); resetFix(); }}
                         onKeyDown={event => {
+                            if (event.nativeEvent.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
                             if (event.key === 'Tab' && found && !event.shiftKey) { event.preventDefault(); pick(found.hits[0], found.words); }
-                            else if (event.key === 'Enter') { event.preventDefault(); void speak(message); commitDraft(); }
+                            else if (event.key === 'Enter') { event.preventDefault(); hear(message); commitDraft(); }
                             else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
                         }}
                     />
                 </div>
                 <div className="actions">
                     <button className="act" onClick={backspace} disabled={!message} aria-label="Delete last word" data-ca="Esborra l'última paraula">⌫</button>
-                    <button className="act" onClick={clear} disabled={!message} data-ca="Esborra-ho tot">Clear</button>
+                    <button className="act" onClick={newSentence} disabled={!message} title="New sentence (Shift+Enter)"
+                        aria-keyshortcuts="Shift+Enter" data-ca="Frase nova">New sentence</button>
                     <button className="act save" onClick={() => toggleSaved(message)} disabled={!message} aria-label="Save this phrase"
                         data-ca={saved.includes(message) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(message) ? '★' : '☆'}</button>
+                    {status.fix && <label className="act linked" title="Keep the tense across sentences">
+                        <input type="checkbox" checked={linked} onChange={event => {
+                            setLinked(event.target.checked);
+                            paragraph.current = [];
+                            resetFix();
+                        }} /> Link sentences
+                    </label>}
                     {status.fix && <button className="act fix" onClick={() => void askFix()} disabled={!message || fix?.state === 'loading'}
-                        data-ca="Corregeix la frase">✨ Fix</button>}
-                    <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : void speak(message)} disabled={!message}
+                        title="Review suggestion (Ctrl+Enter to fix and speak)" data-ca="Corregeix la frase">✨ Fix</button>}
+                    <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : hear(message)} disabled={!message && !speaking}
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
                 </div>
                 {found && (
@@ -336,13 +380,13 @@ export default function App() {
                             </select>
                         </label>
                         <label>My English level
-                            <select value={settings.level} onChange={event => set('level', event.target.value as Level)}>
+                            <select value={settings.level} onChange={event => { resetFix(); set('level', event.target.value as Level); }}>
                                 {LEVELS.map(level => <option key={level}>{level}</option>)}
                             </select>
                             <small>{status.fix ? 'Fix uses words for this level.' : 'Fix is switched off by your teacher.'}</small>
                         </label>
                         <label>My language
-                            <select value={settings.language} onChange={event => { const language = event.target.value; setSettings(current => ({ ...current, language, languageChosen: true })); }}>
+                            <select value={settings.language} onChange={event => { const language = event.target.value; resetFix(); setSettings(current => ({ ...current, language, languageChosen: true })); }}>
                                 <option value="">Do not translate</option>
                                 {LANGUAGES.map(language => <option key={language} value={language}>{language === 'Catalan' ? 'Catalan (català)' : language}</option>)}
                             </select>
@@ -353,6 +397,7 @@ export default function App() {
                             Say each word when I tap it
                         </label>
                         <p className="hint">Hold a button (or point at it with the mouse) to see it in Catalan.</p>
+                        <p className="hint">Ctrl+Enter fixes and speaks. Shift+Enter starts a new sentence. Turn on Link sentences to carry the tense into the next sentence. Turn it off to end the paragraph.</p>
                         <p className="hint">Type a few letters, in English or Catalan, to find a button: tap it or press Tab. ? stands for one letter and * for any number (h?t, *ppy).</p>
                         <p className="credit">Symbols: <a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee,{' '}
                             <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Emoji by your device.</p>
