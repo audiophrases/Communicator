@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>improve</title>
+<desc>A first dart misses. The next dart hits the bullseye.</desc>
+<circle cx="21" cy="49" r="18" fill="#d95457" stroke="none" stroke-width="2"/><circle cx="21" cy="49" r="12.959999999999999" fill="#fff9ec" stroke="none" stroke-width="2"/><circle cx="21" cy="49" r="7.74" fill="#eb6d67" stroke="none" stroke-width="2"/><circle cx="21" cy="49" r="2.88" fill="#77313b" stroke="none" stroke-width="2"/><path d="M8 30l12 -16" fill="none" stroke="#244a71" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 16l1 -8 9 0 -3 8Z" fill="#3764a2" stroke="none" stroke-linejoin="round" stroke-width="2"/>
+<path d="M42 50L55 50 M47.0 43.9L55 50 47.0 56.1" fill="none" stroke="#276696" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="77" cy="48" r="21" fill="#d95457" stroke="none" stroke-width="2"/><circle cx="77" cy="48" r="15.12" fill="#fff9ec" stroke="none" stroke-width="2"/><circle cx="77" cy="48" r="9.03" fill="#eb6d67" stroke="none" stroke-width="2"/><circle cx="77" cy="48" r="3.36" fill="#77313b" stroke="none" stroke-width="2"/><path d="M77 48l12 -16" fill="none" stroke="#244a71" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M85 34l1 -8 9 0 -3 8Z" fill="#3764a2" stroke="none" stroke-linejoin="round" stroke-width="2"/>
+<path d="M65 83l7.3500000000000005 7.3500000000000005 15.75 -19.95" fill="none" stroke="#167656" stroke-width="5.25" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

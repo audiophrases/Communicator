@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>list</title>
+<desc>A page with three bullet points.</desc>
+<rect x="9" y="6" width="81" height="86" rx="5" fill="#fffdf6" stroke="#526e82" stroke-width="3"/>
+<circle cx="23" cy="29" r="4" fill="#347a96" stroke="none" stroke-width="2"/><path d="M37 29h35" fill="none" stroke="#577286" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="49" r="4" fill="#347a96" stroke="none" stroke-width="2"/><path d="M37 49h35" fill="none" stroke="#577286" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="69" r="4" fill="#347a96" stroke="none" stroke-width="2"/><path d="M37 69h35" fill="none" stroke="#577286" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

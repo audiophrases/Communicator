@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>must</title>
+<desc>A stop sign shows that stopping is required.</desc>
+<svg x="1" y="2" width="78" height="78" viewBox="0 0 36 36"><path fill="#DD2E44" d="M12 3l-9 8.985V24l9 9h12l9-9V11.985L24 3z"/><path fill="#CCD6DD" d="M24.827 1H11.173L1 11.156v13.672L11.172 35h13.657L35 24.828V11.156L24.827 1zM33 24l-9 9H12l-9-9V11.985L12 3h12l9 8.985V24z"/></svg>
+<circle cx="75" cy="75" r="23" fill="#fff" stroke="none" stroke-width="2"/>
+<svg x="53" y="53" width="44" height="44" viewBox="0 0 36 36"><circle fill="#BE1931" cx="18" cy="32" r="3"/><path fill="#BE1931" d="M21 24c0 1.657-1.344 3-3 3-1.657 0-3-1.343-3-3V5c0-1.657 1.343-3 3-3 1.656 0 3 1.343 3 3v19z"/></svg>
+</svg>

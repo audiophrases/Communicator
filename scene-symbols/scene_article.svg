@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>article</title>
+<desc>One article highlighted on a newspaper page.</desc>
+<rect x="5" y="9" width="89" height="82" rx="5" fill="#fffdf6" stroke="#526e82" stroke-width="3"/>
+<rect x="12" y="16" width="75" height="10" rx="4" fill="#576c83" stroke="none" stroke-width="2"/>
+<rect x="11" y="32" width="37" height="48" rx="4" fill="#f6dc98" stroke="none" stroke-width="2"/>
+<path d="M15 42h26" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 51h26" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 60h16.64" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 69h26" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M56 41h25" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M56 50h25" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M56 59h16.0" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M56 68h25" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

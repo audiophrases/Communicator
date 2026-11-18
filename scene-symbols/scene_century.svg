@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>century</title>
+<desc>A calendar spanning one hundred years.</desc>
+<rect x="7" y="12" width="86" height="73" rx="5" fill="#fffdf6" stroke="#526e82" stroke-width="3"/>
+<rect x="7" y="12" width="86" height="18" rx="4" fill="#c74f57" stroke="none" stroke-width="2"/>
+<text x="50" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="34" fill="#24364a">100</text>
+<text x="50" y="79" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="16" fill="#24364a">years</text>
+</svg>

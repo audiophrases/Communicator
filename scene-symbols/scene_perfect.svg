@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>perfect</title>
+<desc>Every answer on the page is correct.</desc>
+<rect x="9" y="6" width="81" height="86" rx="5" fill="#fffdf6" stroke="#526e82" stroke-width="3"/>
+<text x="50" y="48" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="28" fill="#24364a">100%</text>
+<path d="M31 70l11.200000000000001 11.200000000000001 24.0 -30.400000000000002" fill="none" stroke="#167656" stroke-width="8.0" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

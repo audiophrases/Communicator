@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>few</title>
+<desc>A jar contains just three berries.</desc>
+<rect x="22" y="13" width="56" height="74" rx="12" fill="#dfedf2" stroke="#45687d" stroke-width="3"/>
+<rect x="20" y="8" width="60" height="12" rx="3" fill="#6794a6" stroke="none" stroke-width="2"/>
+<circle cx="36" cy="71" r="7" fill="#84519c" stroke="none" stroke-width="2"/>
+<circle cx="52" cy="69" r="7" fill="#9556a3" stroke="none" stroke-width="2"/>
+<circle cx="65" cy="73" r="7" fill="#734492" stroke="none" stroke-width="2"/>
+</svg>

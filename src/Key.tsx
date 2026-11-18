@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import { symbolUrl, type Word } from '../shared/board.ts';
 
-// A word's picture: its Mulberry symbol, or its emoji. A symbol that fails to load disappears and leaves the word.
+// A teacher can set both an SVG and an emoji. Use the emoji if the SVG cannot load.
 export function Picture({ word, className = 'key-pic' }: { word: Pick<Word, 'e' | 's'>; className?: string }) {
-    if (word.s) {
+    const [failed, setFailed] = useState<string>();
+    if (word.s && word.s !== failed) {
+        const name = word.s;
         return <img className={`${className} sym`} src={symbolUrl(word.s)} alt="" draggable={false} loading="lazy"
-            onError={event => { event.currentTarget.style.display = 'none'; }} />;
+            onError={() => setFailed(name)} />;
     }
     return word.e ? <span className={className} aria-hidden="true">{word.e}</span> : null;
 }

@@ -399,8 +399,11 @@ export default function App() {
                         <p className="hint">Hold a button (or point at it with the mouse) to see it in Catalan.</p>
                         <p className="hint">Ctrl+Enter fixes and speaks. Shift+Enter starts a new sentence. Turn on Link sentences to carry the tense into the next sentence. Turn it off to end the paragraph.</p>
                         <p className="hint">Type a few letters, in English or Catalan, to find a button: tap it or press Tab. ? stands for one letter and * for any number (h?t, *ppy).</p>
-                        <p className="credit">Symbols: <a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee,{' '}
-                            <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>. Emoji by your device.</p>
+                        <p className="credit"><a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee.
+                            {' '}<a href="https://blissymbolics.org/index.php/bci-av-2026" target="_blank" rel="noopener">Blissymbols</a> © Blissymbolics Communication International (cropped).
+                            {' '}Both sets use <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
+                            {' '}Picture scenes include adapted <a href="https://github.com/jdecked/twemoji" target="_blank" rel="noopener">Twemoji graphics</a> by Twitter and contributors
+                            {' '}(<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>). Other emoji by your device.</p>
                     </div>
                 )}
             </main>

@@ -13,7 +13,13 @@ function mulberry(): Plugin {
   const root = fileURLToPath(new URL('./mulberry-symbols', import.meta.url))
   const svgs = path.join(root, 'EN-symbols')
   const own = fileURLToPath(new URL('./own-symbols', import.meta.url))
-  const fileOf = (name: string) => OWN.some(symbol => symbol.n === name) ? path.join(own, `${name}.svg`) : path.join(svgs, `${name}.svg`)
+  const bliss = fileURLToPath(new URL('./bliss-symbols', import.meta.url))
+  const scenes = fileURLToPath(new URL('./scene-symbols', import.meta.url))
+  function fileOf(name: string) {
+    if (name.startsWith('scene_')) return path.join(scenes, `${name}.svg`)
+    if (name.startsWith('bliss_')) return path.join(bliss, `${name}.svg`)
+    return path.join(OWN.some(symbol => symbol.n === name) ? own : svgs, `${name}.svg`)
+  }
   let outDir = 'dist'
 
   // One CSV line's fields. Names with commas ("eat_,_to") are quoted.
@@ -39,7 +45,13 @@ function mulberry(): Plugin {
       const [, , , rated, tags, name, category] = fields(line)
       if (rated === '0' && name && fs.existsSync(path.join(svgs, `${name}.svg`))) symbols.push({ n: name, t: tags, c: category })
     }
-    return [...OWN, ...symbols]
+    function entries(dir: string, category: string) {
+      return fs.readdirSync(dir).filter(file => file.endsWith('.svg')).map(file => {
+        const name = path.basename(file, '.svg')
+        return { n: name, t: name.slice(name.indexOf('_') + 1).replaceAll('_', ' '), c: category }
+      })
+    }
+    return [...OWN, ...entries(scenes, 'Picture scenes'), ...symbols, ...entries(bliss, 'Blissymbols')]
   }
 
   return {

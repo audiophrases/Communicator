@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>text</title>
+<desc>Several lines of writing on a page.</desc>
+<rect x="9" y="6" width="81" height="86" rx="5" fill="#fffdf6" stroke="#526e82" stroke-width="3"/>
+<path d="M19 28h59" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 40h59" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 52h37.76" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 64h59" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 76h59" fill="none" stroke="#708496" stroke-width="3.3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

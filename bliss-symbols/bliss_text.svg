@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill-rule="evenodd" stroke-linecap="round" viewBox="11 249 530 274">
+<!-- BCI-AV 2026: text_(writing). (c) Blissymbolics Communication International, CC BY-SA 4.0. Cropped viewBox. --><style type="text/css">
+.brush0 { fill: rgb(255,255,255); }
+.pen0 { stroke: rgb(0,0,0); stroke-width: 1; stroke-linejoin: round; }
+.font0 { font-size: 11px; font-family: "MS Sans Serif"; }
+.pen1 { stroke: rgb(0,0,0); stroke-width: 14; stroke-linejoin: round; }
+.brush1 { fill: none; }
+.font1 { font-weight: bold; font-size: 16px; font-family: System, sans-serif; }
+</style>
+<g>
+<line class="pen1" fill="none" x1="20" x2="276" y1="258" y2="514"/>
+<circle class="pen1" cx="403.5" cy="385.5" fill="none" r="63.5"/>
+<path class="pen1" d="M 530.9980921477604,321.99223327246324 A 63.5,63.5 0 1 0 404.00196841240614,321.9999845006897" fill="none"/>
+<path class="pen1" d="M 403.171752599735,512.5183940927529 A 255.5,255.5 0 0 0 531.9257653272348,321.99048273426087" fill="none"/>
+</g>
+</svg>

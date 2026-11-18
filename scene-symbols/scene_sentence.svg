@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>sentence</title>
+<desc>A complete sentence starts with a capital and ends with a period.</desc>
+<rect x="2" y="20" width="96" height="58" rx="5" fill="#fffdf6" stroke="#526e82" stroke-width="3"/>
+<text x="50" y="57" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="30" fill="#24364a">I run.</text>
+</svg>

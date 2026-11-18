@@ -3,22 +3,48 @@ import fs from 'node:fs';
 import { test } from 'node:test';
 import { LIMITS, sanitizeBoard, symbolUrl } from '../../shared/board.ts';
 import { DEFAULT_BOARD } from '../../src/vocab.ts';
+import { readBoard } from '../../src/boardData.ts';
 
 const everyWord = () => [...DEFAULT_BOARD.core, ...DEFAULT_BOARD.pages.flatMap(page => page.words)].filter(word => word.w);
 
-test("every built-in symbol is in the Mulberry set or the app's own, and none is a rated one", () => {
+test("every built-in word has a picture and each SVG is in the board's symbol library", () => {
     const dir = new URL('../../mulberry-symbols/EN-symbols/', import.meta.url);
     const csv = fs.readFileSync(new URL('../../mulberry-symbols/symbol-info.csv', import.meta.url), 'utf8');
     const used = [...new Set(everyWord().filter(word => word.s).map(word => word.s))];
     assert.ok(used.length > 50);
     const own = new URL('../../own-symbols/', import.meta.url); // the app's own, for words Mulberry has no picture for
-    assert.deepEqual(used.filter(name => !fs.existsSync(new URL(`${name}.svg`, dir)) && !fs.existsSync(new URL(`${name}.svg`, own))), []);
+    const scenes = new URL('../../scene-symbols/', import.meta.url);
+    assert.deepEqual(everyWord().filter(word => !word.s && !word.e).map(word => word.w), []);
+    assert.deepEqual(used.filter(name => ![dir, own, scenes].some(root => fs.existsSync(new URL(`${name}.svg`, root)))), []);
     // The build serves only the own symbols vite.config.ts lists.
     const config = fs.readFileSync(new URL('../../vite.config.ts', import.meta.url), 'utf8');
     assert.deepEqual(fs.readdirSync(own).map(file => file.replace(/\.svg$/, '')).filter(name => !config.includes(`n: '${name}'`)), []);
     assert.deepEqual(used.filter(name => new RegExp(`,1,[^,]*,"?${name.replace(/[^\w]/g, '.')}"?,`).test(csv)), []);
     // A word with a symbol shows only the symbol.
     assert.deepEqual(everyWord().filter(word => word.s && word.e).map(word => word.w), []);
+});
+
+test('old boards gain missing vocabulary pictures and teachers can still remove them', () => {
+    const old = { core: [{ w: 'because', k: 'little' }, { w: 'my', k: 'person', e: '⭐' }, { w: '', k: 'noun' }, { w: 'you', k: 'person' }],
+        pages: [{ id: 'school', name: 'Class', icon: '🎓', words: [{ w: 'break', k: 'noun' }, { w: 'mean', k: 'describe' }] }], quick: [] };
+    const board = readBoard(old);
+    assert.equal(board.core[0].s, 'scene_because');
+    assert.equal(board.core[1].e, '⭐');
+    assert.deepEqual(board.core[2], { w: '', k: 'noun' });
+    assert.equal(board.pages[0].words[0].s, 'break_time_1');
+    assert.equal(board.pages[0].words[1].s, undefined);
+    delete board.core[0].s;
+    assert.deepEqual(readBoard(board), board);
+});
+
+test('saved boards gain the new scenes while keeping chosen pictures and deliberately blank buttons', () => {
+    const board = readBoard({ pictureVersion: 1, core: [], quick: [], pages: [{ id: 'actions', name: 'Actions', words: [
+        { w: 'sell', k: 'verb', s: 'bliss_sell' }, { w: 'spend', k: 'verb', s: 'bliss_business' }, { w: 'do', k: 'verb' }
+    ] }] });
+    assert.deepEqual(board.pages[0].words.map(word => word.s), ['scene_sell', 'bliss_business', undefined]);
+    assert.equal(board.pictureVersion, 2);
+    board.pages[0].words[0].s = 'bliss_sell';
+    assert.deepEqual(readBoard(board), board);
 });
 
 test('no two different words share a picture', () => {

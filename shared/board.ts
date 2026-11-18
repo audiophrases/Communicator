@@ -3,11 +3,11 @@
 
 export type Kind = 'person' | 'verb' | 'describe' | 'noun' | 'little' | 'question' | 'social' | 'no';
 // w: the English word ('' is an empty core slot, so the words around it keep their place). e: emoji. ca: Catalan.
-// s: a Mulberry symbol (its file name in mulberry-symbols/EN-symbols, served at /symbols/<s>.svg); shown instead of e.
+// s: an SVG from the board's symbol library, served at /symbols/<s>.svg; shown instead of e.
 export type Word = { w: string; e?: string; k: Kind; ca?: string; s?: string };
 export type Page = { id: string; name: string; ca?: string; icon: string; words: Word[] };
 export type Phrase = { t: string; ca?: string };
-export type Board = { core: Word[]; pages: Page[]; quick: Phrase[] };
+export type Board = { core: Word[]; pages: Page[]; quick: Phrase[]; pictureVersion?: 1 | 2 };
 
 export const KINDS: { kind: Kind; name: string }[] = [
     { kind: 'person', name: 'People (yellow)' }, { kind: 'verb', name: 'Actions (green)' },
@@ -78,5 +78,6 @@ export function sanitizeBoard(value: unknown): Board | null {
     }
     // Trailing empty core slots hold nothing in place.
     while (core.length && !core[core.length - 1].w) core.pop();
-    return { core, pages, quick };
+    const version = input.pictureVersion;
+    return { core, pages, quick, ...(version === 1 || version === 2 ? { pictureVersion: version } : {}) };
 }

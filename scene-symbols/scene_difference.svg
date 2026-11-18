@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>difference</title>
+<desc>A magnifier highlights the different shape.</desc>
+<path d="M4 63L22 30 40 63Z" fill="#4d9c80" stroke="none" stroke-linejoin="round" stroke-width="2"/>
+<circle cx="70" cy="50" r="15" fill="#eeaa63" stroke="none" stroke-width="2"/>
+<circle cx="70" cy="50" r="23" fill="none" stroke="#416174" stroke-width="4"/>
+<path d="M85 68l10 11" fill="none" stroke="#416174" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

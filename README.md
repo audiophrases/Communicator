@@ -143,22 +143,26 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   laptop keeps the saved answers above (the sentences and their corrections, translations and clips), with no name or
   device attached; **Forget them** in `/create` deletes them. What a student sends to Fix goes to OpenAI, and, with
   this account's data sharing on, OpenAI may use it to train its models. Spoken sentences go to the voice bridge.
-- **Mulberry symbols where they say more than an emoji.** Each word was compared by eye with its Mulberry candidates.
-  About 210 words use a Mulberry symbol: actions (an emoji of a chair for "sit" shows the chair, Mulberry shows someone
-  sitting), question words, family relations (who to whom), time words that emoji show as media buttons (⏭️ for
-  "tomorrow"), body parts, pairs such as open/closed and hungry/thirsty, numbers past ten, colours, seasons and weather,
-  where things are (above, behind, between), and words that had no picture. Emoji stay where they are clear: feelings,
-  most food and things, animals, call, wait, write. No two different words share a picture
-  (a test checks it). Pronouns and little words (you, the, because…) have no Mulberry symbol and stay as text or emoji.
+- **Every built-in word has a visual cue.** Mulberry pictograms show actions such as sitting and spatial relationships
+  such as “between”. Color picture scenes show actions and relationships: for example, “sell” shows a seller,
+  an apple leaving the stall, and a coin coming back. Other words use familiar
+  emoji or conventional notation, such as € for euro. Tests check coverage and distinguish different words' pictures.
 
 ## Symbols
 
 The [Mulberry Symbols](https://mulberrysymbols.org) (`mulberry-symbols/`, version in `VERSION.txt`) are © Steve Lee,
 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); Settings credits them. The build copies them to
 `dist/symbols/` with a search index, leaving out the six the set marks as rated (anatomy), so `mulberry-symbols/` must
-be present to build. The built-in choices are in `src/vocab.ts` (`SYMBOLS`). In `/create`, each button has a symbol
+be present to build. The built-in choices are in `src/vocab.ts`. In `/create`, each button has a symbol
 search that starts from its English word; a symbol replaces the emoji on that button.
 
 Mulberry has no picture for "I", so `own-symbols/I_me.svg` (a person pointing at their own chest, the usual AAC
 picture for "I") was drawn for this app in the Mulberry style. Own symbols are listed in `vite.config.ts` (`OWN`),
 served and searched like the Mulberry ones.
+
+The SVGs in `scene-symbols/` are bundled locally. They combine original drawings with adapted Twemoji artwork
+by Twitter and contributors. [Twemoji](https://github.com/jdecked/twemoji) · [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+The editor also offers selected SVGs from the BCI Authorized Vocabulary in `bliss-symbols/`. The files are named for
+their board words, retain their original English gloss in an SVG comment, and have cropped margins for legibility.
+© Blissymbolics Communication International. [BCI-AV 2026](https://blissymbolics.org/index.php/bci-av-2026) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>language</title>
+<desc>Two greetings in different languages.</desc>
+<rect x="1" y="6" width="58" height="32" rx="10" fill="#fff" stroke="#25415b" stroke-width="3"/><path d="M8.5 36 l-1 11 13 -10" fill="#fff" stroke="#25415b" stroke-linejoin="round" stroke-width="2"/>
+<text x="30" y="29" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="21" fill="#24364a">Hi!</text>
+<rect x="31" y="55" width="65" height="32" rx="10" fill="#fff" stroke="#25415b" stroke-width="3"/><path d="M72.75 85 l-1 11 13 -10" fill="#fff" stroke="#25415b" stroke-linejoin="round" stroke-width="2"/>
+<text x="63" y="78" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="20" fill="#24364a">Hola!</text>
+</svg>

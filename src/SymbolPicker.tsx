@@ -1,4 +1,4 @@
-// /create: choose a Mulberry symbol for a button. It searches the symbols' names and tags, starting with the
+// /create: choose a symbol for a button. It searches the symbols' names and tags, starting with the
 // button's English word, so a new button usually has its symbol one click away.
 
 import { useEffect, useMemo, useState } from 'react';
@@ -10,7 +10,7 @@ let index: Promise<Entry[]> | null = null;
 const loadIndex = () => index ??= fetch('/symbols/index.json').then(response => response.ok ? response.json() : []).catch(() => []);
 
 // "eat_,_to" → "eat (to …)", "shoe_-_mans" → "shoe - mans"
-const symbolLabel =(name: string) => name.replace(/_,_to$/, ' (to …)').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+const symbolLabel = (name: string) => name.replace(/^(?:scene|bliss)_/, '').replace(/_,_to$/, ' (to …)').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
 
 function search(entries: Entry[], query: string): Entry[] {
     const q = query.trim().toLowerCase().replace(/\s+/g, ' ');
@@ -46,7 +46,7 @@ export function SymbolPicker({ value, word, onPick }: { value?: string; word: st
                     ? <span className="symbol-now"><img src={symbolUrl(value)} alt="" /> {symbolLabel(value)} <button className="link" onClick={() => onPick(undefined)}>Remove</button></span>
                     : <span className="symbol-now none">None: the emoji is shown</span>}
             </div>
-            <input value={shown} onChange={event => setQuery(event.target.value)} placeholder="Search Mulberry symbols, e.g. apple, run, happy" aria-label="Search symbols" />
+            <input value={shown} onChange={event => setQuery(event.target.value)} placeholder="Search symbols, e.g. apple, run, because" aria-label="Search symbols" />
             {entries.length === 0 ? <p className="hint">Loading symbols…</p>
                 : results.length === 0 ? <p className="hint">{shown.trim() ? 'No symbol found. Try another word, or keep the emoji.' : 'Type a word to find a symbol.'}</p>
                 : (

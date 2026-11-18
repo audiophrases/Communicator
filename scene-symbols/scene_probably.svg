@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>probably</title>
+<desc>A mostly full chance meter with a small uncertain part.</desc>
+<rect x="6" y="39" width="88" height="23" rx="10" fill="#f7f4e8" stroke="#456073" stroke-width="3"/>
+<rect x="9" y="42" width="66" height="17" rx="8" fill="#369879" stroke="none" stroke-width="2"/>
+<text x="81" y="84" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="24" fill="#24364a">?</text>
+</svg>

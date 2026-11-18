@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>nothing</title>
+<desc>The open box is empty.</desc>
+<path d="M12 42L48 24 87 41 51 62Z" fill="#73533a" stroke="#543e2e" stroke-linejoin="round" stroke-width="2"/>
+<path d="M12 42L51 59 51 87 12 68Z" fill="#e1aa6c" stroke="#825934" stroke-linejoin="round" stroke-width="2"/>
+<path d="M51 59L87 41 87 67 51 87Z" fill="#c3894d" stroke="#825934" stroke-linejoin="round" stroke-width="2"/>
+<path d="M12 42L4 29 40 15 48 24Z M87 41L96 29 58 15 48 24Z" fill="#f5c58c" stroke="#825934" stroke-linejoin="round" stroke-width="2"/>
+</svg>

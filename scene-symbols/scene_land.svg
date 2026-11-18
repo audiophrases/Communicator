@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>land</title>
+<desc>A green shore meets blue water.</desc>
+<path d="M3 28Q27 36 42 22T95 27V86H3Z" fill="#65af65" stroke="none" stroke-linejoin="round" stroke-width="2"/>
+<path d="M3 68q20 -16 43 -5t49 -7v30H3Z" fill="#63b9d5" stroke="none" stroke-linejoin="round" stroke-width="2"/>
+<path d="M4 67q18 -15 42 -5t48 -7" fill="none" stroke="#f4da8b" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

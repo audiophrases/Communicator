@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<title>Friday</title>
+<desc>Friday on a calendar.</desc>
+<rect x="6" y="10" width="88" height="80" rx="8" fill="#fffaf0" stroke="#485767" stroke-width="3"/><rect x="7" y="12" width="86" height="17" rx="4" fill="#397c99" stroke="none" stroke-width="2"/><path d="M27 6v13m46 -13v13" fill="none" stroke="#415565" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><text x="50" y="58" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="30" fill="#24364a">Fri</text><circle cx="14" cy="75" r="5" fill="#d8d2c8" stroke="none" stroke-width="2"/><circle cx="26" cy="75" r="5" fill="#d8d2c8" stroke="none" stroke-width="2"/><circle cx="38" cy="75" r="5" fill="#d8d2c8" stroke="none" stroke-width="2"/><circle cx="50" cy="75" r="5" fill="#d8d2c8" stroke="none" stroke-width="2"/><circle cx="62" cy="75" r="5" fill="#397c99" stroke="none" stroke-width="2"/><circle cx="74" cy="75" r="5" fill="#d8d2c8" stroke="none" stroke-width="2"/><circle cx="86" cy="75" r="5" fill="#d8d2c8" stroke="none" stroke-width="2"/>
+</svg>
