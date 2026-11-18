@@ -2,6 +2,7 @@
 
 import { sanitizeBoard, type Board, type Word } from '../shared/board.ts';
 import { DEFAULT_BOARD } from './vocab.ts';
+import type { BoardSync } from '../shared/options.ts';
 
 const CACHE = 'board';
 
@@ -52,16 +53,17 @@ export function cachedBoard(): Board {
 }
 
 // The board to show now, or null when the server could not be reached.
-export async function fetchBoard(): Promise<{ board: Board; custom: boolean } | null> {
+export async function fetchBoard(): Promise<({ board: Board; custom: boolean } & BoardSync) | null> {
     try {
         const response = await fetch('/api/board', { signal: AbortSignal.timeout(8000) });
         if (!response.ok) return null;
-        const board = readBoard((await response.json()).board);
+        const { board: raw, revision, sync } = await response.json();
+        const board = readBoard(raw);
         try {
             if (board) localStorage.setItem(CACHE, JSON.stringify(board));
             else localStorage.removeItem(CACHE);
         } catch { /* private window: nothing is kept */ }
-        return { board: board ?? DEFAULT_BOARD, custom: !!board };
+        return { board: board ?? DEFAULT_BOARD, custom: !!board, revision, sync };
     } catch {
         return null;
     }

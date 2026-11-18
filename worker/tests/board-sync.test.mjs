@@ -1,0 +1,63 @@
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
+import { test } from 'node:test';
+import { boardRepository } from '../../scripts/board-sync.mjs';
+
+test('teacher saves sync only the board on main and preserve offline and concurrent edits', async t => {
+    const root = mkdtempSync(path.join(tmpdir(), 'communicator-sync-test-'));
+    t.after(() => rmSync(root, { recursive: true, force: true }));
+    const git = (cwd, ...args) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+    const remote = path.join(root, 'central');
+    git(root, 'init', '--bare', '-b', 'main', remote);
+    const a = path.join(root, 'first');
+    const b = path.join(root, 'second');
+    git(root, 'clone', remote, a);
+    writeFileSync(path.join(a, 'code'), 'initial code');
+    git(a, 'add', 'code');
+    git(a, '-c', 'user.name=Teacher', '-c', 'user.email=t@example.com', 'commit', '-m', 'Initial code');
+    git(a, 'push', 'origin', 'main');
+    git(root, 'clone', remote, b);
+    writeFileSync(path.join(a, 'code'), 'unfinished code');
+    git(a, 'add', 'code');
+    const staged = git(a, 'write-tree');
+    const first = boardRepository(a);
+    const second = boardRepository(b);
+    const board = word => ({ core: [{ w: word, k: 'noun' }], pages: [], quick: [] });
+    const saved = await first.save(board('apple'), '', true);
+    assert.equal(saved.sync, 'synced');
+    assert.equal(git(a, 'write-tree'), staged);
+    assert.equal(git(remote, 'show', 'main:code'), 'initial code');
+    assert.equal(git(remote, 'diff', '--name-only', 'main^', 'main'), 'classroom-board.json');
+    await second.refresh();
+    assert.deepEqual((await second.read()).board, board('apple'));
+    git(b, 'pull', '--ff-only');
+    assert.deepEqual(JSON.parse(readFileSync(path.join(b, 'classroom-board.json'))), board('apple'));
+    const next = await second.save(board('banana'), saved.revision);
+    await assert.rejects(first.save(board('stale'), saved.revision), { status: 409 });
+
+    // Offline saves survive process restart and replay on top of unrelated remote code edits.
+    git(a, 'remote', 'set-url', 'origin', path.join(root, 'offline'));
+    const offline = await first.save(board('pear'), next.revision);
+    assert.equal(offline.sync, 'offline');
+    assert.deepEqual((await boardRepository(a).read()).board, board('pear'));
+    git(b, 'pull', '--ff-only');
+    writeFileSync(path.join(b, 'code'), 'new code from second laptop');
+    git(b, 'add', 'code');
+    git(b, '-c', 'user.name=Teacher', '-c', 'user.email=t@example.com', 'commit', '-m', 'Code change');
+    git(b, 'push', 'origin', 'main');
+    git(a, 'remote', 'set-url', 'origin', remote);
+    assert.equal(await first.refresh(), 'synced');
+    assert.equal(git(remote, 'show', 'main:code'), 'new code from second laptop');
+    assert.equal(git(a, 'write-tree'), staged);
+
+    git(a, 'remote', 'set-url', 'origin', path.join(root, 'offline'));
+    await first.save(board('local'), offline.revision);
+    await second.save(board('other laptop'), offline.revision);
+    git(a, 'remote', 'set-url', 'origin', remote);
+    assert.equal(await first.refresh(), 'conflict');
+    assert.deepEqual((await first.read()).board, board('local'));
+    assert.deepEqual(JSON.parse(git(remote, 'show', 'main:classroom-board.json')), board('other laptop'));
+});

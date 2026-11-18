@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:worker": "wrangler dev",
+    "dev:worker": "node scripts/classroom.mjs --dev",
     "build": "wrangler types worker/runtime.d.ts --include-env=false && tsc -b && vite build",
     "classroom": "npm run build && node scripts/classroom.mjs",
     "lint": "oxlint",

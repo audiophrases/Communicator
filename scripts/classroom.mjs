@@ -1,5 +1,4 @@
-// Runs Communicator on the teacher's laptop, reachable from the school Wi-Fi. Nothing goes online:
-// the board, the teacher's buttons and the Fix switch are kept on this laptop in .wrangler/classroom.
+// Runs Communicator on the teacher's laptop, with the shared board synced through Git.
 //
 //   npm run classroom      (classroom.bat runs this)
 //
@@ -8,10 +7,12 @@ import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
+import { startBoardSync } from './board-sync.mjs';
 
 const root = path.join(import.meta.dirname, '..');
 const wrangler = path.join(root, 'node_modules', 'wrangler', 'bin', 'wrangler.js');
-const port = Number(process.env.PORT || 8790);
+const dev = process.argv.includes('--dev');
+const port = Number(process.env.PORT || (dev ? 8787 : 8790));
 
 // The school network address: a private IPv4 address, Wi-Fi or cable.
 function lanAddress() {
@@ -32,7 +33,7 @@ if (busy) {
     process.exit(1);
 }
 
-const address = lanAddress();
+const address = dev ? '' : lanAddress();
 const lanUrl = process.env.COMMUNICATOR_LAN_URL || (address ? `http://${address}:${port}` : '');
 
 console.log(`
@@ -46,9 +47,11 @@ console.log(`
   Keep this window open during the lesson. Ctrl+C stops it.
 `);
 
-const child = spawn(process.execPath, [wrangler, 'dev', '--ip', '0.0.0.0', '--port', String(port),
-    '--persist-to', path.join(root, '.wrangler', 'classroom'), '--show-interactive-dev-session=false',
+const sync = await startBoardSync(root);
+const child = spawn(process.execPath, [wrangler, 'dev', '--ip', dev ? '127.0.0.1' : '0.0.0.0', '--port', String(port),
+    ...(!dev ? ['--persist-to', path.join(root, '.wrangler', 'classroom')] : []), '--show-interactive-dev-session=false',
+    '--var', `BOARD_SYNC_URL:${sync.url}`,
     ...(lanUrl ? ['--var', `LAN_URL:${lanUrl}`] : [])], {
     cwd: root, env: { ...process.env, WRANGLER_SEND_METRICS: 'false' }, stdio: 'inherit'
 });
-child.on('exit', code => process.exit(code ?? 0));
+child.on('exit', code => { sync.close(); process.exit(code ?? 0); });

@@ -22,6 +22,7 @@ export interface Env {
     EDGE_TTS_SECRET?: string;
     // Set by scripts/classroom.mjs: the address students open on the school network.
     LAN_URL?: string;
+    BOARD_SYNC_URL?: string;
     USE_RL?: RateLimit;
     AUTH_RL?: RateLimit;
 }
@@ -107,6 +108,9 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
             const board = sanitizeBoard(body?.board);
             if (!board) return json({ error: 'That board is not valid.' }, 400);
             if (JSON.stringify(board).length > LIMITS.json) return json({ error: 'The board is too big. Remove some buttons or pages.' }, 413);
+            if (env.BOARD_SYNC_URL) return fetch(env.BOARD_SYNC_URL, {
+                method: 'POST', body: JSON.stringify({ board, revision: body.revision })
+            });
             await store(env).save(board);
             return json({ board });
         }
@@ -144,7 +148,21 @@ async function handle(request: Request, env: Env): Promise<Response> {
     if (path === '/api/status' && request.method === 'GET') {
         return json({ fix: !!env.OPENAI_API_KEY && await store(env).fixOn() } satisfies Status);
     }
-    if (path === '/api/board' && request.method === 'GET') return json({ board: await store(env).board() });
+    if (path === '/api/board' && request.method === 'GET') {
+        if (!env.BOARD_SYNC_URL) return json({ board: await store(env).board() });
+        const response = await fetch(env.BOARD_SYNC_URL);
+        if (!response.ok) return response;
+        const snapshot = await response.json<{ board: unknown; revision: string; sync: string }>();
+        if (snapshot.board) return json(snapshot);
+        const legacy = await store(env).board();
+        if (legacy && snapshot.sync === 'synced') {
+            const seeded = await fetch(env.BOARD_SYNC_URL, { method: 'POST', body: JSON.stringify({ board: legacy, revision: '', seed: true }) });
+            if (!seeded.ok) return seeded;
+            const latest = await seeded.json<typeof snapshot>();
+            return json({ ...latest, board: latest.board ?? legacy });
+        }
+        return json({ ...snapshot, board: legacy });
+    }
     if (path.startsWith('/api/teacher/')) return teacher(request, env, path);
     if (request.method !== 'POST' || (path !== '/api/fix' && path !== '/api/speak')) return json({ error: 'Not found.' }, 404);
 

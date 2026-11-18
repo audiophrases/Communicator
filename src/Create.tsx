@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { KINDS, LIMITS, pageKind, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
-import type { TeacherSettings } from '../shared/options.ts';
+import type { BoardSync, TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
 import { findButtons } from './search.ts';
@@ -63,6 +63,7 @@ export default function Create() {
     const [board, setBoard] = useState<Board | null>(null); // the draft
     const [savedJson, setSavedJson] = useState('');
     const [custom, setCustom] = useState(false);
+    const [boardSync, setBoardSync] = useState<BoardSync>({});
     const [settings, setSettings] = useState<TeacherSettings | null>(null);
     const ai = !!settings?.key; // the editor's ✨ Catalan needs the OpenAI key, whatever the students' switch says
     const [tab, setTab] = useState('core');
@@ -81,17 +82,18 @@ export default function Create() {
         return () => window.removeEventListener('beforeunload', warn);
     }, [dirty]);
 
-    function start(next: Board, isCustom: boolean) {
+    function start(next: Board, isCustom: boolean, { revision, sync }: BoardSync) {
         const clean = sanitizeBoard(next) ?? DEFAULT_BOARD;
         setBoard(clean);
         setSavedJson(JSON.stringify(clean));
         setCustom(isCustom);
+        setBoardSync({ revision, sync });
     }
     // The board to edit, or a message saying why there is none.
     async function loadBoard(): Promise<string | void> {
         const result = await fetchBoard();
         if (!result) throw new Error('Could not load the board. Check the connection and reload.');
-        start(result.board, result.custom);
+        start(result.board, result.custom, result);
     }
     // Already signed in from earlier in this tab.
     useEffect(() => {
@@ -101,10 +103,7 @@ export default function Create() {
             .then(response => response.ok ? response.json() : null).then(result => { if (result) setSettings(result as TeacherSettings); }).catch(() => {});
         void fetchBoard().then(result => {
             if (!result) return setMessage({ text: 'Could not load the board. Check the connection and reload.', bad: true });
-            const clean = sanitizeBoard(result.board) ?? DEFAULT_BOARD;
-            setBoard(clean);
-            setSavedJson(JSON.stringify(clean));
-            setCustom(result.custom);
+            start(result.board, result.custom, result);
         });
     }, []);
 
@@ -248,10 +247,12 @@ export default function Create() {
     const save = () => run('Saving…', async () => {
         const empty = board.pages.reduce((sum, item) => sum + item.words.filter(entry => !entry.w).length, 0)
             + board.quick.filter(item => !item.t.trim()).length;
-        const result = await call('/api/teacher/board', { board }) as { board: Board };
-        start(result.board, true);
+        const result = await call('/api/teacher/board', { board, revision: boardSync.revision }) as { board: Board } & BoardSync;
+        start(result.board, true, result);
         setSelected(null);
-        return `Saved. Students get the new board when they open or reload the page.${empty ? ` ${empty} empty button${empty === 1 ? ' was' : 's were'} left out.` : ''}`;
+        const saved = result.sync === 'synced' ? 'Saved to Git on main.' : result.sync === 'offline'
+            ? 'Saved on this laptop. Git sync will retry automatically.' : 'Saved.';
+        return `${saved} Students get the new board when they open or reload the page.${empty ? ` ${empty} empty button${empty === 1 ? ' was' : 's were'} left out.` : ''}`;
     });
     // Coloured as on the students' board (see App.tsx).
     const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '🔤' },
@@ -261,14 +262,16 @@ export default function Create() {
         <div className="create">
             <header className="create-top">
                 <h1>Communicator <span>Create</span></h1>
-                <span className={`state${dirty ? ' dirty' : ''}`}>{busy || (dirty ? 'Unsaved changes' : custom ? 'Saved' : 'Built-in board')}</span>
+                <span className={`state${dirty ? ' dirty' : ''}`}>{busy || (dirty ? 'Unsaved changes' : boardSync.sync === 'conflict' ? 'Git sync conflict'
+                    : boardSync.sync === 'offline' ? 'Git sync offline' : custom ? 'Saved' : 'Built-in board')}</span>
                 <div className="create-actions">
                     {ai && <button onClick={() => void translate(missing)} disabled={!missing.length || !!busy}
                         title="Translate every button, page name and phrase that has no Catalan">✨ Fill missing Catalan{missing.length ? ` (${missing.length})` : ''}</button>}
                     <button onClick={() => { setBoard(JSON.parse(savedJson)); setSelected(null); }} disabled={!dirty || !!busy}>Undo changes</button>
                     <a className="button" href="/" target="_blank" rel="noopener">Open the board ↗</a>
                     <button onClick={() => { if (!dirty || confirm('Sign out and lose the unsaved changes?')) { signOut(); setBoard(null); } }}>Sign out</button>
-                    <button className="primary" onClick={() => void save()} disabled={!dirty || !!busy}>Save</button>
+                    <button className="primary" onClick={() => void save()} disabled={!dirty || !!busy}
+                        title={boardSync.revision !== undefined ? 'Save the board and quick phrases to the public main branch' : undefined}>Save</button>
                 </div>
             </header>
             <div className="lesson">

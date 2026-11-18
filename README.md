@@ -17,7 +17,7 @@ preview for your next sentence. Turn on **Link sentences** to keep telling the s
 Turn the toggle off to end the paragraph. Each board session starts with it off.
 
 It runs on the teacher's laptop during class, like Pixel Plaza on the laptop: students open the laptop's address
-over the school Wi-Fi. Nothing is put online.
+over the school Wi-Fi. Teacher-created board content syncs to this public GitHub repository.
 
 ## In class
 
@@ -28,13 +28,32 @@ over the school Wi-Fi. Nothing is put online.
    such as `http://192.168.1.20:8790`. The editor shows it too.
 3. Students open that address on the school Wi-Fi. Nothing to sign in to.
 
-The board, your buttons and the Fix switch are kept on the laptop in `.wrangler/classroom` (not in git).
+With Git installed and authenticated, the classroom launcher shares teacher edits through `classroom-board.json` on
+`origin/main`. The Fix switch, voice clips, AI cache and credentials stay on the laptop.
 It uses port 8790, so Pixel Plaza can run on 8787 at the same time; `PORT` changes it and `COMMUNICATOR_LAN_URL`
 overrides the detected address (for a laptop on more than one network). The address is plain HTTP, so sign in to
 `/create` on the laptop itself, not from a student device.
 
 While changing the code: `npm run dev:worker` in one terminal and `npm run dev` in another.
 `npm test` runs the Worker tests.
+
+### Board sync
+
+Save in `/create` commits the board layout, buttons, translations, symbol choices and quick phrases to the public
+`main` branch. Each laptop fetches the board at startup and every minute while running. Reload the student board
+or editor to see the latest version. A normal `git pull` also downloads the JSON file. If the repository has no
+shared board yet, the first online laptop with an existing saved teacher board supplies it.
+
+The launcher uses this checkout's Git credentials. Each teacher laptop needs push access to `origin/main`.
+An offline save stays usable locally and retries while the launcher is running, including after a restart.
+Each board commit publishes just the JSON file and leaves the working tree and staging area alone.
+
+If two laptops edit the same board, Save reports a stale draft and lets you keep the tab open while reviewing the
+latest board in another tab. If both made offline commits, sync pauses with both versions intact. On the laptop
+reporting the conflict, stop the launcher and run `git branch recovered-classroom-board refs/communicator/pending-board`.
+In a clean checkout of main, pull the latest changes, merge that recovery branch, resolve any conflicts in
+`classroom-board.json`, and push the result. After verifying it, clear the pending ref with
+`git update-ref -d refs/communicator/pending-board` on that laptop and restart the launcher.
 
 ## Voices
 
@@ -101,7 +120,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | --- | --- | --- |
 | Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 15 topic pages (about 880 words, covering CEFR A1), 30 quick phrases, each with Catalan; saved and recent phrases |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
-| Editor | `src/Create.tsx`, `worker/store.ts`, `worker/teacher.ts` | `/create`; the board, the Fix switch and the saved answers are kept in a Durable Object (SQLite); sessions are signed and last 12 hours |
+| Editor | `src/Create.tsx`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
 | Fix | `worker/phrase.ts` | One chat-model call (`gpt-6-luna`, `worker/model.ts`) with a strict JSON schema: the sentence, up to 2 other meanings, and its Catalan |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons and phrases, told the word type and page to pick the meaning |
