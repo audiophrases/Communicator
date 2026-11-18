@@ -243,13 +243,13 @@
     {
       "w": "what",
       "k": "question",
-      "ca": "què",
-      "s": "what"
+      "e": "?📦",
+      "ca": "què"
     },
     {
       "w": "where",
       "k": "question",
-      "e": "📍",
+      "e": "?📍",
       "ca": "on"
     },
     {
