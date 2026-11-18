@@ -13,7 +13,7 @@ export type PhraseResult = { fix: Fix; contextUsed: boolean };
 
 const TIMEOUT_MS = 8000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
-const FIX_VERSION = 7; // 7: a "?" from the speaker means a question (6: the model writes the Catalan line)
+const FIX_VERSION = 8; // 8: account for missing auxiliaries and verb forms on the AAC board
 
 // Catalan "agradar" and verbs like it work backwards from English, and small models get the people the wrong way
 // round ("I want to like you more" came back as "Vull agradar-te més", which means the opposite). Shared with the
@@ -30,10 +30,11 @@ export function fixSeed(input: PhraseInput, env: PhraseEnv, withContext = false)
         normalize(input.text), ...(withContext && input.context ? [normalize(input.context)] : [])]);
 }
 
-const instructions = (level: Level, language?: string) => `You help a person who is learning English and uses a communication board to speak. They tap single words or type short, broken English. You get their words as JSON, and sometimes "before": the sentence they said just before.
+const instructions = (level: Level, language?: string) => `You help a person who is learning English and uses an AAC button board to speak. They can tap words or type. The board often offers only the base verb ("have") and may lack buttons for auxiliaries ("do", "does", "did") or forms like "has", "had" and "having". You get their words as JSON, and sometimes "before": the sentence they said just before.
 Write what they most likely want to say as ONE natural, grammatically correct spoken English sentence.
 Rules:
-- Keep their meaning and their words. Add only what grammar needs: articles, prepositions, verb forms, "to", "be", "do".
+- Keep their meaning and chosen words. Supply missing auxiliaries and inflect verbs to fit the subject and time cues. Add articles, prepositions or "to" only where needed.
+  "she have a dog" → "She has a dog." With the question button, "she have a dog?" → "Does she have a dog?" With a past time, "she have a dog last year" → "She had a dog last year."
 - Never add new ideas, details, names, reasons or politeness they did not choose.
 - Keep who is speaking: "I" stays "I".
 - "before" is only for the time of a story. Learners often say when something happened once and then go back to the present tense. Change the time ONLY when "before" names a past time (yesterday, last week, ago) or a future time (tomorrow, next week) AND their words clearly continue that same story without saying when. Then past stays past and future uses "will". Even a correct present sentence changes then.
