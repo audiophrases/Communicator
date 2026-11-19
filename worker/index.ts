@@ -17,6 +17,8 @@ export interface Env {
     OPENAI_API_KEY?: string;
     OPENAI_BASE_URL?: string; // tests only
     OPENAI_PHRASE_MODEL?: string;
+    XKIRO_API_KEY?: string;
+    XKIRO_MODEL?: string;
     // The teacher's password for /create, the same as PinPlay's.
     CREATE_PASSWORD_HASH?: string;
     // Optional override for PinPlay's Render Edge TTS bridge.
@@ -185,6 +187,11 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
 
 async function handle(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
+    const phraseEnv = env.XKIRO_MODEL ? {
+        OPENAI_BASE_URL: 'https://api.xkiro.com',
+        OPENAI_API_KEY: env.XKIRO_API_KEY,
+        OPENAI_PHRASE_MODEL: env.XKIRO_MODEL
+    } : env;
 
     if (env.BOARD_REPOSITORY && (path === '/create' || path === '/create/')) {
         return Response.redirect(new URL('/', request.url).href, 302);
@@ -215,7 +222,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
         } });
     }
     if (path === '/api/status' && request.method === 'GET') {
-        return json({ fix: !!env.OPENAI_API_KEY && await store(env).fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
+        return json({ fix: !!phraseEnv.OPENAI_API_KEY && await store(env).fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
     }
     if (path === '/api/board' && request.method === 'GET') {
         if (env.BOARD_REPOSITORY) {
@@ -263,7 +270,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
         return audioResponse(bytes, 'miss');
     }
 
-    if (!env.OPENAI_API_KEY || !(await store(env).fixOn())) return json({ error: 'Your teacher has switched Fix off.' }, 403);
+    if (!phraseEnv.OPENAI_API_KEY || !(await store(env).fixOn())) return json({ error: 'Your teacher has switched Fix off.' }, 403);
     const level: Level = isLevel(body.level) ? body.level : 'A2';
     const context = Array.isArray(body.context) ? body.context.map(text) : text(body.context);
     if (Array.isArray(context) && (!context.length || context.length > MAX_LINKED_SENTENCES || context.some(line => !line))) {
@@ -271,13 +278,13 @@ async function handle(request: Request, env: Env): Promise<Response> {
     }
     const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined, ...(context ? { context } : {}) };
     // A lookup includes the paragraph because the same words can have different tenses in different stories.
-    const shared = await sha256Hex(fixSeed(input, env));
-    const paired = context ? await sha256Hex(fixSeed(input, env, true)) : null;
+    const shared = await sha256Hex(fixSeed(input, phraseEnv));
+    const paired = context ? await sha256Hex(fixSeed(input, phraseEnv, true)) : null;
     const lookup = paired ?? shared;
     const saved = (await store(env).recall([lookup]))[lookup];
     if (saved?.value) return json(JSON.parse(saved.value), 200, 'hit');
     if (!(await allowed(env.USE_RL, `fix:${visitor(request, env)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
-    const result = await fixPhrase(input, env);
+    const result = await fixPhrase(input, phraseEnv);
     if (!result) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
     await store(env).remember('fix', lookup, JSON.stringify(result.fix));
     // Older clients shared a standalone answer when their single preceding sentence had no effect.

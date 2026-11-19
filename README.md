@@ -41,8 +41,7 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 ### Always-online student board
 
 The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English and translates
-the result into Catalan with `gpt-5.4-mini`. The project's OpenAI account lists this model for complimentary
-daily tokens. Usage above the allowance is billed. The laptop uses `gpt-6-luna` by default.
+the result into Catalan using xKiro's `mistralai/mistral-large-2512`. The laptop uses OpenAI's `gpt-6-luna` by default.
 Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with device speech as a fallback.
 The laptop's Fix switch applies to the school Wi-Fi session. Online corrections and voice clips have their own cache.
 
@@ -55,7 +54,7 @@ For app code, push changes to `main` and launch `classroom.bat` from that update
 It serves the local build and publishes the matching release through the laptop's Wrangler login, as PinPlay does.
 Unpublished source changes stay local. Running `npm run deploy:online` publishes a release manually.
 The hosted Worker uses the `online` environment in `wrangler.jsonc`. Set or rotate its server-side key with
-`npx wrangler secret put OPENAI_API_KEY --env online`. If the bridge requires authentication, set
+`npx wrangler secret put XKIRO_API_KEY --env online`. If the bridge requires authentication, set
 `EDGE_TTS_SECRET` the same way. The teacher password belongs only in the laptop's `.dev.vars`.
 
 ### Board sync
