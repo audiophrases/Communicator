@@ -8,6 +8,10 @@ one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are
 
 `I` `want` `go` `doctor` `tomorrow` → ✨ **I want to go to the doctor tomorrow.** 🔊
 
+Tap any word in your sentence, or choose **Edit words** after typing. Move the selected word left or right,
+edit its text, or delete it. **Add before** and **Add after** let you insert words by typing or tapping the board.
+Choose **Done** to continue adding at the end. **Fix** and **Speak** use the sentence in its current order.
+
 The **?** key in Core makes the words a question: `you` `want` `coffee` says "you want coffee", `you` `want`
 `coffee` `?` asks "you want coffee?", and Fix turns it into ✨ **Do you want coffee?**
 

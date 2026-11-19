@@ -7,9 +7,9 @@ import { Key, Picture } from './Key.tsx';
 import { typedQuery, type Hit } from './search.ts';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
-// typed: words the speaker typed (or a phrase put back to edit), which ⌫ takes away one word at a time.
-// A button's words ("bus stop") go together.
-type Token = { w: string; e?: string; s?: string; typed?: boolean };
+// Board buttons retain their picture and can move as a unit ("bus stop"). Typed words move individually.
+type Token = { w: string; e?: string; s?: string };
+const typedTokens = (text: string): Token[] => text.trim().split(/\s+/).filter(Boolean).map(w => ({ w }));
 
 // "go to the doctor" → "go to the"
 const withoutLastWord = (text: string) => text.trimEnd().replace(/\s*\S+$/, '');
@@ -48,6 +48,8 @@ export default function App() {
     const [board, setBoard] = useState<Board>(cachedBoard);
     const [tokens, setTokens] = useState<Token[]>([]);
     const [draft, setDraft] = useState('');
+    const [selectedWord, setSelectedWord] = useState<number | null>(null);
+    const [insertAt, setInsertAt] = useState<number | null>(null);
     const [chosenTab, setTab] = useState('core');
     const [fix, setFix] = useState<FixState>(null);
     // The last status this device saw, so the Fix button is there from the first frame and the board does not jump
@@ -59,6 +61,8 @@ export default function App() {
     const [speaking, setSpeaking] = useState(false);
     const [notice, setNotice] = useState('');
     const typing = useRef<HTMLInputElement>(null);
+    const originalWord = useRef<Token | null>(null);
+    const wordTools = useRef<HTMLDivElement>(null);
     const [linked, setLinked] = useState(false);
     const paragraph = useRef<string[]>([]);
     const spokenChoice = useRef('');
@@ -160,8 +164,9 @@ export default function App() {
     const phraseCa = useMemo(() => new Map(board.quick.filter(item => item.ca).map(item => [item.t, item.ca!])), [board]);
 
     // A question mark sits on the word before it, as it is written: "you want coffee?".
-    const message = [...tokens.map(token => token.w), draft.trim()].filter(Boolean).join(' ').replace(/ \?/g, '?');
-    const asking = message.endsWith('?');
+    const cursor = insertAt ?? tokens.length;
+    const message = [...tokens.slice(0, cursor).map(t => t.w), draft.trim(), ...tokens.slice(cursor).map(t => t.w)]
+        .filter(Boolean).join(' ').replace(/ \?/g, '?');
     // Buttons matching what is being typed (English or Catalan; ? one letter, * any letters).
     const found = useMemo(() => typedQuery(board, draft), [board, draft]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
@@ -183,15 +188,58 @@ export default function App() {
         else { stop(); void sayOnDevice(word, settings.rate, settings.voice); }
     }
 
+    function draftWords(text = draft) {
+        const original = originalWord.current;
+        return original && original.w === text.trim() ? [original] : typedTokens(text);
+    }
+
+    function insertWords(words: Token[]) {
+        originalWord.current = null;
+        setTokens([...tokens.slice(0, cursor), ...words, ...tokens.slice(cursor)]);
+        if (insertAt !== null) setInsertAt(cursor + words.length);
+        setSelectedWord(null);
+        setDraft('');
+    }
+
+    function selectWord(index: number) {
+        const pending = draftWords();
+        insertWords(pending);
+        setInsertAt(null);
+        setSelectedWord(index === selectedWord ? null : index + (cursor <= index ? pending.length : 0));
+    }
+
+    function moveWord(index: number, offset: number) {
+        const next = [...tokens];
+        const target = index + offset;
+        [next[index], next[target]] = [next[target], next[index]];
+        setTokens(next);
+        setSelectedWord(target);
+        resetFix();
+    }
+
+    function startInsertion(index: number) {
+        setInsertAt(index);
+        setSelectedWord(null);
+        typing.current?.focus();
+    }
+
+    function focusWordTools() {
+        requestAnimationFrame(() => wordTools.current?.querySelector<HTMLButtonElement>('button:enabled')?.focus());
+    }
+
+    function deleteWord(index: number) {
+        setTokens(tokens.filter((_, i) => i !== index));
+        setSelectedWord(null);
+        resetFix();
+    }
+
     function tap(word: Word) {
         if (!word.w) return;
         // ? makes the words so far a question ("you want coffee" → "you want coffee?"): Speak asks it, Fix makes a
         // question of it. It needs words before it, and once is enough; ⌫ takes it away.
-        if (word.w === '?' && (!message || asking)) return;
-        // Typed words go first, so the message keeps the order they were added in.
-        const typed = draft.trim();
-        setTokens(current => [...current, ...(typed ? [{ w: typed, typed: true }] : []), { w: word.w, e: word.e, s: word.s }]);
-        setDraft('');
+        const preceding = draft.trim() || tokens[cursor - 1]?.w;
+        if (word.w === '?' && (!preceding || preceding.endsWith('?') || tokens[cursor]?.w === '?')) return;
+        insertWords([...draftWords(), { w: word.w, e: word.e, s: word.s }]);
         resetFix();
         speakWord(word.w);
     }
@@ -199,21 +247,20 @@ export default function App() {
     // A button found by typing: it takes the place of the letters typed for it, and earlier typed words stay.
     function pick(hit: Hit, typedWords: number) {
         const before = draft.trim().split(/\s+/).slice(0, -typedWords).join(' ');
-        setTokens(current => [...current, ...(before ? [{ w: before, typed: true }] : []), { w: hit.word.w, e: hit.word.e, s: hit.word.s }]);
-        setDraft('');
+        insertWords([...typedTokens(before), { w: hit.word.w, e: hit.word.e, s: hit.word.s }]);
         resetFix();
         speakWord(hit.word.w);
         typing.current?.focus(); // keep typing
     }
 
-    function commitDraft(text = draft) {
-        const words = text.trim();
-        if (words) setTokens(current => [...current, { w: words, typed: true }]);
-        setDraft('');
+    function finishEditing() {
+        insertWords(draftWords());
+        setInsertAt(null);
     }
 
     // ⌫ takes away the last word: from what is being typed first, then from the bar.
     function backspace() {
+        if (selectedWord !== null) { deleteWord(selectedWord); return; }
         resetFix();
         if (draft.trim()) {
             const rest = withoutLastWord(draft);
@@ -221,12 +268,9 @@ export default function App() {
             return;
         }
         setDraft('');
-        setTokens(current => {
-            const last = current.at(-1);
-            if (!last?.typed) return current.slice(0, -1);
-            const rest = withoutLastWord(last.w);
-            return rest ? [...current.slice(0, -1), { ...last, w: rest }] : current.slice(0, -1);
-        });
+        if (cursor === 0) return;
+        deleteWord(cursor - 1);
+        if (insertAt !== null) setInsertAt(cursor - 1);
     }
 
     function newSentence() {
@@ -237,6 +281,8 @@ export default function App() {
         }
         resetFix();
         setTokens([]); setDraft(''); setNotice('');
+        originalWord.current = null;
+        setSelectedWord(null); setInsertAt(null);
         typing.current?.focus();
     }
 
@@ -294,32 +340,49 @@ export default function App() {
             <button className="phrase" onClick={() => void speak(text)} data-ca={phraseCa.get(text)}>{text}</button>
             <button className="icon" onClick={() => toggleSaved(text)} aria-label={saved.includes(text) ? 'Remove from saved' : 'Save'}
                 data-ca={saved.includes(text) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(text) ? '★' : '☆'}</button>
-            <button className="icon" onClick={() => { setTokens([{ w: text, typed: true }]); setDraft(''); resetFix(); setTab('core'); }} aria-label="Edit"
+            <button className="icon" onClick={() => { originalWord.current = null; setTokens(typedTokens(text)); setDraft(''); setSelectedWord(null); setInsertAt(null); resetFix(); setTab('core'); }} aria-label="Edit"
                 data-ca="Edita la frase">✏️</button>
         </div>
     );
 
+    const pieces = tokens.map((token, index) => (
+        <button className={token.w === '?' ? 'chip mark' : 'chip'} key={index}
+            aria-label={`Edit word ${index + 1}: ${token.w}`} aria-pressed={selectedWord === index}
+            onClick={event => { selectWord(index); if (!event.detail) focusWordTools(); }}>
+            <Picture word={token} className="chip-pic" />{token.w}
+        </button>
+    ));
+    pieces.splice(cursor, 0, <input key="typing" ref={typing} className={insertAt === null ? 'typing' : 'typing inserting'}
+        value={draft} maxLength={MAX_TEXT} aria-label="Type words"
+        placeholder={insertAt !== null ? 'Add words here' : tokens.length ? '' : 'Tap words, or type to find them'}
+        onFocus={() => setSelectedWord(null)}
+        onChange={event => { setSelectedWord(null); setDraft(event.target.value); resetFix(); }}
+        onKeyDown={event => {
+            if (event.nativeEvent.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
+            if (event.key === 'Tab' && found) { event.preventDefault(); pick(found.hits[0], found.words); }
+            else if (event.key === 'Enter') {
+                event.preventDefault();
+                if (insertAt === null) hear(message);
+                finishEditing();
+            } else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
+        }}
+    />);
+
     return (
         <div className="app">
             <header className="top">
-                <div className="bar" onClick={() => typing.current?.focus()}>
-                    {tokens.map((token, index) => (
-                        <span className={token.w === '?' ? 'chip mark' : 'chip'} key={index}><Picture word={token} className="chip-pic" />{token.w}</span>
-                    ))}
-                    <input
-                        ref={typing} className="typing" value={draft} maxLength={MAX_TEXT} aria-label="Type words"
-                        placeholder={tokens.length ? '' : 'Tap words, or type to find them'}
-                        onChange={event => { setDraft(event.target.value); resetFix(); }}
-                        onKeyDown={event => {
-                            if (event.nativeEvent.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
-                            if (event.key === 'Tab' && found && !event.shiftKey) { event.preventDefault(); pick(found.hits[0], found.words); }
-                            else if (event.key === 'Enter') { event.preventDefault(); hear(message); commitDraft(); }
-                            else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
-                        }}
-                    />
+                <div className="bar" onClick={event => { if (event.target === event.currentTarget) typing.current?.focus(); }}>
+                    {pieces}
+                    {message && selectedWord === null && insertAt === null && <button className="edit-words" onClick={event => {
+                        finishEditing();
+                        setSelectedWord(draft.trim() ? tokens.length : 0);
+                        if (!event.detail) focusWordTools();
+                    }} data-ca="Edita les paraules">Edit words</button>}
                 </div>
                 <div className="actions">
-                    <button className="act" onClick={backspace} disabled={!message} aria-label="Delete last word" data-ca="Esborra l'última paraula">⌫</button>
+                    <button className="act" onClick={backspace} disabled={!message}
+                        aria-label={selectedWord !== null ? 'Delete selected word' : insertAt !== null ? 'Delete preceding word' : 'Delete last word'}
+                        data-ca="Esborra una paraula">⌫</button>
                     <button className="act" onClick={newSentence} disabled={!message} title="New sentence (Shift+Enter)"
                         aria-keyshortcuts="Shift+Enter" data-ca="Frase nova">New sentence</button>
                     <button className="act save" onClick={() => toggleSaved(message)} disabled={!message} aria-label="Save this phrase"
@@ -336,6 +399,25 @@ export default function App() {
                     <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : hear(message)} disabled={!message && !speaking}
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
                 </div>
+                {selectedWord !== null && <div ref={wordTools} className="word-tools" role="group" aria-label={`Edit ${tokens[selectedWord].w}`}>
+                    <button onClick={() => moveWord(selectedWord, -1)} disabled={selectedWord === 0} data-ca="Mou a l'esquerra">← Move left</button>
+                    <button onClick={() => moveWord(selectedWord, 1)} disabled={selectedWord === tokens.length - 1} data-ca="Mou a la dreta">Move right →</button>
+                    <button onClick={() => startInsertion(selectedWord)} data-ca="Afegeix abans">Add before</button>
+                    <button onClick={() => startInsertion(selectedWord + 1)} data-ca="Afegeix després">Add after</button>
+                    <button onClick={() => {
+                        originalWord.current = tokens[selectedWord];
+                        setDraft(tokens[selectedWord].w);
+                        deleteWord(selectedWord);
+                        startInsertion(selectedWord);
+                        requestAnimationFrame(() => typing.current?.select());
+                    }} data-ca="Edita el text">Edit text</button>
+                    <button onClick={() => deleteWord(selectedWord)} data-ca="Esborra la paraula">Delete word</button>
+                    <button onClick={finishEditing} data-ca="Fet">Done</button>
+                </div>}
+                {insertAt !== null && <div className="word-tools" role="group" aria-label="Insert words">
+                    <span>Type or tap board words to insert here.</span>
+                    <button onClick={finishEditing} data-ca="Fet">Done</button>
+                </div>}
                 {found && (
                     <div className="found" aria-label={`Buttons for "${found.query}"`}>
                         {found.hits.map(hit => (
