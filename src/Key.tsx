@@ -18,9 +18,10 @@ export function Picture({ word, className = 'key-pic' }: { word: Pick<Word, 'e' 
 export function Key({ word, onTap, selected }: { word: Word; onTap: () => void; selected?: boolean }) {
     const className = `key k-${word.k}${word.w ? '' : ' blank'}${selected ? ' selected' : ''}`;
     if (!word.w) return <div className={className} aria-hidden="true" onClick={onTap} />;
+    const pictureClass = word.w.toLowerCase() === 'big' && word.e === '🐘' ? 'key-pic big-elephant' : 'key-pic';
     return (
         <button className={className} onClick={onTap} data-ca={word.ca || undefined}>
-            <Picture word={word} />
+            <Picture word={word} className={pictureClass} />
             <span className={`key-word${word.w.length > 8 ? ' long' : ''}${word.w === '?' ? ' mark' : ''}`}>{word.w}</span>
         </button>
     );
