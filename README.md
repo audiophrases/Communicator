@@ -41,7 +41,7 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 ### Always-online student board
 
 The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English and translates
-the result into Catalan using xKiro's `mistralai/mistral-large-2512`. The laptop uses OpenAI's `gpt-6-luna` by default.
+the result into Catalan using xKiro's `mistralai/ministral-3b`. The laptop uses OpenAI's `gpt-6-luna` by default.
 Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with device speech as a fallback.
 The laptop's Fix switch applies to the school Wi-Fi session. Online corrections and voice clips have their own cache.
 

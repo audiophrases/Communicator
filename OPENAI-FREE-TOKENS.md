@@ -31,7 +31,7 @@ Phone Mirror.
 
 ## In this project
 
-- **Online student Fix and Catalan** use xKiro's `mistralai/mistral-large-2512` under the xKiro account.
+- **Online student Fix and Catalan** use xKiro's `mistralai/ministral-3b` under the xKiro account.
 - **Laptop Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
   `gpt-6-luna` with thinking off, **billed** ($0.10 / $0.50 per million tokens): about 0.01 cents a Fix, so about
   5 cents for a busy lesson. Chosen after side-by-side tests on 2026-11-16 (`worker/model.ts`): it got Catalan
