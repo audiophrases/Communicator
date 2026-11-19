@@ -77,7 +77,12 @@ function visitor(request: Request, env: Env): string {
 function boardResponse(request: Request, snapshot: { board: unknown; revision?: string; sync?: string }) {
     if (!snapshot.revision) return json(snapshot);
     const headers = { ETag: `"${snapshot.revision}"`, 'Cache-Control': 'private, no-cache' };
-    if (request.headers.get('If-None-Match') === headers.ETag) return new Response(null, { status: 304, headers });
+    // The edge can weaken an ETag when compressing JSON. Both forms identify the same board.
+    const matches = request.headers.get('If-None-Match')?.split(',').some(tag => {
+        const value = tag.trim();
+        return value === '*' || value.replace(/^W\//, '') === headers.ETag;
+    });
+    if (matches) return new Response(null, { status: 304, headers });
     return Response.json(snapshot, { headers });
 }
 
