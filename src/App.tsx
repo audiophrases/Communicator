@@ -4,12 +4,14 @@ import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/
 import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
+import { SentenceBar, type Token } from './SentenceBar.tsx';
 import { typedQuery, type Hit } from './search.ts';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
 // Board buttons retain their picture and can move as a unit ("bus stop"). Typed words move individually.
-type Token = { w: string; e?: string; s?: string };
-const typedTokens = (text: string): Token[] => text.trim().split(/\s+/).filter(Boolean).map(w => ({ w }));
+let nextId = 0;
+const token = (word: Omit<Token, 'id'>): Token => ({ ...word, id: ++nextId });
+const typedTokens = (text: string): Token[] => text.trim().split(/\s+/).filter(Boolean).map(w => token({ w, typed: true }));
 
 // "go to the doctor" → "go to the"
 const withoutLastWord = (text: string) => text.trimEnd().replace(/\s*\S+$/, '');
@@ -62,7 +64,6 @@ export default function App() {
     const [notice, setNotice] = useState('');
     const typing = useRef<HTMLInputElement>(null);
     const originalWord = useRef<Token | null>(null);
-    const wordTools = useRef<HTMLDivElement>(null);
     const [linked, setLinked] = useState(false);
     const paragraph = useRef<string[]>([]);
     const spokenChoice = useRef('');
@@ -106,7 +107,7 @@ export default function App() {
         const input = typing.current;
         if (!input) return;
         const onBeforeInput = (event: InputEvent) => {
-            if (event.inputType !== 'deleteContentBackward') return;
+            if (event.inputType !== 'deleteContentBackward' || originalWord.current) return;
             const { value, selectionStart, selectionEnd } = input;
             if (!value.trim() || selectionStart !== selectionEnd || selectionEnd !== value.length) return;
             event.preventDefault();
@@ -168,7 +169,13 @@ export default function App() {
     const message = [...tokens.slice(0, cursor).map(t => t.w), draft.trim(), ...tokens.slice(cursor).map(t => t.w)]
         .filter(Boolean).join(' ').replace(/ \?/g, '?');
     // Buttons matching what is being typed (English or Catalan; ? one letter, * any letters).
-    const found = useMemo(() => typedQuery(board, draft), [board, draft]);
+    const found = useMemo(() => {
+        if (!draft.trim()) return null;
+        // Keep multiword search ("bus st") across the boundary between finished words and the text field.
+        let start = cursor;
+        while (start > 0 && cursor - start < 2 && tokens[start - 1].typed) start--;
+        return typedQuery(board, [...tokens.slice(start, cursor).map(t => t.w), draft].join(' '));
+    }, [board, tokens, cursor, draft]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
 
     async function speak(text: string) {
@@ -193,42 +200,74 @@ export default function App() {
         return original && original.w === text.trim() ? [original] : typedTokens(text);
     }
 
-    function insertWords(words: Token[]) {
+    function insertWords(words: Token[], replaceBefore = 0) {
         originalWord.current = null;
-        setTokens([...tokens.slice(0, cursor), ...words, ...tokens.slice(cursor)]);
-        if (insertAt !== null) setInsertAt(cursor + words.length);
+        setTokens([...tokens.slice(0, cursor - replaceBefore), ...words, ...tokens.slice(cursor)]);
+        if (insertAt !== null) setInsertAt(cursor === tokens.length ? null : cursor - replaceBefore + words.length);
         setSelectedWord(null);
         setDraft('');
     }
 
-    function selectWord(index: number) {
-        const pending = draftWords();
-        insertWords(pending);
-        setInsertAt(null);
-        setSelectedWord(index === selectedWord ? null : index + (cursor <= index ? pending.length : 0));
+    function changeDraft(value: string, atEnd: boolean) {
+        setSelectedWord(null);
+        resetFix();
+        const completed = atEnd && !originalWord.current && value.match(/^([\s\S]*\s)(\S*)$/);
+        if (completed) {
+            insertWords(typedTokens(completed[1]));
+            setDraft(completed[2]);
+        } else setDraft(value);
     }
 
-    function moveWord(index: number, offset: number) {
-        const next = [...tokens];
-        const target = index + offset;
-        [next[index], next[target]] = [next[target], next[index]];
+    function materializeDraft() {
+        const pending = draftWords();
+        const words = [...tokens.slice(0, cursor), ...pending, ...tokens.slice(cursor)];
+        originalWord.current = null;
+        setDraft('');
+        return { words, indexOf: (index: number) => index + (cursor <= index ? pending.length : 0) };
+    }
+
+    function selectWord(index: number, after: boolean) {
+        const { words, indexOf } = materializeDraft();
+        setTokens(words);
+        setSelectedWord(indexOf(index));
+        setInsertAt(indexOf(index) + Number(after));
+    }
+
+    function moveWord(index: number, gap: number) {
+        if (gap === index || gap === index + 1) return;
+        const { words: next, indexOf } = materializeDraft();
+        const from = indexOf(index);
+        const target = indexOf(gap) - Number(from < indexOf(gap));
+        const [moved] = next.splice(from, 1);
+        next.splice(target, 0, moved);
         setTokens(next);
-        setSelectedWord(target);
+        setSelectedWord(target); setInsertAt(target + 1);
         resetFix();
     }
 
-    function startInsertion(index: number) {
-        setInsertAt(index);
+    function startInsertion(gap: number, text = '') {
+        const { words, indexOf } = materializeDraft();
+        setTokens(words);
+        setInsertAt(gap === tokens.length ? null : indexOf(gap));
         setSelectedWord(null);
+        setDraft(text);
+        if (text) resetFix();
         typing.current?.focus();
     }
 
-    function focusWordTools() {
-        requestAnimationFrame(() => wordTools.current?.querySelector<HTMLButtonElement>('button:enabled')?.focus());
+    function editWord(index: number) {
+        const { words, indexOf } = materializeDraft();
+        const position = indexOf(index);
+        const [word] = words.splice(position, 1);
+        originalWord.current = word;
+        setTokens(words); setInsertAt(position); setSelectedWord(null); setDraft(word.w);
+        typing.current?.focus();
+        requestAnimationFrame(() => typing.current?.select());
     }
 
     function deleteWord(index: number) {
         setTokens(tokens.filter((_, i) => i !== index));
+        if (insertAt !== null && index < insertAt) setInsertAt(insertAt - 1);
         setSelectedWord(null);
         resetFix();
     }
@@ -239,15 +278,17 @@ export default function App() {
         // question of it. It needs words before it, and once is enough; ⌫ takes it away.
         const preceding = draft.trim() || tokens[cursor - 1]?.w;
         if (word.w === '?' && (!preceding || preceding.endsWith('?') || tokens[cursor]?.w === '?')) return;
-        insertWords([...draftWords(), { w: word.w, e: word.e, s: word.s }]);
+        insertWords([...draftWords(), token({ w: word.w, e: word.e, s: word.s })]);
         resetFix();
         speakWord(word.w);
     }
 
     // A button found by typing: it takes the place of the letters typed for it, and earlier typed words stay.
     function pick(hit: Hit, typedWords: number) {
-        const before = draft.trim().split(/\s+/).slice(0, -typedWords).join(' ');
-        insertWords([...typedTokens(before), { w: hit.word.w, e: hit.word.e, s: hit.word.s }]);
+        const parts = draft.trim().split(/\s+/);
+        const before = parts.slice(0, -typedWords).join(' ');
+        insertWords([...typedTokens(before), token({ w: hit.word.w, e: hit.word.e, s: hit.word.s })],
+            Math.max(0, typedWords - parts.length));
         resetFix();
         speakWord(hit.word.w);
         typing.current?.focus(); // keep typing
@@ -270,7 +311,6 @@ export default function App() {
         setDraft('');
         if (cursor === 0) return;
         deleteWord(cursor - 1);
-        if (insertAt !== null) setInsertAt(cursor - 1);
     }
 
     function newSentence() {
@@ -345,42 +385,37 @@ export default function App() {
         </div>
     );
 
-    const pieces = tokens.map((token, index) => (
-        <button className={token.w === '?' ? 'chip mark' : 'chip'} key={index}
-            aria-label={`Edit word ${index + 1}: ${token.w}`} aria-pressed={selectedWord === index}
-            onClick={event => { selectWord(index); if (!event.detail) focusWordTools(); }}>
-            <Picture word={token} className="chip-pic" />{token.w}
-        </button>
-    ));
-    pieces.splice(cursor, 0, <input key="typing" ref={typing} className={insertAt === null ? 'typing' : 'typing inserting'}
+    const inlineInput = <input key="typing" ref={typing}
+        className={selectedWord !== null ? 'typing parked' : insertAt !== null && cursor < tokens.length ? 'typing middle' : 'typing'}
         value={draft} maxLength={MAX_TEXT} aria-label="Type words"
-        placeholder={insertAt !== null ? 'Add words here' : tokens.length ? '' : 'Tap words, or type to find them'}
+        placeholder={tokens.length || insertAt !== null ? '' : 'Tap words, or type to find them'}
         onFocus={() => setSelectedWord(null)}
-        onChange={event => { setSelectedWord(null); setDraft(event.target.value); resetFix(); }}
+        onChange={event => changeDraft(event.target.value, !(event.nativeEvent as InputEvent).isComposing
+            && event.target.selectionEnd === event.target.value.length)}
         onKeyDown={event => {
             if (event.nativeEvent.isComposing || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) return;
-            if (event.key === 'Tab' && found) { event.preventDefault(); pick(found.hits[0], found.words); }
+            if (event.key === 'Escape' && originalWord.current) {
+                event.preventDefault();
+                insertWords([originalWord.current]);
+            } else if (event.key === 'Tab' && found) { event.preventDefault(); pick(found.hits[0], found.words); }
             else if (event.key === 'Enter') {
                 event.preventDefault();
                 if (insertAt === null) hear(message);
                 finishEditing();
             } else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
         }}
-    />);
+    />;
 
     return (
-        <div className="app">
+        <div className="app" onClick={event => {
+            // Commit after the tap lands. Collapsing the field on blur can move the tapped control before pointerup.
+            if (originalWord.current && event.target instanceof Element && !event.target.closest('.bar, .erase')) finishEditing();
+        }}>
             <header className="top">
-                <div className="bar" onClick={event => { if (event.target === event.currentTarget) typing.current?.focus(); }}>
-                    {pieces}
-                    {message && selectedWord === null && insertAt === null && <button className="edit-words" onClick={event => {
-                        finishEditing();
-                        setSelectedWord(draft.trim() ? tokens.length : 0);
-                        if (!event.detail) focusWordTools();
-                    }} data-ca="Edita les paraules">Edit words</button>}
-                </div>
+                <SentenceBar words={tokens} cursor={cursor} selected={selectedWord} input={inlineInput}
+                    select={selectWord} edit={editWord} move={moveWord} insert={startInsertion} remove={deleteWord} />
                 <div className="actions">
-                    <button className="act" onClick={backspace} disabled={!message}
+                    <button className="act erase" onClick={backspace} disabled={!message}
                         aria-label={selectedWord !== null ? 'Delete selected word' : insertAt !== null ? 'Delete preceding word' : 'Delete last word'}
                         data-ca="Esborra una paraula">⌫</button>
                     <button className="act" onClick={newSentence} disabled={!message} title="New sentence (Shift+Enter)"
@@ -399,25 +434,6 @@ export default function App() {
                     <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : hear(message)} disabled={!message && !speaking}
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
                 </div>
-                {selectedWord !== null && <div ref={wordTools} className="word-tools" role="group" aria-label={`Edit ${tokens[selectedWord].w}`}>
-                    <button onClick={() => moveWord(selectedWord, -1)} disabled={selectedWord === 0} data-ca="Mou a l'esquerra">← Move left</button>
-                    <button onClick={() => moveWord(selectedWord, 1)} disabled={selectedWord === tokens.length - 1} data-ca="Mou a la dreta">Move right →</button>
-                    <button onClick={() => startInsertion(selectedWord)} data-ca="Afegeix abans">Add before</button>
-                    <button onClick={() => startInsertion(selectedWord + 1)} data-ca="Afegeix després">Add after</button>
-                    <button onClick={() => {
-                        originalWord.current = tokens[selectedWord];
-                        setDraft(tokens[selectedWord].w);
-                        deleteWord(selectedWord);
-                        startInsertion(selectedWord);
-                        requestAnimationFrame(() => typing.current?.select());
-                    }} data-ca="Edita el text">Edit text</button>
-                    <button onClick={() => deleteWord(selectedWord)} data-ca="Esborra la paraula">Delete word</button>
-                    <button onClick={finishEditing} data-ca="Fet">Done</button>
-                </div>}
-                {insertAt !== null && <div className="word-tools" role="group" aria-label="Insert words">
-                    <span>Type or tap board words to insert here.</span>
-                    <button onClick={finishEditing} data-ca="Fet">Done</button>
-                </div>}
                 {found && (
                     <div className="found" aria-label={`Buttons for "${found.query}"`}>
                         {found.hits.map(hit => (
