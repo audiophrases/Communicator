@@ -3,7 +3,8 @@ import { synthesize } from './speech.ts';
 import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
 import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
-import { LIMITS, sanitizeBoard } from '../shared/board.ts';
+import { boardImages, LIMITS, sanitizeBoard, type Board } from '../shared/board.ts';
+import { imageContentType, isUploadedImage, MAX_IMAGE_BYTES, uploadedImageName } from '../shared/images.ts';
 import { isLanguage, isLevel, MAX_LINKED_SENTENCES, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
 import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../shared/voices.ts';
 
@@ -35,6 +36,19 @@ const audioResponse = (audio: ArrayBuffer, cache: 'hit' | 'miss') => new Respons
 } });
 const store = (env: Env) => env.BOARD.getByName('main');
 
+async function saveSharedBoard(env: Env, url: string, board: Board, revision: unknown, seed = false) {
+    // The first Git save can include pictures from a board previously kept only on this laptop.
+    if (revision === '') {
+        for (const name of boardImages(board)) {
+            const local = await store(env).getImage(name);
+            if (!local) continue;
+            const staged = await fetch(`${url}/images/${name}`, { method: 'PUT', body: local });
+            if (!staged.ok) return staged;
+        }
+    }
+    return fetch(url, { method: 'POST', body: JSON.stringify({ board, revision, seed }) });
+}
+
 async function teacherSettings(env: Env): Promise<TeacherSettings> {
     const stub = store(env);
     return { key: !!env.OPENAI_API_KEY, fixOn: await stub.fixOn(), lanUrl: env.LAN_URL || '', saved: await stub.saved() };
@@ -56,22 +70,27 @@ function visitor(request: Request): string {
     return `${request.headers.get('CF-Connecting-IP') || 'local'}:${device}`;
 }
 
-// The JSON body, read no further than max bytes.
-async function readJson(request: Request, max: number): Promise<{ body: any } | { error: Response }> {
+async function readBytes(request: Request, max: number): Promise<Uint8Array<ArrayBuffer> | Response> {
     const reader = request.body?.getReader();
-    if (!reader) return { error: json({ error: 'Expected JSON.' }, 400) };
+    if (!reader) return json({ error: 'The request body is empty.' }, 400);
     const chunks: Uint8Array[] = [];
     let size = 0;
     while (true) {
         const { done, value } = await reader.read();
         if (done) break;
         size += value.byteLength;
-        if (size > max) { await reader.cancel(); return { error: json({ error: 'Request is too large.' }, 413) }; }
+        if (size > max) { await reader.cancel(); return json({ error: 'Request is too large.' }, 413); }
         chunks.push(value);
     }
     const bytes = new Uint8Array(size);
     let offset = 0;
     for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
+    return bytes;
+}
+
+async function readJson(request: Request, max: number): Promise<{ body: any } | { error: Response }> {
+    const bytes = await readBytes(request, max);
+    if (bytes instanceof Response) return { error: bytes };
     try { return { body: JSON.parse(new TextDecoder().decode(bytes)) }; } catch { return { error: json({ error: 'Invalid JSON.' }, 400) }; }
 }
 
@@ -80,6 +99,18 @@ const text = (value: unknown): string => typeof value === 'string' && value.trim
 async function teacher(request: Request, env: Env, path: string): Promise<Response> {
     if (request.method !== 'POST') return json({ error: 'Not found.' }, 404);
     if (!env.CREATE_PASSWORD_HASH) return json({ error: 'The teacher password is not set up. Run classroom.bat.' }, 503);
+    if (path !== '/api/teacher/login' && !(await sessionValid(request.headers.get('x-teacher-session') || '', env.CREATE_PASSWORD_HASH))) {
+        return json({ error: 'Please sign in again.' }, 401);
+    }
+    if (path === '/api/teacher/image') {
+        const bytes = await readBytes(request, MAX_IMAGE_BYTES);
+        if (bytes instanceof Response) return bytes;
+        const name = await uploadedImageName(bytes);
+        if (!name) return json({ error: 'Choose a GIF, JPG, PNG or SVG image.' }, 415);
+        if (env.BOARD_SYNC_URL) return fetch(`${env.BOARD_SYNC_URL}/images/${name}`, { method: 'PUT', body: bytes });
+        await store(env).putImage(name, bytes.buffer);
+        return json({ name });
+    }
     const read = await readJson(request, path === '/api/teacher/board' ? LIMITS.json + 40_000 : 16_384);
     if ('error' in read) return read.error;
     const body = read.body;
@@ -94,9 +125,6 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
         return json({ token: await newSession(env.CREATE_PASSWORD_HASH) });
     }
 
-    if (!(await sessionValid(request.headers.get('x-teacher-session') || '', env.CREATE_PASSWORD_HASH))) {
-        return json({ error: 'Please sign in again.' }, 401);
-    }
     switch (path) {
         case '/api/teacher/settings':
             if (typeof body?.fixOn === 'boolean') await store(env).setFixOn(body.fixOn);
@@ -108,10 +136,8 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
             const board = sanitizeBoard(body?.board);
             if (!board) return json({ error: 'That board is not valid.' }, 400);
             if (JSON.stringify(board).length > LIMITS.json) return json({ error: 'The board is too big. Remove some buttons or pages.' }, 413);
-            if (env.BOARD_SYNC_URL) return fetch(env.BOARD_SYNC_URL, {
-                method: 'POST', body: JSON.stringify({ board, revision: body.revision })
-            });
-            await store(env).save(board);
+            if (env.BOARD_SYNC_URL) return saveSharedBoard(env, env.BOARD_SYNC_URL, board, body.revision);
+            if (!await store(env).save(board)) return json({ error: 'A picture is missing. Choose its file again and save.' }, 400);
             return json({ board });
         }
         case '/api/teacher/translate': {
@@ -145,6 +171,23 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
 
     if (path === '/api/health') return json({ ok: true });
+    if (path.startsWith('/api/images/') && request.method === 'GET') {
+        const name = path.slice('/api/images/'.length);
+        if (!isUploadedImage(name)) return json({ error: 'Invalid image name.' }, 404);
+        let body: ArrayBuffer | ReadableStream | null = null;
+        if (env.BOARD_SYNC_URL) {
+            const response = await fetch(`${env.BOARD_SYNC_URL}/images/${name}`);
+            if (response.ok) body = response.body;
+            else if (response.status !== 404) return response;
+        }
+        body ??= await store(env).getImage(name);
+        if (!body) return json({ error: 'Image not found.' }, 404);
+        return new Response(body, { headers: {
+            'Content-Type': imageContentType(name), 'Cache-Control': 'private, max-age=31536000, immutable',
+            'X-Content-Type-Options': 'nosniff', 'Content-Security-Policy': "sandbox; default-src 'none'; style-src 'unsafe-inline'; img-src data:",
+            'Cross-Origin-Resource-Policy': 'same-origin'
+        } });
+    }
     if (path === '/api/status' && request.method === 'GET') {
         return json({ fix: !!env.OPENAI_API_KEY && await store(env).fixOn() } satisfies Status);
     }
@@ -156,7 +199,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
         if (snapshot.board) return json(snapshot);
         const legacy = await store(env).board();
         if (legacy && snapshot.sync === 'synced') {
-            const seeded = await fetch(env.BOARD_SYNC_URL, { method: 'POST', body: JSON.stringify({ board: legacy, revision: '', seed: true }) });
+            const seeded = await saveSharedBoard(env, env.BOARD_SYNC_URL, legacy, '', true);
             if (!seeded.ok) return seeded;
             const latest = await seeded.json<typeof snapshot>();
             return json({ ...latest, board: latest.board ?? legacy });

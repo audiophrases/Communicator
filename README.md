@@ -39,14 +39,16 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 
 ### Board sync
 
-Save in `/create` commits the board layout, buttons, translations, symbol choices and quick phrases to the public
+Save in `/create` commits the board layout, buttons, translations, uploaded pictures, symbol choices and quick phrases to the public
 `main` branch. Each laptop fetches the board at startup and every minute while running. Reload the student board
 or editor to see the latest version. A normal `git pull` also downloads the JSON file. If the repository has no
 shared board yet, the first online laptop with an existing saved teacher board supplies it.
 
 The launcher uses this checkout's Git credentials. Each teacher laptop needs push access to `origin/main`.
 An offline save stays usable locally and retries while the launcher is running, including after a restart.
-Each board commit publishes just the JSON file and leaves the working tree and staging area alone.
+Each board commit includes `classroom-board.json` and any new pictures used by its buttons in `classroom-images/`.
+Identical uploads share one file. Removing the last button that uses a picture removes it from the current board commit.
+Previously published pictures stay in the public Git history.
 
 If two laptops edit the same board, Save reports a stale draft and lets you keep the tab open while reviewing the
 latest board in another tab. If both made offline commits, sync pauses with both versions intact. On the laptop
@@ -107,6 +109,9 @@ Open `/create` and sign in with the teacher password. There you can:
 - switch **Fix for students** on or off, and see the address students open;
 - **find a button** by its English or Catalan (same `?` and `*`): a result opens its page with it selected;
 - change any button's English word, emoji, Catalan and colour, move it, or remove it;
+- select or add a button, choose **Upload image**, and preview a GIF, JPG/JPEG, PNG or SVG up to 5 MiB.
+  **Save** shares it with the class. **Replace image**, **Remove** and **Undo changes** also work before saving.
+  GIFs keep their animation and SVGs keep their original resolution.
 - add buttons, add, rename, reorder and delete topic pages, and edit the quick phrases;
 - press ✨ next to a Catalan box, or **Fill missing Catalan** for everything at once, to translate with AI, then check
   and correct it;

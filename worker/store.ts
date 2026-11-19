@@ -6,7 +6,7 @@
 // same question goes to OpenAI or the voice bridge once and every student after that gets the saved answer.
 
 import { DurableObject } from 'cloudflare:workers';
-import type { Board } from '../shared/board.ts';
+import { boardImages, type Board } from '../shared/board.ts';
 import type { Saved } from '../shared/options.ts';
 
 export type Kind = 'fix' | 'ca' | 'speech';
@@ -22,13 +22,37 @@ export class BoardStore extends DurableObject {
         ctx.storage.sql.exec(`CREATE TABLE IF NOT EXISTS memo (
             key TEXT PRIMARY KEY, kind TEXT NOT NULL, value TEXT, audio BLOB, hits INTEGER NOT NULL DEFAULT 0, used INTEGER NOT NULL)`);
         ctx.storage.sql.exec('CREATE INDEX IF NOT EXISTS memo_used ON memo (kind, used)');
+        ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS button_images (name TEXT, part INTEGER, data BLOB NOT NULL, PRIMARY KEY(name, part))');
     }
 
     async board(): Promise<Board | null> {
         return (await this.ctx.storage.get<Board>('board')) ?? null;
     }
-    async save(board: Board): Promise<void> {
+    async save(board: Board): Promise<boolean> {
+        if (boardImages(board).some(name => !this.hasImage(name))) return false;
         await this.ctx.storage.put('board', board);
+        return true;
+    }
+
+    private hasImage(name: string) {
+        return this.ctx.storage.sql.exec('SELECT 1 FROM button_images WHERE name = ? AND part = 0', name).toArray().length > 0;
+    }
+    putImage(name: string, data: ArrayBuffer): void {
+        if (this.hasImage(name)) return;
+        const chunk = 1024 * 1024; // Each SQLite row also fits older classroom runtimes.
+        this.ctx.storage.transactionSync(() => {
+            for (let at = 0; at < data.byteLength; at += chunk) {
+                this.ctx.storage.sql.exec('INSERT INTO button_images VALUES (?, ?, ?)', name, at, data.slice(at, at + chunk));
+            }
+        });
+    }
+    getImage(name: string): ArrayBuffer | null {
+        const parts = this.ctx.storage.sql.exec<{ data: ArrayBuffer }>('SELECT data FROM button_images WHERE name = ? ORDER BY part', name).toArray();
+        if (!parts.length) return null;
+        const bytes = new Uint8Array(parts.reduce((n, part) => n + part.data.byteLength, 0));
+        let at = 0;
+        for (const { data } of parts) { bytes.set(new Uint8Array(data), at); at += data.byteLength; }
+        return bytes.buffer;
     }
     // Whether students can use Fix (OpenAI). On until the teacher switches it off.
     async fixOn(): Promise<boolean> {

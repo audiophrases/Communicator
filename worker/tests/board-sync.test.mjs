@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { boardRepository } from '../../scripts/board-sync.mjs';
+import { uploadedImageName } from '../../shared/images.ts';
 
 test('teacher saves sync only the board on main and preserve offline and concurrent edits', async t => {
     const root = mkdtempSync(path.join(tmpdir(), 'communicator-sync-test-'));
@@ -40,9 +41,15 @@ test('teacher saves sync only the board on main and preserve offline and concurr
 
     // Offline saves survive process restart and replay on top of unrelated remote code edits.
     git(a, 'remote', 'set-url', 'origin', path.join(root, 'offline'));
-    const offline = await first.save(board('pear'), next.revision);
+    const picture = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9"/></svg>');
+    const name = await uploadedImageName(picture);
+    const pictured = board('pear');
+    pictured.core[0].s = name;
+    await assert.rejects(first.save(pictured, next.revision), { status: 400 });
+    await first.putImage(name, picture);
+    const offline = await first.save(pictured, next.revision);
     assert.equal(offline.sync, 'offline');
-    assert.deepEqual((await boardRepository(a).read()).board, board('pear'));
+    assert.deepEqual((await boardRepository(a).read()).board, pictured);
     git(b, 'pull', '--ff-only');
     writeFileSync(path.join(b, 'code'), 'new code from second laptop');
     git(b, 'add', 'code');
@@ -50,12 +57,18 @@ test('teacher saves sync only the board on main and preserve offline and concurr
     git(b, 'push', 'origin', 'main');
     git(a, 'remote', 'set-url', 'origin', remote);
     assert.equal(await first.refresh(), 'synced');
+    await second.refresh();
+    assert.deepEqual((await second.read()).board, pictured);
+    assert.deepEqual(await second.getImage(name), picture);
+    assert.equal(await second.getImage('code'), null);
     assert.equal(git(remote, 'show', 'main:code'), 'new code from second laptop');
     assert.equal(git(a, 'write-tree'), staged);
 
     git(a, 'remote', 'set-url', 'origin', path.join(root, 'offline'));
     await first.save(board('local'), offline.revision);
     await second.save(board('other laptop'), offline.revision);
+    assert.equal(git(remote, 'ls-tree', '-r', 'main', '--', 'classroom-images'), '');
+    assert.equal(git(remote, 'show', `main^:classroom-images/${name}`), picture.toString());
     git(a, 'remote', 'set-url', 'origin', remote);
     assert.equal(await first.refresh(), 'conflict');
     assert.deepEqual((await first.read()).board, board('local'));

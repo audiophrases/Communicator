@@ -7,6 +7,8 @@ import { fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
 import { findButtons } from './search.ts';
 import { SymbolPicker } from './SymbolPicker.tsx';
+import { DraftImages, previewImage, type DraftImage } from './uploadImage.ts';
+import { isUploadedImage } from '../shared/images.ts';
 import { DEFAULT_BOARD } from './vocab.ts';
 
 const TOKEN = 'teacher-session';
@@ -61,6 +63,7 @@ export default function Create() {
     const [token, setToken] = useState(readToken);
     const [password, setPassword] = useState('');
     const [board, setBoard] = useState<Board | null>(null); // the draft
+    const [images] = useState(() => new Map<string, DraftImage>());
     const [savedJson, setSavedJson] = useState('');
     const [custom, setCustom] = useState(false);
     const [boardSync, setBoardSync] = useState<BoardSync>({});
@@ -73,6 +76,15 @@ export default function Create() {
     const [message, setMessage] = useState<{ text: string; bad?: boolean } | null>(null);
 
     const dirty = !!board && JSON.stringify(board) !== savedJson;
+    useEffect(() => {
+        if (!images.size) return;
+        const used = new Set(board && [...board.core, ...board.pages.flatMap(page => page.words)].map(word => word.s));
+        for (const url of images.keys()) if (!used.has(url)) {
+            URL.revokeObjectURL(url);
+            images.delete(url);
+        }
+    }, [board, images]);
+    useEffect(() => () => { for (const url of images.keys()) URL.revokeObjectURL(url); }, [images]);
     const missing = useMemo(() => board ? missingCatalan(board) : [], [board]);
 
     useEffect(() => {
@@ -115,7 +127,8 @@ export default function Create() {
 
     async function call(path: string, body: unknown, session = token): Promise<any> {
         const response = await fetch(path, {
-            method: 'POST', headers: { 'content-type': 'application/json', 'x-teacher-session': session }, body: JSON.stringify(body)
+            method: 'POST', headers: { 'content-type': body instanceof Blob ? body.type : 'application/json', 'x-teacher-session': session },
+            body: body instanceof Blob ? body : JSON.stringify(body)
         });
         const result = await response.json().catch(() => ({}));
         if (response.status === 401 && path !== '/api/teacher/login') {
@@ -203,7 +216,7 @@ export default function Create() {
         setSelected(to);
     }
     function removeWord(keepSlot: boolean) {
-        if (keepSlot) return setWord({ w: '', e: undefined, ca: undefined });
+        if (keepSlot) return setWord({ w: '', e: undefined, s: undefined, ca: undefined });
         edit(draft => { listOf(draft).splice(selected!, 1); });
         setSelected(words!.length > 1 ? Math.min(selected!, words!.length - 2) : null);
     }
@@ -247,7 +260,19 @@ export default function Create() {
     const save = () => run('Saving…', async () => {
         const empty = board.pages.reduce((sum, item) => sum + item.words.filter(entry => !entry.w).length, 0)
             + board.quick.filter(item => !item.t.trim()).length;
-        const result = await call('/api/teacher/board', { board, revision: boardSync.revision }) as { board: Board } & BoardSync;
+        const next = structuredClone(board);
+        for (const word of [...next.core, ...next.pages.flatMap(page => page.words)]) {
+            if (!word.w.trim() || !word.s?.startsWith('blob:')) continue;
+            const image = images.get(word.s);
+            if (!image) throw new Error('Choose the image file again before saving.');
+            if (!image.name) {
+                const { name } = await call('/api/teacher/image', image.file);
+                if (!isUploadedImage(name)) throw new Error('The picture could not be saved. Try again.');
+                image.name = name;
+            }
+            word.s = image.name;
+        }
+        const result = await call('/api/teacher/board', { board: next, revision: boardSync.revision }) as { board: Board } & BoardSync;
         start(result.board, true, result);
         setSelected(null);
         const saved = result.sync === 'synced' ? 'Saved to Git on main.' : result.sync === 'offline'
@@ -258,7 +283,7 @@ export default function Create() {
     const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '🔤' },
         { id: 'quick', name: 'Quick phrases', icon: '⚡', kind: 'social' }, ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) }))];
 
-    return (
+    const editor = (
         <div className="create">
             <header className="create-top">
                 <h1>Communicator <span>Create</span></h1>
@@ -269,7 +294,7 @@ export default function Create() {
                         title="Translate every button, page name and phrase that has no Catalan">✨ Fill missing Catalan{missing.length ? ` (${missing.length})` : ''}</button>}
                     <button onClick={() => { setBoard(JSON.parse(savedJson)); setSelected(null); }} disabled={!dirty || !!busy}>Undo changes</button>
                     <a className="button" href="/" target="_blank" rel="noopener">Open the board ↗</a>
-                    <button onClick={() => { if (!dirty || confirm('Sign out and lose the unsaved changes?')) { signOut(); setBoard(null); } }}>Sign out</button>
+                    <button disabled={!!busy} onClick={() => { if (!dirty || confirm('Sign out and lose the unsaved changes?')) { signOut(); setBoard(null); } }}>Sign out</button>
                     <button className="primary" onClick={() => void save()} disabled={!dirty || !!busy}
                         title={boardSync.revision !== undefined ? 'Save the board and quick phrases to the public main branch' : undefined}>Save</button>
                 </div>
@@ -322,7 +347,7 @@ export default function Create() {
                         <span aria-hidden="true">{item.icon}</span> {item.name}
                     </button>
                 ))}
-                <button className="tab plain add" onClick={addPage} disabled={board.pages.length >= LIMITS.pages}>+ Page</button>
+                <button className="tab plain add" onClick={addPage} disabled={!!busy || board.pages.length >= LIMITS.pages}>+ Page</button>
             </nav>
 
             <fieldset className="create-body" disabled={!!busy}>
@@ -385,7 +410,7 @@ export default function Create() {
                                 <p>Click a button to change it, or <b>+ Add</b> for a new one. Saved changes reach students when they open or reload the board.</p>
                                 {tab === 'core' && <p>Core words keep their places so hands learn where they are. To take one away, empty its slot: the others stay put.</p>}
                                 <p>Every button shows its Catalan when students hold it, or point at it with a mouse.</p>
-                                <p>Search by word to choose a picture, or enter an emoji.</p>
+                                <p>Choose a symbol, upload a picture, or enter an emoji.</p>
                             </div>
                         ) : (
                             <div className="word-edit" key={`${tab}-${selected}`}>
@@ -395,8 +420,13 @@ export default function Create() {
                                     <input value={word.w} maxLength={LIMITS.word} autoFocus placeholder={tab === 'core' ? 'Empty slot: type a word' : 'Type a word'}
                                         onChange={event => setWord({ w: event.target.value })} />
                                 </label>
-                                <SymbolPicker value={word.s} word={word.w} onPick={s => setWord({ s })} />
-                                <label>Emoji{word.s ? ' (shown only without a symbol)' : ''}
+                                <SymbolPicker value={word.s} word={word.w} shared={boardSync.revision !== undefined} onPick={s => setWord({ s })}
+                                    onUpload={file => void run('Opening image…', async () => {
+                                        const preview = await previewImage(file);
+                                        images.set(preview.url, preview);
+                                        setWord({ s: preview.url });
+                                    })} />
+                                <label>{word.s ? 'Fallback emoji' : 'Emoji'}
                                     <input value={word.e ?? ''} maxLength={LIMITS.emoji} placeholder="Optional. Windows: press Win + ." onChange={event => setWord({ e: event.target.value })} />
                                 </label>
                                 <label>Catalan
@@ -434,4 +464,5 @@ export default function Create() {
             </fieldset>
         </div>
     );
+    return <DraftImages.Provider value={images}>{editor}</DraftImages.Provider>;
 }

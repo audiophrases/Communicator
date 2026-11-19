@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { symbolUrl, type Word } from '../shared/board.ts';
+import type { Word } from '../shared/board.ts';
+import { usePictureUrl } from './uploadImage.ts';
 
 // A teacher can set both an SVG and an emoji. Use the emoji if the SVG cannot load.
 export function Picture({ word, className = 'key-pic' }: { word: Pick<Word, 'e' | 's'>; className?: string }) {
     const [failed, setFailed] = useState<string>();
+    const src = usePictureUrl(word.s);
     if (word.s && word.s !== failed) {
         const name = word.s;
-        return <img className={`${className} sym`} src={symbolUrl(word.s)} alt="" draggable={false} loading="lazy"
+        return <img className={`${className} sym`} src={src} alt="" draggable={false} loading="lazy"
             onError={() => setFailed(name)} />;
     }
     return word.e ? <span className={className} aria-hidden="true">{word.e}</span> : null;

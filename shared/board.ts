@@ -1,9 +1,11 @@
 // The board's buttons as data: the page shows it, the teacher edits it at /create, and the Worker keeps it.
 // Colours follow the modified Fitzgerald key.
 
+import { isUploadedImage } from './images.ts';
+
 export type Kind = 'person' | 'verb' | 'describe' | 'noun' | 'little' | 'question' | 'social' | 'no';
 // w: the English word ('' is an empty core slot, so the words around it keep their place). e: emoji. ca: Catalan.
-// s: an SVG from the board's symbol library, served at /symbols/<s>.svg; shown instead of e.
+// s: a library symbol or a content-addressed uploaded picture. Both take precedence over e.
 export type Word = { w: string; e?: string; k: Kind; ca?: string; s?: string };
 export type Page = { id: string; name: string; ca?: string; icon: string; words: Word[] };
 export type Phrase = { t: string; ca?: string };
@@ -35,7 +37,11 @@ const str = (value: unknown, max: number) => typeof value === 'string' ? value.t
 // Mulberry file names: letters, digits, "_", ",", "-" and spaces (e.g. "glass_,_drinking", "shoe_-_mans"). Nothing that
 // could leave /symbols/.
 export const isSymbolName = (value: unknown): value is string => typeof value === 'string' && /^[A-Za-z0-9_,\- ]{1,80}$/.test(value);
-export const symbolUrl = (name: string) => `/symbols/${encodeURIComponent(name)}.svg`;
+export const symbolUrl = (name: string) => isUploadedImage(name) ? `/api/images/${name}` : `/symbols/${encodeURIComponent(name)}.svg`;
+
+export function boardImages(board: Board): string[] {
+    return [...new Set([...board.core, ...board.pages.flatMap(page => page.words)].map(word => word.s).filter(isUploadedImage))];
+}
 
 function word(value: unknown, allowEmpty: boolean): Word | null {
     if (!value || typeof value !== 'object') return null;
@@ -44,7 +50,7 @@ function word(value: unknown, allowEmpty: boolean): Word | null {
     if (!w && !allowEmpty) return null;
     const e = str(item.e, LIMITS.emoji);
     const ca = str(item.ca, LIMITS.ca);
-    const s = isSymbolName(item.s) ? item.s : '';
+    const s = isSymbolName(item.s) || isUploadedImage(item.s) ? item.s : '';
     return { w, k: isKind(item.k) ? item.k : 'noun', ...(e && w ? { e } : {}), ...(ca && w ? { ca } : {}), ...(s && w ? { s } : {}) };
 }
 

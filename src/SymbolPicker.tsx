@@ -1,8 +1,10 @@
 // /create: choose a symbol for a button. It searches the symbols' names and tags, starting with the
 // button's English word, so a new button usually has its symbol one click away.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { symbolUrl } from '../shared/board.ts';
+import { isUploadedImage } from '../shared/images.ts';
+import { usePictureUrl } from './uploadImage.ts';
 
 type Entry = { n: string; t: string; c: string };
 
@@ -31,7 +33,12 @@ function search(entries: Entry[], query: string): Entry[] {
     return scored.sort((a, b) => b.score - a.score).slice(0, 48).map(item => item.entry);
 }
 
-export function SymbolPicker({ value, word, onPick }: { value?: string; word: string; onPick: (name: string | undefined) => void }) {
+export function SymbolPicker({ value, word, onPick, onUpload, shared }: {
+    value?: string; word: string; onPick: (name: string | undefined) => void; onUpload: (file: File) => void; shared: boolean;
+}) {
+    const input = useRef<HTMLInputElement>(null);
+    const src = usePictureUrl(value);
+    const uploaded = value?.startsWith('blob:') || isUploadedImage(value);
     const [entries, setEntries] = useState<Entry[]>([]);
     const [query, setQuery] = useState<string | null>(null); // null: follow the button's English word
     useEffect(() => { void loadIndex().then(setEntries); }, []);
@@ -41,11 +48,19 @@ export function SymbolPicker({ value, word, onPick }: { value?: string; word: st
     return (
         <div className="symbol-picker">
             <div className="symbol-head">
-                <b>Symbol</b>
+                <b>Picture</b>
                 {value
-                    ? <span className="symbol-now"><img src={symbolUrl(value)} alt="" /> {symbolLabel(value)} <button className="link" onClick={() => onPick(undefined)}>Remove</button></span>
+                    ? <span className="symbol-now"><img src={src} alt="" /> {uploaded ? 'Uploaded image' : symbolLabel(value)} <button className="link" onClick={() => onPick(undefined)}>Remove</button></span>
                     : <span className="symbol-now none">None: the emoji is shown</span>}
             </div>
+            <input ref={input} type="file" hidden accept=".gif,.jpg,.jpeg,.png,.svg,image/gif,image/jpeg,image/png,image/svg+xml"
+                aria-label="Choose image file" onChange={event => {
+                    const file = event.currentTarget.files?.[0];
+                    event.currentTarget.value = '';
+                    if (file) onUpload(file);
+                }} />
+            <button type="button" onClick={() => input.current?.click()}>{uploaded ? 'Replace image' : 'Upload image'}</button>
+            <small className="hint">GIF, JPG, PNG or SVG · Up to 5 MiB.{shared && ' Save publishes the picture to the public classroom repository.'}</small>
             <input value={shown} onChange={event => setQuery(event.target.value)} placeholder="Search symbols, e.g. apple, run, because" aria-label="Search symbols" />
             {entries.length === 0 ? <p className="hint">Loading symbols…</p>
                 : results.length === 0 ? <p className="hint">{shown.trim() ? 'No symbol found. Try another word, or keep the emoji.' : 'Type a word to find a symbol.'}</p>
