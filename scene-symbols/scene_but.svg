@@ -1,12 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <title>but</title>
-  <desc>One speaker agrees with a check mark. The other raises a hand to add an objection.</desc>
+  <desc>A green check mark in one speech bubble is followed by a red X in another.</desc>
   <path d="M12 3h43a9 9 0 0 1 9 9v16a9 9 0 0 1-9 9H29L13 48V37h-1a9 9 0 0 1-9-9V12a9 9 0 0 1 9-9Z"
         fill="#ddf3e3" stroke="#285943" stroke-width="4" stroke-linejoin="round"/>
   <path d="m20 20 9 8 18-17" fill="none" stroke="#205d40" stroke-width="8"
         stroke-linecap="round" stroke-linejoin="round"/>
   <path d="M41 36h45q11 0 11 11v32q0 11-11 11h-4v8L66 90H41q-11 0-11-11V47q0-11 11-11Z"
         fill="#fff2ce" stroke="#654617" stroke-width="4" stroke-linejoin="round"/>
-  <path d="M51 66V53q0-5 5-5t5 5v9-15q0-5 5-5t5 5v14-10q0-5 4-5t4 5v14-6q0-4 4-4t4 4v9q0 16-16 16h-4q-9 0-15-8L42 64q-3-5 1-7 3-2 8 5Z"
-        fill="#9a4729"/>
+  <path d="m49 49 29 28m0-28L49 77" fill="none" stroke="#b42327" stroke-width="10" stroke-linecap="round"/>
 </svg>
