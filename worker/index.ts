@@ -1,4 +1,4 @@
-import { fixPhrase, fixSeed } from './phrase.ts';
+import { correctSentence } from './fix.ts';
 import { synthesize } from './speech.ts';
 import { readPublishedImage } from './published.ts';
 import { BoardStore } from './store.ts';
@@ -17,6 +17,7 @@ export interface Env {
     OPENAI_API_KEY?: string;
     OPENAI_BASE_URL?: string; // tests only
     OPENAI_PHRASE_MODEL?: string;
+    OPENAI_FALLBACK_MODEL?: string;
     XKIRO_API_KEY?: string;
     XKIRO_MODEL?: string;
     // The teacher's password for /create, the same as PinPlay's.
@@ -277,19 +278,15 @@ async function handle(request: Request, env: Env): Promise<Response> {
         return json({ error: 'Invalid paragraph context.' }, 400);
     }
     const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined, ...(context ? { context } : {}) };
-    // A lookup includes the paragraph because the same words can have different tenses in different stories.
-    const shared = await sha256Hex(fixSeed(input, phraseEnv));
-    const paired = context ? await sha256Hex(fixSeed(input, phraseEnv, true)) : null;
-    const lookup = paired ?? shared;
-    const saved = (await store(env).recall([lookup]))[lookup];
-    if (saved?.value) return json(JSON.parse(saved.value), 200, 'hit');
-    if (!(await allowed(env.USE_RL, `fix:${visitor(request, env)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
-    const result = await fixPhrase(input, phraseEnv);
-    if (!result) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
-    await store(env).remember('fix', lookup, JSON.stringify(result.fix));
-    // Older clients shared a standalone answer when their single preceding sentence had no effect.
-    if (paired && !Array.isArray(context) && !result.contextUsed) await store(env).remember('fix', shared, JSON.stringify(result.fix));
-    return json(result.fix, 200, 'miss');
+    const fallback = env.XKIRO_MODEL && env.OPENAI_FALLBACK_MODEL && env.OPENAI_API_KEY ? {
+        OPENAI_API_KEY: env.OPENAI_API_KEY,
+        OPENAI_PHRASE_MODEL: env.OPENAI_FALLBACK_MODEL
+    } : undefined;
+    const result = await correctSentence(input, phraseEnv, fallback, store(env),
+        () => allowed(env.USE_RL, `fix:${visitor(request, env)}`));
+    if (result === 'limited') return json({ error: 'Too fast. Wait a moment.' }, 429);
+    if (result === 'unavailable') return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
+    return json(result.fix, 200, result.cache);
 }
 
 // Only /api/* reaches the Worker; the built app is served as static assets.

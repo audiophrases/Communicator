@@ -9,6 +9,7 @@ export type PhraseEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; OPE
 // Linked sentences arrive in paragraph order. Older clients send a single recent sentence.
 export type PhraseInput = { text: string; level: Level; language?: string; context?: string | string[] };
 export type PhraseResult = { fix: Fix; contextUsed: boolean };
+export type PhraseAttempt = PhraseResult | { retryAt: number } | null;
 
 const TIMEOUT_MS = 8000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
@@ -89,7 +90,7 @@ export function clean(original: string, answer: unknown): Fix | null {
     return { sentence: main, alternatives: others, translation: tidy(translation, 600) };
 }
 
-export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<PhraseResult | null> {
+export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<PhraseAttempt> {
     if (!env.OPENAI_API_KEY) return null;
     try {
         const response = await fetch(`${env.OPENAI_BASE_URL || 'https://api.openai.com'}/v1/chat/completions`, {
@@ -107,6 +108,12 @@ export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<Phr
         });
         if (!response.ok) {
             console.log(`phrase: HTTP ${response.status}`); // never the speaker's words
+            if (response.status === 429) {
+                const now = Date.now();
+                const header = response.headers.get('Retry-After')?.trim();
+                const delay = header && /^\d+$/.test(header) ? Number(header) * 1000 : Date.parse(header ?? '') - now;
+                return { retryAt: now + (Number.isFinite(delay) ? Math.max(1000, delay) : 60_000) };
+            }
             return null;
         }
         const content = ((await response.json()) as { choices?: { message?: { content?: string } }[] }).choices?.[0]?.message?.content;

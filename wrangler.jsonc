@@ -37,7 +37,8 @@
       },
       "vars": {
         "BOARD_REPOSITORY": "audiophrases/Communicator",
-        "XKIRO_MODEL": "mistralai/mistral-large-2512"
+        "XKIRO_MODEL": "mistralai/mistral-large-2512",
+        "OPENAI_FALLBACK_MODEL": "gpt-4o-mini"
       },
       "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } },
       "durable_objects": {

@@ -341,7 +341,7 @@ export default function App() {
                 method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
                 body: JSON.stringify({ text: message, level: settings.level, language: settings.language,
                     ...(linked && paragraph.current.length ? { context: paragraph.current } : {}) }),
-                signal: AbortSignal.timeout(12_000)
+                signal: AbortSignal.timeout(20_000)
             });
             const body = await response.json();
             if (pendingFix.current !== request) return;

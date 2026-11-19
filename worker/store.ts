@@ -88,6 +88,15 @@ export class BoardStore extends DurableObject {
         await this.ctx.storage.put('fixOn', on);
     }
 
+    async xkiroRetryAt(): Promise<number> {
+        return (await this.ctx.storage.get<number>('xkiroRetryAt')) ?? 0;
+    }
+
+    async pauseXkiroUntil(retryAt: number): Promise<void> {
+        const previous = await this.xkiroRetryAt();
+        if (retryAt > previous) await this.ctx.storage.put('xkiroRetryAt', retryAt);
+    }
+
     // Saved answers by key; a key that is not there was never asked (or was forgotten).
     recall(keys: string[]): Record<string, { value: string | null; audio: ArrayBuffer | null }> {
         const found: Record<string, { value: string | null; audio: ArrayBuffer | null }> = {};
