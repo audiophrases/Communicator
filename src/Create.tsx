@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import { KINDS, LIMITS, pageKind, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
-import type { BoardSync, TeacherSettings } from '../shared/options.ts';
+import { ONLINE_BOARD_URL, type BoardSync, type TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
 import { findButtons } from './search.ts';
@@ -277,7 +277,7 @@ export default function Create() {
         setSelected(null);
         const saved = result.sync === 'synced' ? 'Saved to Git on main.' : result.sync === 'offline'
             ? 'Saved on this laptop. Git sync will retry automatically.' : 'Saved.';
-        return `${saved} Students get the new board when they open or reload the page.${empty ? ` ${empty} empty button${empty === 1 ? ' was' : 's were'} left out.` : ''}`;
+        return `${saved} Open student boards refresh automatically.${empty ? ` ${empty} empty button${empty === 1 ? ' was' : 's were'} left out.` : ''}`;
     });
     // Coloured as on the students' board (see App.tsx).
     const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '🔤' },
@@ -301,6 +301,7 @@ export default function Create() {
             </header>
             <div className="lesson">
                 {settings?.lanUrl && <span>📶 Students open <b className="address">{settings.lanUrl}</b> on the school Wi-Fi</span>}
+                <a href={ONLINE_BOARD_URL} target="_blank" rel="noopener">Always-online student board ↗</a>
                 {settings && (settings.key ? (
                     <button className={`switch${settings.fixOn ? ' on' : ''}`} role="switch" aria-checked={settings.fixOn} onClick={() => void toggleFix()} disabled={!!busy}
                         title="Whether students can press Fix to correct their sentence with OpenAI">

@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
-import { LANGUAGES, LEVELS, MAX_LINKED_SENTENCES, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
+import { BOARD_REFRESH_MS, LANGUAGES, LEVELS, MAX_LINKED_SENTENCES, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
 import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
@@ -20,7 +20,6 @@ type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'e
 
 const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: 'Catalan', tapSound: true };
 const ACCENTS = [...new Set(ENGLISH_VOICES.map(voice => voice.accent))];
-const STATUS_EVERY_MS = 30_000; // so the teacher's Fix switch reaches students without a reload
 
 function load<T>(key: string, fallback: T): T {
     try {
@@ -118,10 +117,34 @@ export default function App() {
         const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => {
             if (typeof value.fix === 'boolean') updateStatus(value);
         }).catch(() => {});
-        void check();
-        void fetchBoard().then(result => { if (result) setBoard(result.board); });
-        const timer = window.setInterval(check, STATUS_EVERY_MS);
-        return () => window.clearInterval(timer);
+        let active = true;
+        let loadingBoard = false;
+        let revision: string | undefined;
+        const refresh = async () => {
+            void check();
+            if (loadingBoard) return;
+            loadingBoard = true;
+            const result = await fetchBoard(revision);
+            loadingBoard = false;
+            if (active && result) {
+                revision = result.revision;
+                setBoard(result.board);
+            }
+        };
+        const onVisible = () => { if (!document.hidden) void refresh(); };
+        void refresh();
+        // Both addresses check at the same half-minute boundaries, including tabs opened at different times.
+        let timer: number;
+        const schedule = () => {
+            timer = window.setTimeout(() => { onVisible(); schedule(); }, BOARD_REFRESH_MS - Date.now() % BOARD_REFRESH_MS);
+        };
+        schedule();
+        document.addEventListener('visibilitychange', onVisible);
+        return () => {
+            active = false;
+            window.clearTimeout(timer);
+            document.removeEventListener('visibilitychange', onVisible);
+        };
     }, []);
 
     function updateStatus(value: Status) {
@@ -154,6 +177,12 @@ export default function App() {
         if (used === 'device') setNotice('The natural voice did not answer, so this device spoke.');
     }
 
+    function speakWord(word: string) {
+        if (!settings.tapSound || word === '?') return;
+        if (status.naturalWordVoice) void say(word, settings);
+        else { stop(); void sayOnDevice(word, settings.rate, settings.voice); }
+    }
+
     function tap(word: Word) {
         if (!word.w) return;
         // ? makes the words so far a question ("you want coffee" → "you want coffee?"): Speak asks it, Fix makes a
@@ -164,7 +193,7 @@ export default function App() {
         setTokens(current => [...current, ...(typed ? [{ w: typed, typed: true }] : []), { w: word.w, e: word.e, s: word.s }]);
         setDraft('');
         resetFix();
-        if (settings.tapSound && word.w !== '?') { stop(); void sayOnDevice(word.w, settings.rate, settings.voice); }
+        speakWord(word.w);
     }
 
     // A button found by typing: it takes the place of the letters typed for it, and earlier typed words stay.
@@ -173,7 +202,7 @@ export default function App() {
         setTokens(current => [...current, ...(before ? [{ w: before, typed: true }] : []), { w: hit.word.w, e: hit.word.e, s: hit.word.s }]);
         setDraft('');
         resetFix();
-        if (settings.tapSound) { stop(); void sayOnDevice(hit.word.w, settings.rate, settings.voice); }
+        speakWord(hit.word.w);
         typing.current?.focus(); // keep typing
     }
 

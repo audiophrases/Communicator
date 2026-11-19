@@ -1,5 +1,6 @@
 import { fixPhrase, fixSeed } from './phrase.ts';
 import { synthesize } from './speech.ts';
+import { readPublishedImage } from './published.ts';
 import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
 import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
@@ -24,6 +25,7 @@ export interface Env {
     // Set by scripts/classroom.mjs: the address students open on the school network.
     LAN_URL?: string;
     BOARD_SYNC_URL?: string;
+    BOARD_REPOSITORY?: string;
     USE_RL?: RateLimit;
     AUTH_RL?: RateLimit;
 }
@@ -65,9 +67,18 @@ async function allowed(limiter: RateLimit | undefined, key: string, slots = 1): 
 }
 
 // On the laptop every student can look like the same address, so each device also sends its own random id.
-function visitor(request: Request): string {
+function visitor(request: Request, env: Env): string {
+    const ip = request.headers.get('CF-Connecting-IP') || 'local';
+    if (env.BOARD_REPOSITORY) return ip;
     const device = (request.headers.get('x-device') || '').replace(/[^\w-]/g, '').slice(0, 40);
-    return `${request.headers.get('CF-Connecting-IP') || 'local'}:${device}`;
+    return `${ip}:${device}`;
+}
+
+function boardResponse(request: Request, snapshot: { board: unknown; revision?: string; sync?: string }) {
+    if (!snapshot.revision) return json(snapshot);
+    const headers = { ETag: `"${snapshot.revision}"`, 'Cache-Control': 'private, no-cache' };
+    if (request.headers.get('If-None-Match') === headers.ETag) return new Response(null, { status: 304, headers });
+    return Response.json(snapshot, { headers });
 }
 
 async function readBytes(request: Request, max: number): Promise<Uint8Array<ArrayBuffer> | Response> {
@@ -170,6 +181,9 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
 async function handle(request: Request, env: Env): Promise<Response> {
     const path = new URL(request.url).pathname;
 
+    if (env.BOARD_REPOSITORY && (path === '/create' || path === '/create/')) {
+        return Response.redirect(new URL('/', request.url).href, 302);
+    }
     if (path === '/api/health') return json({ ok: true });
     if (path.startsWith('/api/images/') && request.method === 'GET') {
         const name = path.slice('/api/images/'.length);
@@ -181,6 +195,13 @@ async function handle(request: Request, env: Env): Promise<Response> {
             else if (response.status !== 404) return response;
         }
         body ??= await store(env).getImage(name);
+        if (!body && env.BOARD_REPOSITORY) {
+            const published = await readPublishedImage(env.BOARD_REPOSITORY, name);
+            if (published) {
+                await store(env).putImage(name, published);
+                body = published;
+            }
+        }
         if (!body) return json({ error: 'Image not found.' }, 404);
         return new Response(body, { headers: {
             'Content-Type': imageContentType(name), 'Cache-Control': 'private, max-age=31536000, immutable',
@@ -189,14 +210,18 @@ async function handle(request: Request, env: Env): Promise<Response> {
         } });
     }
     if (path === '/api/status' && request.method === 'GET') {
-        return json({ fix: !!env.OPENAI_API_KEY && await store(env).fixOn() } satisfies Status);
+        return json({ fix: !!env.OPENAI_API_KEY && await store(env).fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
     }
     if (path === '/api/board' && request.method === 'GET') {
+        if (env.BOARD_REPOSITORY) {
+            const snapshot = await store(env).publishedBoard(env.BOARD_REPOSITORY);
+            return snapshot ? boardResponse(request, snapshot) : json({ error: 'The published board is unavailable.' }, 503);
+        }
         if (!env.BOARD_SYNC_URL) return json({ board: await store(env).board() });
         const response = await fetch(env.BOARD_SYNC_URL);
         if (!response.ok) return response;
         const snapshot = await response.json<{ board: unknown; revision: string; sync: string }>();
-        if (snapshot.board) return json(snapshot);
+        if (snapshot.board) return boardResponse(request, snapshot);
         const legacy = await store(env).board();
         if (legacy && snapshot.sync === 'synced') {
             const seeded = await saveSharedBoard(env, env.BOARD_SYNC_URL, legacy, '', true);
@@ -206,7 +231,10 @@ async function handle(request: Request, env: Env): Promise<Response> {
         }
         return json({ ...snapshot, board: legacy });
     }
-    if (path.startsWith('/api/teacher/')) return teacher(request, env, path);
+    if (path.startsWith('/api/teacher/')) {
+        if (env.BOARD_REPOSITORY) return json({ error: 'Publish board changes from the laptop editor.' }, 403);
+        return teacher(request, env, path);
+    }
     if (request.method !== 'POST' || (path !== '/api/fix' && path !== '/api/speak')) return json({ error: 'Not found.' }, 404);
 
     const read = await readJson(request, path === '/api/fix' ? (MAX_LINKED_SENTENCES + 1) * MAX_TEXT * 6 + 1024 : 8192);
@@ -222,7 +250,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
         const key = await sha256Hex(`speech::${voice}::${rate}::${words}`); // as PinPlay: voice::rate::text
         const saved = (await store(env).recall([key]))[key];
         if (saved?.audio) return audioResponse(saved.audio, 'hit');
-        if (!(await allowed(env.USE_RL, `speak:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
+        if (!(await allowed(env.USE_RL, `speak:${visitor(request, env)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
         const audio = await synthesize(env, words, voice, rate, request.signal);
         const bytes = audio ? await audio.arrayBuffer().catch(() => null) : null; // fails past the 4 MB limit
         if (!bytes) return json({ error: 'The voice is unavailable.' }, 503);
@@ -243,7 +271,7 @@ async function handle(request: Request, env: Env): Promise<Response> {
     const lookup = paired ?? shared;
     const saved = (await store(env).recall([lookup]))[lookup];
     if (saved?.value) return json(JSON.parse(saved.value), 200, 'hit');
-    if (!(await allowed(env.USE_RL, `fix:${visitor(request)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
+    if (!(await allowed(env.USE_RL, `fix:${visitor(request, env)}`))) return json({ error: 'Too fast. Wait a moment.' }, 429);
     const result = await fixPhrase(input, env);
     if (!result) return json({ error: 'No suggestion right now. You can still speak your words.' }, 503);
     await store(env).remember('fix', lookup, JSON.stringify(result.fix));

@@ -8,6 +8,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { startBoardSync } from './board-sync.mjs';
+import { publishClassroomRelease } from './online-release.mjs';
+import { ONLINE_BOARD_URL } from '../shared/options.ts';
 
 const root = path.join(import.meta.dirname, '..');
 const wrangler = path.join(root, 'node_modules', 'wrangler', 'bin', 'wrangler.js');
@@ -40,6 +42,7 @@ console.log(`
   Communicator is running on this laptop.
 
   Students open (school Wi-Fi):  ${lanUrl || '(no network found: connect to the school Wi-Fi and restart)'}
+  Students open (always online): ${ONLINE_BOARD_URL}
   Teacher editor (this laptop):  http://localhost:${port}/create
 
   The first time, Windows asks whether Node.js may use the network: allow it on private networks.
@@ -48,10 +51,19 @@ console.log(`
 `);
 
 const sync = await startBoardSync(root);
+let publishRetry;
+async function publish() {
+    try { await publishClassroomRelease(); }
+    catch {
+        console.warn('Could not check or publish the online app release. The classroom is available. Retrying in five minutes.');
+        publishRetry = setTimeout(publish, 300_000);
+    }
+}
+if (!dev) void publish();
 const child = spawn(process.execPath, [wrangler, 'dev', '--ip', dev ? '127.0.0.1' : '0.0.0.0', '--port', String(port),
     ...(!dev ? ['--persist-to', path.join(root, '.wrangler', 'classroom')] : []), '--show-interactive-dev-session=false',
     '--var', `BOARD_SYNC_URL:${sync.url}`,
     ...(lanUrl ? ['--var', `LAN_URL:${lanUrl}`] : [])], {
     cwd: root, env: { ...process.env, WRANGLER_SEND_METRICS: 'false' }, stdio: 'inherit'
 });
-child.on('exit', code => { sync.close(); process.exit(code ?? 0); });
+child.on('exit', code => { clearTimeout(publishRetry); sync.close(); process.exit(code ?? 0); });

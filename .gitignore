@@ -3,6 +3,8 @@ node_modules
 dist
 .env
 .dev.vars
+.dev.vars.*
+!.dev.vars.example
 .wrangler
 .codegraph
 worker/runtime.d.ts

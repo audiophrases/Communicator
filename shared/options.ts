@@ -10,12 +10,14 @@ export const LANGUAGES = ['Catalan'] as const;
 export const isLanguage = (value: unknown): value is typeof LANGUAGES[number] => LANGUAGES.includes(value as typeof LANGUAGES[number]);
 
 export const MAX_TEXT = 300;
+export const BOARD_REFRESH_MS = 30_000;
+export const ONLINE_BOARD_URL = 'https://communicator-online.eugenime.workers.dev';
 // In longer paragraphs keep the opening sentence, which often establishes the time, and the latest sentences.
 export const MAX_LINKED_SENTENCES = 8;
 
 export type Fix = { sentence: string; alternatives: string[]; translation: string };
 // fix: the teacher has Fix switched on and there is an OpenAI key.
-export type Status = { fix: boolean };
+export type Status = { fix: boolean; naturalWordVoice?: boolean };
 export type BoardSync = { revision?: string; sync?: 'synced' | 'offline' | 'conflict' };
 // Answers kept on the laptop so the same question is not paid for twice: corrections, Catalan, voice clips.
 export type Saved = { fix: number; ca: number; speech: number; reused: number };

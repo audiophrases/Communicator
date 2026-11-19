@@ -15,7 +15,7 @@ there again before relying on it: the offer and its list of models can change.
 
 ## What it means for the apps
 
-- **Free:** a model on the 2.5 million list, within the day's amount. `gpt-4o-mini` is the one HelloChat and Pixel Plaza use; Communicator uses `gpt-6-luna`, which is billed (see below). A grammar
+- **Free:** a model on the 2.5 million list, within the day's amount. HelloChat and Pixel Plaza use `gpt-4o-mini`. Communicator uses `gpt-5.4-mini` online and the billed `gpt-6-luna` on the laptop. A grammar
   correction or hint is about 700 tokens, so the free amount covers a few thousand a day, shared by every app on the
   account.
 - **Billed:** every model not on those lists, such as `gpt-6-luna`, `gpt-5.6-*` and `gpt-6.1-*`, and audio and
@@ -31,7 +31,8 @@ Phone Mirror.
 
 ## In this project
 
-- **Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
+- **Online student Fix and Catalan** use `gpt-5.4-mini`, covered within the account's shared daily allowance.
+- **Laptop Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
   `gpt-6-luna` with thinking off, **billed** ($0.10 / $0.50 per million tokens): about 0.01 cents a Fix, so about
   5 cents for a busy lesson. Chosen after side-by-side tests on 2026-11-16 (`worker/model.ts`): it got Catalan
   "agradar" right most often (12 of 14 hard sentences). `OPENAI_PHRASE_MODEL=gpt-5.4-mini` keeps it **free** (2.5

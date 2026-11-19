@@ -16,8 +16,9 @@ preview for your next sentence. Turn on **Link sentences** to keep telling the s
 “Yesterday I went to the park” and “I saw my friend”, Fix can turn “we play football” into “We played football.”
 Turn the toggle off to end the paragraph. Each board session starts with it off.
 
-It runs on the teacher's laptop during class, like Pixel Plaza on the laptop: students open the laptop's address
-over the school Wi-Fi. Teacher-created board content syncs to this public GitHub repository.
+Students can use the school Wi-Fi address during class or the
+[always-online student board](https://communicator-online.eugenime.workers.dev) from anywhere.
+Publish buttons and pictures from the teacher's laptop. Both boards use the same published content.
 
 ## In class
 
@@ -37,11 +38,31 @@ overrides the detected address (for a laptop on more than one network). The addr
 While changing the code: `npm run dev:worker` in one terminal and `npm run dev` in another.
 `npm test` runs the Worker tests.
 
+### Always-online student board
+
+The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English and translates
+the result into Catalan with `gpt-5.4-mini`. The project's OpenAI account lists this model for complimentary
+daily tokens. Usage above the allowance is billed. The laptop uses `gpt-6-luna` by default.
+Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with device speech as a fallback.
+The laptop's Fix switch applies to the school Wi-Fi session. Online corrections and voice clips have their own cache.
+
+For button changes, save in the laptop editor. Once the save reaches GitHub, open student boards check on the
+same 30-second schedule. They keep the sentence in progress. The Worker keeps the last board it fetched if
+GitHub is temporarily unavailable. Uploaded pictures are verified against their content hashes and cached as used.
+An offline laptop save reaches the online address after Git sync succeeds.
+
+For app code, push changes to `main` and launch `classroom.bat` from that updated checkout.
+It serves the local build and publishes the matching release through the laptop's Wrangler login, as PinPlay does.
+Unpublished source changes stay local. Running `npm run deploy:online` publishes a release manually.
+The hosted Worker uses the `online` environment in `wrangler.jsonc`. Set or rotate its server-side key with
+`npx wrangler secret put OPENAI_API_KEY --env online`. If the bridge requires authentication, set
+`EDGE_TTS_SECRET` the same way. The teacher password belongs only in the laptop's `.dev.vars`.
+
 ### Board sync
 
 Save in `/create` commits the board layout, buttons, translations, uploaded pictures, symbol choices and quick phrases to the public
-`main` branch. Each laptop fetches the board at startup and every minute while running. Reload the student board
-or editor to see the latest version. A normal `git pull` also downloads the JSON file. If the repository has no
+`main` branch. Each laptop fetches the board at startup and every minute while running. Open student boards
+refresh automatically. Reload the editor to start from the latest saved version. A normal `git pull` also downloads the JSON file. If the repository has no
 shared board yet, the first online laptop with an existing saved teacher board supplies it.
 
 The launcher uses this checkout's Git credentials. Each teacher laptop needs push access to `origin/main`.
@@ -63,7 +84,7 @@ Speech goes through PinPlay's Edge TTS bridge on Render, as in HelloChat and Pix
 and passes the audio to students over the Wi-Fi. No OpenAI. Students pick one of 18 English voices (Emma, American, by default; also UK, Irish,
 Australian and more) and a speed in Settings. `classroom.bat` wakes the bridge while it starts, because Render can
 take a while to wake up. The laptop needs internet for these voices; without it, or if the bridge does not answer
-within 10 seconds, each device speaks with its own voice. Single tapped words always use the device's voice, which is
+within 10 seconds, each device speaks with its own voice. On the laptop version, single taps use the device's voice, which is
 instant. `EDGE_TTS_URL` and `EDGE_TTS_SECRET` override the bridge.
 
 ## OpenAI: Fix and the editor's Catalan
@@ -115,7 +136,7 @@ Open `/create` and sign in with the teacher password. There you can:
 - add buttons, add, rename, reorder and delete topic pages, and edit the quick phrases;
 - press ✨ next to a Catalan box, or **Fill missing Catalan** for everything at once, to translate with AI, then check
   and correct it;
-- **Save** for everyone (students get it when they open or reload the board), or **Undo changes** since the last save.
+- **Save** for everyone, or **Undo changes** since the last save.
 
 Removing a core word with **Empty this slot** keeps its place empty, so the words around it do not move.
 
@@ -127,9 +148,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
-| Fix | `worker/phrase.ts` | One chat-model call (`gpt-6-luna`, `worker/model.ts`) with a strict JSON schema: the sentence, up to 2 other meanings, and its Catalan |
+| Fix | `worker/phrase.ts`, `worker/model.ts` | One chat-model call returns the sentence, up to 2 other meanings, and its Catalan |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons and phrases, told the word type and page to pick the meaning |
-| Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | PinPlay's Edge TTS bridge through the laptop; spoken phrases are kept in memory so repeating is instant; falls back to the device voice |
+| Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | The serving Worker fetches English audio from PinPlay's Edge TTS bridge and caches clips for repeat playback |
 | Classroom | `classroom.bat`, `scripts/classroom.mjs`, `scripts/setup-laptop.mjs`, `scripts/warm-speech.mjs` | Serves the school Wi-Fi from the laptop, sets up `.dev.vars`, wakes the voice bridge, refuses to start twice |
 | Limits | `worker/index.ts` | The key stays on the laptop; 40 Fix and 40 voice requests a minute per student device; password guesses rate-limited |
 

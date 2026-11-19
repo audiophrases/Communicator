@@ -53,9 +53,13 @@ export function cachedBoard(): Board {
 }
 
 // The board to show now, or null when the server could not be reached.
-export async function fetchBoard(): Promise<({ board: Board; custom: boolean } & BoardSync) | null> {
+export async function fetchBoard(knownRevision?: string): Promise<({ board: Board; custom: boolean } & BoardSync) | null> {
     try {
-        const response = await fetch('/api/board', { signal: AbortSignal.timeout(8000) });
+        const response = await fetch('/api/board', {
+            headers: knownRevision ? { 'If-None-Match': `"${knownRevision}"` } : {},
+            signal: AbortSignal.timeout(8000)
+        });
+        if (response.status === 304) return null;
         if (!response.ok) return null;
         const { board: raw, revision, sync } = await response.json();
         const board = readBoard(raw);

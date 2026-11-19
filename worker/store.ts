@@ -7,7 +7,8 @@
 
 import { DurableObject } from 'cloudflare:workers';
 import { boardImages, type Board } from '../shared/board.ts';
-import type { Saved } from '../shared/options.ts';
+import { BOARD_REFRESH_MS, type Saved } from '../shared/options.ts';
+import { readPublishedBoard, type PublishedBoard } from './published.ts';
 
 export type Kind = 'fix' | 'ca' | 'speech';
 const KEEP: Record<Kind, number> = { fix: 5000, ca: 5000, speech: 3000 }; // the most recently used of each
@@ -16,6 +17,8 @@ const MAX_AUDIO = 1024 * 1024;
 
 export class BoardStore extends DurableObject {
     private writes = 0;
+    private nextBoardCheck = 0;
+    private publication?: Promise<PublishedBoard | null>;
 
     constructor(ctx: DurableObjectState, env: unknown) {
         super(ctx, env as never);
@@ -27,6 +30,29 @@ export class BoardStore extends DurableObject {
 
     async board(): Promise<Board | null> {
         return (await this.ctx.storage.get<Board>('board')) ?? null;
+    }
+
+    // Only the online Worker uses this mirror. Concurrent readers share one GitHub check.
+    async publishedBoard(repository: string): Promise<PublishedBoard | null> {
+        if (this.publication) return this.publication;
+        if (Date.now() < this.nextBoardCheck) {
+            return (await this.ctx.storage.get<PublishedBoard>('published')) ?? null;
+        }
+        this.nextBoardCheck = (Math.floor(Date.now() / BOARD_REFRESH_MS) + 1) * BOARD_REFRESH_MS;
+        this.publication = this.refreshPublication(repository);
+        try { return await this.publication; }
+        finally {
+            this.publication = undefined;
+        }
+    }
+
+    private async refreshPublication(repository: string): Promise<PublishedBoard | null> {
+        const previous = await this.ctx.storage.get<PublishedBoard>('published');
+        let current: PublishedBoard;
+        try { current = await readPublishedBoard(repository); }
+        catch { return previous ?? null; }
+        if (previous?.revision !== current.revision) await this.ctx.storage.put('published', current);
+        return current;
     }
     async save(board: Board): Promise<boolean> {
         if (boardImages(board).some(name => !this.hasImage(name))) return false;

@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "dev:worker": "node scripts/classroom.mjs --dev",
-    "build": "wrangler types worker/runtime.d.ts --include-env=false && tsc -b && vite build",
+    "build": "wrangler types worker/runtime.d.ts --include-env=false && tsc -b && vite build && node scripts/online-release.mjs stamp",
     "classroom": "npm run build && node scripts/classroom.mjs",
+    "deploy:online": "npm run build && wrangler deploy --env online",
     "lint": "oxlint",
     "test": "node --test \"worker/tests/*.test.mjs\""
   },
