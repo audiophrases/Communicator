@@ -118,7 +118,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 
 | Part | Where | What it does |
 | --- | --- | --- |
-| Board | `src/vocab.ts`, `src/App.tsx` | Built-in board: 60 core words that never move, 15 topic pages (about 880 words, covering CEFR A1), 30 quick phrases, each with Catalan; saved and recent phrases |
+| Board | `src/vocab.ts`, `src/App.tsx` | 60 fixed core buttons, 19 topic pages with about 1,200 words and expressions, and 38 quick phrases, all with Catalan |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
@@ -154,6 +154,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   words and little words that fit no topic go on Actions, Describe and Little words. Left out: alcohol, CDs and DVDs,
   and second spellings of a word already there (bicycle for bike, telephone for phone, cannot for can't). Spelling is
   British, as in the Oxford list.
+- **Everyday A2–B1 conversations.** Learners can borrow a pencil, ask which platform they need, describe a headache,
+  request a refund or explain why they disagree. Languages and Countries have their own pages. On Places, students can
+  also find Catalonia, Barcelona and Madrid. Quick phrases include “I need an interpreter” and “Please let me finish.”
 - **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan, on by default on every device; a student can choose "Do not translate") shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
   check a word without adding it to the message.

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Paris</title>
+  <desc>The Eiffel Tower with its arched base and two viewing platforms.</desc>
+  <g stroke="#3e352e" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#bc9676" stroke-width="2" d="M31 8h2c1 21 8 40 21 50H42c-1-8-5-13-10-13s-9 5-10 13H10C23 48 30 29 31 8Z"/>
+    <path fill="none" stroke-width="2" d="M32 3v5m-4 22 9 11H25l10-11"/>
+    <path fill="none" stroke-width="4" d="M26 29h12M20 42h24M8 58h16m16 0h16"/>
+  </g>
+</svg>

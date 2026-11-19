@@ -835,6 +835,96 @@
           "k": "person",
           "ca": "membre",
           "s": "scene_member"
+        },
+        {
+          "w": "myself",
+          "k": "person",
+          "e": "🙋🪞",
+          "ca": "jo mateix / jo mateixa"
+        },
+        {
+          "w": "ourselves",
+          "k": "person",
+          "e": "👥🪞",
+          "ca": "nosaltres mateixos / mateixes"
+        },
+        {
+          "w": "mine",
+          "k": "person",
+          "e": "🙋🔑",
+          "ca": "el meu / la meva"
+        },
+        {
+          "w": "yours",
+          "k": "person",
+          "e": "🫵🔑",
+          "ca": "el teu / la teva"
+        },
+        {
+          "w": "ours",
+          "k": "person",
+          "e": "👥🔑",
+          "ca": "el nostre / la nostra"
+        },
+        {
+          "w": "theirs",
+          "k": "person",
+          "e": "👉👥🔑",
+          "ca": "el seu / la seva (d'ells)"
+        },
+        {
+          "w": "classmate",
+          "k": "person",
+          "e": "🧑‍🎓🤝",
+          "ca": "company / companya de classe"
+        },
+        {
+          "w": "colleague",
+          "k": "person",
+          "e": "💼🤝",
+          "ca": "company / companya de feina"
+        },
+        {
+          "w": "flatmate",
+          "k": "person",
+          "e": "🏠🤝",
+          "ca": "company / companya de pis"
+        },
+        {
+          "w": "stranger",
+          "k": "person",
+          "e": "👤❔",
+          "ca": "desconegut / desconeguda"
+        },
+        {
+          "w": "interpreter",
+          "k": "person",
+          "e": "💬🔁",
+          "ca": "intèrpret"
+        },
+        {
+          "w": "dentist",
+          "k": "person",
+          "ca": "dentista",
+          "s": "dentist_2a"
+        },
+        {
+          "w": "mechanic",
+          "k": "person",
+          "ca": "mecànic / mecànica",
+          "s": "car_mechanic_1b"
+        },
+        {
+          "w": "passenger",
+          "k": "person",
+          "e": "🧑🚌",
+          "ca": "passatger / passatgera"
+        },
+        {
+          "w": "guest",
+          "k": "person",
+          "e": "🛎️🧑",
+          "ca": "convidat / convidada"
         }
       ]
     },
@@ -1593,6 +1683,156 @@
           "k": "verb",
           "e": "⏪＝",
           "ca": "era / estava"
+        },
+        {
+          "w": "might",
+          "k": "verb",
+          "e": "🤔🔮",
+          "ca": "podria / potser"
+        },
+        {
+          "w": "used to",
+          "k": "verb",
+          "e": "⏪🔁",
+          "ca": "solia / acostumava a"
+        },
+        {
+          "w": "were",
+          "k": "verb",
+          "e": "👥⏪",
+          "ca": "eres / érem / éreu / eren"
+        },
+        {
+          "w": "had",
+          "k": "verb",
+          "e": "⏪🎒",
+          "ca": "tenia / havia"
+        },
+        {
+          "w": "borrow",
+          "k": "verb",
+          "e": "📖⬅️",
+          "ca": "agafar en préstec"
+        },
+        {
+          "w": "lend",
+          "k": "verb",
+          "e": "📖➡️",
+          "ca": "deixar en préstec"
+        },
+        {
+          "w": "repair",
+          "k": "verb",
+          "e": "🔧🪑",
+          "ca": "reparar"
+        },
+        {
+          "w": "collect",
+          "k": "verb",
+          "ca": "recollir",
+          "s": "collect_,_to"
+        },
+        {
+          "w": "deliver",
+          "k": "verb",
+          "ca": "lliurar",
+          "s": "deliver_,_to"
+        },
+        {
+          "w": "receive",
+          "k": "verb",
+          "ca": "rebre",
+          "s": "receive_,_to"
+        },
+        {
+          "w": "offer",
+          "k": "verb",
+          "e": "🫴🎁",
+          "ca": "oferir"
+        },
+        {
+          "w": "refuse",
+          "k": "verb",
+          "e": "✋🎁",
+          "ca": "rebutjar"
+        },
+        {
+          "w": "accept",
+          "k": "verb",
+          "e": "🤲🎁",
+          "ca": "acceptar"
+        },
+        {
+          "w": "invite",
+          "k": "verb",
+          "e": "✉️🎉",
+          "ca": "convidar"
+        },
+        {
+          "w": "suggest",
+          "k": "verb",
+          "e": "💬💡",
+          "ca": "suggerir"
+        },
+        {
+          "w": "disagree",
+          "k": "verb",
+          "e": "💬≠",
+          "ca": "no estar d'acord"
+        },
+        {
+          "w": "promise",
+          "k": "verb",
+          "e": "🤙💬",
+          "ca": "prometre"
+        },
+        {
+          "w": "remind",
+          "k": "verb",
+          "e": "🔔🧠",
+          "ca": "recordar a algú"
+        },
+        {
+          "w": "allow",
+          "k": "verb",
+          "e": "🚪✅",
+          "ca": "permetre"
+        },
+        {
+          "w": "apologise",
+          "k": "verb",
+          "e": "💬😔",
+          "ca": "demanar perdó"
+        },
+        {
+          "w": "solve",
+          "k": "verb",
+          "e": "🧩✔️",
+          "ca": "resoldre"
+        },
+        {
+          "w": "point",
+          "k": "verb",
+          "ca": "assenyalar",
+          "s": "point_,_to"
+        },
+        {
+          "w": "touch",
+          "k": "verb",
+          "ca": "tocar",
+          "s": "touch_,_to"
+        },
+        {
+          "w": "communicate",
+          "k": "verb",
+          "ca": "comunicar-se",
+          "s": "communicate_,_to"
+        },
+        {
+          "w": "change my mind",
+          "k": "verb",
+          "ca": "canviar d'opinió",
+          "s": "change_mind_,_to"
         }
       ]
     },
@@ -1877,6 +2117,108 @@
           "k": "noun",
           "e": "🥄",
           "ca": "cullera"
+        },
+        {
+          "w": "snack",
+          "k": "noun",
+          "e": "🍎🥨",
+          "ca": "refrigeri / cosa per picar"
+        },
+        {
+          "w": "toast",
+          "k": "noun",
+          "ca": "torrada",
+          "s": "toast"
+        },
+        {
+          "w": "cereal",
+          "k": "noun",
+          "ca": "cereals",
+          "s": "cereal"
+        },
+        {
+          "w": "yoghurt",
+          "k": "noun",
+          "ca": "iogurt",
+          "s": "yogurt"
+        },
+        {
+          "w": "grapes",
+          "k": "noun",
+          "ca": "raïm",
+          "s": "grapes"
+        },
+        {
+          "w": "strawberry",
+          "k": "noun",
+          "ca": "maduixa",
+          "s": "strawberry"
+        },
+        {
+          "w": "beans",
+          "k": "noun",
+          "ca": "mongetes / fesols",
+          "s": "baked_beans"
+        },
+        {
+          "w": "lentils",
+          "k": "noun",
+          "ca": "llenties",
+          "s": "lentils"
+        },
+        {
+          "w": "nuts",
+          "k": "noun",
+          "ca": "fruita seca",
+          "s": "nuts"
+        },
+        {
+          "w": "ingredient",
+          "k": "noun",
+          "ca": "ingredient",
+          "s": "ingredients"
+        },
+        {
+          "w": "fork",
+          "k": "noun",
+          "ca": "forquilla",
+          "s": "fork"
+        },
+        {
+          "w": "knife",
+          "k": "noun",
+          "ca": "ganivet",
+          "s": "knife"
+        },
+        {
+          "w": "bowl",
+          "k": "noun",
+          "ca": "bol",
+          "s": "bowl"
+        },
+        {
+          "w": "spicy",
+          "k": "describe",
+          "ca": "picant",
+          "s": "spicy"
+        },
+        {
+          "w": "sweet",
+          "k": "describe",
+          "e": "🍯😋",
+          "ca": "dolç / dolça"
+        },
+        {
+          "w": "vegetarian",
+          "k": "describe",
+          "e": "🥕🥗",
+          "ca": "vegetarià / vegetariana"
+        },
+        {
+          "w": "gluten-free",
+          "k": "describe",
+          "e": "🌾🚫",
+          "ca": "sense gluten"
         }
       ]
     },
@@ -2263,6 +2605,180 @@
           "k": "noun",
           "e": "⛵",
           "ca": "vaixell"
+        },
+        {
+          "w": "entrance",
+          "k": "noun",
+          "e": "🚪⬅️",
+          "ca": "entrada"
+        },
+        {
+          "w": "exit",
+          "k": "noun",
+          "e": "🚪➡️",
+          "ca": "sortida"
+        },
+        {
+          "w": "lift",
+          "k": "noun",
+          "ca": "ascensor",
+          "s": "lift"
+        },
+        {
+          "w": "ramp",
+          "k": "noun",
+          "ca": "rampa",
+          "s": "ramp"
+        },
+        {
+          "w": "stairs",
+          "k": "noun",
+          "ca": "escales",
+          "s": "stairs"
+        },
+        {
+          "w": "crossing",
+          "k": "noun",
+          "ca": "pas de vianants",
+          "s": "zebra_crossing"
+        },
+        {
+          "w": "traffic lights",
+          "k": "noun",
+          "ca": "semàfor",
+          "s": "traffic_lights"
+        },
+        {
+          "w": "corner",
+          "k": "noun",
+          "e": "📐📍",
+          "ca": "cantonada"
+        },
+        {
+          "w": "directions",
+          "k": "noun",
+          "ca": "indicacions per arribar-hi",
+          "s": "signpost"
+        },
+        {
+          "w": "journey",
+          "k": "noun",
+          "e": "🧳🛤️",
+          "ca": "viatge / trajecte"
+        },
+        {
+          "w": "platform",
+          "k": "noun",
+          "e": "🚉🔢",
+          "ca": "andana"
+        },
+        {
+          "w": "timetable",
+          "k": "noun",
+          "e": "🚌🕒",
+          "ca": "horari"
+        },
+        {
+          "w": "delay",
+          "k": "noun",
+          "e": "🚆⏳",
+          "ca": "retard"
+        },
+        {
+          "w": "return ticket",
+          "k": "noun",
+          "e": "🎟️↔️",
+          "ca": "bitllet d'anada i tornada"
+        },
+        {
+          "w": "single ticket",
+          "k": "noun",
+          "e": "🎟️➡️",
+          "ca": "bitllet senzill"
+        },
+        {
+          "w": "luggage",
+          "k": "noun",
+          "ca": "equipatge",
+          "s": "suitcase_1"
+        },
+        {
+          "w": "underground",
+          "k": "noun",
+          "ca": "metro",
+          "s": "underground_train"
+        },
+        {
+          "w": "reservation",
+          "k": "noun",
+          "e": "🛎️📋",
+          "ca": "reserva"
+        },
+        {
+          "w": "Catalonia",
+          "k": "noun",
+          "ca": "Catalunya",
+          "s": "scene_catalonia"
+        },
+        {
+          "w": "Barcelona",
+          "k": "noun",
+          "e": "BCN",
+          "ca": "Barcelona"
+        },
+        {
+          "w": "Madrid",
+          "k": "noun",
+          "e": "MAD",
+          "ca": "Madrid"
+        },
+        {
+          "w": "London",
+          "k": "noun",
+          "e": "💂🕰️",
+          "ca": "Londres"
+        },
+        {
+          "w": "Paris",
+          "k": "noun",
+          "ca": "París",
+          "s": "scene_paris"
+        },
+        {
+          "w": "book",
+          "k": "verb",
+          "e": "🗓️🖊️",
+          "ca": "reservar"
+        },
+        {
+          "w": "cancel",
+          "k": "verb",
+          "e": "🗓️❌",
+          "ca": "cancel·lar"
+        },
+        {
+          "w": "get on",
+          "k": "verb",
+          "e": "🧍➡️🚌",
+          "ca": "pujar (al transport)"
+        },
+        {
+          "w": "get off",
+          "k": "verb",
+          "e": "🚌➡️🧍",
+          "ca": "baixar (del transport)"
+        },
+        {
+          "w": "lost",
+          "k": "describe",
+          "ca": "perdut / perduda",
+          "s": "lost"
+        },
+        {
+          "w": "accessible",
+          "k": "describe",
+          "ca": "accessible",
+          "s": "disabled_sign"
         }
       ]
     },
@@ -2505,6 +3021,84 @@
           "k": "describe",
           "e": "😨",
           "ca": "espantat / tenir por"
+        },
+        {
+          "w": "headache",
+          "k": "noun",
+          "ca": "mal de cap",
+          "s": "headache"
+        },
+        {
+          "w": "toothache",
+          "k": "noun",
+          "ca": "mal de queixal",
+          "s": "toothache"
+        },
+        {
+          "w": "stomach ache",
+          "k": "noun",
+          "ca": "mal de panxa",
+          "s": "stomach_ache"
+        },
+        {
+          "w": "injury",
+          "k": "noun",
+          "ca": "lesió",
+          "s": "broken_bone"
+        },
+        {
+          "w": "temperature",
+          "k": "noun",
+          "ca": "temperatura",
+          "s": "thermometer"
+        },
+        {
+          "w": "plaster",
+          "k": "noun",
+          "ca": "tireta",
+          "s": "plaster"
+        },
+        {
+          "w": "wheelchair",
+          "k": "noun",
+          "ca": "cadira de rodes",
+          "s": "wheelchair"
+        },
+        {
+          "w": "hearing aid",
+          "k": "noun",
+          "ca": "audiòfon",
+          "s": "hearing_aid_1"
+        },
+        {
+          "w": "communication board",
+          "k": "noun",
+          "ca": "tauler de comunicació",
+          "s": "communication_board"
+        },
+        {
+          "w": "rest",
+          "k": "verb",
+          "ca": "descansar",
+          "s": "rest_,_to"
+        },
+        {
+          "w": "breathe",
+          "k": "verb",
+          "e": "🫁💨",
+          "ca": "respirar"
+        },
+        {
+          "w": "allergic",
+          "k": "describe",
+          "e": "🤧⚠️",
+          "ca": "al·lèrgic / al·lèrgica"
+        },
+        {
+          "w": "sore",
+          "k": "describe",
+          "e": "🩹😣",
+          "ca": "adolorit / adolorida"
         }
       ]
     },
@@ -3203,6 +3797,126 @@
           "k": "describe",
           "e": "➡️",
           "ca": "dreta"
+        },
+        {
+          "w": "confused",
+          "k": "describe",
+          "ca": "confós / confosa",
+          "s": "confused_lady"
+        },
+        {
+          "w": "surprised",
+          "k": "describe",
+          "ca": "sorprès / sorpresa",
+          "s": "surprised_man"
+        },
+        {
+          "w": "nervous",
+          "k": "describe",
+          "e": "😬💓",
+          "ca": "nerviós / nerviosa"
+        },
+        {
+          "w": "proud",
+          "k": "describe",
+          "e": "😊🏅",
+          "ca": "orgullós / orgullosa"
+        },
+        {
+          "w": "embarrassed",
+          "k": "describe",
+          "e": "😳🫣",
+          "ca": "avergonyit / avergonyida"
+        },
+        {
+          "w": "frustrated",
+          "k": "describe",
+          "e": "😣🧩",
+          "ca": "frustrat / frustrada"
+        },
+        {
+          "w": "lonely",
+          "k": "describe",
+          "e": "🧍💭",
+          "ca": "que se sent sol / sola"
+        },
+        {
+          "w": "calm",
+          "k": "describe",
+          "e": "😌🕊️",
+          "ca": "tranquil / tranquil·la"
+        },
+        {
+          "w": "comfortable",
+          "k": "describe",
+          "e": "🛋️😊",
+          "ca": "còmode / còmoda"
+        },
+        {
+          "w": "uncomfortable",
+          "k": "describe",
+          "e": "🪑😣",
+          "ca": "incòmode / incòmoda"
+        },
+        {
+          "w": "safe",
+          "k": "describe",
+          "e": "🛡️✔️",
+          "ca": "segur / segura"
+        },
+        {
+          "w": "private",
+          "k": "describe",
+          "e": "🔒👤",
+          "ca": "privat / privada"
+        },
+        {
+          "w": "urgent",
+          "k": "describe",
+          "e": "⏱️❗",
+          "ca": "urgent"
+        },
+        {
+          "w": "noisy",
+          "k": "describe",
+          "ca": "sorollós / sorollosa",
+          "s": "noisy"
+        },
+        {
+          "w": "crowded",
+          "k": "describe",
+          "e": "🚇👥",
+          "ca": "ple de gent"
+        },
+        {
+          "w": "broken",
+          "k": "describe",
+          "ca": "trencat / trencada",
+          "s": "broken"
+        },
+        {
+          "w": "wet",
+          "k": "describe",
+          "ca": "mullat / mullada",
+          "s": "wet"
+        },
+        {
+          "w": "dry",
+          "k": "describe",
+          "ca": "sec / seca",
+          "s": "dry"
+        },
+        {
+          "w": "heavy",
+          "k": "describe",
+          "ca": "pesant",
+          "s": "heavy"
+        },
+        {
+          "w": "available",
+          "k": "describe",
+          "e": "🗓️✔️",
+          "ca": "disponible"
         }
       ]
     },
@@ -3361,6 +4075,60 @@
           "k": "social",
           "e": "🙌",
           "ca": "sí / ja"
+        },
+        {
+          "w": "whose",
+          "k": "question",
+          "e": "👤🔑❓",
+          "ca": "de qui"
+        },
+        {
+          "w": "how long",
+          "k": "question",
+          "e": "⏳❓",
+          "ca": "quant de temps"
+        },
+        {
+          "w": "how often",
+          "k": "question",
+          "e": "🔁❓",
+          "ca": "amb quina freqüència"
+        },
+        {
+          "w": "how far",
+          "k": "question",
+          "e": "📏❓",
+          "ca": "a quina distància"
+        },
+        {
+          "w": "what time",
+          "k": "question",
+          "e": "🕰️❓",
+          "ca": "a quina hora"
+        },
+        {
+          "w": "my turn",
+          "k": "social",
+          "e": "🙋🔄",
+          "ca": "em toca"
+        },
+        {
+          "w": "your turn",
+          "k": "social",
+          "e": "🫵🔄",
+          "ca": "et toca"
+        },
+        {
+          "w": "one moment",
+          "k": "social",
+          "e": "☝️⏳",
+          "ca": "un moment"
+        },
+        {
+          "w": "no problem",
+          "k": "social",
+          "e": "👌🙂",
+          "ca": "cap problema"
         }
       ]
     },
@@ -3723,6 +4491,72 @@
           "k": "little",
           "ca": "durant",
           "s": "scene_during"
+        },
+        {
+          "w": "already",
+          "k": "describe",
+          "e": "✔️⏱️",
+          "ca": "ja"
+        },
+        {
+          "w": "yet",
+          "k": "describe",
+          "e": "⏳❔",
+          "ca": "encara / ja (en preguntes)"
+        },
+        {
+          "w": "recently",
+          "k": "describe",
+          "e": "⏪🗓️",
+          "ca": "fa poc"
+        },
+        {
+          "w": "suddenly",
+          "k": "describe",
+          "e": "⚡⏱️",
+          "ca": "de sobte"
+        },
+        {
+          "w": "finally",
+          "k": "describe",
+          "e": "🏁⏱️",
+          "ca": "finalment"
+        },
+        {
+          "w": "on time",
+          "k": "describe",
+          "e": "🕒✅",
+          "ca": "puntualment"
+        },
+        {
+          "w": "right now",
+          "k": "describe",
+          "e": "👇⏱️",
+          "ca": "ara mateix"
+        },
+        {
+          "w": "midday",
+          "k": "noun",
+          "e": "🕛☀️",
+          "ca": "migdia"
+        },
+        {
+          "w": "weekday",
+          "k": "noun",
+          "e": "🗓️💼",
+          "ca": "dia feiner"
+        },
+        {
+          "w": "Christmas",
+          "k": "noun",
+          "ca": "Nadal",
+          "s": "Christmas_tree"
+        },
+        {
+          "w": "New Year's Day",
+          "k": "noun",
+          "e": "1 Jan",
+          "ca": "Cap d'Any"
         }
       ]
     },
@@ -4307,8 +5141,8 @@
         {
           "w": "English",
           "k": "noun",
-          "ca": "anglès",
-          "s": "flag_United_Kingdom"
+          "e": "💬EN",
+          "ca": "anglès"
         },
         {
           "w": "word",
@@ -4393,6 +5227,90 @@
           "k": "noun",
           "e": "🌎✳️",
           "ca": "tot"
+        },
+        {
+          "w": "charger",
+          "k": "noun",
+          "ca": "carregador",
+          "s": "charger_electric"
+        },
+        {
+          "w": "battery",
+          "k": "noun",
+          "ca": "bateria / pila",
+          "s": "battery_1"
+        },
+        {
+          "w": "Wi-Fi",
+          "k": "noun",
+          "e": "📶",
+          "ca": "wifi"
+        },
+        {
+          "w": "keyboard",
+          "k": "noun",
+          "ca": "teclat",
+          "s": "computer_keyboard"
+        },
+        {
+          "w": "screen",
+          "k": "noun",
+          "ca": "pantalla",
+          "s": "touch_screen"
+        },
+        {
+          "w": "headphones",
+          "k": "noun",
+          "ca": "auriculars",
+          "s": "headphones"
+        },
+        {
+          "w": "attachment",
+          "k": "noun",
+          "ca": "fitxer adjunt",
+          "s": "email_attachment"
+        },
+        {
+          "w": "download",
+          "k": "verb",
+          "ca": "baixar / descarregar",
+          "s": "download_,_to"
+        },
+        {
+          "w": "save",
+          "k": "verb",
+          "ca": "desar",
+          "s": "save"
+        },
+        {
+          "w": "print",
+          "k": "verb",
+          "ca": "imprimir",
+          "s": "print"
+        },
+        {
+          "w": "soap",
+          "k": "noun",
+          "ca": "sabó",
+          "s": "soap"
+        },
+        {
+          "w": "toothbrush",
+          "k": "noun",
+          "ca": "raspall de dents",
+          "s": "toothbrush"
+        },
+        {
+          "w": "towel",
+          "k": "noun",
+          "ca": "tovallola",
+          "s": "towel"
+        },
+        {
+          "w": "blanket",
+          "k": "noun",
+          "ca": "manta",
+          "s": "blanket"
         }
       ]
     },
@@ -4575,6 +5493,54 @@
           "k": "describe",
           "e": "👱",
           "ca": "ros / rossa"
+        },
+        {
+          "w": "socks",
+          "k": "noun",
+          "ca": "mitjons",
+          "s": "socks"
+        },
+        {
+          "w": "scarf",
+          "k": "noun",
+          "ca": "bufanda",
+          "s": "scarf"
+        },
+        {
+          "w": "gloves",
+          "k": "noun",
+          "ca": "guants",
+          "s": "gloves"
+        },
+        {
+          "w": "belt",
+          "k": "noun",
+          "ca": "cinturó",
+          "s": "belt"
+        },
+        {
+          "w": "pocket",
+          "k": "noun",
+          "ca": "butxaca",
+          "s": "pocket"
+        },
+        {
+          "w": "zip",
+          "k": "noun",
+          "ca": "cremallera",
+          "s": "zip"
+        },
+        {
+          "w": "raincoat",
+          "k": "noun",
+          "ca": "impermeable",
+          "s": "raincoat"
+        },
+        {
+          "w": "pyjamas",
+          "k": "noun",
+          "ca": "pijama",
+          "s": "pyjamas"
         }
       ]
     },
@@ -4805,6 +5771,48 @@
           "k": "noun",
           "e": "🐍",
           "ca": "serp"
+        },
+        {
+          "w": "storm",
+          "k": "noun",
+          "ca": "tempesta",
+          "s": "thunder_storm"
+        },
+        {
+          "w": "fog",
+          "k": "noun",
+          "e": "🌫️",
+          "ca": "boira"
+        },
+        {
+          "w": "forest",
+          "k": "noun",
+          "e": "🌲🌳",
+          "ca": "bosc"
+        },
+        {
+          "w": "lake",
+          "k": "noun",
+          "e": "🏞️💧",
+          "ca": "llac"
+        },
+        {
+          "w": "environment",
+          "k": "noun",
+          "e": "🌍🌱",
+          "ca": "medi ambient"
+        },
+        {
+          "w": "rubbish",
+          "k": "noun",
+          "e": "🗑️🛍️",
+          "ca": "deixalles"
+        },
+        {
+          "w": "recycle",
+          "k": "verb",
+          "ca": "reciclar",
+          "s": "recycle_logo"
         }
       ]
     },
@@ -5191,6 +6199,96 @@
           "k": "verb",
           "ca": "teclejar",
           "s": "type_,_to"
+        },
+        {
+          "w": "instructions",
+          "k": "noun",
+          "e": "📋①",
+          "ca": "instruccions"
+        },
+        {
+          "w": "worksheet",
+          "k": "noun",
+          "ca": "fitxa d'exercicis",
+          "s": "worksheet"
+        },
+        {
+          "w": "notebook",
+          "k": "noun",
+          "ca": "llibreta",
+          "s": "notebook"
+        },
+        {
+          "w": "scissors",
+          "k": "noun",
+          "ca": "tisores",
+          "s": "scissors"
+        },
+        {
+          "w": "glue",
+          "k": "noun",
+          "ca": "cola",
+          "s": "glue"
+        },
+        {
+          "w": "whiteboard",
+          "k": "noun",
+          "ca": "pissarra blanca",
+          "s": "whiteboard"
+        },
+        {
+          "w": "presentation",
+          "k": "noun",
+          "e": "🧑‍🏫📊",
+          "ca": "presentació"
+        },
+        {
+          "w": "feedback",
+          "k": "noun",
+          "e": "📝💬",
+          "ca": "comentaris per millorar"
+        },
+        {
+          "w": "pronunciation",
+          "k": "noun",
+          "e": "👄🔊",
+          "ca": "pronunciació"
+        },
+        {
+          "w": "translate",
+          "k": "verb",
+          "e": "💬⇄",
+          "ca": "traduir"
+        },
+        {
+          "w": "pronounce",
+          "k": "verb",
+          "e": "👄🎙️",
+          "ca": "pronunciar"
+        },
+        {
+          "w": "revise",
+          "k": "verb",
+          "e": "📚🔁",
+          "ca": "repassar"
+        },
+        {
+          "w": "hand in",
+          "k": "verb",
+          "e": "📄📥",
+          "ca": "lliurar (un treball)"
+        },
+        {
+          "w": "underline",
+          "k": "verb",
+          "e": "A̲",
+          "ca": "subratllar"
+        },
+        {
+          "w": "copy",
+          "k": "verb",
+          "ca": "copiar",
+          "s": "copy_,_to"
         }
       ]
     },
@@ -5499,6 +6597,42 @@
           "k": "verb",
           "e": "🏆",
           "ca": "guanyar"
+        },
+        {
+          "w": "invitation",
+          "k": "noun",
+          "e": "💌🎈",
+          "ca": "invitació"
+        },
+        {
+          "w": "audience",
+          "k": "noun",
+          "e": "👏👥",
+          "ca": "públic"
+        },
+        {
+          "w": "performance",
+          "k": "noun",
+          "e": "🎭👏",
+          "ca": "actuació"
+        },
+        {
+          "w": "competition",
+          "k": "noun",
+          "e": "🏅🏁",
+          "ca": "competició"
+        },
+        {
+          "w": "take part",
+          "k": "verb",
+          "e": "🙋🏁",
+          "ca": "participar"
+        },
+        {
+          "w": "score",
+          "k": "verb",
+          "e": "🥅⚽",
+          "ca": "marcar (un gol)"
         }
       ]
     },
@@ -5813,6 +6947,788 @@
           "k": "little",
           "e": "🔑🙋",
           "ca": "propi"
+        },
+        {
+          "w": "somewhere",
+          "k": "little",
+          "e": "❔📍",
+          "ca": "en algun lloc"
+        },
+        {
+          "w": "anywhere",
+          "k": "little",
+          "e": "🌐📍",
+          "ca": "a qualsevol lloc"
+        },
+        {
+          "w": "nowhere",
+          "k": "little",
+          "e": "🚫📍",
+          "ca": "enlloc"
+        },
+        {
+          "w": "else",
+          "k": "little",
+          "e": "➕❔",
+          "ca": "més / altre"
+        },
+        {
+          "w": "although",
+          "k": "little",
+          "e": "🌧️↔☀️",
+          "ca": "tot i que"
+        },
+        {
+          "w": "however",
+          "k": "little",
+          "e": "💬↩️",
+          "ca": "tanmateix / però"
+        },
+        {
+          "w": "instead",
+          "k": "little",
+          "e": "🔀☝️",
+          "ca": "en comptes d'això"
+        },
+        {
+          "w": "while",
+          "k": "little",
+          "e": "⏱️⇉",
+          "ca": "mentre"
+        },
+        {
+          "w": "since",
+          "k": "little",
+          "e": "📅→",
+          "ca": "des de / des que"
+        },
+        {
+          "w": "unless",
+          "k": "little",
+          "e": "⚠️↪️",
+          "ca": "tret que"
+        },
+        {
+          "w": "except",
+          "k": "little",
+          "e": "👥➖👤",
+          "ca": "excepte"
+        },
+        {
+          "w": "either",
+          "k": "little",
+          "ca": "l'un o l'altre",
+          "s": "either"
+        },
+        {
+          "w": "neither",
+          "k": "little",
+          "ca": "ni l'un ni l'altre",
+          "s": "neither"
+        },
+        {
+          "w": "against",
+          "k": "little",
+          "ca": "contra",
+          "s": "against"
+        },
+        {
+          "w": "towards",
+          "k": "little",
+          "e": "→📍",
+          "ca": "cap a"
+        }
+      ]
+    },
+    {
+      "id": "languages",
+      "name": "Languages",
+      "icon": "💬",
+      "ca": "Llengües",
+      "words": [
+        {
+          "w": "English",
+          "k": "noun",
+          "e": "💬EN",
+          "ca": "anglès"
+        },
+        {
+          "w": "Catalan",
+          "k": "noun",
+          "e": "💬CA",
+          "ca": "català"
+        },
+        {
+          "w": "Spanish",
+          "k": "noun",
+          "e": "💬ES",
+          "ca": "castellà / espanyol"
+        },
+        {
+          "w": "Arabic",
+          "k": "noun",
+          "e": "💬AR",
+          "ca": "àrab"
+        },
+        {
+          "w": "Amazigh",
+          "k": "noun",
+          "e": "💬ⵣ",
+          "ca": "amazic"
+        },
+        {
+          "w": "Basque",
+          "k": "noun",
+          "e": "💬EU",
+          "ca": "basc / euskera"
+        },
+        {
+          "w": "Bengali",
+          "k": "noun",
+          "e": "💬BN",
+          "ca": "bengalí"
+        },
+        {
+          "w": "Chinese",
+          "k": "noun",
+          "e": "💬ZH",
+          "ca": "xinès"
+        },
+        {
+          "w": "Dutch",
+          "k": "noun",
+          "e": "💬NL",
+          "ca": "neerlandès"
+        },
+        {
+          "w": "French",
+          "k": "noun",
+          "e": "💬FR",
+          "ca": "francès"
+        },
+        {
+          "w": "Galician",
+          "k": "noun",
+          "e": "💬GL",
+          "ca": "gallec"
+        },
+        {
+          "w": "German",
+          "k": "noun",
+          "e": "💬DE",
+          "ca": "alemany"
+        },
+        {
+          "w": "Greek",
+          "k": "noun",
+          "e": "💬EL",
+          "ca": "grec"
+        },
+        {
+          "w": "Hindi",
+          "k": "noun",
+          "e": "💬HI",
+          "ca": "hindi"
+        },
+        {
+          "w": "Italian",
+          "k": "noun",
+          "e": "💬IT",
+          "ca": "italià"
+        },
+        {
+          "w": "Japanese",
+          "k": "noun",
+          "e": "💬JA",
+          "ca": "japonès"
+        },
+        {
+          "w": "Korean",
+          "k": "noun",
+          "e": "💬KO",
+          "ca": "coreà"
+        },
+        {
+          "w": "Mandarin",
+          "k": "noun",
+          "e": "💬普",
+          "ca": "mandarí"
+        },
+        {
+          "w": "Polish",
+          "k": "noun",
+          "e": "💬PL",
+          "ca": "polonès"
+        },
+        {
+          "w": "Portuguese",
+          "k": "noun",
+          "e": "💬PT",
+          "ca": "portuguès"
+        },
+        {
+          "w": "Punjabi",
+          "k": "noun",
+          "e": "💬PA",
+          "ca": "panjabi"
+        },
+        {
+          "w": "Romanian",
+          "k": "noun",
+          "e": "💬RO",
+          "ca": "romanès"
+        },
+        {
+          "w": "Russian",
+          "k": "noun",
+          "e": "💬RU",
+          "ca": "rus"
+        },
+        {
+          "w": "Turkish",
+          "k": "noun",
+          "e": "💬TR",
+          "ca": "turc"
+        },
+        {
+          "w": "Ukrainian",
+          "k": "noun",
+          "e": "💬UK",
+          "ca": "ucraïnès"
+        },
+        {
+          "w": "Urdu",
+          "k": "noun",
+          "e": "💬UR",
+          "ca": "urdú"
+        },
+        {
+          "w": "Wolof",
+          "k": "noun",
+          "e": "💬WO",
+          "ca": "wòlof"
+        },
+        {
+          "w": "sign language",
+          "k": "noun",
+          "e": "🤟💬",
+          "ca": "llengua de signes"
+        },
+        {
+          "w": "Catalan Sign Language",
+          "k": "noun",
+          "e": "🤟LSC",
+          "ca": "llengua de signes catalana"
+        }
+      ]
+    },
+    {
+      "id": "countries",
+      "name": "Countries",
+      "icon": "🌍",
+      "ca": "Països",
+      "words": [
+        {
+          "w": "Spain",
+          "k": "noun",
+          "ca": "Espanya",
+          "s": "flag_Spain"
+        },
+        {
+          "w": "Andorra",
+          "k": "noun",
+          "ca": "Andorra",
+          "s": "flag_Andorra"
+        },
+        {
+          "w": "Algeria",
+          "k": "noun",
+          "ca": "Algèria",
+          "s": "flag_Algeria"
+        },
+        {
+          "w": "Argentina",
+          "k": "noun",
+          "ca": "Argentina",
+          "s": "flag_Argentina"
+        },
+        {
+          "w": "Australia",
+          "k": "noun",
+          "ca": "Austràlia",
+          "s": "scene_australia"
+        },
+        {
+          "w": "Bangladesh",
+          "k": "noun",
+          "ca": "Bangladesh",
+          "s": "flag_Bangladesh"
+        },
+        {
+          "w": "Belgium",
+          "k": "noun",
+          "ca": "Bèlgica",
+          "s": "flag_Belgium"
+        },
+        {
+          "w": "Bolivia",
+          "k": "noun",
+          "ca": "Bolívia",
+          "s": "flag_Bolivia"
+        },
+        {
+          "w": "Brazil",
+          "k": "noun",
+          "ca": "Brasil",
+          "s": "flag_Brazil"
+        },
+        {
+          "w": "Canada",
+          "k": "noun",
+          "ca": "Canadà",
+          "s": "flag_Canada"
+        },
+        {
+          "w": "Chile",
+          "k": "noun",
+          "ca": "Xile",
+          "s": "flag_Chile"
+        },
+        {
+          "w": "China",
+          "k": "noun",
+          "ca": "Xina",
+          "s": "flag_China"
+        },
+        {
+          "w": "Colombia",
+          "k": "noun",
+          "ca": "Colòmbia",
+          "s": "flag_Colombia"
+        },
+        {
+          "w": "Ecuador",
+          "k": "noun",
+          "ca": "Equador",
+          "s": "flag_Ecuador"
+        },
+        {
+          "w": "Egypt",
+          "k": "noun",
+          "ca": "Egipte",
+          "s": "flag_Egypt"
+        },
+        {
+          "w": "France",
+          "k": "noun",
+          "ca": "França",
+          "s": "flag_France"
+        },
+        {
+          "w": "Germany",
+          "k": "noun",
+          "ca": "Alemanya",
+          "s": "flag_Germany"
+        },
+        {
+          "w": "Greece",
+          "k": "noun",
+          "ca": "Grècia",
+          "s": "flag_Greece"
+        },
+        {
+          "w": "India",
+          "k": "noun",
+          "ca": "Índia",
+          "s": "flag_India"
+        },
+        {
+          "w": "Ireland",
+          "k": "noun",
+          "ca": "Irlanda",
+          "s": "flag_Ireland"
+        },
+        {
+          "w": "Italy",
+          "k": "noun",
+          "ca": "Itàlia",
+          "s": "flag_Italy"
+        },
+        {
+          "w": "Japan",
+          "k": "noun",
+          "ca": "Japó",
+          "s": "flag_Japan"
+        },
+        {
+          "w": "Mexico",
+          "k": "noun",
+          "ca": "Mèxic",
+          "s": "flag_Mexico"
+        },
+        {
+          "w": "Morocco",
+          "k": "noun",
+          "ca": "Marroc",
+          "s": "flag_Morocco"
+        },
+        {
+          "w": "Netherlands",
+          "k": "noun",
+          "ca": "Països Baixos",
+          "s": "flag_The_Netherlands"
+        },
+        {
+          "w": "Nigeria",
+          "k": "noun",
+          "ca": "Nigèria",
+          "s": "flag_Nigeria"
+        },
+        {
+          "w": "Pakistan",
+          "k": "noun",
+          "ca": "Pakistan",
+          "s": "flag_Pakistan"
+        },
+        {
+          "w": "Peru",
+          "k": "noun",
+          "ca": "Perú",
+          "s": "flag_Peru"
+        },
+        {
+          "w": "Philippines",
+          "k": "noun",
+          "ca": "Filipines",
+          "s": "flag_Philippines"
+        },
+        {
+          "w": "Poland",
+          "k": "noun",
+          "ca": "Polònia",
+          "s": "flag_Poland"
+        },
+        {
+          "w": "Portugal",
+          "k": "noun",
+          "ca": "Portugal",
+          "s": "flag_Portugal"
+        },
+        {
+          "w": "Romania",
+          "k": "noun",
+          "ca": "Romania",
+          "s": "flag_Romania"
+        },
+        {
+          "w": "Russia",
+          "k": "noun",
+          "ca": "Rússia",
+          "s": "flag_Russian_Federation"
+        },
+        {
+          "w": "Senegal",
+          "k": "noun",
+          "ca": "Senegal",
+          "s": "flag_Senegal"
+        },
+        {
+          "w": "South Africa",
+          "k": "noun",
+          "ca": "Sud-àfrica",
+          "s": "flag_South_Africa"
+        },
+        {
+          "w": "South Korea",
+          "k": "noun",
+          "ca": "Corea del Sud",
+          "s": "flag_South_Korea"
+        },
+        {
+          "w": "Turkey",
+          "k": "noun",
+          "ca": "Turquia",
+          "s": "flag_Turkey"
+        },
+        {
+          "w": "Ukraine",
+          "k": "noun",
+          "ca": "Ucraïna",
+          "s": "flag_Ukraine"
+        },
+        {
+          "w": "United Kingdom",
+          "k": "noun",
+          "ca": "Regne Unit",
+          "s": "flag_United_Kingdom"
+        },
+        {
+          "w": "United States",
+          "k": "noun",
+          "ca": "Estats Units",
+          "s": "flag_United_States_of_America"
+        },
+        {
+          "w": "Venezuela",
+          "k": "noun",
+          "ca": "Veneçuela",
+          "s": "flag_Venezuela"
+        }
+      ]
+    },
+    {
+      "id": "shopping",
+      "name": "Shopping",
+      "icon": "🛍️",
+      "ca": "Compres",
+      "words": [
+        {
+          "w": "cash",
+          "k": "noun",
+          "e": "💵🪙",
+          "ca": "diners en efectiu"
+        },
+        {
+          "w": "change",
+          "k": "noun",
+          "e": "🪙↩️",
+          "ca": "canvi / monedes"
+        },
+        {
+          "w": "wallet",
+          "k": "noun",
+          "ca": "cartera",
+          "s": "wallet"
+        },
+        {
+          "w": "cash machine",
+          "k": "noun",
+          "ca": "caixer automàtic",
+          "s": "cash_point"
+        },
+        {
+          "w": "basket",
+          "k": "noun",
+          "ca": "cistell",
+          "s": "basket"
+        },
+        {
+          "w": "checkout",
+          "k": "noun",
+          "e": "🛒💳",
+          "ca": "caixa (de la botiga)"
+        },
+        {
+          "w": "queue",
+          "k": "noun",
+          "ca": "cua",
+          "s": "queue_,_to"
+        },
+        {
+          "w": "receipt",
+          "k": "noun",
+          "e": "🧾✅",
+          "ca": "tiquet de compra"
+        },
+        {
+          "w": "refund",
+          "k": "noun",
+          "e": "💳↩️",
+          "ca": "reemborsament"
+        },
+        {
+          "w": "discount",
+          "k": "noun",
+          "e": "🏷️%",
+          "ca": "descompte"
+        },
+        {
+          "w": "size",
+          "k": "noun",
+          "e": "S M L",
+          "ca": "talla"
+        },
+        {
+          "w": "packet",
+          "k": "noun",
+          "e": "🍪📦",
+          "ca": "paquet"
+        },
+        {
+          "w": "delivery",
+          "k": "noun",
+          "ca": "lliurament a domicili",
+          "s": "delivery_trolley"
+        },
+        {
+          "w": "try on",
+          "k": "verb",
+          "e": "👕🪞",
+          "ca": "emprovar-se"
+        },
+        {
+          "w": "exchange",
+          "k": "verb",
+          "e": "👕🔄",
+          "ca": "canviar (un producte)"
+        },
+        {
+          "w": "afford",
+          "k": "verb",
+          "e": "👛✅",
+          "ca": "poder-se permetre"
+        },
+        {
+          "w": "weigh",
+          "k": "verb",
+          "e": "⚖️🍎",
+          "ca": "pesar"
+        },
+        {
+          "w": "second-hand",
+          "k": "describe",
+          "e": "👕♻️",
+          "ca": "de segona mà"
+        },
+        {
+          "w": "sold out",
+          "k": "describe",
+          "e": "🛒❌",
+          "ca": "exhaurit / exhaurida"
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "name": "Work",
+      "icon": "💼",
+      "ca": "Feina",
+      "words": [
+        {
+          "w": "interview",
+          "k": "noun",
+          "e": "💼💬",
+          "ca": "entrevista"
+        },
+        {
+          "w": "application",
+          "k": "noun",
+          "e": "📝📨",
+          "ca": "sol·licitud"
+        },
+        {
+          "w": "CV",
+          "k": "noun",
+          "e": "📄👤",
+          "ca": "currículum"
+        },
+        {
+          "w": "contract",
+          "k": "noun",
+          "e": "📄✍️",
+          "ca": "contracte"
+        },
+        {
+          "w": "salary",
+          "k": "noun",
+          "e": "💼💶",
+          "ca": "sou"
+        },
+        {
+          "w": "shift",
+          "k": "noun",
+          "e": "🕗💼",
+          "ca": "torn de feina"
+        },
+        {
+          "w": "task",
+          "k": "noun",
+          "e": "📋☐",
+          "ca": "tasca"
+        },
+        {
+          "w": "deadline",
+          "k": "noun",
+          "e": "🗓️🏁",
+          "ca": "data límit"
+        },
+        {
+          "w": "skill",
+          "k": "noun",
+          "e": "🧠🛠️",
+          "ca": "habilitat"
+        },
+        {
+          "w": "experience",
+          "k": "noun",
+          "e": "💼🗓️",
+          "ca": "experiència"
+        },
+        {
+          "w": "training",
+          "k": "noun",
+          "e": "🧑‍🏫🛠️",
+          "ca": "formació"
+        },
+        {
+          "w": "uniform",
+          "k": "noun",
+          "e": "👔🪪",
+          "ca": "uniforme"
+        },
+        {
+          "w": "employer",
+          "k": "person",
+          "e": "💼🧑‍💼",
+          "ca": "ocupador / ocupadora"
+        },
+        {
+          "w": "employee",
+          "k": "person",
+          "e": "🪪🧑",
+          "ca": "empleat / empleada"
+        },
+        {
+          "w": "volunteer",
+          "k": "person",
+          "e": "🙋💛",
+          "ca": "voluntari / voluntària"
+        },
+        {
+          "w": "apply",
+          "k": "verb",
+          "e": "📝➡️💼",
+          "ca": "presentar una sol·licitud"
+        },
+        {
+          "w": "sign",
+          "k": "verb",
+          "e": "🖊️📄",
+          "ca": "signar"
+        },
+        {
+          "w": "earn",
+          "k": "verb",
+          "e": "🛠️💶",
+          "ca": "guanyar (diners)"
+        },
+        {
+          "w": "full-time",
+          "k": "describe",
+          "e": "💼🕗",
+          "ca": "a jornada completa"
+        },
+        {
+          "w": "part-time",
+          "k": "describe",
+          "e": "💼🕓",
+          "ca": "a temps parcial"
+        },
+        {
+          "w": "unemployed",
+          "k": "describe",
+          "e": "💼🔍",
+          "ca": "a l'atur"
         }
       ]
     }
@@ -5937,6 +7853,38 @@
     {
       "t": "One more time, please.",
       "ca": "Una altra vegada, si us plau."
+    },
+    {
+      "t": "I use a communication board.",
+      "ca": "Faig servir un tauler de comunicació."
+    },
+    {
+      "t": "I need a break.",
+      "ca": "Necessito una pausa."
+    },
+    {
+      "t": "Please let me finish.",
+      "ca": "Deixi'm acabar, si us plau."
+    },
+    {
+      "t": "Please ask me one question at a time.",
+      "ca": "Faci'm una pregunta cada vegada, si us plau."
+    },
+    {
+      "t": "I need a quiet place.",
+      "ca": "Necessito un lloc tranquil."
+    },
+    {
+      "t": "I need an interpreter.",
+      "ca": "Necessito un intèrpret."
+    },
+    {
+      "t": "I've changed my mind.",
+      "ca": "He canviat d'opinió."
+    },
+    {
+      "t": "Which languages do you speak?",
+      "ca": "Quines llengües parla?"
     }
   ],
   "pictureVersion": 4
