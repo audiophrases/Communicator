@@ -1,12 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <title>for</title>
-  <desc>A tag marked “per a” shows the person something is for.</desc>
+  <desc>A gift tag shows a portrait of the person the gift is for.</desc>
   <path d="M5 26 25 5h61a9 9 0 0 1 9 9v73a8 8 0 0 1-8 8H13a8 8 0 0 1-8-8Z"
         fill="#fff1ce" stroke="#674823" stroke-width="5" stroke-linejoin="round"/>
   <circle cx="25" cy="25" r="5" fill="#765533"/>
   <path d="m4 6 21 19" stroke="#765533" stroke-width="5" stroke-linecap="round"/>
-  <text x="52" y="52" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
-        font-size="32" font-weight="700" fill="#342713" lang="ca">per a</text>
-  <circle cx="51" cy="65" r="8" fill="#215678"/>
-  <path d="M33 86q1-12 12-13 6 4 12 0 11 1 12 13Z" fill="#215678"/>
+  <circle cx="55" cy="42" r="14" fill="#215678"/>
+  <path d="M27 80q1-18 19-22 9 6 18 0 18 4 19 22v3H27Z" fill="#215678"/>
 </svg>
