@@ -61,7 +61,6 @@ export default function App() {
     const [saved, setSaved] = useState<string[]>(() => load('saved', []));
     const [recent, setRecent] = useState<string[]>(() => load('recent', []));
     const [speaking, setSpeaking] = useState(false);
-    const [notice, setNotice] = useState('');
     const typing = useRef<HTMLInputElement>(null);
     const originalWord = useRef<Token | null>(null);
     const [linked, setLinked] = useState(false);
@@ -181,12 +180,10 @@ export default function App() {
     async function speak(text: string) {
         if (!text) return;
         setSpeaking(true);
-        setNotice('');
         setRecent(current => [text, ...current.filter(item => item !== text)].slice(0, 30));
         if (pendingFix.current) pendingFix.current.play = false;
-        const used = await say(text, { voice: settings.voice, rate: settings.rate });
+        await say(text, { voice: settings.voice, rate: settings.rate });
         setSpeaking(false);
-        if (used === 'device') setNotice('The natural voice did not answer, so this device spoke.');
     }
 
     function speakWord(word: string) {
@@ -320,7 +317,7 @@ export default function App() {
             lines.push((spokenChoice.current || message).slice(0, MAX_TEXT));
         }
         resetFix();
-        setTokens([]); setDraft(''); setNotice('');
+        setTokens([]); setDraft('');
         originalWord.current = null;
         setSelectedWord(null); setInsertAt(null);
         typing.current?.focus();
@@ -463,7 +460,6 @@ export default function App() {
                         ))}
                     </div>
                 )}
-                {notice && <div className="notice">{notice}</div>}
             </header>
 
             <nav className="tabs">

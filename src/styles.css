@@ -37,8 +37,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .typing.parked { position: absolute; width: 1px; min-width: 0; padding: 0; opacity: 0; pointer-events: none; }
 .typing.middle { flex: 0 1 auto; min-width: 1ch; }
 .act.speak { background: #1f8a4c; border-color: #14663a; color: #fff; font-size: 1.2rem; padding: 0 22px; }
-.fixbox, .notice { grid-column: 1 / -1; background: #fffbe8; border: 2px solid #d9a400; border-radius: 14px; padding: 10px; display: grid; gap: 8px; }
-.fixbox.warn, .notice { background: #fdecea; border-color: #c9483b; }
+.fixbox { grid-column: 1 / -1; background: #fffbe8; border: 2px solid #d9a400; border-radius: 14px; padding: 10px; display: grid; gap: 8px; }
+.fixbox.warn { background: #fdecea; border-color: #c9483b; }
 /* A suggestion: the English, and under it the same sentence in Catalan, lined up and nearly as big. */
 .suggest { text-align: left; border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 12px 16px; font-size: 1.15rem;
     display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 6px; align-items: baseline; }
