@@ -1,11 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <title>be</title>
-  <desc>The English words “I am” above a smiling face form the sentence “I am happy.”</desc>
+  <desc>A smiling face in a speech bubble.</desc>
   <path d="M16 5h68q13 0 13 13v52q0 13-13 13H57L35 97V83H16Q3 83 3 70V18Q3 5 16 5Z"
         fill="#e8f5ef" stroke="#285a47" stroke-width="5" stroke-linejoin="round"/>
-  <text x="50" y="37" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
-        font-weight="700" font-size="36" fill="#183e32">I am</text>
-  <circle cx="50" cy="59" r="18" fill="#ffda75" stroke="#634915" stroke-width="3"/>
-  <g fill="#483315"><circle cx="44" cy="55" r="2.5"/><circle cx="56" cy="55" r="2.5"/></g>
-  <path d="M41 62q9 12 18 0" fill="none" stroke="#483315" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="50" cy="44" r="27" fill="#ffda75" stroke="#634915" stroke-width="4"/>
+  <g fill="#483315"><circle cx="41" cy="38" r="3.5"/><circle cx="59" cy="38" r="3.5"/></g>
+  <path d="M37 49q13 17 26 0" fill="none" stroke="#483315" stroke-width="5" stroke-linecap="round"/>
 </svg>
