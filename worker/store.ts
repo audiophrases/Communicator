@@ -18,6 +18,7 @@ const MAX_AUDIO = 1024 * 1024;
 export class BoardStore extends DurableObject {
     private writes = 0;
     private nextBoardCheck = 0;
+    private nextVoiceWarmup = 0;
     private publication?: Promise<PublishedBoard | null>;
 
     constructor(ctx: DurableObjectState, env: unknown) {
@@ -30,6 +31,14 @@ export class BoardStore extends DurableObject {
 
     async board(): Promise<Board | null> {
         return (await this.ctx.storage.get<Board>('board')) ?? null;
+    }
+
+    // A class opening the board together needs only one wake-up request.
+    claimVoiceWarmup(): boolean {
+        const now = Date.now();
+        if (now < this.nextVoiceWarmup) return false;
+        this.nextVoiceWarmup = now + 60_000;
+        return true;
     }
 
     // Only the online Worker uses this mirror. Concurrent readers share one GitHub check.

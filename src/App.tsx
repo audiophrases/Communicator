@@ -118,14 +118,14 @@ export default function App() {
         return () => input.removeEventListener('beforeinput', onBeforeInput);
     }, []);
     useEffect(() => {
-        const check = () => fetch('/api/status').then(response => response.json()).then((value: Status) => {
+        const check = (warmVoice: boolean) => fetch(warmVoice ? '/api/status?warmVoice=1' : '/api/status').then(response => response.json()).then((value: Status) => {
             if (typeof value.fix === 'boolean') updateStatus(value);
         }).catch(() => {});
         let active = true;
         let loadingBoard = false;
         let revision: string | undefined;
-        const refresh = async () => {
-            void check();
+        const refresh = async (warmVoice = false) => {
+            void check(warmVoice);
             if (loadingBoard) return;
             loadingBoard = true;
             const result = await fetchBoard(revision);
@@ -136,7 +136,7 @@ export default function App() {
             }
         };
         const onVisible = () => { if (!document.hidden) void refresh(); };
-        void refresh();
+        void refresh(true);
         // Both addresses check at the same half-minute boundaries, including tabs opened at different times.
         let timer: number;
         const schedule = () => {

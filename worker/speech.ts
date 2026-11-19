@@ -6,10 +6,27 @@ export type SpeechEnv = { EDGE_TTS_URL?: string; EDGE_TTS_SECRET?: string };
 
 const MAX_BYTES = 4 * 1024 * 1024;
 
+function bridgeUrl(env: SpeechEnv): URL | null {
+    const url = new URL(env.EDGE_TTS_URL || DEFAULT_EDGE_TTS_URL);
+    const localHttp = url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname);
+    return url.protocol === 'https:' || localHttp ? url : null;
+}
+
+export async function warmVoiceBridge(env: SpeechEnv): Promise<void> {
+    try {
+        const bridge = bridgeUrl(env);
+        if (!bridge) return;
+        const response = await fetch(new URL('/health', bridge), {
+            method: 'GET', cache: 'no-store', redirect: 'manual', signal: AbortSignal.timeout(25_000)
+        });
+        await response.body?.cancel();
+    } catch { /* Voice warm-up must never affect the board. */ }
+}
+
 export async function synthesize(env: SpeechEnv, text: string, voice: string, rate: string, signal: AbortSignal): Promise<Response | null> {
     try {
-        const url = new URL(env.EDGE_TTS_URL || DEFAULT_EDGE_TTS_URL);
-        if (url.protocol !== 'https:' && !(url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname))) return null;
+        const url = bridgeUrl(env);
+        if (!url) return null;
         const response = await fetch(url, {
             method: 'POST', redirect: 'manual', signal: AbortSignal.any([signal, AbortSignal.timeout(50_000)]),
             headers: { 'Content-Type': 'application/json', ...(env.EDGE_TTS_SECRET ? { Authorization: `Bearer ${env.EDGE_TTS_SECRET}` } : {}) },

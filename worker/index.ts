@@ -1,5 +1,5 @@
 import { correctSentence } from './fix.ts';
-import { synthesize } from './speech.ts';
+import { synthesize, warmVoiceBridge } from './speech.ts';
 import { readPublishedImage } from './published.ts';
 import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
@@ -186,8 +186,9 @@ async function teacher(request: Request, env: Env, path: string): Promise<Respon
     }
 }
 
-async function handle(request: Request, env: Env): Promise<Response> {
-    const path = new URL(request.url).pathname;
+async function handle(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
+    const url = new URL(request.url);
+    const path = url.pathname;
     const phraseEnv = env.XKIRO_MODEL ? {
         OPENAI_BASE_URL: 'https://api.xkiro.com',
         OPENAI_API_KEY: env.XKIRO_API_KEY,
@@ -223,7 +224,11 @@ async function handle(request: Request, env: Env): Promise<Response> {
         } });
     }
     if (path === '/api/status' && request.method === 'GET') {
-        return json({ fix: !!phraseEnv.OPENAI_API_KEY && await store(env).fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
+        const board = store(env);
+        if (env.BOARD_REPOSITORY && url.searchParams.get('warmVoice') === '1') {
+            ctx.waitUntil(board.claimVoiceWarmup().then(claimed => claimed ? warmVoiceBridge(env) : undefined).catch(() => {}));
+        }
+        return json({ fix: !!phraseEnv.OPENAI_API_KEY && await board.fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
     }
     if (path === '/api/board' && request.method === 'GET') {
         if (env.BOARD_REPOSITORY) {
@@ -291,9 +296,9 @@ async function handle(request: Request, env: Env): Promise<Response> {
 
 // Only /api/* reaches the Worker; the built app is served as static assets.
 export default {
-    async fetch(request, env): Promise<Response> {
+    async fetch(request, env, ctx): Promise<Response> {
         try {
-            return await handle(request, env);
+            return await handle(request, env, ctx);
         } catch (error) {
             console.error(error);
             return json({ error: 'Something went wrong. Please try again.' }, 500);

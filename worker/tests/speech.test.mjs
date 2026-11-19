@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { DEFAULT_EDGE_TTS_URL, synthesize } from '../speech.ts';
+import { DEFAULT_EDGE_TTS_URL, synthesize, warmVoiceBridge } from '../speech.ts';
 import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../../shared/voices.ts';
 
 async function withFetch(fake, run) {
@@ -32,6 +32,19 @@ test('speech sends the bridge secret when there is one, and gives up quietly', a
     assert.equal(await withFetch(async () => new Response('<html>', { headers: { 'Content-Type': 'text/html' } }), () => synthesize({}, 'Hi', 'v', '+0%', signal)), null);
     assert.equal(await withFetch(async () => { throw new Error('offline'); }, () => synthesize({}, 'Hi', 'v', '+0%', signal)), null);
     assert.equal(await synthesize({ EDGE_TTS_URL: 'http://example.com/tts' }, 'Hi', 'v', '+0%', signal), null); // plain http only for localhost
+});
+
+test('voice warm-up pings the configured bridge health endpoint without sending text or credentials', async () => {
+    let sent;
+    await withFetch(async (url, init) => {
+        sent = { url: String(url), ...init };
+        return new Response('starting', { status: 503 });
+    }, () => warmVoiceBridge({ EDGE_TTS_URL: 'https://voice.test/tts', EDGE_TTS_SECRET: 's' }));
+    assert.equal(sent.url, 'https://voice.test/health');
+    assert.equal(sent.method, 'GET');
+    assert.equal(sent.redirect, 'manual');
+    assert.equal(sent.headers, undefined);
+    assert.equal(sent.body, undefined);
 });
 
 test('voices and speeds are checked', () => {
