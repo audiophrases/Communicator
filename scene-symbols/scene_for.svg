@@ -1,10 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <title>for</title>
-  <desc>A gift tag shows a portrait of the person the gift is for.</desc>
-  <path d="M5 26 25 5h61a9 9 0 0 1 9 9v73a8 8 0 0 1-8 8H13a8 8 0 0 1-8-8Z"
-        fill="#fff1ce" stroke="#674823" stroke-width="5" stroke-linejoin="round"/>
-  <circle cx="25" cy="25" r="5" fill="#765533"/>
-  <path d="m4 6 21 19" stroke="#765533" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="55" cy="42" r="14" fill="#215678"/>
-  <path d="M27 80q1-18 19-22 9 6 18 0 18 4 19 22v3H27Z" fill="#215678"/>
+  <desc>A wrapped present sits beside the smiling person it is for.</desc>
+  <path d="M55 92v-8a22 22 0 0 1 44 0v8Z" fill="#308280"/>
+  <circle cx="76" cy="45" r="18" fill="#ffd9ac" stroke="#694737" stroke-width="4"/>
+  <path d="M57 43q-1-17 13-20 19-4 24 15-11 2-19-6-5 9-18 11Z" fill="#694737"/>
+  <g fill="#3a2b25"><circle cx="65" cy="45" r="2.5"/><circle cx="77" cy="45" r="2.5"/></g>
+  <path d="M65 52q6 8 13 0" fill="none" stroke="#734b3c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M27 42C8 44 5 24 16 25c5 0 9 8 11 17Zm0 0c19 2 22-18 11-17-5 0-9 8-11 17Z"
+        fill="#f3adcd" stroke="#7d315b" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="6" y="49" width="42" height="42" rx="4" fill="#ffd46f" stroke="#714b22" stroke-width="4"/>
+  <rect x="3" y="42" width="48" height="15" rx="3" fill="#ffe69e" stroke="#714b22" stroke-width="4"/>
+  <path d="M22 44h10v45H22Z" fill="#a72f66"/>
 </svg>
