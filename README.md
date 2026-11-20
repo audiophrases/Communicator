@@ -11,7 +11,8 @@ one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are
 The **?** key in Core makes the words a question: `you` `want` `coffee` says "you want coffee", `you` `want`
 `coffee` `?` asks "you want coffee?", and Fix turns it into ✨ **Do you want coffee?**
 
-Press **Ctrl+Enter** to fix and speak the main suggestion. **Shift+Enter** (or **New sentence**) clears the
+Press **Ctrl+Enter** to fix and speak the main suggestion. Once a fix is showing, **Ctrl+C** copies it (or the
+suggestion you last tapped) when nothing is highlighted. **Shift+Enter** (or **New sentence**) clears the
 preview for your next sentence. Turn on **Link sentences** to keep telling the same story. For example, after
 “Yesterday I went to the park” and “I saw my friend”, Fix can turn “we play football” into “We played football.”
 Turn the toggle off to end the paragraph. Each board session starts with it off.

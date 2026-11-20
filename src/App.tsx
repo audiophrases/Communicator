@@ -3,6 +3,7 @@ import { BOARD_REFRESH_MS, LANGUAGES, LEVELS, MAX_LINKED_SENTENCES, MAX_TEXT, is
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
 import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
+import { copyText } from './copyText.ts';
 import { Key, Picture } from './Key.tsx';
 import { SentenceBar, type Token } from './SentenceBar.tsx';
 import { typedQuery, type Hit } from './search.ts';
@@ -96,6 +97,13 @@ export default function App() {
         } else if (event.key === 'Backspace' && !event.ctrlKey && target !== typing.current) {
             event.preventDefault();
             backspace();
+        } else if (event.ctrlKey && !event.shiftKey && event.key.toLowerCase() === 'c' && fix?.state === 'done'
+            && !(target instanceof HTMLInputElement && target.selectionStart !== target.selectionEnd) && !window.getSelection()?.toString()) {
+            // Ctrl+C with nothing highlighted copies the fixed sentence, or the suggestion the speaker last tapped.
+            // Highlighted text copies as usual.
+            event.preventDefault();
+            const { sentence, alternatives } = fix.fix;
+            copyText(alternatives.includes(spokenChoice.current) ? spokenChoice.current : sentence);
         }
     });
     useEffect(() => {
@@ -415,7 +423,8 @@ export default function App() {
                     <button className="act erase" onClick={backspace} disabled={!message}
                         aria-label={selectedWord !== null ? 'Delete selected word' : insertAt !== null ? 'Delete preceding word' : 'Delete last word'}
                         data-ca="Esborra una paraula">⌫</button>
-                    <button className="act" onClick={newSentence} disabled={!message} title="New sentence (Shift+Enter)"
+                    <button className="act" onClick={newSentence} disabled={!message}
+                        title={`New sentence (Shift+Enter)${status.fix ? '\nLink sentences on: keeps the sentence you last heard, so Fix keeps the same time.\nPress Ctrl+Enter first to keep the fixed sentence.' : ''}`}
                         aria-keyshortcuts="Shift+Enter" data-ca="Frase nova">New sentence</button>
                     <button className="act save" onClick={() => toggleSaved(message)} disabled={!message} aria-label="Save this phrase"
                         data-ca={saved.includes(message) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(message) ? '★' : '☆'}</button>
