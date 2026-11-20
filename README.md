@@ -174,6 +174,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 
 - **Core words stay put.** About 200 to 400 core words make up most of what anyone says. Keeping each one in a fixed
   place lets the hand learn the route (motor planning), so the home page is core words, not topic nouns.
+  The core is 10 keys a row with room for it. Zooming in (Ctrl and +) or a narrower screen moves one key at a time to
+  the next row, down to 5 a row, so the order stays the same as the keys grow. The editor always shows the 10 a row
+  layout (5 on a narrow screen).
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
   questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
   consistent is what matters. Page tabs take the colour of most of their words.

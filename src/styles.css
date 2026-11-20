@@ -13,18 +13,23 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .app { height: 100dvh; display: flex; flex-direction: column; max-width: 1400px; margin: 0 auto; }
 
 /* The message */
-.top { padding: 10px 10px 6px; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: stretch; }
+/* The bar and its buttons share a row while the bar keeps 22rem. With less room (a narrow screen, or zoomed in) the
+   buttons move below it, and then wrap among themselves, a few at a time. The rest takes whole rows. */
+.top { padding: 10px 10px 6px; display: flex; flex-wrap: wrap; gap: 8px; align-items: stretch; }
+.top > * { flex: 1 1 100%; min-width: 0; }
+.top > .bar { flex: 1000 1 22rem; }
+.top > .actions { flex: 1 1 auto; }
 .bar { background: var(--panel); border: 2px solid var(--ink); border-radius: 14px; min-height: 68px; max-height: 30dvh; overflow-y: auto;
     padding: 8px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; cursor: text; }
 .chip { background: #eef2f8; border: 1px solid #c9d3e3; border-radius: 10px; padding: 6px 10px; font-size: 1.25rem; font-weight: 600; }
 .typing { flex: 1 1 auto; min-width: 140px; max-width: 100%; field-sizing: content; border: 0; outline: 0; background: transparent; font-size: 1.25rem; padding: 6px 4px; }
-.actions { display: flex; gap: 6px; }
-.act { border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 14px; min-height: 52px; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
+.actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.act { flex: 1 1 auto; border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 14px; min-height: 52px; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
 .act.fix { background: #fff3c4; border-color: #d9a400; }
 .act.story[aria-pressed=true] { background: #e8f1ff; border-color: var(--accent); color: #0b4fb3; }
 /* The story so far, above the sentence that continues it. It is two lines tall from the moment Story is on, so
    the board does not move down as lines are added; longer stories scroll, with the newest line in view. */
-.story-view { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 8px; }
+.story-view { display: grid; grid-template-columns: auto 1fr; gap: 8px; }
 .story-lines { height: calc(2.7em + 12px); overflow-y: auto; display: flex; flex-direction: column; padding: 2px 4px;
     background: var(--panel); border: 2px solid var(--line); border-radius: 12px; font-size: 1.05rem; scrollbar-width: thin; }
 .story-line { flex: none; text-align: left; background: none; border: 0; border-radius: 6px; padding: 1px 6px; line-height: 1.35; font-weight: 600; }
@@ -44,8 +49,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .chip.drag-copy { position: fixed; z-index: 10; pointer-events: none; border-color: var(--accent); box-shadow: 0 3px 9px #20395438; }
 .typing.parked { position: absolute; width: 1px; min-width: 0; padding: 0; opacity: 0; pointer-events: none; }
 .typing.middle { flex: 0 1 auto; min-width: 1ch; }
-.act.speak { background: #1f8a4c; border-color: #14663a; color: #fff; font-size: 1.2rem; padding: 0 22px; }
-.fixbox { grid-column: 1 / -1; background: #fffbe8; border: 2px solid #d9a400; border-radius: 14px; padding: 10px; display: grid; gap: 8px; }
+.act.speak { flex-grow: 2; background: #1f8a4c; border-color: #14663a; color: #fff; font-size: 1.2rem; padding: 0 22px; }
+.fixbox { background: #fffbe8; border: 2px solid #d9a400; border-radius: 14px; padding: 10px; display: grid; gap: 8px; }
 .fixbox.warn { background: #fdecea; border-color: #c9483b; }
 /* A suggestion: the English, and under it the same sentence in Catalan, lined up and nearly as big. */
 .suggest { text-align: left; border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 12px 16px; font-size: 1.15rem;
@@ -67,7 +72,11 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 
 /* Word keys: modified Fitzgerald colours */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
-.grid.core { grid-template-columns: repeat(10, minmax(0, 1fr)); min-height: 100%; grid-auto-rows: minmax(64px, 1fr); }
+/* Core keys are at least 109px wide, so each zoom step (Ctrl and +) makes them bigger and, once a row no longer fits,
+   moves a key to the next row: on a laptop 1280px wide, 10 a row at 100%, 9 at 110%, 8 at 125%, 7 at 150%, 6 at
+   175%, 5 from 200%. Never more than 10 a row (the core's own layout) nor fewer than 5 (phones). */
+.grid.core { grid-template-columns: repeat(auto-fill, minmax(clamp((100% - 9 * 6px) / 10, 109px, (100% - 5 * 6px) / 5), 1fr));
+    min-height: 100%; grid-auto-rows: minmax(64px, 1fr); }
 .key { border: 2px solid rgb(0 0 0 / .28); border-radius: 12px; min-height: 64px; padding: 4px; display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 2px; background: var(--panel); overflow: hidden; }
 .key:active { transform: scale(.96); filter: brightness(.94); }
@@ -120,7 +129,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .inline select { flex: 1; }
 
 /* Buttons found by typing (src/search.ts): under the text box, best first, scrolling sideways. */
-.found { grid-column: 1 / -1; display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: thin; }
+.found { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 4px; scrollbar-width: thin; }
 .found-key { flex: none; display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; column-gap: 8px; align-items: center;
     border: 2px solid rgb(0 0 0 / .28); border-radius: 12px; padding: 6px 12px 6px 8px; min-height: 52px; text-align: left; }
 .found-key.on { box-shadow: 0 0 0 3px var(--accent); } /* Enter picks this one */
@@ -173,7 +182,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .create .tab.add { border-style: dashed; }
 .create-body { border: 0; margin: 0; padding: 0 10px 20px; min-width: 0; display: grid; grid-template-columns: 1fr 320px; gap: 14px; align-items: start; }
 .create-main { display: grid; gap: 12px; min-width: 0; }
-.create .grid.core { min-height: 0; grid-auto-rows: minmax(64px, auto); }
+/* The editor shows the core as it is laid out, 10 a row, so the teacher sees where each word stays. */
+.create .grid.core { grid-template-columns: repeat(10, minmax(0, 1fr)); min-height: 0; grid-auto-rows: minmax(64px, auto); }
 .create .key.blank { border: 2px dashed var(--line); background: transparent; min-height: 64px; cursor: pointer; }
 .create .key.selected { outline: 4px solid var(--accent); outline-offset: 2px; }
 .create .key.add { border: 2px dashed var(--soft); background: transparent; color: var(--soft); font-size: 1.05rem; }
@@ -226,15 +236,9 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
     .page-edit { grid-template-columns: 80px 1fr; }
     .page-edit .end { grid-column: 1 / -1; }
     .quick-row { grid-template-columns: 1fr; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+    .create .grid.core { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 }
 
-@media (max-width: 900px) {
-    .top { grid-template-columns: 1fr; }
-    .actions { flex-wrap: wrap; }
-    .act { flex: 1; }
-    .act.speak { flex: 2; }
-    .grid.core { grid-template-columns: repeat(5, minmax(0, 1fr)); min-height: 0; grid-auto-rows: auto; }
-}
 @media (max-width: 480px) {
     .key-pic { font-size: 1.2rem; }
     .key-word { font-size: .95rem; }
