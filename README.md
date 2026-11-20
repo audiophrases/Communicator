@@ -54,7 +54,8 @@ the result into Catalan using xKiro's `mistralai/mistral-large-2512`. The laptop
 When xKiro returns a quota or rate limit, online Fix automatically uses OpenAI's `gpt-4o-mini` with a separate key.
 It automatically tries xKiro again after the retry interval. Saved corrections are reused by model.
 Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with device speech as a fallback.
-A tapped word starts with a quarter second of silence, so a speaker that has gone idle does not cut off its first sound.
+A tapped word is sent to the voice in quotes: Emma and the other multilingual voices otherwise swallow short words
+such as "I" and "it". It also starts with a quarter second of silence, so a speaker that has gone idle does not cut off its first sound.
 Opening the online board sends a background health check to wake the voice bridge.
 The laptop's Fix switch applies to the school Wi-Fi session. Online corrections and voice clips have their own cache.
 

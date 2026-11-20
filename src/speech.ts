@@ -121,13 +121,15 @@ async function withSilenceBefore(clip: Blob, ms: number): Promise<Blob> {
     return new Blob([...Array<Uint8Array<ArrayBuffer>>(Math.ceil(ms / FRAME_MS)).fill(frame), clip], { type: clip.type });
 }
 
-// Resolves when the speech ends. Says which voice spoke, so the page can tell the speaker. silence: milliseconds
-// of quiet played before the voice.
-export async function say(text: string, options: SpeakOptions, silence = 0): Promise<'natural' | 'device'> {
+// Resolves when the speech ends. Says which voice spoke, so the page can tell the speaker.
+// A 'word' is a button tap. Multilingual voices such as Emma swallow a short word said on its own ("it" comes out
+// as a 40 ms blip, "I" barely heard): in quotes they say it in full, and the other voices sound the same either way.
+// A quarter second of silence goes first, for a speaker that has gone quiet and wakes up at the start of a sound.
+export async function say(text: string, options: SpeakOptions, kind: 'sentence' | 'word' = 'sentence'): Promise<'natural' | 'device'> {
     stop();
     const mine = turn;
-    let clip = await audioClip(text, options);
-    if (clip && silence) clip = await withSilenceBefore(clip, silence);
+    let clip = await audioClip(kind === 'word' ? `"${text}"` : text, options);
+    if (clip && kind === 'word') clip = await withSilenceBefore(clip, 250);
     if (mine !== turn) return 'natural';
     if (clip) {
         const url = URL.createObjectURL(clip);

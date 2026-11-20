@@ -323,9 +323,8 @@ export default function App() {
         speechTurn.current++;
         setPlayingLine(null);
         setSpeaking(false);
-        // Online, a tap plays an Edge clip. A speaker that has gone quiet loses the start of a sound while it wakes
-        // up, so a quarter second of silence comes first. (The laptop board taps with the device's voice.)
-        if (status.naturalWordVoice) void say(word, settings, 250);
+        // Online, a tap plays an Edge clip; the laptop board taps with the device's voice.
+        if (status.naturalWordVoice) void say(word, settings, 'word');
         else { stop(); void sayOnDevice(word, settings.rate, settings.voice); }
     }
 
