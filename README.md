@@ -15,10 +15,12 @@ Press **Ctrl+Enter** to fix and speak the main suggestion. Once a fix is showing
 suggestion you last tapped) when nothing is highlighted. **Shift+Enter** (or **New sentence**) clears the
 preview for your next sentence. Turn on **Story** to keep telling the same story. For example, after
 “Yesterday I went to the park” and “I saw my friend”, Fix can turn “we play football” into “We played football.”
-While **Story** is on, the finished sentences show above the bar, in order. Tap one to hear it, or press ▶
-(**Ctrl+Shift+Enter**) to hear the whole story. **⌫** on an empty bar brings back the last sentence to change it,
-and **New sentence** puts it back. With no fix showing, **Ctrl+C** copies the story. The story stays on the device
-after a reload. Turning **Story** off asks first, then deletes the story.
+While **Story** is on, **New sentence** (**Shift+Enter**) adds the sentence to the story above the bar, fixed:
+the fix already showing is used, otherwise Fix is asked and its answer replaces the words when it arrives. Point at
+a story sentence (or hold it) to see its Catalan. Tap one to change it in the bar: **New sentence** puts it back in
+its place, and **⌫** on the emptied bar takes it out of the story. **⌫** on an empty bar opens the last sentence.
+▶ (**Ctrl+Shift+Enter**) plays the whole story. With no fix showing, **Ctrl+C** copies the story. The story stays
+on the device after a reload. Turning **Story** off asks first, then deletes the story.
 
 Students can use the school Wi-Fi address during class or the
 [always-online student board](https://communicator-online.eugenime.workers.dev) from anywhere.
@@ -177,8 +179,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   with their own attempt and try again. Tapping or typing another word closes the suggestions. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
 - **Story** keeps the sentences on the device until the speaker turns it off, even if the teacher switches Fix off. New sentence
-  carries forward the version they chose to speak, or the words in the preview if they skipped playback.
-  Fix receives the opening sentence and up to seven other recent sentences. A new time cue in the current
+  keeps the fixed version (or the suggestion the speaker tapped), with its translation. It keeps their own words
+  when Fix is off or does not answer. Fix receives the story's opening sentence and up to seven other sentences
+  before the one being fixed. A new time cue in the current
   sentence takes precedence, and immediate requests or needs keep their intended tense.
 - **The A1 words are all there.** The pages hold the CEFR A1 vocabulary: the A1 words of the
   [Oxford 3000](https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000) and Cambridge's
