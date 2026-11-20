@@ -22,6 +22,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .act { border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 14px; min-height: 52px; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
 .act.fix { background: #fff3c4; border-color: #d9a400; }
 .act.story[aria-pressed=true] { background: #e8f1ff; border-color: var(--accent); color: #0b4fb3; }
+/* The story so far, above the sentence that continues it. It is three lines tall from the moment Story is on, so
+   the board does not move down as lines are added; longer stories scroll, with the newest line in view. */
+.story-view { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: start; }
+.story-play { min-height: 52px; }
+.story-lines { height: calc(4.35em + 24px); overflow-y: auto; display: flex; flex-direction: column; padding: 4px 6px;
+    background: var(--panel); border: 2px solid var(--line); border-radius: 14px; font-size: 1.1rem; scrollbar-width: thin; }
+.story-line { flex: none; text-align: left; background: none; border: 0; border-radius: 8px; padding: 2px 6px; line-height: 1.45; font-weight: 600; }
+.story-line:hover { background: #eef2f8; }
+.story-line.on { background: #e8f1ff; color: #0b4fb3; }
 /* The ? key shows the mark itself, as big as a picture; in the bar it has the colour of the question words. */
 .key-word.mark { font-size: 2.6rem; line-height: 1; }
 .chip.mark { background: #dccbf5; border-color: #8a64c8; }

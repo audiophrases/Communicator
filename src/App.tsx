@@ -33,6 +33,15 @@ function load<T>(key: string, fallback: T): T {
 function save(key: string, value: unknown) {
     try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* private window: nothing is kept */ }
 }
+function loadStory(): string[] | null {
+    try {
+        const value: unknown = JSON.parse(localStorage.getItem('story') ?? 'null');
+        return Array.isArray(value) ? value.filter((line): line is string => typeof line === 'string' && line !== '') : null;
+    } catch { return null; }
+}
+// Fix reads the story's opening sentence (it usually sets the time) and the latest ones.
+const storyContext = (lines: string[]) =>
+    lines.length > MAX_LINKED_SENTENCES ? [lines[0], ...lines.slice(1 - MAX_LINKED_SENTENCES)] : lines;
 function loadSettings(): Settings {
     const { voice, voiceChosen, rate, level, language, languageChosen, tapSound } = load('settings', DEFAULTS);
     return {
@@ -64,8 +73,13 @@ export default function App() {
     const [speaking, setSpeaking] = useState(false);
     const typing = useRef<HTMLInputElement>(null);
     const originalWord = useRef<Token | null>(null);
-    const [linked, setLinked] = useState(false);
-    const paragraph = useRef<string[]>([]);
+    // Story on: the sentences finished so far, oldest first (null while Story is off). Kept on the device, so a reload
+    // does not lose them.
+    const [story, setStory] = useState<string[] | null>(loadStory);
+    const [playingLine, setPlayingLine] = useState<number | null>(null);
+    const storyBox = useRef<HTMLDivElement>(null);
+    // Whatever is said takes a turn. Speech that finds its turn taken by something said later stops there.
+    const speechTurn = useRef(0);
     const spokenChoice = useRef('');
     const pendingFix = useRef<{ play: boolean } | null>(null);
 
@@ -79,6 +93,14 @@ export default function App() {
     useEffect(() => { save('saved', saved); }, [saved]);
     useEffect(() => { save('recent', recent); }, [recent]);
     useEffect(() => { save('status', status); }, [status]);
+    useEffect(() => { save('story', story); }, [story]);
+    // The newest line in view, or the one being heard.
+    useEffect(() => {
+        const box = storyBox.current;
+        if (!box) return;
+        if (playingLine === null) box.scrollTop = box.scrollHeight;
+        else box.children[playingLine]?.scrollIntoView({ block: 'nearest' });
+    }, [story, playingLine]);
     // The keyboard's Backspace at the end of the typed text takes away the last whole word, like ⌫. Caught as the
     // text box is about to change, so tablet keyboards (which often do not say which key it was) do the same. With
     // the cursor moved back into the text, Backspace deletes one letter as usual, to fix a typo. On an empty box the
@@ -89,21 +111,25 @@ export default function App() {
         if (event.isComposing || event.defaultPrevented || event.altKey || event.metaKey) return;
         const target = event.target as HTMLElement | null;
         if (target !== typing.current && target?.closest('input, textarea, select, [contenteditable="true"]')) return;
-        if (event.key === 'Enter' && event.ctrlKey !== event.shiftKey) {
+        if (event.key === 'Enter' && (event.ctrlKey || event.shiftKey)) {
             event.preventDefault();
             if (event.repeat) return;
-            if (event.ctrlKey) void askFix(true);
+            if (event.ctrlKey && event.shiftKey) void playStory();
+            else if (event.ctrlKey) void askFix(true);
             else newSentence();
         } else if (event.key === 'Backspace' && !event.ctrlKey && target !== typing.current) {
             event.preventDefault();
-            backspace();
-        } else if (event.ctrlKey && !event.shiftKey && event.key.toLowerCase() === 'c' && fix?.state === 'done'
+            backspace(event.repeat);
+        } else if (event.ctrlKey && !event.shiftKey && event.key.toLowerCase() === 'c'
             && !(target instanceof HTMLInputElement && target.selectionStart !== target.selectionEnd) && !window.getSelection()?.toString()) {
-            // Ctrl+C with nothing highlighted copies the fixed sentence, or the suggestion the speaker last tapped.
-            // Highlighted text copies as usual.
+            // Ctrl+C with nothing highlighted copies the fixed sentence (or the suggestion the speaker last tapped);
+            // with no fix showing, the whole story. Highlighted text copies as usual.
+            const text = fix?.state === 'done'
+                ? fix.fix.alternatives.includes(spokenChoice.current) ? spokenChoice.current : fix.fix.sentence
+                : story?.join('\n');
+            if (!text) return;
             event.preventDefault();
-            const { sentence, alternatives } = fix.fix;
-            copyText(alternatives.includes(spokenChoice.current) ? spokenChoice.current : sentence);
+            copyText(text);
         }
     });
     useEffect(() => {
@@ -161,11 +187,8 @@ export default function App() {
 
     function updateStatus(value: Status) {
         setStatus(value);
-        if (!value.fix) {
-            paragraph.current = [];
-            setLinked(false);
-            resetFix();
-        }
+        // A story being told stays when the teacher switches Fix off, and so does its Story button, to end it.
+        if (!value.fix) resetFix();
     }
 
     // Catalan for a whole phrase, when it is one of the board's quick phrases.
@@ -187,15 +210,48 @@ export default function App() {
 
     async function speak(text: string) {
         if (!text) return;
+        const turn = ++speechTurn.current;
+        setPlayingLine(null);
         setSpeaking(true);
         setRecent(current => [text, ...current.filter(item => item !== text)].slice(0, 30));
         if (pendingFix.current) pendingFix.current.play = false;
         await say(text, { voice: settings.voice, rate: settings.rate });
+        if (speechTurn.current === turn) setSpeaking(false);
+    }
+
+    // ▶ or Ctrl+Shift+Enter: the whole story, one sentence after another, until it ends or something else is said.
+    async function playStory() {
+        if (!story?.length) return;
+        const lines = story, turn = ++speechTurn.current;
+        if (pendingFix.current) pendingFix.current.play = false;
+        setSpeaking(true);
+        for (let index = 0; index < lines.length && speechTurn.current === turn; index++) {
+            setPlayingLine(index);
+            await say(lines[index], { voice: settings.voice, rate: settings.rate });
+        }
+        if (speechTurn.current === turn) { setPlayingLine(null); setSpeaking(false); }
+    }
+
+    function stopSpeaking() {
+        speechTurn.current++;
+        setPlayingLine(null);
+        stop();
         setSpeaking(false);
+    }
+
+    function toggleStory() {
+        if (story?.length && !confirm('Turn off Story? Your story will be deleted.\n\nVols desactivar la història? S\'esborrarà.')) return;
+        if (playingLine !== null) stopSpeaking();
+        setStory(story ? null : []);
+        resetFix();
     }
 
     function speakWord(word: string) {
         if (!settings.tapSound || word === '?') return;
+        // The word cuts off whatever was being said.
+        speechTurn.current++;
+        setPlayingLine(null);
+        setSpeaking(false);
         if (status.naturalWordVoice) void say(word, settings);
         else { stop(); void sayOnDevice(word, settings.rate, settings.voice); }
     }
@@ -304,8 +360,10 @@ export default function App() {
         setInsertAt(null);
     }
 
-    // ⌫ takes away the last word: from what is being typed first, then from the bar.
-    function backspace() {
+    // ⌫ takes away the last word: from what is being typed first, then from the bar. On an empty bar it brings back the
+    // story's last sentence to change it, and New sentence puts it back. Holding the key down does not, or it would
+    // take the story apart line by line.
+    function backspace(repeat = false) {
         if (selectedWord !== null) { deleteWord(selectedWord); return; }
         resetFix();
         if (draft.trim()) {
@@ -314,16 +372,18 @@ export default function App() {
             return;
         }
         setDraft('');
+        if (!message && story?.length && !repeat) {
+            setTokens(typedTokens(story[story.length - 1]));
+            setStory(story.slice(0, -1));
+            setInsertAt(null);
+            return;
+        }
         if (cursor === 0) return;
         deleteWord(cursor - 1);
     }
 
     function newSentence() {
-        if (linked && message) {
-            const lines = paragraph.current;
-            if (lines.length === MAX_LINKED_SENTENCES) lines.splice(1, 1);
-            lines.push((spokenChoice.current || message).slice(0, MAX_TEXT));
-        }
+        if (story && message) setStory([...story, (spokenChoice.current || message).slice(0, MAX_TEXT)]);
         resetFix();
         setTokens([]); setDraft('');
         originalWord.current = null;
@@ -345,7 +405,7 @@ export default function App() {
             const response = await fetch('/api/fix', {
                 method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
                 body: JSON.stringify({ text: message, level: settings.level, language: settings.language,
-                    ...(linked && paragraph.current.length ? { context: paragraph.current } : {}) }),
+                    ...(story?.length ? { context: storyContext(story) } : {}) }),
                 signal: AbortSignal.timeout(20_000)
             });
             const body = await response.json();
@@ -407,7 +467,7 @@ export default function App() {
                 event.preventDefault();
                 if (insertAt === null) hear(message);
                 finishEditing();
-            } else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(); }
+            } else if (event.key === 'Backspace' && !draft) { event.preventDefault(); backspace(event.repeat); }
         }}
     />;
 
@@ -417,26 +477,33 @@ export default function App() {
             if (originalWord.current && event.target instanceof Element && !event.target.closest('.bar, .erase')) finishEditing();
         }}>
             <header className="top">
+                {story && (
+                    <div className="story-view">
+                        <button className="icon story-play" onClick={() => void playStory()} disabled={!story.length} aria-label="Hear the story"
+                            title="Ctrl+Shift+Enter" aria-keyshortcuts="Control+Shift+Enter" data-ca="Escolta la història">▶</button>
+                        <div className="story-lines" ref={storyBox}>
+                            {story.map((line, index) => (
+                                <button key={index} className={index === playingLine ? 'story-line on' : 'story-line'} onClick={() => void speak(line)}>{line}</button>
+                            ))}
+                        </div>
+                    </div>
+                )}
                 <SentenceBar words={tokens} cursor={cursor} selected={selectedWord} input={inlineInput}
                     select={selectWord} edit={editWord} move={moveWord} insert={startInsertion} remove={deleteWord} />
                 <div className="actions">
-                    <button className="act erase" onClick={backspace} disabled={!message}
-                        aria-label={selectedWord !== null ? 'Delete selected word' : insertAt !== null ? 'Delete preceding word' : 'Delete last word'}
-                        data-ca="Esborra una paraula">⌫</button>
+                    <button className="act erase" onClick={() => backspace()} disabled={!message && !story?.length}
+                        aria-label={!message && story?.length ? 'Bring back the last sentence' : selectedWord !== null ? 'Delete selected word' : insertAt !== null ? 'Delete preceding word' : 'Delete last word'}
+                        data-ca={!message && story?.length ? 'Recupera l\'última frase' : 'Esborra una paraula'}>⌫</button>
                     <button className="act" onClick={newSentence} disabled={!message}
                         title="Shift+Enter"
                         aria-keyshortcuts="Shift+Enter" data-ca="Frase nova">New sentence</button>
                     <button className="act save" onClick={() => toggleSaved(message)} disabled={!message} aria-label="Save this phrase"
                         data-ca={saved.includes(message) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(message) ? '★' : '☆'}</button>
-                    {status.fix && <button className="act story" aria-pressed={linked} title="Keep the tense across sentences"
-                        data-ca="Història" onClick={() => {
-                            setLinked(!linked);
-                            paragraph.current = [];
-                            resetFix();
-                        }}>Story</button>}
+                    {(status.fix || story) && <button className="act story" aria-pressed={!!story} title="Keep the tense across sentences"
+                        data-ca="Història" onClick={toggleStory}>Story</button>}
                     {status.fix && <button className="act fix" onClick={() => void askFix()} disabled={!message || fix?.state === 'loading'}
                         title="Review suggestion (Ctrl+Enter to fix and speak)" data-ca="Corregeix la frase">✨ Fix</button>}
-                    <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : hear(message)} disabled={!message && !speaking}
+                    <button className="act speak" onClick={() => speaking ? stopSpeaking() : hear(message)} disabled={!message && !speaking}
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
                 </div>
                 {found && (
