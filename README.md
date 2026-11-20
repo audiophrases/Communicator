@@ -3,7 +3,10 @@
 An AAC (augmentative and alternative communication) board for people who are learning English.
 Tap words or type broken English, press **Fix** to get the correct sentence, and **Speak** says it in a natural voice.
 Hold any button (or point at it with a mouse) to see it in Catalan. Type a few letters, in English or Catalan, and the
-matching buttons appear under the text box, narrowing as you type: tap one, or press Tab for the first. `?` stands for
+matching buttons appear under the text box, narrowing as you type. Letters typed anywhere on the board go into the
+text box, even right after tapping buttons. Tap a match, or press **Enter** for the highlighted one: the first,
+or another chosen with **→** and **←**. **Ctrl+Z** undoes the last change to the sentence or the story (a word added,
+typed, moved or deleted, a sentence finished), and **Ctrl+Y** redoes it. `?` stands for
 one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are optional (`germa` → germà).
 
 `I` `want` `go` `doctor` `tomorrow` → ✨ **I want to go to the doctor tomorrow.** 🔊

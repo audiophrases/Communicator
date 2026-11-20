@@ -50,6 +50,8 @@ function loadStory(): StoryLine[] | null {
     } catch { return null; }
 }
 type FixAnswer = { fix: Fix } | { error: string } | { off: true };
+// What Ctrl+Z goes back to: the sentence being made and the story.
+type Snapshot = { tokens: Token[]; draft: string; insertAt: number | null; story: StoryLine[] | null; openLine: number | null };
 // Fix reads the story's opening sentence (it usually sets the time) and the latest ones.
 const storyContext = (lines: string[]) =>
     lines.length > MAX_LINKED_SENTENCES ? [lines[0], ...lines.slice(1 - MAX_LINKED_SENTENCES)] : lines;
@@ -95,12 +97,42 @@ export default function App() {
     const speechTurn = useRef(0);
     const spokenChoice = useRef('');
     const pendingFix = useRef<{ play: boolean } | null>(null);
+    // The found button Enter picks: the first, or another one chosen with → and ←.
+    const [foundChoice, setFoundChoice] = useState({ query: '', index: 0 });
+    const foundRow = useRef<HTMLDivElement>(null);
 
     function resetFix() {
         pendingFix.current = null;
         spokenChoice.current = '';
         setFix(null);
     }
+
+    // Ctrl+Z goes back one step and Ctrl+Y forward again: a word added, typed, moved, changed or deleted, a sentence
+    // finished or opened, a story ended. Each action first remembers how the sentence and the story were.
+    const undoSteps = useRef<Snapshot[]>([]);
+    const redoSteps = useRef<Snapshot[]>([]);
+    // Each story sentence as Fix last corrected it, so going back does not bring back words Fix has replaced since.
+    const fixedLines = useRef(new Map<number, StoryLine>());
+    const snapshot = (): Snapshot => ({ tokens, draft, insertAt, story, openLine });
+    function remember() {
+        const last = undoSteps.current.at(-1);
+        if (last && last.tokens === tokens && last.draft === draft && last.insertAt === insertAt && last.story === story
+            && last.openLine === openLine) return; // one action calling another
+        undoSteps.current.push(snapshot());
+        if (undoSteps.current.length > 100) undoSteps.current.shift();
+        redoSteps.current = [];
+    }
+    function restore(from: Snapshot[], to: Snapshot[]) {
+        const step = from.pop();
+        if (!step) return;
+        to.push(snapshot());
+        originalWord.current = null;
+        setTokens(step.tokens); setDraft(step.draft); setInsertAt(step.insertAt); setSelectedWord(null);
+        setStory(step.story && step.story.map(line => fixedLines.current.get(line.id) ?? line));
+        setOpenLine(step.openLine);
+        resetFix();
+    }
+    const rememberFromInput = useEffectEvent(remember);
 
     useEffect(() => { save('settings', settings); }, [settings]);
     useEffect(() => { save('saved', saved); }, [saved]);
@@ -144,6 +176,17 @@ export default function App() {
             if (!text) return;
             event.preventDefault();
             copyText(text);
+        } else if (event.ctrlKey && (event.key.toLowerCase() === 'z' || event.key.toLowerCase() === 'y')) {
+            event.preventDefault();
+            if (event.key.toLowerCase() === 'y' || event.shiftKey) restore(redoSteps.current, undoSteps.current);
+            else restore(undoSteps.current, redoSteps.current);
+        } else if (!event.ctrlKey && target !== typing.current && (event.key === 'Dead' || event.key.length === 1 && event.key.trim())) {
+            // A letter typed anywhere on the board goes into the sentence: after clicking word buttons, the
+            // keyboard's focus is on the last one. Moving the focus now lets the letter land in the text box.
+            const input = typing.current;
+            if (!input) return;
+            input.focus({ preventScroll: true });
+            input.setSelectionRange(input.value.length, input.value.length);
         }
     });
     useEffect(() => {
@@ -158,6 +201,7 @@ export default function App() {
             const { value, selectionStart, selectionEnd } = input;
             if (!value.trim() || selectionStart !== selectionEnd || selectionEnd !== value.length) return;
             event.preventDefault();
+            rememberFromInput();
             const rest = withoutLastWord(value);
             setDraft(rest ? `${rest} ` : '');
             resetFix();
@@ -220,6 +264,8 @@ export default function App() {
         while (start > 0 && cursor - start < 2 && tokens[start - 1].typed) start--;
         return typedQuery(board, [...tokens.slice(start, cursor).map(t => t.w), draft].join(' '));
     }, [board, tokens, cursor, draft]);
+    const chosenHit = found && foundChoice.query === found.query ? Math.min(foundChoice.index, found.hits.length - 1) : 0;
+    useEffect(() => { foundRow.current?.children[chosenHit]?.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }, [found, chosenHit]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
 
     async function speak(text: string) {
@@ -256,6 +302,7 @@ export default function App() {
     function toggleStory() {
         if (story?.length && !confirm('Turn off Story? Your story will be deleted.\n\nVols desactivar la història? S\'esborrarà.')) return;
         if (playingLine !== null) stopSpeaking();
+        remember();
         setStory(story ? null : []);
         setOpenLine(null);
         resetFix();
@@ -285,6 +332,7 @@ export default function App() {
     }
 
     function changeDraft(value: string, atEnd: boolean) {
+        if (!draft.trim() && value.trim()) remember(); // a typed word is one step back, not one per letter
         setSelectedWord(null);
         resetFix();
         const completed = atEnd && !originalWord.current && value.match(/^([\s\S]*\s)(\S*)$/);
@@ -311,6 +359,7 @@ export default function App() {
 
     function moveWord(index: number, gap: number) {
         if (gap === index || gap === index + 1) return;
+        remember();
         const { words: next, indexOf } = materializeDraft();
         const from = indexOf(index);
         const target = indexOf(gap) - Number(from < indexOf(gap));
@@ -332,6 +381,7 @@ export default function App() {
     }
 
     function editWord(index: number) {
+        remember();
         const { words, indexOf } = materializeDraft();
         const position = indexOf(index);
         const [word] = words.splice(position, 1);
@@ -342,6 +392,7 @@ export default function App() {
     }
 
     function deleteWord(index: number) {
+        remember();
         setTokens(tokens.filter((_, i) => i !== index));
         if (insertAt !== null && index < insertAt) setInsertAt(insertAt - 1);
         setSelectedWord(null);
@@ -354,6 +405,7 @@ export default function App() {
         // question of it. It needs words before it, and once is enough; ⌫ takes it away.
         const preceding = draft.trim() || tokens[cursor - 1]?.w;
         if (word.w === '?' && (!preceding || preceding.endsWith('?') || tokens[cursor]?.w === '?')) return;
+        remember();
         insertWords([...draftWords(), token({ w: word.w, e: word.e, s: word.s })]);
         resetFix();
         speakWord(word.w);
@@ -361,6 +413,7 @@ export default function App() {
 
     // A button found by typing: it takes the place of the letters typed for it, and earlier typed words stay.
     function pick(hit: Hit, typedWords: number) {
+        remember();
         const parts = draft.trim().split(/\s+/);
         const before = parts.slice(0, -typedWords).join(' ');
         insertWords([...typedTokens(before), token({ w: hit.word.w, e: hit.word.e, s: hit.word.s })],
@@ -382,6 +435,7 @@ export default function App() {
         if (selectedWord !== null) { deleteWord(selectedWord); return; }
         resetFix();
         if (draft.trim()) {
+            remember();
             const rest = withoutLastWord(draft);
             setDraft(rest ? `${rest} ` : ''); // the space lets the next word be typed straight on
             return;
@@ -404,6 +458,7 @@ export default function App() {
     // showing (or the suggestion the speaker tapped), or else Fix is asked now and its answer replaces the words when
     // it arrives. A sentence opened from the story goes back in its place, or leaves the story if the bar was emptied.
     function finishSentence(): StoryLine[] | null {
+        if (message || story && openLine !== null) remember();
         let lines = story;
         if (lines) {
             const open = lines.findIndex(line => line.id === openLine);
@@ -434,9 +489,10 @@ export default function App() {
         void fetchFix(text, before).then(answer => {
             if ('off' in answer) updateStatus({ fix: false });
             const fixed = 'fix' in answer ? answer.fix : null;
-            setStory(current => current && current.map(item => item.id !== line.id ? item
-                : fixed ? { id: item.id, text: fixed.sentence, ...(fixed.translation ? { ca: fixed.translation } : {}) }
-                : { id: item.id, text: item.text }));
+            const done: StoryLine = fixed ? { id: line.id, text: fixed.sentence, ...(fixed.translation ? { ca: fixed.translation } : {}) }
+                : { id: line.id, text };
+            fixedLines.current.set(line.id, done);
+            setStory(current => current && current.map(item => item.id === line.id ? done : item));
         });
         return line;
     }
@@ -444,6 +500,7 @@ export default function App() {
     // A tap on a story sentence: the bar's sentence is finished first, as with New sentence. Then the tapped one comes
     // into the bar to be changed, or emptied to take it out of the story.
     function openStoryLine(id: number) {
+        remember();
         const line = finishSentence()?.find(item => item.id === id);
         if (!line) return;
         setTokens(typedTokens(line.text));
@@ -519,7 +576,7 @@ export default function App() {
             <button className="phrase" onClick={() => void speak(text)} data-ca={phraseCa.get(text)}>{text}</button>
             <button className="icon" onClick={() => toggleSaved(text)} aria-label={saved.includes(text) ? 'Remove from saved' : 'Save'}
                 data-ca={saved.includes(text) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(text) ? '★' : '☆'}</button>
-            <button className="icon" onClick={() => { originalWord.current = null; setTokens(typedTokens(text)); setDraft(''); setSelectedWord(null); setInsertAt(null); resetFix(); setTab('core'); }} aria-label="Edit"
+            <button className="icon" onClick={() => { remember(); originalWord.current = null; setTokens(typedTokens(text)); setDraft(''); setSelectedWord(null); setInsertAt(null); resetFix(); setTab('core'); }} aria-label="Edit"
                 data-ca="Edita la frase">✏️</button>
         </div>
     );
@@ -536,8 +593,17 @@ export default function App() {
             if (event.key === 'Escape' && originalWord.current) {
                 event.preventDefault();
                 insertWords([originalWord.current]);
-            } else if (event.key === 'Tab' && found) { event.preventDefault(); pick(found.hits[0], found.words); }
-            else if (event.key === 'Enter') {
+            } else if ((event.key === 'Enter' || event.key === 'Tab') && found) {
+                event.preventDefault();
+                pick(found.hits[chosenHit], found.words);
+            } else if ((event.key === 'ArrowRight' || event.key === 'ArrowLeft') && found
+                && event.currentTarget.selectionStart === draft.length && event.currentTarget.selectionEnd === draft.length) {
+                // At the end of the typed letters, → and ← choose among the buttons found instead of moving back.
+                const next = chosenHit + (event.key === 'ArrowRight' ? 1 : -1);
+                if (next < 0 || next >= found.hits.length) return;
+                event.preventDefault();
+                setFoundChoice({ query: found.query, index: next });
+            } else if (event.key === 'Enter') {
                 event.preventDefault();
                 if (insertAt === null) hear(message);
                 finishEditing();
@@ -585,9 +651,9 @@ export default function App() {
                         data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
                 </div>
                 {found && (
-                    <div className="found" aria-label={`Buttons for "${found.query}"`}>
-                        {found.hits.map(hit => (
-                            <button key={`${hit.page}-${hit.index}`} className={`found-key k-${hit.word.k}`} onClick={() => pick(hit, found.words)}
+                    <div className="found" ref={foundRow} aria-label={`Buttons for "${found.query}"`}>
+                        {found.hits.map((hit, index) => (
+                            <button key={`${hit.page}-${hit.index}`} className={`found-key k-${hit.word.k}${index === chosenHit ? ' on' : ''}`} onClick={() => pick(hit, found.words)}
                                 data-ca={hit.word.ca || undefined} title={hit.page === 'core' ? 'Core' : hit.pageName}>
                                 <Picture word={hit.word} className="found-pic" />
                                 <span className="found-word">{hit.word.w}</span>
@@ -674,7 +740,7 @@ export default function App() {
                         </label>
                         <p className="hint">Hold a button (or point at it with the mouse) to see it in Catalan.</p>
                         <p className="hint">Ctrl+Enter fixes and speaks. Shift+Enter starts a new sentence. Turn on Story to carry the tense into the next sentence. Turn it off to end the story.</p>
-                        <p className="hint">Type a few letters, in English or Catalan, to find a button: tap it or press Tab. ? stands for one letter and * for any number (h?t, *ppy).</p>
+                        <p className="hint">Type a few letters, in English or Catalan, to find a button: tap it, or press Enter for the first one (→ chooses the next). ? stands for one letter and * for any number (h?t, *ppy).</p>
                         <p className="credit"><a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee.
                             {' '}<a href="https://blissymbolics.org/index.php/bci-av-2026" target="_blank" rel="noopener">Blissymbols</a> © Blissymbolics Communication International (cropped).
                             {' '}Both sets use <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.
