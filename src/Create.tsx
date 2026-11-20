@@ -411,7 +411,7 @@ export default function Create() {
                                 <p>Click a button to change it, or <b>+ Add</b> for a new one. Saved changes reach students when they open or reload the board.</p>
                                 {tab === 'core' && <p>Core words keep their places so hands learn where they are. To take one away, empty its slot: the others stay put.</p>}
                                 <p>Every button shows its Catalan when students hold it, or point at it with a mouse.</p>
-                                <p>Choose a symbol, upload a picture, or enter an emoji.</p>
+                                <p>Choose a symbol, a photo or a GIF, upload a picture, or enter an emoji.</p>
                             </div>
                         ) : (
                             <div className="word-edit" key={`${tab}-${selected}`}>

@@ -142,6 +142,10 @@ Open `/create` and sign in with the teacher password. There you can:
 - select or add a button, choose **Upload image**, and preview a GIF, JPG/JPEG, PNG or SVG up to 5 MiB.
   **Save** shares it with the class. **Replace image**, **Remove** and **Undo changes** also work before saving.
   GIFs keep their animation and SVGs keep their original resolution.
+- or choose **Photos** or **GIFs** under **Picture** to search Pexels or GIPHY through PinPlay's API
+  (`pinplay-api.eugenime.workers.dev`, which holds the keys). The search starts from the button's English word.
+  Clicking a result downloads it on the laptop (photos at 320 pixels) and adds it like an uploaded image.
+  GIPHY allows PinPlay 100 searches an hour, shared with PinPlay itself; each search is asked only once per session.
 - add buttons, add, rename, reorder and delete topic pages, and edit the quick phrases;
 - press ✨ next to a Catalan box, or **Fill missing Catalan** for everything at once, to translate with AI, then check
   and correct it;

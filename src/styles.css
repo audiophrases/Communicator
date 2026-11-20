@@ -191,10 +191,20 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .symbol-now { display: inline-flex; align-items: center; gap: 6px; color: var(--soft); }
 .symbol-now img { width: 28px; height: 28px; object-fit: contain; }
 .create .symbol-now button.link { min-height: 0; padding: 0; }
-.symbol-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 6px; max-height: 260px; overflow-y: auto;
-    padding: 2px; border: 1px solid var(--line); border-radius: 10px; }
-.create button.symbol-choice { flex-direction: column; gap: 2px; padding: 4px; min-height: 0; font-weight: 400; font-size: .72rem; border-width: 2px; }
-.symbol-choice img { width: 44px; height: 44px; object-fit: contain; }
+/* Rows as tall as their pictures: with the grid's height capped, Chrome otherwise squeezes every row to fit and the
+   pictures pile on top of each other. */
+.symbol-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(74px, 1fr)); grid-auto-rows: max-content; gap: 8px;
+    max-height: 340px; overflow-y: auto; padding: 6px; border: 1px solid var(--line); border-radius: 10px; }
+.create button.symbol-choice { flex-direction: column; gap: 4px; padding: 6px 4px; min-height: 0; min-width: 0; font-weight: 400; font-size: .72rem; border-width: 2px; }
+.symbol-choice img { width: 52px; height: 52px; object-fit: contain; }
+.create button.symbol-choice.web { padding: 3px; }
+.symbol-choice.web img { width: 100%; height: 64px; object-fit: cover; border-radius: 6px; }
+.symbol-grid.gifs .symbol-choice.web img { object-fit: contain; }
+.symbol-choice.adding { outline: 3px solid var(--accent); }
+.create button.symbol-choice:disabled { opacity: .6; }
+.picker-sources { display: flex; gap: 4px; }
+.create .picker-sources button { flex: 1; min-height: 34px; padding: 4px 8px; font-size: .9rem; }
+.create .picker-sources button[aria-pressed=true] { border-color: var(--accent); background: #eaf2ff; color: #0b4fb3; }
 .symbol-choice span { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .create button.symbol-choice.on { border-color: var(--accent); background: #eaf2ff; }
 .page-edit { display: grid; grid-template-columns: 90px 1fr 1fr auto; gap: 10px; align-items: end; background: var(--panel);
