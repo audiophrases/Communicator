@@ -189,7 +189,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   bigger, from 67% to 300%, and each device keeps its choice. The sentence bar and the other controls keep their size.
   With room for 10 a row, each step is one key more or fewer a row, from 14 down to 3.
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
-  questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
+  questions purple, social pink, "yes/no/not" red (yes and no as one pair of answers), little words grey. Published charts differ on the exact colours; being
   consistent is what matters. Page tabs take the colour of most of their words.
 - **Core words are on their pages too.** Each core word also leads the page of its colour (pronouns on People, core
   verbs on Actions, describing words on Describe, "now" on Time, little words on Little words), so a sentence can be built

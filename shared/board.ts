@@ -15,7 +15,7 @@ export const KINDS: { kind: Kind; name: string }[] = [
     { kind: 'person', name: 'People (yellow)' }, { kind: 'verb', name: 'Actions (green)' },
     { kind: 'describe', name: 'Describing (blue)' }, { kind: 'noun', name: 'Things and places (orange)' },
     { kind: 'question', name: 'Questions (purple)' }, { kind: 'social', name: 'Social (pink)' },
-    { kind: 'no', name: 'No and not (red)' }, { kind: 'little', name: 'Little words (grey)' }
+    { kind: 'no', name: 'Yes, no and not (red)' }, { kind: 'little', name: 'Little words (grey)' }
 ];
 
 // A page's colour for its tab: the colour most of its words have (on a tie, the one that comes first), so a page

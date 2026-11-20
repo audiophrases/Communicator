@@ -17,7 +17,7 @@ const BATCH = 60; // MAX_ITEMS in worker/translate.ts
 // Tells the translator which meaning a word has.
 const HINT: Record<Kind, string> = {
     person: 'person word', verb: 'verb', describe: 'describing word', noun: 'noun', question: 'question word',
-    social: 'social word', no: 'negation', little: 'small function word'
+    social: 'social word', no: 'yes/no answer or negation', little: 'small function word'
 };
 
 type Target = { text: string; hint: string; apply: (draft: Board, ca: string) => void };

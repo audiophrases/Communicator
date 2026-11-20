@@ -96,7 +96,7 @@ const CORE: Word[] = [
     ...row('person', `I=🙋=jo|you=🫵=tu / vostè|he=👨=ell|she=👩=ella|we=👥=nosaltres|they=👫=ells / elles|it=@scene_it=ho / això|this=👇=això / aquest|that=👉=allò / aquell|my=@scene_my=el meu / la meva`),
     ...row('verb', `want=🤲=voler|need=❗=necessitar|like=👍=agradar|have=🎒=tenir|go=➡️=anar|come=🫴=venir|get==aconseguir / obtenir|do=@scene_do=fer|make=🛠️=fer / crear|can=💪=poder`),
     ...row('verb', `see=👀=veure|eat=🍽️=menjar|drink=🥤=beure|help=🆘=ajudar|know=🧠=saber / conèixer|think=🤔=pensar|feel=💗=sentir|say=🗣️=dir|give=🎁=donar|be=@scene_be=ser / estar`),
-    ...row('no', `not=🚫=no (negació)|no=❌=no`), ...row('social', `yes=✅=sí`),
+    ...row('no', `not=🚫=no (negació)|no=❌=no|yes=✅=sí`),
     ...row('little', `and=@scene_and=i|but=@scene_but=però|because=@scene_because=perquè|to=@scene_to=a / per a|in=📥=a / dins de|with=🤝=amb|for=@scene_for=per / per a`),
     ...row('question', `what=❓=què|where=📍=on|when=🕒=quan|who=👤=qui|why==per què|how==com`),
     ...row('describe', `now=⏱️=ara|here=📌=aquí|more=➕=més`), ...row('question', `?=💬❔=interrogant: és una pregunta`),
