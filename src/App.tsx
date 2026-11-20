@@ -694,7 +694,7 @@ export default function App() {
                 <nav className="tabs">
                     {tabs.map(item => (
                         <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
-                            <span aria-hidden="true">{item.icon}</span> {item.name}
+                            <span className="tab-icon" aria-hidden="true">{item.icon}</span>{item.name}
                         </button>
                     ))}
                 </nav>

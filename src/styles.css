@@ -66,9 +66,12 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .tab-row { display: flex; align-items: flex-start; gap: 6px; padding-right: 10px; }
 .tabs { flex: 1; min-width: 0; display: flex; gap: 6px; padding: 4px 10px 8px; overflow-x: auto; scrollbar-width: thin; }
 .key-size { flex: none; display: flex; gap: 4px; padding-top: 4px; }
-.key-size button { min-width: 40px; height: 40px; border: 2px solid var(--line); background: var(--panel); border-radius: 999px;
+.key-size button { min-width: 42px; height: 42px; border: 2px solid var(--line); background: var(--panel); border-radius: 999px;
     font-size: 1.35rem; font-weight: 700; line-height: 1; }
 .tab { flex: none; border: 2px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 14px; font-weight: 700; }
+/* On the board, each page's picture is big: some students cannot read yet and find a page by its picture alone. */
+.app .tab { display: inline-flex; align-items: center; gap: 6px; padding: 3px 14px 3px 8px; }
+.tab-icon { font-size: 2rem; line-height: 1; }
 /* A coloured tab keeps its colour when chosen and gets a dark ring; a plain one turns dark. */
 .tab:not(.plain) { border-color: rgb(0 0 0 / .22); }
 .tab.on { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
