@@ -1,5 +1,6 @@
 :root {
     --bg: #f4f1ea; --panel: #fff; --ink: #1d2330; --soft: #5b6475; --line: #d7d2c6; --accent: #1f6feb;
+    --key-size: 1; /* the board's − and + (on .app); word buttons only */
     font-family: system-ui, "Segoe UI", Roboto, sans-serif; color: var(--ink);
 }
 * { box-sizing: border-box; }
@@ -38,7 +39,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .story-line.open { box-shadow: inset 0 0 0 2px var(--accent); }
 .story-line.on { background: #e8f1ff; color: #0b4fb3; }
 /* The ? key shows the mark itself, as big as a picture; in the bar it has the colour of the question words. */
-.key-word.mark { font-size: 2.6rem; line-height: 1; }
+.key-word.mark { font-size: calc(2.6rem * var(--key-size)); line-height: 1; }
 .chip.mark { background: #dccbf5; border-color: #8a64c8; }
 .chip { min-height: 44px; max-width: 100%; overflow-wrap: anywhere; position: relative; cursor: grab; touch-action: none; user-select: none; }
 .chip[aria-pressed=true] { border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); background: #e8f1ff; }
@@ -62,7 +63,11 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .or { color: var(--soft); font-size: .95rem; padding: 0 4px; }
 
 /* Pages */
-.tabs { display: flex; gap: 6px; padding: 4px 10px 8px; overflow-x: auto; scrollbar-width: thin; }
+.tab-row { display: flex; align-items: flex-start; gap: 6px; padding-right: 10px; }
+.tabs { flex: 1; min-width: 0; display: flex; gap: 6px; padding: 4px 10px 8px; overflow-x: auto; scrollbar-width: thin; }
+.key-size { flex: none; display: flex; gap: 4px; padding-top: 4px; }
+.key-size button { min-width: 40px; height: 40px; border: 2px solid var(--line); background: var(--panel); border-radius: 999px;
+    font-size: 1.35rem; font-weight: 700; line-height: 1; }
 .tab { flex: none; border: 2px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 14px; font-weight: 700; }
 /* A coloured tab keeps its colour when chosen and gets a dark ring; a plain one turns dark. */
 .tab:not(.plain) { border-color: rgb(0 0 0 / .22); }
@@ -71,13 +76,15 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .board { flex: 1; overflow-y: auto; padding: 0 10px 14px; }
 
 /* Word keys: modified Fitzgerald colours */
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 6px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(calc(104px * var(--key-size)), 1fr)); gap: 6px; }
 /* Core keys are at least 109px wide, so each zoom step (Ctrl and +) makes them bigger and, once a row no longer fits,
    moves a key to the next row: on a laptop 1280px wide, 10 a row at 100%, 9 at 110%, 8 at 125%, 7 at 150%, 6 at
-   175%, 5 from 200%. Never more than 10 a row (the core's own layout) nor fewer than 5 (phones). */
-.grid.core { grid-template-columns: repeat(auto-fill, minmax(clamp((100% - 9 * 6px) / 10, 109px, (100% - 5 * 6px) / 5), 1fr));
-    min-height: 100%; grid-auto-rows: minmax(64px, 1fr); }
-.key { border: 2px solid rgb(0 0 0 / .28); border-radius: 12px; min-height: 64px; padding: 4px; display: flex; flex-direction: column;
+   175%, 5 from 200%. Never more than 10 a row (the core's own layout) nor fewer than 5 (phones). The board's − and +
+   (--key-size) scale all three the same way: bigger buttons, fewer a row; smaller buttons, more a row. */
+.grid.core { grid-template-columns: repeat(auto-fill,
+        minmax(calc(var(--key-size) * clamp((100% - 9 * 6px) / 10, 109px, (100% - 5 * 6px) / 5)), 1fr));
+    min-height: 100%; grid-auto-rows: minmax(calc(64px * var(--key-size)), 1fr); }
+.key { border: 2px solid rgb(0 0 0 / .28); border-radius: 12px; min-height: calc(64px * var(--key-size)); padding: 4px; display: flex; flex-direction: column;
     align-items: center; justify-content: center; gap: 2px; background: var(--panel); overflow: hidden; }
 .key:active { transform: scale(.96); filter: brightness(.94); }
 .key.blank { background: transparent; border-color: transparent; }
@@ -88,17 +95,17 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .key.magnifier.on { transform: scale(1.7); box-shadow: 0 8px 22px rgb(0 0 0 / .28); }
 .key.magnifier.on.pressed { transform: scale(1.62); filter: brightness(.94); }
 @media (prefers-reduced-motion: reduce) { .key.magnifier { transition: none; } }
-.key-pic { font-size: 1.5rem; line-height: 1.1; }
-.key-pic.big-elephant { font-size: 2.1rem; line-height: .9; }
+.key-pic { font-size: calc(1.5rem * var(--key-size)); line-height: 1.1; }
+.key-pic.big-elephant { font-size: calc(2.1rem * var(--key-size)); line-height: .9; }
 /* Mulberry symbols are line drawings: a little bigger than an emoji to read as easily. */
-.key-pic.sym { width: 2.3rem; height: 2.3rem; object-fit: contain; -webkit-user-drag: none; pointer-events: none; }
+.key-pic.sym { width: calc(2.3rem * var(--key-size)); height: calc(2.3rem * var(--key-size)); object-fit: contain; -webkit-user-drag: none; pointer-events: none; }
 .chip { display: inline-flex; align-items: center; gap: 6px; }
 .chip-pic { font-size: 1.1em; line-height: 1; }
 .chip-pic.sym { width: 1.6em; height: 1.6em; object-fit: contain; }
 .credit { color: var(--soft); font-size: .85rem; margin: 0; }
 .credit a { color: inherit; }
-.key-word { font-weight: 700; font-size: 1.05rem; line-height: 1.15; overflow-wrap: break-word; hyphens: auto; text-align: center; max-width: 100%; }
-.key-word.long { font-size: .92rem; }
+.key-word { font-weight: 700; font-size: calc(1.05rem * var(--key-size)); line-height: 1.15; overflow-wrap: break-word; hyphens: auto; text-align: center; max-width: 100%; }
+.key-word.long { font-size: calc(.92rem * var(--key-size)); }
 .k-person { background: #fff1a8; }
 .k-verb { background: #bfe8c1; }
 .k-describe { background: #bcdcfb; }
@@ -240,7 +247,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 }
 
 @media (max-width: 480px) {
-    .key-pic { font-size: 1.2rem; }
-    .key-word { font-size: .95rem; }
-    .grid { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); }
+    .key-pic { font-size: calc(1.2rem * var(--key-size)); }
+    .key-word { font-size: calc(.95rem * var(--key-size)); }
+    .grid { grid-template-columns: repeat(auto-fill, minmax(calc(84px * var(--key-size)), 1fr)); }
 }

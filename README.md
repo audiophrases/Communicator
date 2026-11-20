@@ -185,7 +185,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   place lets the hand learn the route (motor planning), so the home page is core words, not topic nouns.
   The core is 10 keys a row with room for it. Zooming in (Ctrl and +) or a narrower screen moves one key at a time to
   the next row, down to 5 a row, so the order stays the same as the keys grow. The editor always shows the 10 a row
-  layout (5 on a narrow screen).
+  layout (5 on a narrow screen). **−** and **+** at the end of the page tabs make only the word buttons smaller or
+  bigger, from 67% to 300%, and each device keeps its choice. The sentence bar and the other controls keep their size.
+  With room for 10 a row, each step is one key more or fewer a row, from 14 down to 3.
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
   questions purple, social pink, "not/no" red, little words grey. Published charts differ on the exact colours; being
   consistent is what matters. Page tabs take the colour of most of their words.

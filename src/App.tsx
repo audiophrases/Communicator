@@ -1,4 +1,4 @@
-import { useEffect, useEffectEvent, useMemo, useRef, useState } from 'react';
+import { useEffect, useEffectEvent, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { BOARD_REFRESH_MS, LANGUAGES, LEVELS, MAX_LINKED_SENTENCES, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
 import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
@@ -18,10 +18,13 @@ const typedTokens = (text: string): Token[] => text.trim().split(/\s+/).filter(B
 const withoutLastWord = (text: string) => text.trimEnd().replace(/\s*\S+$/, '');
 // languageChosen: the speaker picked the language in Settings. Until then Fix translates into Catalan, the class's
 // language; a device that saved "Do not translate" only because it was the old default goes back to Catalan.
-type Settings = { voice: string; voiceChosen?: boolean; rate: number; level: Level; language: string; languageChosen?: boolean; tapSound: boolean };
+type Settings = { voice: string; voiceChosen?: boolean; rate: number; level: Level; language: string; languageChosen?: boolean; tapSound: boolean; keySize: number };
+// − and + make the word buttons smaller or bigger, nothing else. On a screen with room for the core's 10 a row,
+// each step is one more or one fewer a row (14 down to 3).
+const KEY_SIZES = [0.67, 0.75, 0.8, 0.9, 1, 1.1, 1.25, 1.4, 1.6, 2, 2.5, 3];
 type FixState = { state: 'loading' } | { state: 'done'; fix: Fix } | { state: 'error'; message: string } | null;
 
-const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: 'Catalan', tapSound: true };
+const DEFAULTS: Settings = { voice: DEFAULT_VOICE, rate: 1, level: 'A2', language: 'Catalan', tapSound: true, keySize: 1 };
 const ACCENTS = [...new Set(ENGLISH_VOICES.map(voice => voice.accent))];
 
 function load<T>(key: string, fallback: T): T {
@@ -56,9 +59,10 @@ type Snapshot = { tokens: Token[]; draft: string; insertAt: number | null; story
 const storyContext = (lines: string[]) =>
     lines.length > MAX_LINKED_SENTENCES ? [lines[0], ...lines.slice(1 - MAX_LINKED_SENTENCES)] : lines;
 function loadSettings(): Settings {
-    const { voice, voiceChosen, rate, level, language, languageChosen, tapSound } = load('settings', DEFAULTS);
+    const { voice, voiceChosen, rate, level, language, languageChosen, tapSound, keySize } = load('settings', DEFAULTS);
     return {
         tapSound: tapSound !== false,
+        keySize: KEY_SIZES.includes(keySize) ? keySize : 1,
         // A voice the speaker picked stays; any other (the old default, saved just by opening the page) becomes Emma.
         ...(voiceChosen === true && isEnglishVoice(voice) ? { voice, voiceChosen: true } : { voice: DEFAULTS.voice }),
         level: isLevel(level) ? level : DEFAULTS.level,
@@ -271,6 +275,7 @@ export default function App() {
     const chosenHit = found && foundChoice.query === found.query ? Math.min(foundChoice.index, found.hits.length - 1) : 0;
     useEffect(() => { foundRow.current?.children[chosenHit]?.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }, [found, chosenHit]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
+    const keyStep = KEY_SIZES.indexOf(settings.keySize);
 
     async function speak(text: string) {
         if (!text) return;
@@ -616,7 +621,7 @@ export default function App() {
     />;
 
     return (
-        <div className="app" onClick={event => {
+        <div className="app" style={{ '--key-size': settings.keySize } as CSSProperties} onClick={event => {
             // Commit after the tap lands. Collapsing the field on blur can move the tapped control before pointerup.
             if (originalWord.current && event.target instanceof Element && !event.target.closest('.bar, .erase')) finishEditing();
         }}>
@@ -685,13 +690,21 @@ export default function App() {
                 )}
             </header>
 
-            <nav className="tabs">
-                {tabs.map(item => (
-                    <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
-                        <span aria-hidden="true">{item.icon}</span> {item.name}
-                    </button>
-                ))}
-            </nav>
+            <div className="tab-row">
+                <nav className="tabs">
+                    {tabs.map(item => (
+                        <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
+                            <span aria-hidden="true">{item.icon}</span> {item.name}
+                        </button>
+                    ))}
+                </nav>
+                <div className="key-size" role="group" aria-label="Button size">
+                    <button onClick={() => set('keySize', KEY_SIZES[keyStep - 1])} disabled={keyStep === 0}
+                        aria-label="Smaller buttons" title={`${Math.round(settings.keySize * 100)}%`} data-ca="Botons més petits">−</button>
+                    <button onClick={() => set('keySize', KEY_SIZES[keyStep + 1])} disabled={keyStep === KEY_SIZES.length - 1}
+                        aria-label="Bigger buttons" title={`${Math.round(settings.keySize * 100)}%`} data-ca="Botons més grans">+</button>
+                </div>
+            </div>
 
             <main className="board">
                 {tab === 'core' && <div className="grid core">{board.core.map((word, index) => <Key key={index} word={word} onTap={() => tap(word)} />)}</div>}
