@@ -5,7 +5,7 @@ import { DEFAULT_VOICE } from '../shared/voices.ts';
 export type SpeakOptions = { voice: string; rate: number };
 
 const WAIT_MS = 10_000; // a sleeping bridge can take longer; the device's voice speaks instead
-const cache = new Map<string, string>(); // "voice|rate|text" -> object URL, so repeating a phrase is instant
+const cache = new Map<string, Blob>(); // "voice|rate|text" -> clip, so repeating a phrase is instant
 const KEEP_IN_MEMORY = 300; // more than a page of buttons, so moving between pages finds the clips again
 const STORED = 'voice-clips';
 const KEEP_STORED = 1500;
@@ -61,14 +61,10 @@ export function sayOnDevice(text: string, rate = 1, voiceId = DEFAULT_VOICE): Pr
 }
 
 // The clips heard this visit, the most recently heard last.
-function keep(key: string, url: string) {
+function keep(key: string, clip: Blob) {
     cache.delete(key);
-    cache.set(key, url);
-    if (cache.size > KEEP_IN_MEMORY) {
-        const [oldest, oldUrl] = cache.entries().next().value!;
-        URL.revokeObjectURL(oldUrl);
-        cache.delete(oldest);
-    }
+    cache.set(key, clip);
+    if (cache.size > KEEP_IN_MEMORY) cache.delete(cache.keys().next().value!);
 }
 
 // Clips also stay in the browser between visits, so a word heard before asks the server nothing: on the online
@@ -95,16 +91,10 @@ async function storeClip(key: string, clip: Blob) {
     } catch { /* full or unavailable: the clip is asked for again next time */ }
 }
 
-async function audioUrl(text: string, options: SpeakOptions): Promise<string | null> {
+async function audioClip(text: string, options: SpeakOptions): Promise<Blob | null> {
     const key = `${options.voice}|${options.rate}|${text}`;
-    const cached = cache.get(key);
-    if (cached) { keep(key, cached); return cached; }
-    const stored = await storedClip(key);
-    if (stored) {
-        const url = URL.createObjectURL(stored);
-        keep(key, url);
-        return url;
-    }
+    const known = cache.get(key) ?? await storedClip(key);
+    if (known) { keep(key, known); return known; }
     try {
         const response = await fetch('/api/speak', {
             method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
@@ -112,29 +102,44 @@ async function audioUrl(text: string, options: SpeakOptions): Promise<string | n
         });
         if (!response.ok || !(response.headers.get('Content-Type') || '').startsWith('audio/')) return null;
         const clip = await response.blob();
-        const url = URL.createObjectURL(clip);
-        keep(key, url);
+        keep(key, clip);
         void storeClip(key, clip);
-        return url;
+        return clip;
     } catch {
         return null;
     }
 }
 
-// Resolves when the speech ends. Says which voice spoke, so the page can tell the speaker.
-export async function say(text: string, options: SpeakOptions): Promise<'natural' | 'device'> {
+// Edge's clips are MP3 at 24 kHz, 48 kbit/s: 144-byte frames of 24 ms each. A frame with the clip's header and only
+// zeros after it is 24 ms of silence, so enough of them go before the clip. A clip in another format stays as it is.
+const FRAME_MS = 24;
+async function withSilenceBefore(clip: Blob, ms: number): Promise<Blob> {
+    const head = new Uint8Array(await clip.slice(0, 4).arrayBuffer());
+    if (head[0] !== 0xff || head[1] !== 0xf3 || (head[2] & 0xfd) !== 0x64) return clip;
+    const frame = new Uint8Array(144);
+    frame.set([0xff, 0xf3, 0x64, head[3]]);
+    return new Blob([...Array<Uint8Array<ArrayBuffer>>(Math.ceil(ms / FRAME_MS)).fill(frame), clip], { type: clip.type });
+}
+
+// Resolves when the speech ends. Says which voice spoke, so the page can tell the speaker. silence: milliseconds
+// of quiet played before the voice.
+export async function say(text: string, options: SpeakOptions, silence = 0): Promise<'natural' | 'device'> {
     stop();
     const mine = turn;
-    const url = await audioUrl(text, options);
+    let clip = await audioClip(text, options);
+    if (clip && silence) clip = await withSilenceBefore(clip, silence);
     if (mine !== turn) return 'natural';
-    if (url) {
+    if (clip) {
+        const url = URL.createObjectURL(clip);
         const audio = new Audio(url);
         playing = audio;
         try {
             await audio.play();
             await new Promise<void>(resolve => { audio.onended = audio.onpause = audio.onerror = () => resolve(); });
             return 'natural';
-        } catch { /* the browser refused to play: use the device voice */ }
+        } catch { /* the browser refused to play: use the device voice */ } finally {
+            URL.revokeObjectURL(url);
+        }
         if (mine !== turn) return 'natural';
     }
     await sayOnDevice(text, options.rate, options.voice);
