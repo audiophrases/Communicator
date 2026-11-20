@@ -57,6 +57,15 @@ Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with
 Opening the online board sends a background health check to wake the voice bridge.
 The laptop's Fix switch applies to the school Wi-Fi session. Online corrections and voice clips have their own cache.
 
+The online board is built to stay within Cloudflare's free daily allowance, which every Worker on the account
+shares (PinPlay, HelloChat and Pixel Plaza included):
+
+- each browser keeps the last 300 voice clips it played, and online the last 1500 between visits too, so tapping
+  a word heard before asks the Worker nothing;
+- reading a saved clip or correction writes nothing to storage: when it was last used is noted once a day, and the
+  editor's "reused" count is saved every 50 reuses;
+- an open board's half-minute check returns the board (or "unchanged") and whether Fix is on, in one request.
+
 For button changes, save in the laptop editor. Once the save reaches GitHub, open student boards check on the
 same 30-second schedule. They keep the sentence in progress. The Worker keeps the last board it fetched if
 GitHub is temporarily unavailable. Uploaded pictures are verified against their content hashes and cached as used.

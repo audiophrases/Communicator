@@ -2,7 +2,14 @@
 
 import { sanitizeBoard, type Board, type Word } from '../shared/board.ts';
 import { DEFAULT_BOARD } from './vocab.ts';
-import type { BoardSync } from '../shared/options.ts';
+import type { BoardSync, Status } from '../shared/options.ts';
+
+function readStatus(header: string | null): Status | null {
+    try {
+        const value = JSON.parse(header ?? 'null') as Status | null;
+        return typeof value?.fix === 'boolean' ? value : null;
+    } catch { return null; }
+}
 
 const CACHE = 'board';
 
@@ -52,13 +59,18 @@ export function cachedBoard(): Board {
     }
 }
 
-// The board to show now, or null when the server could not be reached.
-export async function fetchBoard(knownRevision?: string): Promise<({ board: Board; custom: boolean } & BoardSync) | null> {
+// The board to show now, or null when it has not changed or the server could not be reached. Every answer also
+// says whether Fix is on, for onStatus (null from an older server, which says it at /api/status instead).
+// warmVoice: the board has just opened, so the Worker may wake the voice bridge.
+export async function fetchBoard(knownRevision?: string, { warmVoice = false, onStatus }: {
+    warmVoice?: boolean; onStatus?: (status: Status | null) => void;
+} = {}): Promise<({ board: Board; custom: boolean } & BoardSync) | null> {
     try {
-        const response = await fetch('/api/board', {
+        const response = await fetch(warmVoice ? '/api/board?warmVoice=1' : '/api/board', {
             headers: knownRevision ? { 'If-None-Match': `"${knownRevision}"` } : {},
             signal: AbortSignal.timeout(8000)
         });
+        onStatus?.(readStatus(response.headers.get('X-Status')));
         if (response.status === 304) return null;
         if (!response.ok) return null;
         const { board: raw, revision, sync } = await response.json();

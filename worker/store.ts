@@ -12,11 +12,14 @@ import { readPublishedBoard, type PublishedBoard } from './published.ts';
 
 export type Kind = 'fix' | 'ca' | 'speech';
 const KEEP: Record<Kind, number> = { fix: 5000, ca: 5000, speech: 3000 }; // the most recently used of each
-const MAX_AGE_MS = 60 * 24 * 60 * 60 * 1000; // unused for 60 days: dropped
+const DAY_MS = 24 * 60 * 60 * 1000;
+const MAX_AGE_MS = 60 * DAY_MS; // unused for 60 days: dropped
 const MAX_AUDIO = 1024 * 1024;
+const REUSES_PER_WRITE = 50;
 
 export class BoardStore extends DurableObject {
     private writes = 0;
+    private reuses = 0; // not yet added to the saved count
     private nextBoardCheck = 0;
     private nextVoiceWarmup = 0;
     private publication?: Promise<PublishedBoard | null>;
@@ -27,6 +30,7 @@ export class BoardStore extends DurableObject {
             key TEXT PRIMARY KEY, kind TEXT NOT NULL, value TEXT, audio BLOB, hits INTEGER NOT NULL DEFAULT 0, used INTEGER NOT NULL)`);
         ctx.storage.sql.exec('CREATE INDEX IF NOT EXISTS memo_used ON memo (kind, used)');
         ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS button_images (name TEXT, part INTEGER, data BLOB NOT NULL, PRIMARY KEY(name, part))');
+        ctx.storage.sql.exec('CREATE TABLE IF NOT EXISTS counter (name TEXT PRIMARY KEY, n INTEGER NOT NULL)');
     }
 
     async board(): Promise<Board | null> {
@@ -39,6 +43,13 @@ export class BoardStore extends DurableObject {
         if (now < this.nextVoiceWarmup) return false;
         this.nextVoiceWarmup = now + 60_000;
         return true;
+    }
+
+    // What an open board checks every half minute, in one request: the published board (online only), whether Fix
+    // is on, and, for a board that has just opened, whether this one should wake the voice bridge.
+    async boardCheck(repository: string | undefined, warmVoice: boolean) {
+        const [published, fixOn] = await Promise.all([repository ? this.publishedBoard(repository) : null, this.fixOn()]);
+        return { published, fixOn, wakeVoice: warmVoice && this.claimVoiceWarmup() };
     }
 
     // Only the online Worker uses this mirror. Concurrent readers share one GitHub check.
@@ -107,6 +118,10 @@ export class BoardStore extends DurableObject {
     }
 
     // Saved answers by key; a key that is not there was never asked (or was forgotten).
+    // Reading one writes nothing most of the time: every word tap on the online board reads a voice clip, and the
+    // free plan allows far fewer writes than reads. When an answer was last used only decides which go first when
+    // the store is full, so it is noted once a day. Reuses are counted here and saved every 50 (a restart can lose
+    // the last few from the editor's count).
     recall(keys: string[]): Record<string, { value: string | null; audio: ArrayBuffer | null }> {
         const found: Record<string, { value: string | null; audio: ArrayBuffer | null }> = {};
         const now = Date.now();
@@ -114,10 +129,18 @@ export class BoardStore extends DurableObject {
             const row = this.ctx.storage.sql.exec<{ value: string | null; audio: ArrayBuffer | null; used: number }>(
                 'SELECT value, audio, used FROM memo WHERE key = ?', key).toArray()[0];
             if (!row || now - row.used > MAX_AGE_MS) continue;
-            this.ctx.storage.sql.exec('UPDATE memo SET hits = hits + 1, used = ? WHERE key = ?', now, key);
+            if (now - row.used > DAY_MS) this.ctx.storage.sql.exec('UPDATE memo SET used = ? WHERE key = ?', now, key);
+            if (++this.reuses >= REUSES_PER_WRITE) this.saveReuses();
             found[key] = { value: row.value, audio: row.audio };
         }
         return found;
+    }
+
+    private saveReuses(): void {
+        if (!this.reuses) return;
+        this.ctx.storage.sql.exec(`INSERT INTO counter (name, n) VALUES ('reused', ?)
+            ON CONFLICT (name) DO UPDATE SET n = n + excluded.n`, this.reuses);
+        this.reuses = 0;
     }
 
     remember(kind: Kind, key: string, value: string | null, audio: ArrayBuffer | null = null): void {
@@ -137,16 +160,21 @@ export class BoardStore extends DurableObject {
     }
 
     saved(): Saved {
+        this.saveReuses();
         const saved: Saved = { fix: 0, ca: 0, speech: 0, reused: 0 };
+        // hits: reuses counted per answer before the shared count.
         for (const row of this.ctx.storage.sql.exec<{ kind: Kind; n: number; hits: number }>(
             'SELECT kind, COUNT(*) AS n, SUM(hits) AS hits FROM memo GROUP BY kind')) {
             saved[row.kind] = row.n;
             saved.reused += row.hits ?? 0;
         }
+        saved.reused += this.ctx.storage.sql.exec<{ n: number }>("SELECT n FROM counter WHERE name = 'reused'").toArray()[0]?.n ?? 0;
         return saved;
     }
 
     forget(): void {
         this.ctx.storage.sql.exec('DELETE FROM memo');
+        this.ctx.storage.sql.exec("DELETE FROM counter WHERE name = 'reused'");
+        this.reuses = 0;
     }
 }

@@ -6,6 +6,10 @@ export type SpeakOptions = { voice: string; rate: number };
 
 const WAIT_MS = 10_000; // a sleeping bridge can take longer; the device's voice speaks instead
 const cache = new Map<string, string>(); // "voice|rate|text" -> object URL, so repeating a phrase is instant
+const KEEP_IN_MEMORY = 300; // more than a page of buttons, so moving between pages finds the clips again
+const STORED = 'voice-clips';
+const KEEP_STORED = 1500;
+let trimmed = false;
 let playing: HTMLAudioElement | null = null;
 let turn = 0; // only the newest request may speak
 
@@ -56,23 +60,61 @@ export function sayOnDevice(text: string, rate = 1, voiceId = DEFAULT_VOICE): Pr
     });
 }
 
+// The clips heard this visit, the most recently heard last.
+function keep(key: string, url: string) {
+    cache.delete(key);
+    cache.set(key, url);
+    if (cache.size > KEEP_IN_MEMORY) {
+        const [oldest, oldUrl] = cache.entries().next().value!;
+        URL.revokeObjectURL(oldUrl);
+        cache.delete(oldest);
+    }
+}
+
+// Clips also stay in the browser between visits, so a word heard before asks the server nothing: on the online
+// board, each ask counts against the day's free allowance. Browsers keep such storage only for https pages, so this
+// is the online board's; on the school Wi-Fi address it is simply not there. The name is only a key in that storage.
+const storedName = (key: string) => `/voice-clips/${encodeURIComponent(key)}`;
+
+async function storedClip(key: string): Promise<Blob | null> {
+    try {
+        const found = await (await globalThis.caches?.open(STORED))?.match(storedName(key));
+        return found ? await found.blob() : null;
+    } catch { return null; }
+}
+
+async function storeClip(key: string, clip: Blob) {
+    try {
+        const store = await globalThis.caches?.open(STORED);
+        if (!store) return;
+        await store.put(storedName(key), new Response(clip, { headers: { 'Content-Type': clip.type } }));
+        if (trimmed) return;
+        trimmed = true; // once a visit, as listing the stored clips takes a moment: the oldest beyond 1500 go
+        const names = await store.keys();
+        await Promise.all(names.slice(0, Math.max(0, names.length - KEEP_STORED)).map(name => store.delete(name)));
+    } catch { /* full or unavailable: the clip is asked for again next time */ }
+}
+
 async function audioUrl(text: string, options: SpeakOptions): Promise<string | null> {
     const key = `${options.voice}|${options.rate}|${text}`;
     const cached = cache.get(key);
-    if (cached) return cached;
+    if (cached) { keep(key, cached); return cached; }
+    const stored = await storedClip(key);
+    if (stored) {
+        const url = URL.createObjectURL(stored);
+        keep(key, url);
+        return url;
+    }
     try {
         const response = await fetch('/api/speak', {
             method: 'POST', headers: { 'content-type': 'application/json', 'x-device': deviceId() },
             body: JSON.stringify({ text, voice: options.voice, rate: options.rate }), signal: AbortSignal.timeout(WAIT_MS)
         });
         if (!response.ok || !(response.headers.get('Content-Type') || '').startsWith('audio/')) return null;
-        const url = URL.createObjectURL(await response.blob());
-        if (cache.size >= 60) {
-            const [oldest, oldUrl] = cache.entries().next().value!;
-            URL.revokeObjectURL(oldUrl);
-            cache.delete(oldest);
-        }
-        cache.set(key, url);
+        const clip = await response.blob();
+        const url = URL.createObjectURL(clip);
+        keep(key, url);
+        void storeClip(key, clip);
         return url;
     } catch {
         return null;

@@ -1,6 +1,7 @@
 import { correctSentence } from './fix.ts';
 import { synthesize, warmVoiceBridge } from './speech.ts';
-import { readPublishedImage } from './published.ts';
+import type { PhraseEnv } from './phrase.ts';
+import { readPublishedImage, type PublishedBoard } from './published.ts';
 import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
 import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
@@ -231,30 +232,44 @@ async function handle(request: Request, env: Env, ctx: ExecutionContext): Promis
         return json({ fix: !!phraseEnv.OPENAI_API_KEY && await board.fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
     }
     if (path === '/api/board' && request.method === 'GET') {
-        if (env.BOARD_REPOSITORY) {
-            const snapshot = await store(env).publishedBoard(env.BOARD_REPOSITORY);
-            return snapshot ? boardResponse(request, snapshot) : json({ error: 'The published board is unavailable.' }, 503);
-        }
-        if (!env.BOARD_SYNC_URL) return json({ board: await store(env).board() });
-        const response = await fetch(env.BOARD_SYNC_URL);
-        if (!response.ok) return response;
-        const snapshot = await response.json<{ board: unknown; revision: string; sync: string }>();
-        if (snapshot.board) return boardResponse(request, snapshot);
-        const legacy = await store(env).board();
-        if (legacy && snapshot.sync === 'synced') {
-            const seeded = await saveSharedBoard(env, env.BOARD_SYNC_URL, legacy, '', true);
-            if (!seeded.ok) return seeded;
-            const latest = await seeded.json<typeof snapshot>();
-            return json({ ...latest, board: latest.board ?? legacy });
-        }
-        return json({ ...snapshot, board: legacy });
+        // The board's half-minute check also says whether Fix is on (in a header, so an unchanged board's 304 says it
+        // too): one request instead of two, and one call to the store.
+        const check = await store(env).boardCheck(env.BOARD_REPOSITORY, !!env.BOARD_REPOSITORY && url.searchParams.get('warmVoice') === '1');
+        if (check.wakeVoice) ctx.waitUntil(warmVoiceBridge(env));
+        const status: Status = { fix: !!phraseEnv.OPENAI_API_KEY && check.fixOn, naturalWordVoice: !!env.BOARD_REPOSITORY };
+        const response = await boardFor(request, env, check.published);
+        const answer = new Response(response.body, response);
+        answer.headers.set('X-Status', JSON.stringify(status));
+        return answer;
     }
     if (path.startsWith('/api/teacher/')) {
         if (env.BOARD_REPOSITORY) return json({ error: 'Publish board changes from the laptop editor.' }, 403);
         return teacher(request, env, path);
     }
     if (request.method !== 'POST' || (path !== '/api/fix' && path !== '/api/speak')) return json({ error: 'Not found.' }, 404);
+    return speakOrFix(request, env, path, phraseEnv);
+}
 
+async function boardFor(request: Request, env: Env, published: PublishedBoard | null): Promise<Response> {
+    if (env.BOARD_REPOSITORY) {
+        return published ? boardResponse(request, published) : json({ error: 'The published board is unavailable.' }, 503);
+    }
+    if (!env.BOARD_SYNC_URL) return json({ board: await store(env).board() });
+    const response = await fetch(env.BOARD_SYNC_URL);
+    if (!response.ok) return response;
+    const snapshot = await response.json<{ board: unknown; revision: string; sync: string }>();
+    if (snapshot.board) return boardResponse(request, snapshot);
+    const legacy = await store(env).board();
+    if (legacy && snapshot.sync === 'synced') {
+        const seeded = await saveSharedBoard(env, env.BOARD_SYNC_URL, legacy, '', true);
+        if (!seeded.ok) return seeded;
+        const latest = await seeded.json<typeof snapshot>();
+        return json({ ...latest, board: latest.board ?? legacy });
+    }
+    return json({ ...snapshot, board: legacy });
+}
+
+async function speakOrFix(request: Request, env: Env, path: string, phraseEnv: PhraseEnv): Promise<Response> {
     const read = await readJson(request, path === '/api/fix' ? (MAX_LINKED_SENTENCES + 1) * MAX_TEXT * 6 + 1024 : 8192);
     if ('error' in read) return read.error;
     const body = read.body;

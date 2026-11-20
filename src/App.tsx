@@ -210,6 +210,7 @@ export default function App() {
         return () => input.removeEventListener('beforeinput', onBeforeInput);
     }, []);
     useEffect(() => {
+        // Only for a server older than this page, whose board check does not say whether Fix is on.
         const check = (warmVoice: boolean) => fetch(warmVoice ? '/api/status?warmVoice=1' : '/api/status').then(response => response.json()).then((value: Status) => {
             if (typeof value.fix === 'boolean') updateStatus(value);
         }).catch(() => {});
@@ -217,10 +218,13 @@ export default function App() {
         let loadingBoard = false;
         let revision: string | undefined;
         const refresh = async (warmVoice = false) => {
-            void check(warmVoice);
             if (loadingBoard) return;
             loadingBoard = true;
-            const result = await fetchBoard(revision);
+            const result = await fetchBoard(revision, { warmVoice, onStatus: value => {
+                if (!active) return;
+                if (value) updateStatus(value);
+                else void check(warmVoice);
+            } });
             loadingBoard = false;
             if (active && result) {
                 revision = result.revision;
