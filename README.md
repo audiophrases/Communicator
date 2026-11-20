@@ -55,7 +55,7 @@ When xKiro returns a quota or rate limit, online Fix automatically uses OpenAI's
 It automatically tries xKiro again after the retry interval. Saved corrections are reused by model.
 Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with device speech as a fallback.
 A tapped word is sent to the voice in quotes: Emma and the other multilingual voices otherwise swallow short words
-such as "I" and "it". It also starts with a quarter second of silence, so a speaker that has gone idle does not cut off its first sound.
+such as "I" and "it".
 Opening the online board sends a background health check to wake the voice bridge.
 The laptop's Fix switch applies to the school Wi-Fi session. Online corrections and voice clips have their own cache.
 

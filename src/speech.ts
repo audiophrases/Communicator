@@ -110,26 +110,13 @@ async function audioClip(text: string, options: SpeakOptions): Promise<Blob | nu
     }
 }
 
-// Edge's clips are MP3 at 24 kHz, 48 kbit/s: 144-byte frames of 24 ms each. A frame with the clip's header and only
-// zeros after it is 24 ms of silence, so enough of them go before the clip. A clip in another format stays as it is.
-const FRAME_MS = 24;
-async function withSilenceBefore(clip: Blob, ms: number): Promise<Blob> {
-    const head = new Uint8Array(await clip.slice(0, 4).arrayBuffer());
-    if (head[0] !== 0xff || head[1] !== 0xf3 || (head[2] & 0xfd) !== 0x64) return clip;
-    const frame = new Uint8Array(144);
-    frame.set([0xff, 0xf3, 0x64, head[3]]);
-    return new Blob([...Array<Uint8Array<ArrayBuffer>>(Math.ceil(ms / FRAME_MS)).fill(frame), clip], { type: clip.type });
-}
-
 // Resolves when the speech ends. Says which voice spoke, so the page can tell the speaker.
 // A 'word' is a button tap. Multilingual voices such as Emma swallow a short word said on its own ("it" comes out
 // as a 40 ms blip, "I" barely heard): in quotes they say it in full, and the other voices sound the same either way.
-// A quarter second of silence goes first, for a speaker that has gone quiet and wakes up at the start of a sound.
 export async function say(text: string, options: SpeakOptions, kind: 'sentence' | 'word' = 'sentence'): Promise<'natural' | 'device'> {
     stop();
     const mine = turn;
-    let clip = await audioClip(kind === 'word' ? `"${text}"` : text, options);
-    if (clip && kind === 'word') clip = await withSilenceBefore(clip, 250);
+    const clip = await audioClip(kind === 'word' ? `"${text}"` : text, options);
     if (mine !== turn) return 'natural';
     if (clip) {
         const url = URL.createObjectURL(clip);
