@@ -204,7 +204,7 @@ export const DEFAULT_BOARD: Board = {
             ...row('little', `although=🌧️↔☀️=tot i que|however=💬↩️=tanmateix / però|instead=🔀☝️=en comptes d'això|while=⏱️⇉=mentre|since=📅→=des de / des que|unless=⚠️↪️=tret que|except=👥➖👤=excepte|either=@either=l'un o l'altre|neither=@neither=ni l'un ni l'altre|against=@against=contra|towards=→📍=cap a`)
         ] },
         { id: 'languages', name: 'Languages', ca: 'Llengües', icon: '💬', words: [
-            ...row('noun', `English=💬EN=anglès|Catalan=💬CA=català|Spanish=💬ES=castellà / espanyol|Arabic=💬AR=àrab|Amazigh=💬ⵣ=amazic|Basque=💬EU=basc / euskera|Bengali=💬BN=bengalí|Chinese=💬ZH=xinès|Dutch=💬NL=neerlandès|French=💬FR=francès|Galician=💬GL=gallec|German=💬DE=alemany|Greek=💬EL=grec|Hindi=💬HI=hindi`),
+            ...row('noun', `English=💬EN=anglès|Catalan=💬CA=català|Spanish=💬ES=castellà / espanyol|Arabic=💬AR=àrab|Darija=💬MA=àrab marroquí / darija|Amazigh=💬ⵣ=amazic|Basque=💬EU=basc / euskera|Bengali=💬BN=bengalí|Chinese=💬ZH=xinès|Dutch=💬NL=neerlandès|French=💬FR=francès|Galician=💬GL=gallec|German=💬DE=alemany|Greek=💬EL=grec|Hindi=💬HI=hindi`),
             ...row('noun', `Italian=💬IT=italià|Japanese=💬JA=japonès|Korean=💬KO=coreà|Mandarin=💬普=mandarí|Polish=💬PL=polonès|Portuguese=💬PT=portuguès|Punjabi=💬PA=panjabi|Romanian=💬RO=romanès|Russian=💬RU=rus|Turkish=💬TR=turc|Ukrainian=💬UK=ucraïnès|Urdu=💬UR=urdú|Wolof=💬WO=wòlof|sign language=🤟💬=llengua de signes|Catalan Sign Language=🤟LSC=llengua de signes catalana`)
         ] },
         { id: 'countries', name: 'Countries', ca: 'Països', icon: '🌍', words: [
