@@ -88,7 +88,7 @@ export default function App() {
     const onKeyDown = useEffectEvent((event: KeyboardEvent) => {
         if (event.isComposing || event.defaultPrevented || event.altKey || event.metaKey) return;
         const target = event.target as HTMLElement | null;
-        if (target !== typing.current && target?.closest('input:not(.linked input), textarea, select, [contenteditable="true"]')) return;
+        if (target !== typing.current && target?.closest('input, textarea, select, [contenteditable="true"]')) return;
         if (event.key === 'Enter' && event.ctrlKey !== event.shiftKey) {
             event.preventDefault();
             if (event.repeat) return;
@@ -424,17 +424,16 @@ export default function App() {
                         aria-label={selectedWord !== null ? 'Delete selected word' : insertAt !== null ? 'Delete preceding word' : 'Delete last word'}
                         data-ca="Esborra una paraula">⌫</button>
                     <button className="act" onClick={newSentence} disabled={!message}
-                        title={`New sentence (Shift+Enter)${status.fix ? '\nLink sentences on: keeps the sentence you last heard, so Fix keeps the same time.\nPress Ctrl+Enter first to keep the fixed sentence.' : ''}`}
+                        title="Shift+Enter"
                         aria-keyshortcuts="Shift+Enter" data-ca="Frase nova">New sentence</button>
                     <button className="act save" onClick={() => toggleSaved(message)} disabled={!message} aria-label="Save this phrase"
                         data-ca={saved.includes(message) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(message) ? '★' : '☆'}</button>
-                    {status.fix && <label className="act linked" title="Keep the tense across sentences">
-                        <input type="checkbox" checked={linked} onChange={event => {
-                            setLinked(event.target.checked);
+                    {status.fix && <button className="act story" aria-pressed={linked} title="Keep the tense across sentences"
+                        data-ca="Història" onClick={() => {
+                            setLinked(!linked);
                             paragraph.current = [];
                             resetFix();
-                        }} /> Link sentences
-                    </label>}
+                        }}>Story</button>}
                     {status.fix && <button className="act fix" onClick={() => void askFix()} disabled={!message || fix?.state === 'loading'}
                         title="Review suggestion (Ctrl+Enter to fix and speak)" data-ca="Corregeix la frase">✨ Fix</button>}
                     <button className="act speak" onClick={() => speaking ? (stop(), setSpeaking(false)) : hear(message)} disabled={!message && !speaking}
@@ -529,7 +528,7 @@ export default function App() {
                             Say each word when I tap it
                         </label>
                         <p className="hint">Hold a button (or point at it with the mouse) to see it in Catalan.</p>
-                        <p className="hint">Ctrl+Enter fixes and speaks. Shift+Enter starts a new sentence. Turn on Link sentences to carry the tense into the next sentence. Turn it off to end the paragraph.</p>
+                        <p className="hint">Ctrl+Enter fixes and speaks. Shift+Enter starts a new sentence. Turn on Story to carry the tense into the next sentence. Turn it off to end the story.</p>
                         <p className="hint">Type a few letters, in English or Catalan, to find a button: tap it or press Tab. ? stands for one letter and * for any number (h?t, *ppy).</p>
                         <p className="credit"><a href="https://mulberrysymbols.org" target="_blank" rel="noopener">Mulberry Symbols</a> © Steve Lee.
                             {' '}<a href="https://blissymbolics.org/index.php/bci-av-2026" target="_blank" rel="noopener">Blissymbols</a> © Blissymbolics Communication International (cropped).

@@ -13,9 +13,9 @@ The **?** key in Core makes the words a question: `you` `want` `coffee` says "yo
 
 Press **Ctrl+Enter** to fix and speak the main suggestion. Once a fix is showing, **Ctrl+C** copies it (or the
 suggestion you last tapped) when nothing is highlighted. **Shift+Enter** (or **New sentence**) clears the
-preview for your next sentence. Turn on **Link sentences** to keep telling the same story. For example, after
+preview for your next sentence. Turn on **Story** to keep telling the same story. For example, after
 “Yesterday I went to the park” and “I saw my friend”, Fix can turn “we play football” into “We played football.”
-Turn the toggle off to end the paragraph. Each board session starts with it off.
+Turn **Story** off to end the story. Each board session starts with it off.
 
 Students can use the school Wi-Fi address during class or the
 [always-online student board](https://communicator-online.eugenime.workers.dev) from anywhere.
@@ -117,7 +117,7 @@ the whole class, across lessons and restarts:
 - **Fix**: the same words at the same level and language (capitals, spaces and the final full stop do not matter;
   a question mark does).
   The second student who writes "I want go home" gets "I want to go home." at once, without calling OpenAI. An answer
-  made with Link sentences is reused only with the same preceding context.
+  made with Story on is reused only with the same preceding context.
 - **Catalan in the editor**: only buttons never translated before are sent.
 - **Voice clips**: the same text, voice and speed (as PinPlay: `voice::rate::text`) comes from the bridge once.
 
@@ -173,7 +173,7 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   to speak the main suggestion. Tapping a suggestion says it aloud, so the speaker can hear it, compare it
   with their own attempt and try again. Tapping or typing another word closes the suggestions. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
-- **Link sentences** keeps paragraph context in memory until the speaker turns it off or reloads. New sentence
+- **Story** keeps paragraph context in memory until the speaker turns it off or reloads. New sentence
   carries forward the version they chose to speak, or the words in the preview if they skipped playback.
   Fix receives the opening sentence and up to seven other recent sentences. A new time cue in the current
   sentence takes precedence, and immediate requests or needs keep their intended tense.

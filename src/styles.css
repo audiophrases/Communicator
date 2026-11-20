@@ -21,9 +21,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .actions { display: flex; gap: 6px; }
 .act { border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 14px; min-height: 52px; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
 .act.fix { background: #fff3c4; border-color: #d9a400; }
-.act.linked { display: flex; gap: 6px; align-items: center; justify-content: center; cursor: pointer; }
-.linked input { width: 1.1em; height: 1.1em; accent-color: var(--accent); }
-.linked:has(input:checked) { background: #e8f1ff; border-color: var(--accent); }
+.act.story[aria-pressed=true] { background: #e8f1ff; border-color: var(--accent); color: #0b4fb3; }
 /* The ? key shows the mark itself, as big as a picture; in the bar it has the colour of the question words. */
 .key-word.mark { font-size: 2.6rem; line-height: 1; }
 .chip.mark { background: #dccbf5; border-color: #8a64c8; }
