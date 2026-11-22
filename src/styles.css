@@ -26,7 +26,8 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .typing { flex: 1 1 auto; min-width: 140px; max-width: 100%; field-sizing: content; border: 0; outline: 0; background: transparent; font-size: 1.25rem; padding: 6px 4px; }
 .actions { display: flex; flex-wrap: wrap; gap: 6px; }
 .act { flex: 1 1 auto; border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 0 14px; min-height: 52px; font-weight: 700; font-size: 1.05rem; white-space: nowrap; }
-.act.fix { background: #fff3c4; border-color: #d9a400; }
+/* Fix, or Speak while Fix is off, ends the row and is the widest: the one to press when the sentence is ready. */
+.act.fix { background: #fff3c4; border-color: #d9a400; flex-grow: 2; }
 .act.story[aria-pressed=true] { background: #e8f1ff; border-color: var(--accent); color: #0b4fb3; }
 /* The story so far, above the sentence that continues it. It is two lines tall from the moment Story is on, so
    the board does not move down as lines are added; longer stories scroll, with the newest line in view. */
@@ -57,6 +58,7 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .suggest { text-align: left; border: 2px solid var(--line); background: var(--panel); border-radius: 12px; padding: 12px 16px; font-size: 1.15rem;
     display: grid; grid-template-columns: auto 1fr; column-gap: 12px; row-gap: 6px; align-items: baseline; }
 .suggest .say { grid-row: span 2; }
+.suggest-row { display: grid; grid-template-columns: 1fr auto; gap: 6px; }
 .suggest.main { border-color: #14663a; background: #e7f6ec; }
 .suggest.main .en { font-size: 1.4rem; font-weight: 700; }
 .suggest .ca { grid-column: 2; font-size: 1.3rem; font-weight: 600; color: #24553a; }

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { findButtons, fold, typedQuery } from '../../src/search.ts';
+import { findButtons, fold, sentenceWords, typedQuery } from '../../src/search.ts';
 import { DEFAULT_BOARD } from '../../src/vocab.ts';
 
 const words = (query, options) => findButtons(DEFAULT_BOARD, query, options).map(hit => hit.word.w);
@@ -47,4 +47,21 @@ test('typing searches the last word, or the last words when they start a longer 
     assert.equal(typedQuery(DEFAULT_BOARD, ''), null);
     assert.equal(typedQuery(DEFAULT_BOARD, 'zzqx'), null);
     assert.equal(fold(' Germà '), 'germa');
+});
+
+test('a sentence put back in the bar keeps the pictures of the buttons it is made of', () => {
+    const pictured = text => sentenceWords(DEFAULT_BOARD, text).map(word => `${word.w}${word.typed ? '' : '*'}`);
+    // "went" and "friends" are forms no button has: typed words, no picture. "bus stop" is one button.
+    assert.deepEqual(pictured('Yesterday I went to the bus stop with my friends.'),
+        ['Yesterday*', 'I*', 'went', 'to*', 'the*', 'bus stop*', 'with*', 'my*', 'friends.']);
+    const coffee = sentenceWords(DEFAULT_BOARD, 'Do you want coffee?');
+    assert.deepEqual(coffee.map(word => word.w), ['Do', 'you', 'want', 'coffee', '?']);
+    assert.equal(coffee[3].e, '☕');
+    assert.ok(!coffee[4].typed); // the ? key
+    // The bar writes it back as it was: "coffee ?" → "coffee?".
+    assert.equal(coffee.map(word => word.w).join(' ').replace(/ \?/g, '?'), 'Do you want coffee?');
+    assert.deepEqual(pictured('Thank you.'), ['Thank you.*']);
+    // A name's button only for the name: "May" is the month, "may" is not.
+    assert.deepEqual(pictured('In May you may go.'), ['In*', 'May*', 'you*', 'may', 'go.*']);
+    assert.equal(pictured('No, problem')[0], 'No,*'); // a comma ends a run: not the "no problem" button
 });

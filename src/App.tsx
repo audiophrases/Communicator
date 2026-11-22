@@ -6,7 +6,7 @@ import { cachedBoard, fetchBoard } from './boardData.ts';
 import { copyText } from './copyText.ts';
 import { Key, Picture } from './Key.tsx';
 import { SentenceBar, type Token } from './SentenceBar.tsx';
-import { typedQuery, type Hit } from './search.ts';
+import { sentenceWords, typedQuery, type Hit } from './search.ts';
 import { deviceId, say, sayOnDevice, stop } from './speech.ts';
 
 // Board buttons retain their picture and can move as a unit ("bus stop"). Typed words move individually.
@@ -101,6 +101,9 @@ export default function App() {
     const speechTurn = useRef(0);
     const spokenChoice = useRef('');
     const pendingFix = useRef<{ play: boolean } | null>(null);
+    // A suggestion brought into the bar with ✏️. Still unchanged at New sentence, the story keeps it as Fix wrote it
+    // instead of asking Fix again.
+    const takenFix = useRef<{ text: string; ca?: string } | null>(null);
     // The found button Enter picks: the first, or another one chosen with → and ←.
     const [foundChoice, setFoundChoice] = useState({ query: '', index: 0 });
     const foundRow = useRef<HTMLDivElement>(null);
@@ -411,7 +414,7 @@ export default function App() {
 
     function tap(word: Word) {
         if (!word.w) return;
-        // ? makes the words so far a question ("you want coffee" → "you want coffee?"): Speak asks it, Fix makes a
+        // ? makes the words so far a question ("you want coffee" → "you want coffee?"): it is said as one, Fix makes a
         // question of it. It needs words before it, and once is enough; ⌫ takes it away.
         const preceding = draft.trim() || tokens[cursor - 1]?.w;
         if (word.w === '?' && (!preceding || preceding.endsWith('?') || tokens[cursor]?.w === '?')) return;
@@ -473,8 +476,10 @@ export default function App() {
         if (lines) {
             const open = lines.findIndex(line => line.id === openLine);
             const before = (open < 0 ? lines : lines.slice(0, open)).map(line => line.text);
+            const taken = takenFix.current;
             const line = fix?.state === 'done' ? fixedLine(fix.fix)
                 : open >= 0 && message === lines[open].text ? lines[open]
+                : taken && message === taken.text ? storyLine(taken.text, taken.ca)
                 : message ? storyLineFor(message.slice(0, MAX_TEXT), before) : null;
             if (open >= 0) lines = [...lines.slice(0, open), ...line ? [line] : [], ...lines.slice(open + 1)];
             else if (line) lines = [...lines, line];
@@ -484,6 +489,7 @@ export default function App() {
         resetFix();
         setTokens([]); setDraft('');
         originalWord.current = null;
+        takenFix.current = null;
         setSelectedWord(null); setInsertAt(null);
         return lines;
     }
@@ -513,8 +519,22 @@ export default function App() {
         remember();
         const line = finishSentence()?.find(item => item.id === id);
         if (!line) return;
-        setTokens(typedTokens(line.text));
+        setTokens(sentenceTokens(line.text));
         setOpenLine(id);
+    }
+
+    // A finished sentence back in the bar as buttons: the words that are buttons with their pictures, other forms
+    // ("went", "friends") as typed words.
+    const sentenceTokens = (text: string) => sentenceWords(board, text).map(token);
+
+    // ✏️ on a suggestion or a phrase: it comes into the bar to be changed or added to, in place of the words there.
+    // fixed: it is Fix's answer (with its translation, for the main one), so the story can keep it unchanged.
+    function editSentence(text: string, fixed?: { ca?: string }) {
+        remember();
+        originalWord.current = null;
+        setTokens(sentenceTokens(text)); setDraft(''); setSelectedWord(null); setInsertAt(null);
+        resetFix();
+        takenFix.current = fixed ? { text, ...(fixed.ca ? { ca: fixed.ca } : {}) } : null;
     }
 
     // The story before the bar's sentence: before the open line, or all of it.
@@ -586,7 +606,7 @@ export default function App() {
             <button className="phrase" onClick={() => void speak(text)} data-ca={phraseCa.get(text)}>{text}</button>
             <button className="icon" onClick={() => toggleSaved(text)} aria-label={saved.includes(text) ? 'Remove from saved' : 'Save'}
                 data-ca={saved.includes(text) ? 'Treu-la de les desades' : 'Desa aquesta frase'}>{saved.includes(text) ? '★' : '☆'}</button>
-            <button className="icon" onClick={() => { remember(); originalWord.current = null; setTokens(typedTokens(text)); setDraft(''); setSelectedWord(null); setInsertAt(null); resetFix(); setTab('core'); }} aria-label="Edit"
+            <button className="icon" onClick={() => { editSentence(text); setTab('core'); }} aria-label="Edit"
                 data-ca="Edita la frase">✏️</button>
         </div>
     );
@@ -629,8 +649,10 @@ export default function App() {
             <header className="top">
                 {story && (
                     <div className="story-view">
-                        <button className="icon story-play" onClick={() => void playStory()} disabled={!story.length} aria-label="Hear the story"
-                            title="Ctrl+Shift+Enter" aria-keyshortcuts="Control+Shift+Enter" data-ca="Escolta la història">▶</button>
+                        <button className="icon story-play" onClick={() => playingLine === null ? void playStory() : stopSpeaking()}
+                            disabled={!story.length} aria-label={playingLine === null ? 'Hear the story' : 'Stop'}
+                            title="Ctrl+Shift+Enter" aria-keyshortcuts="Control+Shift+Enter"
+                            data-ca={playingLine === null ? 'Escolta la història' : 'Atura'}>{playingLine === null ? '▶' : '⏹'}</button>
                         <div className="story-lines" ref={storyBox}>
                             {story.map((line, index) => (
                                 <button key={line.id} onClick={() => openStoryLine(line.id)} data-ca={line.ca || undefined}
@@ -657,8 +679,11 @@ export default function App() {
                         data-ca="Història" onClick={toggleStory}>Story</button>}
                     {status.fix && <button className="act fix" onClick={() => void askFix()} disabled={!message || fix?.state === 'loading'}
                         title="Review suggestion (Ctrl+Enter to fix and speak)" data-ca="Corregeix la frase">✨ Fix</button>}
-                    <button className="act speak" onClick={() => speaking ? stopSpeaking() : hear(message)} disabled={!message && !speaking}
-                        data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>
+                    {/* With Fix on, its suggestions are what is said (each one speaks when tapped), so Fix has the place
+                        of Speak. Speak is there when the teacher switches Fix off: without it a tablet could not say
+                        a whole sentence. */}
+                    {!status.fix && <button className="act speak" onClick={() => speaking ? stopSpeaking() : hear(message)} disabled={!message && !speaking}
+                        data-ca={speaking ? 'Atura' : 'Parla'}>{speaking ? '⏹ Stop' : '🔊 Speak'}</button>}
                 </div>
                 {found && (
                     <div className="found" ref={foundRow} aria-label={`Buttons for "${found.query}"`}>
@@ -673,19 +698,35 @@ export default function App() {
                     </div>
                 )}
                 {fix?.state === 'loading' && <div className="fixbox">Thinking…</div>}
-                {fix?.state === 'error' && <div className="fixbox warn">{fix.message}</div>}
+                {/* No suggestion: the speaker's own words, to say them anyway. */}
+                {fix?.state === 'error' && (
+                    <div className="fixbox warn">{fix.message}
+                        {message && <button className="suggest" onClick={() => hear(message)} data-ca="Digues les teves paraules">
+                            <span className="say" aria-hidden="true">🔊</span><span className="en">{message}</span>
+                        </button>}
+                    </div>
+                )}
+                {/* 🔊 says a suggestion; ✏️ brings it into the bar to change it or add to it. */}
                 {fix?.state === 'done' && (
                     <div className="fixbox">
-                        <button className="suggest main" onClick={() => hear(fix.fix.sentence)} data-ca={fix.fix.translation ? undefined : 'Escolta aquesta frase'}>
-                            <span className="say" aria-hidden="true">🔊</span>
-                            <span className="en">{fix.fix.sentence}</span>
-                            {fix.fix.translation && <span className="ca" lang="ca">{fix.fix.translation}</span>}
-                        </button>
+                        <div className="suggest-row">
+                            <button className="suggest main" onClick={() => hear(fix.fix.sentence)} data-ca={fix.fix.translation ? undefined : 'Escolta aquesta frase'}>
+                                <span className="say" aria-hidden="true">🔊</span>
+                                <span className="en">{fix.fix.sentence}</span>
+                                {fix.fix.translation && <span className="ca" lang="ca">{fix.fix.translation}</span>}
+                            </button>
+                            <button className="icon" onClick={() => editSentence(fix.fix.sentence, { ca: fix.fix.translation })}
+                                aria-label="Change this sentence" data-ca="Edita la frase">✏️</button>
+                        </div>
                         {fix.fix.alternatives.length > 0 && <div className="or">Or did you mean:</div>}
                         {fix.fix.alternatives.map(text => (
-                            <button className="suggest" key={text} onClick={() => hear(text)} data-ca="Escolta aquesta frase">
-                                <span className="say" aria-hidden="true">🔊</span><span className="en">{text}</span>
-                            </button>
+                            <div className="suggest-row" key={text}>
+                                <button className="suggest" onClick={() => hear(text)} data-ca="Escolta aquesta frase">
+                                    <span className="say" aria-hidden="true">🔊</span><span className="en">{text}</span>
+                                </button>
+                                <button className="icon" onClick={() => editSentence(text, {})}
+                                    aria-label="Change this sentence" data-ca="Edita la frase">✏️</button>
+                            </div>
                         ))}
                     </div>
                 )}

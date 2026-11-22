@@ -67,6 +67,43 @@ export function findButtons(board: Board, query: string, { limit = 12, distinct 
     return out;
 }
 
+// A sentence put back in the bar (a story line, a suggestion, a phrase) as the buttons it is made of. A word or a run
+// of words that is a button ("bus stop", "Thank you.") gets that button's picture, the core's first. A form no button
+// has ("went", "friends") stays a typed word with no picture. A question mark ends its word as the ? key does, so the
+// bar writes the sentence back the same: "coffee?" is "coffee" and "?".
+export type SentenceWord = { w: string; e?: string; s?: string; typed?: true };
+const unpunctuated = (text: string) => text.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, '') || text;
+const capital = (text: string) => /^\p{Lu}/u.test(text);
+
+export function sentenceWords(board: Board, text: string): SentenceWord[] {
+    const buttons = new Map<string, Word[]>();
+    let longest = 1;
+    for (const word of [...board.core, ...board.pages.flatMap(page => page.words)]) {
+        if (!word.w) continue;
+        const key = fold(unpunctuated(word.w));
+        buttons.set(key, [...buttons.get(key) ?? [], word]);
+        longest = Math.max(longest, key.split(' ').length);
+    }
+    const parts = text.trim().split(/\s+/).filter(Boolean).flatMap(part => /^[^?]+\?$/.test(part) ? [part.slice(0, -1), '?'] : [part]);
+    const words: SentenceWord[] = [];
+    for (let i = 0; i < parts.length;) {
+        let match: { word: Word; length: number } | undefined;
+        for (let length = Math.min(longest, parts.length - i); length > 0 && !match; length--) {
+            // A run of words is words: "coffee" and "?" are two buttons, not "coffee ?".
+            if (length > 1 && parts.slice(i, i + length).some(part => !/[\p{L}\p{N}]/u.test(part))) continue;
+            const span = unpunctuated(parts.slice(i, i + length).join(' '));
+            // "Turkey" and "May" are buttons; "turkey" and "may" are other words.
+            const word = buttons.get(fold(span))?.find(item => !capital(item.w) || capital(span));
+            if (word) match = { word, length };
+        }
+        if (!match) { words.push({ w: parts[i++], typed: true }); continue; }
+        const { word: { e, s }, length } = match;
+        words.push({ w: parts.slice(i, i + length).join(' '), ...(e ? { e } : {}), ...(s ? { s } : {}) });
+        i += length;
+    }
+    return words;
+}
+
 // What to search for while typing: the last word, or the last two or three when they start a longer button
 // ("bus st" → "bus stop"). Returns the query and how many typed words it covers.
 export function typedQuery(board: Board, draft: string): { query: string; words: number; hits: Hit[] } | null {

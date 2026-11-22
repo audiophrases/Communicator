@@ -1,7 +1,8 @@
 # Communicator
 
 An AAC (augmentative and alternative communication) board for people who are learning English.
-Tap words or type broken English, press **Fix** to get the correct sentence, and **Speak** says it in a natural voice.
+Tap words or type broken English and press **Fix** to get the correct sentence: tap it to hear it in a natural voice.
+While the teacher has Fix switched off, **Speak** takes its place and says the words as they are.
 Hold any button (or point at it with a mouse) to see it in Catalan. Type a few letters, in English or Catalan, and the
 matching buttons appear under the text box, narrowing as you type. Letters typed anywhere on the board go into the
 text box, even right after tapping buttons. Tap a match, or press **Enter** for the highlighted one: the first,
@@ -14,6 +15,11 @@ one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are
 The **?** key in Core makes the words a question: `you` `want` `coffee` says "you want coffee", `you` `want`
 `coffee` `?` asks "you want coffee?", and Fix turns it into ✨ **Do you want coffee?**
 
+✏️ next to a suggestion brings it into the bar, to change it or keep building on it, with or without Story. Its words
+come back as buttons: a word that is a button keeps its picture (`I`, `bus stop`, `?`), and a form no button has
+(`went`, `friends`) comes back as a typed word without one. The same goes for a story sentence tapped to change it
+and for ✏️ on a quick or saved phrase. If Fix has no answer, the box offers the speaker's own words to say instead.
+
 Press **Ctrl+Enter** to fix and speak the main suggestion. Once a fix is showing, **Ctrl+C** copies it (or the
 suggestion you last tapped) when nothing is highlighted. **Shift+Enter** (or **New sentence**) clears the
 preview for your next sentence. Turn on **Story** to keep telling the same story. For example, after
@@ -22,7 +28,7 @@ While **Story** is on, **New sentence** (**Shift+Enter**) adds the sentence to t
 the fix already showing is used, otherwise Fix is asked and its answer replaces the words when it arrives. Point at
 a story sentence (or hold it) to see its Catalan. Tap one to change it in the bar: **New sentence** puts it back in
 its place, and **⌫** on the emptied bar takes it out of the story. **⌫** on an empty bar opens the last sentence.
-▶ (**Ctrl+Shift+Enter**) plays the whole story. With no fix showing, **Ctrl+C** copies the story. The story stays
+▶ (**Ctrl+Shift+Enter**) plays the whole story, and ⏹ stops it. With no fix showing, **Ctrl+C** copies the story. The story stays
 on the device after a reload. Turning **Story** off asks first, then deletes the story.
 
 Students can use the school Wi-Fi address during class or the
@@ -53,7 +59,7 @@ The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects
 the result into Catalan using xKiro's `mistralai/mistral-large-2512`. The laptop uses OpenAI's `gpt-6-luna` by default.
 When xKiro returns a quota or rate limit, online Fix automatically uses OpenAI's `gpt-4o-mini` with a separate key.
 It automatically tries xKiro again after the retry interval. Saved corrections are reused by model.
-Online, both word taps and **Speak** use PinPlay's English Edge TTS voices, with device speech as a fallback.
+Online, both word taps and sentences use PinPlay's English Edge TTS voices, with device speech as a fallback.
 A tapped word is sent to the voice in quotes: Emma and the other multilingual voices otherwise swallow short words
 such as "I" and "it".
 Opening the online board sends a background health check to wake the voice bridge.
@@ -199,7 +205,9 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
   **Ask & answer**. It is the same button: same picture, same Catalan.
 - **Fix suggests, the speaker decides.** The Fix button opens suggestions for review. Ctrl+Enter explicitly asks
   to speak the main suggestion. Tapping a suggestion says it aloud, so the speaker can hear it, compare it
-  with their own attempt and try again. Tapping or typing another word closes the suggestions. The prompt
+  with their own attempt and try again, or bring it into the bar with ✏️ to change it. While Fix is on there is
+  no Speak button for the words as typed: it was the biggest button and said the unfixed English, the step a
+  learner should check first. It comes back when Fix is off, the only way to say a whole sentence on a tablet. Tapping or typing another word closes the suggestions. The prompt
   forbids adding ideas or politeness the speaker did not choose, and the Worker drops answers far longer than the input.
 - **Story** keeps the sentences on the device until the speaker turns it off, even if the teacher switches Fix off. New sentence
   keeps the fixed version (or the suggestion the speaker tapped), with its translation. It keeps their own words
