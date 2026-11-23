@@ -1,7 +1,7 @@
 import { useEffect, useEffectEvent, useMemo, useRef, useState, type CSSProperties } from 'react';
 import { BOARD_REFRESH_MS, LANGUAGES, LEVELS, MAX_LINKED_SENTENCES, MAX_TEXT, isLanguage, isLevel, type Fix, type Level, type Status } from '../shared/options.ts';
 import { DEFAULT_VOICE, ENGLISH_VOICES, RATES, isEnglishVoice } from '../shared/voices.ts';
-import { pageKind, type Board, type Kind, type Word } from '../shared/board.ts';
+import { pageTabs, type Board, type Kind, type Word } from '../shared/board.ts';
 import { cachedBoard, fetchBoard } from './boardData.ts';
 import { copyText } from './copyText.ts';
 import { Key, Picture } from './Key.tsx';
@@ -593,8 +593,8 @@ export default function App() {
     // Each tab has the colour of what is on it: a page the colour of most of its words, the phrase lists pink like
     // their buttons. Core (every colour) and Settings stay plain.
     const tabs: { id: string; name: string; ca?: string; icon: string; kind?: Kind }[] = [
-        { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '⭐' }, { id: 'quick', name: 'Quick', ca: 'Frases ràpides', icon: '⚡', kind: 'social' },
-        ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) })),
+        { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '⭐' },
+        ...pageTabs(board, 'Quick'),
         { id: 'saved', name: 'Saved', ca: 'Frases desades', icon: '⭐', kind: 'social' }, { id: 'settings', name: 'Settings', ca: 'Configuració', icon: '⚙️' }
     ];
     // Back to Core when the teacher removed the page this device was on.

@@ -1,7 +1,7 @@
 // /create: the teacher adds, changes and removes the board's buttons, then saves them for everyone.
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { KINDS, LIMITS, pageKind, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
+import { KINDS, LIMITS, pageTabs, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
 import { ONLINE_BOARD_URL, type BoardSync, type TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
@@ -283,16 +283,32 @@ export default function Create() {
         edit(draft => { draft.pages.push({ id, name: 'New page', icon: '📄', words: [] }); });
         choose(id);
     }
+    const movableTabs = pageTabs(board, 'Quick phrases');
+    const tabIndex = movableTabs.findIndex(item => item.id === tab);
     function movePage(delta: number) {
-        const to = pageIndex + delta;
-        if (to < 0 || to >= board!.pages.length) return;
-        edit(draft => { [draft.pages[pageIndex], draft.pages[to]] = [draft.pages[to], draft.pages[pageIndex]]; });
+        const to = tabIndex + delta;
+        const neighbor = movableTabs[to];
+        if (!neighbor) return;
+        edit(draft => {
+            if (tab === 'quick' || neighbor.id === 'quick') {
+                const index = tab === 'quick' ? to : tabIndex;
+                if (index === draft.pages.length) delete draft.quickIndex;
+                else draft.quickIndex = index;
+            } else {
+                const other = pageIndex + delta;
+                [draft.pages[pageIndex], draft.pages[other]] = [draft.pages[other], draft.pages[pageIndex]];
+            }
+        });
     }
     function deletePage() {
         const starred = page?.words.filter(item => coreSlot(board!, item) >= 0).length;
         if (!page || !confirm(`Delete the page "${page.name}" and its ${page.words.length} buttons?`
             + (starred ? ` ${starred} of them ${starred === 1 ? 'is' : 'are'} starred and will leave Core too.` : ''))) return;
-        edit(draft => { unstarRemoved(draft, draft.pages.splice(pageIndex, 1)[0].words); });
+        edit(draft => {
+            unstarRemoved(draft, draft.pages.splice(pageIndex, 1)[0].words);
+            if (draft.quickIndex !== undefined && pageIndex < draft.quickIndex) draft.quickIndex--;
+            if (draft.quickIndex === draft.pages.length) delete draft.quickIndex;
+        });
         choose('core');
     }
 
@@ -331,7 +347,12 @@ export default function Create() {
     });
     // Coloured as on the students' board (see App.tsx).
     const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '⭐' },
-        { id: 'quick', name: 'Quick phrases', icon: '⚡', kind: 'social' }, ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) }))];
+        ...movableTabs];
+
+    const moveButtons = <>
+        <button onClick={() => movePage(-1)} disabled={tabIndex === 0} title="Move the page left">◀</button>
+        <button onClick={() => movePage(1)} disabled={tabIndex === movableTabs.length - 1} title="Move the page right">▶</button>
+    </>;
 
     const editor = (
         <div className="create">
@@ -409,8 +430,7 @@ export default function Create() {
                                 </span>
                             </label>
                             <span className="inline end">
-                                <button onClick={() => movePage(-1)} disabled={pageIndex === 0} title="Move the page left">◀</button>
-                                <button onClick={() => movePage(1)} disabled={pageIndex === board.pages.length - 1} title="Move the page right">▶</button>
+                                {moveButtons}
                                 <button className="danger" onClick={deletePage}>Delete page</button>
                             </span>
                         </div>
@@ -426,6 +446,7 @@ export default function Create() {
 
                     {tab === 'quick' && (
                         <div className="quick-edit">
+                            <div className="inline">{moveButtons}</div>
                             {board.quick.map((item, index) => (
                                 <div className="quick-row" key={index}>
                                     <input value={item.t} maxLength={LIMITS.phrase} placeholder="English phrase" aria-label="English phrase"
