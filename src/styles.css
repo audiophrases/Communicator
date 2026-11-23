@@ -66,14 +66,29 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 
 /* Pages */
 .tab-row { display: flex; align-items: flex-start; gap: 6px; padding-right: 10px; }
-.tabs { flex: 1; min-width: 0; display: flex; gap: 6px; padding: 4px 10px 8px; overflow-x: auto; scrollbar-width: thin; }
+.tabs { flex: 1; min-width: 0; display: grid; align-content: start; justify-content: start; gap: 6px; padding: 4px 10px 8px; overflow-x: auto; scrollbar-width: thin; }
+.create .tabs { flex: none; }
 .key-size { flex: none; display: flex; gap: 4px; padding-top: 4px; }
 .key-size button { min-width: 42px; height: 42px; border: 2px solid var(--line); background: var(--panel); border-radius: 999px;
     font-size: 1.35rem; font-weight: 700; line-height: 1; }
-.tab { flex: none; border: 2px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 14px; font-weight: 700; }
+.tab { min-height: 44px; white-space: nowrap; border: 2px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 14px; font-weight: 700; }
 /* On the board, each page's picture is big: some students cannot read yet and find a page by its picture alone. */
-.app .tab { display: inline-flex; align-items: center; gap: 6px; padding: 3px 14px 3px 8px; }
+.app .tab { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 14px 3px 8px; }
 .tab-icon { font-size: 2rem; line-height: 1; }
+/* Topic accents stay with their pages when the teacher reorders them. */
+.tab[data-page="places"] { background: #b5e3df; }
+.tab[data-page="body"] { background: #ffc3bd; }
+.tab[data-page="time"] { background: #c9cdf5; }
+.tab[data-page="numbers"] { background: #e2efac; }
+.tab[data-page="things"] { background: #c0d5e1; }
+.tab[data-page="clothes"] { background: #e1c4ed; }
+.tab[data-page="nature"] { background: #b1d7a3; }
+.tab[data-page="school"] { background: #f6d28b; }
+.tab[data-page="free"] { background: #f5bfe6; }
+.tab[data-page="languages"] { background: #a8def0; }
+.tab[data-page="countries"] { background: #cae4be; }
+.tab[data-page="shopping"] { background: #f3bba6; }
+.tab[data-page="work"] { background: #d9c6b5; }
 /* A coloured tab keeps its colour when chosen and gets a dark ring; a plain one turns dark. */
 .tab:not(.plain) { border-color: rgb(0 0 0 / .22); }
 .tab.on { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }

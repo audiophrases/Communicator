@@ -407,9 +407,10 @@ export default function Create() {
                 })()}
             </div>
 
-            <nav className="tabs">
+            <nav className="tabs" aria-label="Pages"
+                    style={{ gridTemplateColumns: `repeat(${Math.ceil((tabs.length + 1) / 2)}, max-content)` }}>
                 {tabs.map(item => (
-                    <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => choose(item.id)}>
+                    <button key={item.id} data-page={item.id} aria-current={tab === item.id ? 'page' : undefined} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => choose(item.id)}>
                         <span aria-hidden="true">{item.icon}</span> {item.name}
                     </button>
                 ))}

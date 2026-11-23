@@ -590,8 +590,7 @@ export default function App() {
 
     const toggleSaved = (text: string) => setSaved(current => current.includes(text) ? current.filter(item => item !== text) : [text, ...current]);
 
-    // Each tab has the colour of what is on it: a page the colour of most of its words, the phrase lists pink like
-    // their buttons. Core (every colour) and Settings stay plain.
+    // Use the same topic tabs and ordering as the editor.
     const tabs: { id: string; name: string; ca?: string; icon: string; kind?: Kind }[] = [
         { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '⭐' },
         ...pageTabs(board, 'Quick'),
@@ -733,9 +732,10 @@ export default function App() {
             </header>
 
             <div className="tab-row">
-                <nav className="tabs">
+                <nav className="tabs" aria-label="Pages"
+                    style={{ gridTemplateColumns: `repeat(${Math.ceil(tabs.length / 2)}, max-content)` }}>
                     {tabs.map(item => (
-                        <button key={item.id} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
+                        <button key={item.id} data-page={item.id} aria-current={tab === item.id ? 'page' : undefined} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
                             <span className="tab-icon" aria-hidden="true">{item.icon}</span>{item.name}
                         </button>
                     ))}
