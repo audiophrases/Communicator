@@ -25,11 +25,13 @@ function pictureWidth(text: string): number {
 
 // One word button (shown bigger under the mouse by magnifier.ts). An empty core slot keeps its place but shows nothing (the editor outlines it).
 // The picture fills whatever room the word leaves: some students cannot read and go by the pictures.
-export function Key({ word, onTap, selected }: { word: Word; onTap: () => void; selected?: boolean }) {
-    const className = `key k-${word.k}${word.w ? '' : ' blank'}${selected ? ' selected' : ''}`;
+// starred: the editor marks a page button that is also on Core.
+export function Key({ word, onTap, selected, starred }: { word: Word; onTap: () => void; selected?: boolean; starred?: boolean }) {
+    const className = `key k-${word.k}${word.w ? '' : ' blank'}${selected ? ' selected' : ''}${starred ? ' starred' : ''}`;
     if (!word.w) return <div className={className} aria-hidden="true" onClick={onTap} />;
     return (
         <button className={className} onClick={onTap} data-ca={word.ca || undefined}>
+            {starred && <span className="key-star" title="Starred: also on Core">★</span>}
             {(word.s || word.e) && <span className="key-art" style={{ '--picture-width': pictureWidth(word.e ?? '') || 1.25 } as CSSProperties}>
                 <Picture word={word} />
             </span>}

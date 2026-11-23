@@ -593,7 +593,7 @@ export default function App() {
     // Each tab has the colour of what is on it: a page the colour of most of its words, the phrase lists pink like
     // their buttons. Core (every colour) and Settings stay plain.
     const tabs: { id: string; name: string; ca?: string; icon: string; kind?: Kind }[] = [
-        { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '🔤' }, { id: 'quick', name: 'Quick', ca: 'Frases ràpides', icon: '⚡', kind: 'social' },
+        { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '⭐' }, { id: 'quick', name: 'Quick', ca: 'Frases ràpides', icon: '⚡', kind: 'social' },
         ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) })),
         { id: 'saved', name: 'Saved', ca: 'Frases desades', icon: '⭐', kind: 'social' }, { id: 'settings', name: 'Settings', ca: 'Configuració', icon: '⚙️' }
     ];

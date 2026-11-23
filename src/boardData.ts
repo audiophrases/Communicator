@@ -1,6 +1,6 @@
 // Where the page gets its board: the teacher's saved board, or the built-in one.
 
-import { sanitizeBoard, type Board, type Word } from '../shared/board.ts';
+import { linkCoreWords, sanitizeBoard, type Board, type Word } from '../shared/board.ts';
 import { DEFAULT_BOARD } from './vocab.ts';
 import type { BoardSync, Status } from '../shared/options.ts';
 
@@ -46,6 +46,7 @@ export function readBoard(value: unknown): Board | null {
         const original = DEFAULT_BOARD.pages.find(item => item.id === page.id);
         fill(page.words, original?.words ?? []);
     }
+    linkCoreWords(board);
     board.pictureVersion = 4;
     return board;
 }

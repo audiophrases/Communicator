@@ -1,11 +1,12 @@
 // /create: the teacher adds, changes and removes the board's buttons, then saves them for everyone.
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { KINDS, LIMITS, pageKind, sanitizeBoard, type Board, type Kind, type Word } from '../shared/board.ts';
 import { ONLINE_BOARD_URL, type BoardSync, type TeacherSettings } from '../shared/options.ts';
 import { fetchBoard } from './boardData.ts';
 import { Key, Picture } from './Key.tsx';
-import { findButtons } from './search.ts';
+import { findButtons, type Hit } from './search.ts';
+import { coreFull, coreSlot, joinStarred, linkStars, star, unstar, unstarRemoved } from './stars.ts';
 import { SymbolPicker } from './SymbolPicker.tsx';
 import { DraftImages, previewImage, type DraftImage } from './uploadImage.ts';
 import { isUploadedImage } from '../shared/images.ts';
@@ -37,7 +38,8 @@ function missingCatalan(board: Board): Target[] {
             if (item?.name === page.name && !item.ca) item.ca = ca;
         } });
         page.words.forEach((word, i) => {
-            if (word.w && !word.ca) targets.push({ text: word.w, hint: `${HINT[word.k]} on the ${page.name} page`, apply: (draft, ca) => {
+            // A starred button is translated once, as a core word.
+            if (word.w && !word.ca && !board.core.includes(word)) targets.push({ text: word.w, hint: `${HINT[word.k]} on the ${page.name} page`, apply: (draft, ca) => {
                 const item = draft.pages[p]?.words[i];
                 if (item?.w === word.w && !item.ca) item.ca = ca;
             } });
@@ -50,6 +52,33 @@ function missingCatalan(board: Board): Target[] {
         } });
     });
     return targets;
+}
+
+const FoundKey = ({ hit, onClick }: { hit: Hit; onClick: () => void }) => (
+    <button className={`found-key k-${hit.word.k}`} onClick={onClick}>
+        <Picture word={hit.word} className="found-pic" />
+        <span className="found-word">{hit.word.w} <small className="found-page">· {hit.pageName}</small></span>
+        {hit.word.ca && <span className="found-ca" lang="ca">{hit.word.ca}</span>}
+    </button>
+);
+
+// An empty Core slot is filled by starring a button from a page into it.
+function StarSlot({ board, onPick }: { board: Board; onPick: (hit: Hit) => void }) {
+    const [text, setText] = useState('');
+    const hits = text.trim() ? findButtons(board, text, { distinct: false, limit: 30 }).filter(hit => hit.page !== 'core' && coreSlot(board, hit.word) < 0) : [];
+    return (
+        <>
+            <label>Star a button into this slot
+                <input value={text} autoFocus placeholder="Find it: English or Catalan" onChange={event => setText(event.target.value)} />
+            </label>
+            {text.trim() && (
+                <div className="find-results">
+                    {hits.length === 0 && <p className="hint">No unstarred button matches “{text.trim()}”. A new word goes on a page first.</p>}
+                    {hits.map(hit => <FoundKey key={`${hit.page}-${hit.index}`} hit={hit} onClick={() => onPick(hit)} />)}
+                </div>
+            )}
+        </>
+    );
 }
 
 function readToken() {
@@ -86,6 +115,13 @@ export default function Create() {
     }, [board, images]);
     useEffect(() => () => { for (const url of images.keys()) URL.revokeObjectURL(url); }, [images]);
     const missing = useMemo(() => board ? missingCatalan(board) : [], [board]);
+    // The button just left may have become a starred one (see joinStarred).
+    const here = useRef<{ tab: string; index: number } | null>(null);
+    useEffect(() => {
+        const left = here.current;
+        here.current = selected === null ? null : { tab, index: selected };
+        if (left) setBoard(current => current && joinStarred(current, left.tab, left.index));
+    }, [tab, selected]);
 
     useEffect(() => {
         if (!dirty) return;
@@ -96,7 +132,7 @@ export default function Create() {
 
     function start(next: Board, isCustom: boolean, { revision, sync }: BoardSync) {
         const clean = sanitizeBoard(next) ?? DEFAULT_BOARD;
-        setBoard(clean);
+        setBoard(linkStars(structuredClone(clean)));
         setSavedJson(JSON.stringify(clean));
         setCustom(isCustom);
         setBoardSync({ revision, sync });
@@ -205,19 +241,31 @@ export default function Create() {
     const words = tab === 'core' ? board.core : page?.words ?? null;
     const listOf = (draft: Board) => tab === 'core' ? draft.core : draft.pages[pageIndex].words;
     const word = words && selected !== null ? words[selected] : undefined;
+    // Where a starred button is: its Core slot (from 1, or 0) and the page it lives on, even while its English is
+    // cleared to type another (an empty Core slot has no page, so it offers buttons to star).
+    const slot = word ? coreSlot(board, word) + 1 : 0;
+    const home = word && board.pages.find(item => item.words.includes(word));
     const limit = tab === 'core' ? LIMITS.core : LIMITS.words;
 
     const choose = (id: string) => { setTab(id); setSelected(null); };
+    // A starred button is one object in Core and on its page (see stars.ts), so this changes it in both.
     const setWord = (fields: Partial<Word>) => edit(draft => { Object.assign(listOf(draft)[selected!], fields); });
+    const toggleStar = () => edit(draft => {
+        const item = listOf(draft)[selected!];
+        if (coreSlot(draft, item) >= 0) unstar(draft, item);
+        else star(draft, item);
+    });
+    const starInto = (hit: Hit) => edit(draft => { draft.core[selected!] = draft.pages.find(item => item.id === hit.page)!.words[hit.index]; });
     function moveWord(delta: number) {
         const to = selected! + delta;
         if (!words || to < 0 || to >= words.length) return;
         edit(draft => { const list = listOf(draft); [list[selected!], list[to]] = [list[to], list[selected!]]; });
         setSelected(to);
     }
+    // keepSlot: Core's Unstar, which leaves the slot empty. A button removed from its page leaves Core too.
     function removeWord(keepSlot: boolean) {
-        if (keepSlot) return setWord({ w: '', e: undefined, s: undefined, ca: undefined });
-        edit(draft => { listOf(draft).splice(selected!, 1); });
+        if (keepSlot) return edit(draft => { draft.core[selected!] = { w: '', k: draft.core[selected!].k }; });
+        edit(draft => { unstarRemoved(draft, listOf(draft).splice(selected!, 1)); });
         setSelected(words!.length > 1 ? Math.min(selected!, words!.length - 2) : null);
     }
     function addWord() {
@@ -241,8 +289,10 @@ export default function Create() {
         edit(draft => { [draft.pages[pageIndex], draft.pages[to]] = [draft.pages[to], draft.pages[pageIndex]]; });
     }
     function deletePage() {
-        if (!page || !confirm(`Delete the page "${page.name}" and its ${page.words.length} buttons?`)) return;
-        edit(draft => { draft.pages.splice(pageIndex, 1); });
+        const starred = page?.words.filter(item => coreSlot(board!, item) >= 0).length;
+        if (!page || !confirm(`Delete the page "${page.name}" and its ${page.words.length} buttons?`
+            + (starred ? ` ${starred} of them ${starred === 1 ? 'is' : 'are'} starred and will leave Core too.` : ''))) return;
+        edit(draft => { unstarRemoved(draft, draft.pages.splice(pageIndex, 1)[0].words); });
         choose('core');
     }
 
@@ -260,7 +310,7 @@ export default function Create() {
     const save = () => run('Saving…', async () => {
         const empty = board.pages.reduce((sum, item) => sum + item.words.filter(entry => !entry.w).length, 0)
             + board.quick.filter(item => !item.t.trim()).length;
-        const next = structuredClone(board);
+        const next = structuredClone(selected === null ? board : joinStarred(board, tab, selected));
         for (const word of [...next.core, ...next.pages.flatMap(page => page.words)]) {
             if (!word.w.trim() || !word.s?.startsWith('blob:')) continue;
             const image = images.get(word.s);
@@ -280,7 +330,7 @@ export default function Create() {
         return `${saved} Open student boards refresh automatically.${empty ? ` ${empty} empty button${empty === 1 ? ' was' : 's were'} left out.` : ''}`;
     });
     // Coloured as on the students' board (see App.tsx).
-    const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '🔤' },
+    const tabs: { id: string; name: string; icon: string; kind?: Kind }[] = [{ id: 'core', name: 'Core', icon: '⭐' },
         { id: 'quick', name: 'Quick phrases', icon: '⚡', kind: 'social' }, ...board.pages.map(page => ({ ...page, kind: pageKind(page.words) }))];
 
     const editor = (
@@ -292,7 +342,7 @@ export default function Create() {
                 <div className="create-actions">
                     {ai && <button onClick={() => void translate(missing)} disabled={!missing.length || !!busy}
                         title="Translate every button, page name and phrase that has no Catalan">✨ Fill missing Catalan{missing.length ? ` (${missing.length})` : ''}</button>}
-                    <button onClick={() => { setBoard(JSON.parse(savedJson)); setSelected(null); }} disabled={!dirty || !!busy}>Undo changes</button>
+                    <button onClick={() => { setBoard(linkStars(JSON.parse(savedJson))); setSelected(null); }} disabled={!dirty || !!busy}>Undo changes</button>
                     <a className="button" href="/" target="_blank" rel="noopener">Open the board ↗</a>
                     <button disabled={!!busy} onClick={() => { if (!dirty || confirm('Sign out and lose the unsaved changes?')) { signOut(); setBoard(null); } }}>Sign out</button>
                     <button className="primary" onClick={() => void save()} disabled={!dirty || !!busy}
@@ -319,7 +369,7 @@ export default function Create() {
             {message && <div className={message.bad ? 'msg bad' : 'msg'} role="status">{message.text}</div>}
 
             {/* Find a button by its English or Catalan; a result opens its page with it selected. Every place a word is
-                (Core and its page) is listed, to edit that one. */}
+                (Core and its page) is listed: a starred button is one button in both, so either changes it. */}
             <div className="find">
                 <input value={findText} onChange={event => setFindText(event.target.value)} aria-label="Find a button"
                     placeholder="🔍 Find a button: English or Catalan (? one letter, * any letters)"
@@ -329,14 +379,8 @@ export default function Create() {
                     return (
                         <div className="find-results">
                             {hits.length === 0 && <p className="hint">No button matches “{findText.trim()}”.</p>}
-                            {hits.map(hit => (
-                                <button key={`${hit.page}-${hit.index}`} className={`found-key k-${hit.word.k}`}
-                                    onClick={() => { setTab(hit.page); setSelected(hit.index); setFindText(''); }}>
-                                    <Picture word={hit.word} className="found-pic" />
-                                    <span className="found-word">{hit.word.w} <small className="found-page">· {hit.pageName}</small></span>
-                                    {hit.word.ca && <span className="found-ca" lang="ca">{hit.word.ca}</span>}
-                                </button>
-                            ))}
+                            {hits.map(hit => <FoundKey key={`${hit.page}-${hit.index}`} hit={hit}
+                                onClick={() => { setTab(hit.page); setSelected(hit.index); setFindText(''); }} />)}
                         </div>
                     );
                 })()}
@@ -374,7 +418,8 @@ export default function Create() {
 
                     {words && (
                         <div className={`grid${tab === 'core' ? ' core' : ''}`}>
-                            {words.map((item, index) => <Key key={index} word={item} selected={index === selected} onTap={() => setSelected(index)} />)}
+                            {words.map((item, index) => <Key key={index} word={item} selected={index === selected} onTap={() => setSelected(index)}
+                                starred={tab !== 'core' && coreSlot(board, item) >= 0} />)}
                             <button className="key add" onClick={addWord} disabled={words.length >= limit}>+ Add</button>
                         </div>
                     )}
@@ -409,16 +454,30 @@ export default function Create() {
                             <div className="side-help">
                                 <h2>{tab === 'core' ? 'Core words' : page?.name}</h2>
                                 <p>Click a button to change it, or <b>+ Add</b> for a new one. Saved changes reach students when they open or reload the board.</p>
-                                {tab === 'core' && <p>Core words keep their places so hands learn where they are. To take one away, empty its slot: the others stay put.</p>}
+                                {tab === 'core' ? <>
+                                    <p>Core is the starred buttons. Each lives on a page: <b>☆ Star</b> it there, or click an empty slot here to star one into it. It is the same button in both places.</p>
+                                    <p>Core words keep their places so hands learn where they are. <b>☆ Unstar</b> leaves the slot empty: the others stay put.</p>
+                                </> : <p>★ marks a button that is starred on Core.</p>}
                                 <p>Every button shows its Catalan when students hold it, or point at it with a mouse.</p>
                                 <p>Choose a symbol, a photo or a GIF, upload a picture, or enter an emoji.</p>
                             </div>
                         ) : (
                             <div className="word-edit" key={`${tab}-${selected}`}>
                                 <h2>{tab === 'core' ? `Core slot ${selected! + 1}` : `Button ${selected! + 1}`}</h2>
+                                {tab === 'core' && !word.w && !home ? <StarSlot board={board} onPick={starInto} /> : <>
+                                {tab !== 'core' ? (
+                                    <button className={`star${slot ? ' on' : ''}`} onClick={toggleStar} disabled={!word.w || (!slot && coreFull(board))}
+                                        title={slot ? 'Take it off Core. It stays on this page, and its Core slot stays empty so the other core words keep their places.'
+                                            : coreFull(board) ? 'Core is full: unstar or empty a slot first' : 'Put it on Core too, in the first empty slot'}>
+                                        {slot ? `★ On Core, slot ${slot}: unstar` : '☆ Star: add to Core'}
+                                    </button>
+                                ) : home ? (
+                                    <p className="hint">Starred from <button className="link" onClick={() => { setTab(home.id); setSelected(home.words.indexOf(word)); }}>{home.name}</button>:
+                                        the same button, so a change here changes it there too.</p>
+                                ) : <p className="hint">On no page yet: a core word from before Core was the starred buttons.</p>}
                                 <div className="preview"><Key word={word.w ? word : { ...word, w: '…' }} onTap={() => {}} /></div>
                                 <label>English
-                                    <input value={word.w} maxLength={LIMITS.word} autoFocus placeholder={tab === 'core' ? 'Empty slot: type a word' : 'Type a word'}
+                                    <input value={word.w} maxLength={LIMITS.word} autoFocus placeholder="Type a word"
                                         onChange={event => setWord({ w: event.target.value })} />
                                 </label>
                                 <SymbolPicker value={word.s} word={word.w} shared={boardSync.revision !== undefined} onPick={s => setWord({ s })}
@@ -435,7 +494,8 @@ export default function Create() {
                                         <input lang="ca" value={word.ca ?? ''} maxLength={LIMITS.ca} onChange={event => setWord({ ca: event.target.value })} />
                                         {ai && <button disabled={!word.w.trim()} title="Translate with AI" onClick={() => {
                                             const at = selected!;
-                                            void translateOne(word.w, `${HINT[word.k]}${page ? ` on the ${page.name} page` : ', core word'}`, (draft, ca) => {
+                                            const where = page ?? home;
+                                            void translateOne(word.w, `${HINT[word.k]}${where ? ` on the ${where.name} page` : ', core word'}`, (draft, ca) => {
                                                 const item = listOf(draft)[at];
                                                 if (item) item.ca = ca;
                                             });
@@ -447,16 +507,19 @@ export default function Create() {
                                         {KINDS.map(item => <option key={item.kind} value={item.kind}>{item.name}</option>)}
                                     </select>
                                 </label>
+                                </>}
                                 <span className="inline">
                                     <button onClick={() => moveWord(-1)} disabled={selected === 0}>◀ Move</button>
                                     <button onClick={() => moveWord(1)} disabled={selected === words.length - 1}>Move ▶</button>
                                 </span>
                                 {tab === 'core' ? (
                                     <span className="inline">
-                                        <button onClick={() => removeWord(true)} disabled={!word.w}>Empty this slot</button>
+                                        {word.w && <button onClick={() => removeWord(true)}
+                                            title={`Its slot stays empty, so the other core words keep their places.${home ? ` It stays on ${home.name}.` : ''}`}>
+                                            {home ? '☆ Unstar' : 'Empty this slot'}</button>}
                                         <button className="danger" onClick={() => removeWord(false)} title="The words after it move back one place">Remove slot</button>
                                     </span>
-                                ) : <button className="danger" onClick={() => removeWord(false)}>Remove button</button>}
+                                ) : <button className="danger" onClick={() => removeWord(false)} title={slot ? 'It leaves Core too' : undefined}>Remove button</button>}
                                 <button className="link" onClick={() => setSelected(null)}>Done</button>
                             </div>
                         )}

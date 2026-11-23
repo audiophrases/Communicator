@@ -29,6 +29,18 @@ export function pageKind(words: Word[]): Kind | undefined {
     return best;
 }
 
+// Core is the starred buttons (see src/stars.ts): a core word is a button from a page, one button in both places.
+// A page button with a core word's English and colour is that button, with its picture, emoji and Catalan.
+export const sameButton = (a: Word, b: Word) => !!a.w && a.w === b.w && a.k === b.k;
+
+// Where a core word and its page copy look different (boards saved before they were linked), the core word wins.
+export function linkCoreWords(board: Board) {
+    for (const page of board.pages) page.words = page.words.map(word => {
+        const main = board.core.find(item => sameButton(item, word));
+        return main ? { ...main } : word;
+    });
+}
+
 export const LIMITS = { core: 80, pages: 24, words: 160, quick: 80, word: 40, emoji: 16, ca: 80, phrase: 200, phraseCa: 300, name: 24, json: 120_000 };
 
 const isKind = (value: unknown): value is Kind => KINDS.some(item => item.kind === value);
@@ -85,5 +97,7 @@ export function sanitizeBoard(value: unknown): Board | null {
     // Trailing empty core slots hold nothing in place.
     while (core.length && !core[core.length - 1].w) core.pop();
     const version = input.pictureVersion;
-    return { core, pages, quick, ...(version === 1 || version === 2 || version === 3 || version === 4 ? { pictureVersion: version } : {}) };
+    const board: Board = { core, pages, quick, ...(version === 1 || version === 2 || version === 3 || version === 4 ? { pictureVersion: version } : {}) };
+    linkCoreWords(board);
+    return board;
 }

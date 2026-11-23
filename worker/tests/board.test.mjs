@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import { test } from 'node:test';
 import { LIMITS, sanitizeBoard, symbolUrl } from '../../shared/board.ts';
+import { coreSlot, joinStarred, linkStars, star, unstar, unstarRemoved } from '../../src/stars.ts';
 import { DEFAULT_BOARD } from '../../src/vocab.ts';
 import { readBoard } from '../../src/boardData.ts';
 
@@ -97,6 +98,63 @@ test('sanitizeBoard keeps empty core slots in place but drops empty page buttons
     assert.deepEqual(board.pages.map(page => [page.id, page.name, page.icon, page.words.length]), [['food', 'Food', '🍎', 2], ['food-2', 'Food 2', '📄', 0]]);
     assert.equal(board.pages[0].words[1].k, 'noun');
     assert.deepEqual(board.quick, [{ t: 'Hello!', ca: 'Hola!' }, { t: 'Thanks a lot' }]);
+});
+
+test('a core word and its page copy are one button', () => {
+    const gif = `upload_${'a'.repeat(64)}.gif`;
+    const board = sanitizeBoard({
+        core: [{ w: 'I', k: 'person', ca: 'jo', s: gif }, { w: 'what', k: 'question', e: '?📦', ca: 'què' }],
+        pages: [
+            { id: 'people', name: 'People', words: [{ w: 'I', k: 'person', ca: 'jo', s: 'I_me' }, { w: 'me', k: 'person', s: 'scene_me' }] },
+            // Same English in another colour is another word.
+            { id: 'ask', name: 'Ask', words: [{ w: 'what', k: 'question', s: 'what' }, { w: 'I', k: 'noun', e: '🔤' }] }
+        ],
+        quick: []
+    });
+    assert.deepEqual(board.pages[0].words, [{ w: 'I', k: 'person', ca: 'jo', s: gif }, { w: 'me', k: 'person', s: 'scene_me' }]);
+    assert.deepEqual(board.pages[1].words, [{ w: 'what', k: 'question', e: '?📦', ca: 'què' }, { w: 'I', k: 'noun', e: '🔤' }]);
+});
+
+test('Core is the starred buttons: one button in Core and on its pages while editing', () => {
+    const board = linkStars(sanitizeBoard({
+        core: [{ w: 'I', k: 'person', ca: 'jo' }, { w: 'hot', k: 'describe', e: '🔥' }, { w: 'old', k: 'noun' }],
+        pages: [
+            { id: 'people', name: 'People', words: [{ w: 'I', k: 'person' }, { w: 'you', k: 'person' }] },
+            { id: 'describe', name: 'Describe', words: [{ w: 'hot', k: 'describe' }] },
+            { id: 'nature', name: 'Nature', words: [{ w: 'hot', k: 'describe' }, { w: 'to', k: 'little' }] }
+        ],
+        quick: []
+    }));
+    const [people, describe, nature] = board.pages;
+    assert.equal(board.core[0], people.words[0]);
+    assert.equal(board.core[1], describe.words[0]);
+    assert.equal(nature.words[0], describe.words[0]);
+    // A copy for editing is still one button: a change in Core is a change on its page.
+    const draft = structuredClone(board);
+    draft.core[0].s = 'I_me';
+    assert.equal(draft.pages[0].words[0].s, 'I_me');
+    assert.equal(JSON.stringify(sanitizeBoard(JSON.parse(JSON.stringify(draft))).pages[0].words[0]), '{"w":"I","k":"person","ca":"jo","s":"I_me"}');
+
+    // Unstarring leaves the slot empty so the others keep their places; starring fills the first empty slot.
+    unstar(draft, draft.pages[0].words[0]);
+    assert.deepEqual(draft.core.map(word => word.w), ['', 'hot', 'old']);
+    assert.equal(draft.pages[0].words[0].w, 'I');
+    star(draft, draft.pages[0].words[1]);
+    assert.equal(draft.core[0], draft.pages[0].words[1]);
+    assert.equal(coreSlot(draft, draft.pages[0].words[1]), 0);
+    assert.equal(coreSlot(draft, draft.pages[0].words[0]), -1);
+
+    // Taken off one page it stays starred while another page has it; off every page, it leaves Core.
+    unstarRemoved(draft, draft.pages[2].words.splice(0, 1));
+    assert.equal(draft.core[1].w, 'hot');
+    unstarRemoved(draft, draft.pages.splice(1, 1)[0].words);
+    assert.deepEqual(draft.core.map(word => word.w), ['you', '', 'old']);
+
+    // A page word typed as a starred button's word and colour becomes that button once the teacher moves on.
+    draft.pages[1].words.push({ w: 'you', k: 'person' });
+    const joined = joinStarred(draft, 'nature', 1);
+    assert.equal(joined.pages[1].words[1], joined.core[0]);
+    assert.equal(joinStarred(draft, 'nature', 0), draft);
 });
 
 test('sanitizeBoard refuses what is not a board and caps sizes', () => {

@@ -372,7 +372,7 @@
           "w": "I",
           "k": "person",
           "ca": "jo",
-          "s": "I_me"
+          "s": "upload_518388d7e439bf0c858fe6ba5c5762ef13c661223d221ae94afe36576fbbe446.gif"
         },
         {
           "w": "you",
@@ -3929,13 +3929,13 @@
         {
           "w": "what",
           "k": "question",
-          "ca": "què",
-          "s": "what"
+          "e": "?📦",
+          "ca": "què"
         },
         {
           "w": "where",
           "k": "question",
-          "e": "📍",
+          "e": "?📌",
           "ca": "on"
         },
         {
@@ -3965,8 +3965,8 @@
         {
           "w": "?",
           "k": "question",
-          "e": "💬❔",
-          "ca": "interrogant: és una pregunta"
+          "ca": "interrogant: és una pregunta",
+          "s": "how"
         },
         {
           "w": "which",

@@ -201,6 +201,9 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .create .grid.core { grid-template-columns: repeat(10, minmax(0, 1fr)); min-height: 0; grid-auto-rows: minmax(64px, auto); }
 .create .key.blank { border: 2px dashed var(--line); background: transparent; min-height: 64px; cursor: pointer; }
 .create .key.selected { outline: 4px solid var(--accent); outline-offset: 2px; }
+.create .key.starred { position: relative; }
+.key-star { position: absolute; top: 1px; right: 4px; font-size: .85rem; line-height: 1; color: #b07d00; }
+.create button.star.on { background: #fff4c2; border-color: #d9a400; }
 .create .key.add { border: 2px dashed var(--soft); background: transparent; color: var(--soft); font-size: 1.05rem; }
 .create-side { position: sticky; top: 10px; background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 14px; }
 .create-side h2 { margin: 0; font-size: 1.1rem; }

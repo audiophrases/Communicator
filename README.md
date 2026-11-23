@@ -171,7 +171,10 @@ Open `/create` and sign in with the teacher password. There you can:
   and correct it;
 - **Save** for everyone, or **Undo changes** since the last save.
 
-Removing a core word with **Empty this slot** keeps its place empty, so the words around it do not move.
+Core (⭐) is the starred buttons. Every button lives on a page; **☆ Star** puts it on Core too, in the first empty
+slot, and ★ marks it on its page. It is one button in both places, so a change in either changes both. To fill an
+empty Core slot, click it and find the button to star into it. **☆ Unstar** keeps its place empty, so the words around
+it do not move, and the button stays on its page. Removing a starred button from its page takes it off Core too.
 
 ## How it works
 
@@ -179,8 +182,8 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 | --- | --- | --- |
 | Board | `src/vocab.ts`, `src/App.tsx` | 60 fixed core buttons, 19 topic pages with about 1,200 words and expressions, and 38 quick phrases, all with Catalan |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
-| Editor | `src/Create.tsx`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
-| Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots |
+| Editor | `src/Create.tsx`, `src/stars.ts`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
+| Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots, core words and their page copies kept alike |
 | Fix | `worker/phrase.ts`, `worker/model.ts` | One chat-model call returns the sentence, up to 2 other meanings, and its Catalan |
 | Translate | `worker/translate.ts` | Teacher only: Catalan for new buttons and phrases, told the word type and page to pick the meaning |
 | Speak | `worker/speech.ts`, `src/speech.ts`, `shared/voices.ts` | The serving Worker fetches English audio from PinPlay's Edge TTS bridge and caches clips for repeat playback |
@@ -199,10 +202,11 @@ Removing a core word with **Empty this slot** keeps its place empty, so the word
 - **Colour by word type** (modified Fitzgerald key): people yellow, verbs green, describing words blue, things orange,
   questions purple, social pink, "yes/no/not" red (yes and no as one pair of answers), little words grey. Published charts differ on the exact colours; being
   consistent is what matters. Page tabs take the colour of most of their words.
-- **Core words are on their pages too.** Each core word also leads the page of its colour (pronouns on People, core
-  verbs on Actions, describing words on Describe, "now" on Time, little words on Little words), so a sentence can be built
-  on one page without going back to Core. Question words and yes/no/not/please, whose colours had no page, have
-  **Ask & answer**. It is the same button: same picture, same Catalan.
+- **Core is the starred buttons.** Every core word lives on the page of its colour, and leads it (pronouns on People,
+  core verbs on Actions, describing words on Describe, "now" on Time, little words on Little words), so a sentence can be
+  built on one page without going back to Core. Question words and yes/no/not/please, whose colours had no page, have
+  **Ask & answer**. Starring puts the most used ones on Core as well: the same button, with the same picture and
+  Catalan. The saved board keeps a copy in each place, and `sanitizeBoard` keeps them alike.
 - **Fix suggests, the speaker decides.** The Fix button opens suggestions for review. Ctrl+Enter explicitly asks
   to speak the main suggestion. Tapping a suggestion says it aloud, so the speaker can hear it, compare it
   with their own attempt and try again, or bring it into the bar with ✏️ to change it. While Fix is on there is
