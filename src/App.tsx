@@ -732,8 +732,7 @@ export default function App() {
             </header>
 
             <div className="tab-row">
-                <nav className="tabs" aria-label="Pages"
-                    style={{ gridTemplateColumns: `repeat(${Math.ceil(tabs.length / 2)}, max-content)` }}>
+                <nav className="tabs" aria-label="Pages">
                     {tabs.map(item => (
                         <button key={item.id} data-page={item.id} aria-current={tab === item.id ? 'page' : undefined} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
                             <span className="tab-icon" aria-hidden="true">{item.icon}</span>{item.name}
