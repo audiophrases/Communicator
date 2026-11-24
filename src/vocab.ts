@@ -67,7 +67,7 @@ const SYMBOLS: Record<string, Record<string, string>> = {
     },
     nature: {
         sun: 'sun', rain: 'rain', snow: 'snow', cloud: 'cloudy', spring: 'spring', summer: 'summer', autumn: 'autumn', winter: 'winter',
-        tree: 'tree', flower: 'flower', mountain: 'mountains', elephant: 'elephant'
+        tree: 'tree', flower: 'flower', mountain: 'mountains'
     },
     school: {
         desk: 'desk', dictionary: 'dictionary', study: 'study_,_to', spell: 'spell_,_to', correct: 'correct', guess: 'guess_,_to',
@@ -183,9 +183,23 @@ export const DEFAULT_BOARD: Board = {
         ]) },
         { id: 'nature', name: 'Nature & weather', ca: 'Natura i clima', icon: '⛅', words: [...withSymbols('nature', [
             ...row('noun', `weather=🌦️=el temps (meteo)|sun==sol|rain==pluja|snow==neu|cloud==núvol|wind=💨=vent|ice=🧊❄️=gel|fire=🔥=foc|spring==primavera|summer==estiu|autumn==tardor|winter==hivern`),
-            ...row('describe', `warm=@scene_warm=càlid`)]), ...fromCore('hot', 'cold'), ...withSymbols('nature', row('noun', `sea=🌊=mar|river=🏞️=riu|mountain==muntanya|island=🏝️=illa|tree==arbre|flower==flor|plant=🪴=planta|star=🌟=estrella|air=@scene_air=aire|land=@scene_land=terra|animal=🐾=animal|dog=🐕=gos|cat=🐈=gat|bird=🐦=ocell|horse=🐎=cavall|cow=🐄=vaca|pig=🐖=porc|sheep=🐑=ovella|mouse=🐁=ratolí|lion=🦁=lleó|elephant==elefant|snake=🐍=serp`)),
+            ...row('describe', `warm=@scene_warm=càlid`)]), ...fromCore('hot', 'cold'), ...withSymbols('nature', row('noun', `sea=🌊=mar|river=🏞️=riu|mountain==muntanya|island=🏝️=illa|tree==arbre|flower==flor|plant=🪴=planta|star=🌟=estrella|air=@scene_air=aire|land=@scene_land=terra`)),
             ...row('noun', `storm=@thunder_storm=tempesta|fog=🌫️=boira|forest=🌲🌳=bosc|lake=🏞️💧=llac|environment=🌍🌱=medi ambient|rubbish=🗑️🛍️=deixalles`),
             ...row('verb', `recycle=@recycle_logo=reciclar`)
+        ] },
+        // Pets, farm, wild, sea and small animals, then what people do with them. Fish and farm are also on Food and
+        // Places, the same buttons; chicken here is the animal, not the food. 🐢 is "slow" and 🐜 is "small", so the
+        // turtle and the ant are Mulberry symbols.
+        { id: 'animals', name: 'Animals', ca: 'Animals', icon: '🐾', words: [
+            ...row('noun', `animal=🐾=animal|pet=🐶🏠=animal de companyia / mascota|dog=🐕=gos|cat=🐈=gat|bird=🐦=ocell|fish=🐟=peix|rabbit=🐇=conill|hamster=🐹=hàmster|mouse=🐁=ratolí|turtle=@turtle=tortuga`),
+            ...row('noun', `farm=🚜=granja|horse=🐎=cavall|cow=🐄=vaca|pig=🐖=porc|sheep=🐑=ovella|goat=🐐=cabra|chicken=🐔=gallina / pollastre|duck=🦆=ànec|donkey=@donkey=ase / ruc`),
+            ...row('noun', `zoo=🦒🎟️=zoo|lion=🦁=lleó|tiger=🐅=tigre|elephant=@elephant=elefant|monkey=🐒=mico / mona|bear=🐻=ós|giraffe=🦒=girafa|zebra=🦓=zebra|hippo=🦛=hipopòtam|crocodile=🐊=cocodril|kangaroo=🦘=cangur|camel=🐫=camell|wolf=🐺=llop|fox=🦊=guineu|panda=🐼=panda|snake=🐍=serp|lizard=🦎=sargantana / llangardaix|frog=🐸=granota`),
+            ...row('noun', `dolphin=🐬=dofí|whale=🐋=balena|shark=🦈=tauró|octopus=🐙=pop|jellyfish=@jellyfish=medusa|crab=🦀=cranc|parrot=🦜=lloro|penguin=🐧=pingüí|owl=🦉=mussol / òliba|eagle=🦅=àguila`),
+            ...row('noun', `insect=🐜🐞=insecte|ant=@ant=formiga|bee=🐝=abella|butterfly=🦋=papallona|fly=@fly=mosca|mosquito=🦟=mosquit|spider=🕷️=aranya|snail=🐌=cargol`),
+            ...row('noun', `wing=@wing=ala|feather=@feather=ploma|nest=@nest=niu|cage=@cage=gàbia`),
+            ...row('person', `vet=🩺🐾=veterinari / veterinària`),
+            ...row('verb', `feed=@feed_cat_,_to=donar menjar (a un animal)|walk the dog=@walk_dog_,_to=passejar el gos|bite=@bite_,_to=mossegar|bark=🐕🔊=bordar`),
+            ...row('describe', `wild=🐺🌲=salvatge`)
         ] },
         { id: 'school', name: 'School', ca: 'Escola', icon: '🏫', words: withSymbols('school', [
             ...row('noun', `class=@scene_class=classe|classroom=@class_room=aula|lesson=@scene_lesson=lliçó|course=@scene_course=curs|subject=@scene_subject=assignatura|homework=📓=deures|exercise=📖✏️=exercici|test=💯=prova|exam=@scene_exam=examen|break=@break_time_1=pausa|language=@scene_language=llengua / idioma|maths=➗=matemàtiques|science=🔬=ciències|history=@history=història|geography=@geography=geografia|art=@art=art|project=@scene_project=projecte|pencil=✏️=llapis|desk==pupitre|dictionary==diccionari|page=📃=pàgina|letter=✉️=carta / lletra|sentence=@scene_sentence=frase|phrase=💬…=expressió|paragraph=¶=paràgraf|text=@scene_text=text|story=@scene_story=història / conte|article=@scene_article=article|title=@scene_title=títol|topic=💬🎯=tema|dialogue=🗨️↔️=diàleg|conversation=💬=conversa|meaning=@scene_meaning=significat|example=@scene_example=exemple|difference=@scene_difference=diferència|mistake=@mistake_no_wrong=error|spelling=🔠✏️=ortografia|note=🗒️=nota / apunt|list=@scene_list=llista|chart=📊=gràfic|line=@line_horizontal=línia|information=ℹ️=informació|idea=@scene_idea=idea|opinion=@scene_opinion=opinió|rule=@scene_rule=norma|practice=@scene_practice=pràctica|result=@scene_result=resultat`),

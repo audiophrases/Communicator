@@ -5713,78 +5713,6 @@
           "s": "scene_land"
         },
         {
-          "w": "animal",
-          "k": "noun",
-          "e": "🐾",
-          "ca": "animal"
-        },
-        {
-          "w": "dog",
-          "k": "noun",
-          "e": "🐕",
-          "ca": "gos"
-        },
-        {
-          "w": "cat",
-          "k": "noun",
-          "e": "🐈",
-          "ca": "gat"
-        },
-        {
-          "w": "bird",
-          "k": "noun",
-          "e": "🐦",
-          "ca": "ocell"
-        },
-        {
-          "w": "horse",
-          "k": "noun",
-          "e": "🐎",
-          "ca": "cavall"
-        },
-        {
-          "w": "cow",
-          "k": "noun",
-          "e": "🐄",
-          "ca": "vaca"
-        },
-        {
-          "w": "pig",
-          "k": "noun",
-          "e": "🐖",
-          "ca": "porc"
-        },
-        {
-          "w": "sheep",
-          "k": "noun",
-          "e": "🐑",
-          "ca": "ovella"
-        },
-        {
-          "w": "mouse",
-          "k": "noun",
-          "e": "🐁",
-          "ca": "ratolí"
-        },
-        {
-          "w": "lion",
-          "k": "noun",
-          "e": "🦁",
-          "ca": "lleó"
-        },
-        {
-          "w": "elephant",
-          "k": "noun",
-          "ca": "elefant",
-          "s": "elephant"
-        },
-        {
-          "w": "snake",
-          "k": "noun",
-          "e": "🐍",
-          "ca": "serp"
-        },
-        {
           "w": "storm",
           "k": "noun",
           "ca": "tempesta",
@@ -5825,6 +5753,404 @@
           "k": "verb",
           "ca": "reciclar",
           "s": "recycle_logo"
+        }
+      ]
+    },
+    {
+      "id": "animals",
+      "name": "Animals",
+      "icon": "🐾",
+      "ca": "Animals",
+      "words": [
+        {
+          "w": "animal",
+          "k": "noun",
+          "e": "🐾",
+          "ca": "animal"
+        },
+        {
+          "w": "pet",
+          "k": "noun",
+          "e": "🐶🏠",
+          "ca": "animal de companyia / mascota"
+        },
+        {
+          "w": "dog",
+          "k": "noun",
+          "e": "🐕",
+          "ca": "gos"
+        },
+        {
+          "w": "cat",
+          "k": "noun",
+          "e": "🐈",
+          "ca": "gat"
+        },
+        {
+          "w": "bird",
+          "k": "noun",
+          "e": "🐦",
+          "ca": "ocell"
+        },
+        {
+          "w": "fish",
+          "k": "noun",
+          "e": "🐟",
+          "ca": "peix"
+        },
+        {
+          "w": "rabbit",
+          "k": "noun",
+          "e": "🐇",
+          "ca": "conill"
+        },
+        {
+          "w": "hamster",
+          "k": "noun",
+          "e": "🐹",
+          "ca": "hàmster"
+        },
+        {
+          "w": "mouse",
+          "k": "noun",
+          "e": "🐁",
+          "ca": "ratolí"
+        },
+        {
+          "w": "turtle",
+          "k": "noun",
+          "ca": "tortuga",
+          "s": "turtle"
+        },
+        {
+          "w": "farm",
+          "k": "noun",
+          "e": "🚜",
+          "ca": "granja"
+        },
+        {
+          "w": "horse",
+          "k": "noun",
+          "e": "🐎",
+          "ca": "cavall"
+        },
+        {
+          "w": "cow",
+          "k": "noun",
+          "e": "🐄",
+          "ca": "vaca"
+        },
+        {
+          "w": "pig",
+          "k": "noun",
+          "e": "🐖",
+          "ca": "porc"
+        },
+        {
+          "w": "sheep",
+          "k": "noun",
+          "e": "🐑",
+          "ca": "ovella"
+        },
+        {
+          "w": "goat",
+          "k": "noun",
+          "e": "🐐",
+          "ca": "cabra"
+        },
+        {
+          "w": "chicken",
+          "k": "noun",
+          "e": "🐔",
+          "ca": "gallina / pollastre"
+        },
+        {
+          "w": "duck",
+          "k": "noun",
+          "e": "🦆",
+          "ca": "ànec"
+        },
+        {
+          "w": "donkey",
+          "k": "noun",
+          "ca": "ase / ruc",
+          "s": "donkey"
+        },
+        {
+          "w": "zoo",
+          "k": "noun",
+          "e": "🦒🎟️",
+          "ca": "zoo"
+        },
+        {
+          "w": "lion",
+          "k": "noun",
+          "e": "🦁",
+          "ca": "lleó"
+        },
+        {
+          "w": "tiger",
+          "k": "noun",
+          "e": "🐅",
+          "ca": "tigre"
+        },
+        {
+          "w": "elephant",
+          "k": "noun",
+          "ca": "elefant",
+          "s": "elephant"
+        },
+        {
+          "w": "monkey",
+          "k": "noun",
+          "e": "🐒",
+          "ca": "mico / mona"
+        },
+        {
+          "w": "bear",
+          "k": "noun",
+          "e": "🐻",
+          "ca": "ós"
+        },
+        {
+          "w": "giraffe",
+          "k": "noun",
+          "e": "🦒",
+          "ca": "girafa"
+        },
+        {
+          "w": "zebra",
+          "k": "noun",
+          "e": "🦓",
+          "ca": "zebra"
+        },
+        {
+          "w": "hippo",
+          "k": "noun",
+          "e": "🦛",
+          "ca": "hipopòtam"
+        },
+        {
+          "w": "crocodile",
+          "k": "noun",
+          "e": "🐊",
+          "ca": "cocodril"
+        },
+        {
+          "w": "kangaroo",
+          "k": "noun",
+          "e": "🦘",
+          "ca": "cangur"
+        },
+        {
+          "w": "camel",
+          "k": "noun",
+          "e": "🐫",
+          "ca": "camell"
+        },
+        {
+          "w": "wolf",
+          "k": "noun",
+          "e": "🐺",
+          "ca": "llop"
+        },
+        {
+          "w": "fox",
+          "k": "noun",
+          "e": "🦊",
+          "ca": "guineu"
+        },
+        {
+          "w": "panda",
+          "k": "noun",
+          "e": "🐼",
+          "ca": "panda"
+        },
+        {
+          "w": "snake",
+          "k": "noun",
+          "e": "🐍",
+          "ca": "serp"
+        },
+        {
+          "w": "lizard",
+          "k": "noun",
+          "e": "🦎",
+          "ca": "sargantana / llangardaix"
+        },
+        {
+          "w": "frog",
+          "k": "noun",
+          "e": "🐸",
+          "ca": "granota"
+        },
+        {
+          "w": "dolphin",
+          "k": "noun",
+          "e": "🐬",
+          "ca": "dofí"
+        },
+        {
+          "w": "whale",
+          "k": "noun",
+          "e": "🐋",
+          "ca": "balena"
+        },
+        {
+          "w": "shark",
+          "k": "noun",
+          "e": "🦈",
+          "ca": "tauró"
+        },
+        {
+          "w": "octopus",
+          "k": "noun",
+          "e": "🐙",
+          "ca": "pop"
+        },
+        {
+          "w": "jellyfish",
+          "k": "noun",
+          "ca": "medusa",
+          "s": "jellyfish"
+        },
+        {
+          "w": "crab",
+          "k": "noun",
+          "e": "🦀",
+          "ca": "cranc"
+        },
+        {
+          "w": "parrot",
+          "k": "noun",
+          "e": "🦜",
+          "ca": "lloro"
+        },
+        {
+          "w": "penguin",
+          "k": "noun",
+          "e": "🐧",
+          "ca": "pingüí"
+        },
+        {
+          "w": "owl",
+          "k": "noun",
+          "e": "🦉",
+          "ca": "mussol / òliba"
+        },
+        {
+          "w": "eagle",
+          "k": "noun",
+          "e": "🦅",
+          "ca": "àguila"
+        },
+        {
+          "w": "insect",
+          "k": "noun",
+          "e": "🐜🐞",
+          "ca": "insecte"
+        },
+        {
+          "w": "ant",
+          "k": "noun",
+          "ca": "formiga",
+          "s": "ant"
+        },
+        {
+          "w": "bee",
+          "k": "noun",
+          "e": "🐝",
+          "ca": "abella"
+        },
+        {
+          "w": "butterfly",
+          "k": "noun",
+          "e": "🦋",
+          "ca": "papallona"
+        },
+        {
+          "w": "fly",
+          "k": "noun",
+          "ca": "mosca",
+          "s": "fly"
+        },
+        {
+          "w": "mosquito",
+          "k": "noun",
+          "e": "🦟",
+          "ca": "mosquit"
+        },
+        {
+          "w": "spider",
+          "k": "noun",
+          "e": "🕷️",
+          "ca": "aranya"
+        },
+        {
+          "w": "snail",
+          "k": "noun",
+          "e": "🐌",
+          "ca": "cargol"
+        },
+        {
+          "w": "wing",
+          "k": "noun",
+          "ca": "ala",
+          "s": "wing"
+        },
+        {
+          "w": "feather",
+          "k": "noun",
+          "ca": "ploma",
+          "s": "feather"
+        },
+        {
+          "w": "nest",
+          "k": "noun",
+          "ca": "niu",
+          "s": "nest"
+        },
+        {
+          "w": "cage",
+          "k": "noun",
+          "ca": "gàbia",
+          "s": "cage"
+        },
+        {
+          "w": "vet",
+          "k": "person",
+          "e": "🩺🐾",
+          "ca": "veterinari / veterinària"
+        },
+        {
+          "w": "feed",
+          "k": "verb",
+          "ca": "donar menjar (a un animal)",
+          "s": "feed_cat_,_to"
+        },
+        {
+          "w": "walk the dog",
+          "k": "verb",
+          "ca": "passejar el gos",
+          "s": "walk_dog_,_to"
+        },
+        {
+          "w": "bite",
+          "k": "verb",
+          "ca": "mossegar",
+          "s": "bite_,_to"
+        },
+        {
+          "w": "bark",
+          "k": "verb",
+          "e": "🐕🔊",
+          "ca": "bordar"
+        },
+        {
+          "w": "wild",
+          "k": "describe",
+          "e": "🐺🌲",
+          "ca": "salvatge"
         }
       ]
     },

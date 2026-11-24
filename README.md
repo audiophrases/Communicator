@@ -180,7 +180,7 @@ it do not move, and the button stays on its page. Removing a starred button from
 
 | Part | Where | What it does |
 | --- | --- | --- |
-| Board | `src/vocab.ts`, `src/App.tsx` | 60 fixed core buttons, 19 topic pages with about 1,200 words and expressions, and 38 quick phrases, all with Catalan |
+| Board | `src/vocab.ts`, `src/App.tsx` | 60 fixed core buttons, 20 topic pages with about 1,250 words and expressions, and 38 quick phrases, all with Catalan |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `src/stars.ts`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots, core words and their page copies kept alike |
@@ -221,7 +221,7 @@ it do not move, and the button stays on its page. Removing a starred button from
 - **The A1 words are all there.** The pages hold the CEFR A1 vocabulary: the A1 words of the
   [Oxford 3000](https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000) and Cambridge's
   [A1 Movers](https://www.cambridgeenglish.org/Images/351850-a1-movers-word-list-2018.pdf) word list, about 900 words. Most
-  sit on the page of their topic (Numbers, Clothes & colours, Nature & weather, School, Free time); verbs, describing
+  sit on the page of their topic (Numbers, Clothes & colours, Nature & weather, Animals, School, Free time); verbs, describing
   words and little words that fit no topic go on Actions, Describe and Little words. Left out: alcohol, CDs and DVDs,
   and second spellings of a word already there (bicycle for bike, telephone for phone, cannot for can't). Spelling is
   British, as in the Oxford list.
