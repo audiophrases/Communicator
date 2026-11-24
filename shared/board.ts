@@ -51,8 +51,9 @@ export function linkCoreWords(board: Board) {
     });
 }
 
-// The built-in board, with the Oxford 3000 up to B1, is 24 pages and about 160,000 characters: room for the teacher's own.
-export const LIMITS = { core: 80, pages: 30, words: 160, quick: 80, word: 40, emoji: 16, ca: 80, phrase: 200, phraseCa: 300, name: 24, json: 250_000 };
+// The built-in board, with the Oxford 3000 up to B1, is 20 pages and about 160,000 characters, and Actions and Describe
+// hold about 300 buttons each: room for the teacher's own.
+export const LIMITS = { core: 80, pages: 30, words: 400, quick: 80, word: 40, emoji: 16, ca: 80, phrase: 200, phraseCa: 300, name: 24, json: 250_000 };
 
 const isKind = (value: unknown): value is Kind => KINDS.some(item => item.kind === value);
 const str = (value: unknown, max: number) => typeof value === 'string' ? value.trim().replace(/\s+/g, ' ').slice(0, max) : '';

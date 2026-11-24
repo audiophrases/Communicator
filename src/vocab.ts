@@ -166,10 +166,14 @@ const FIRST_BOARD: Board = {
             ...row('describe', `already=✔️⏱️=ja|yet=⏳❔=encara / ja (en preguntes)|recently=⏪🗓️=fa poc|suddenly=⚡⏱️=de sobte|finally=🏁⏱️=finalment|on time=🕒✅=puntualment|right now=👇⏱️=ara mateix`),
             ...row('noun', `midday=🕛☀️=migdia|weekday=🗓️💼=dia feiner|Christmas=@Christmas_tree=Nadal|New Year's Day=1 Jan=Cap d'Any`)
         ])] },
-        { id: 'numbers', name: 'Numbers', ca: 'Nombres', icon: '🔢', words: withSymbols('numbers', [
+        { id: 'numbers', name: 'Numbers & shopping', ca: 'Nombres i compres', icon: '🔢', words: [...withSymbols('numbers', [
             ...row('little', `zero=0️⃣=zero|one=1️⃣=u / un|two=2️⃣=dos|three=3️⃣=tres|four=4️⃣=quatre|five=5️⃣=cinc|six=6️⃣=sis|seven=7️⃣=set|eight=8️⃣=vuit|nine=9️⃣=nou|ten=🔟=deu|eleven==onze|twelve==dotze|thirteen==tretze|fourteen==catorze|fifteen==quinze|sixteen==setze|seventeen==disset|eighteen==divuit|nineteen==dinou|twenty==vint|thirty==trenta|forty==quaranta|fifty==cinquanta|sixty==seixanta|seventy==setanta|eighty==vuitanta|ninety==noranta|hundred==cent|thousand==mil|million=10⁶=milió|first==primer / primera|second=@second=segon / segona|third=🥉=tercer / tercera|fourth=4ᵗʰ=quart / quarta|fifth=5ᵗʰ=cinquè / cinquena|half==mig / meitat|quarter==quart|once=@scene_once=una vegada|twice=2×=dues vegades`),
             ...row('noun', `pair=@scene_pair=parell|price=💲=preu|euro=€=euro|cent=¢=cèntim|dollar=💵=dòlar|pound=💷=lliura|metre=1 m=metre|kilometre=1 km=quilòmetre|mile=1 mi=milla`),
-            ...row('verb', `cost=🏷️💰=costar`)]) },
+            ...row('verb', `cost=🏷️💰=costar`)]),
+            ...row('noun', `cash=💵🪙=diners en efectiu|change=🪙↩️=canvi / monedes|wallet=@wallet=cartera|cash machine=@cash_point=caixer automàtic|basket=@basket=cistell|checkout=🛒💳=caixa (de la botiga)|queue=@queue_,_to=cua|receipt=🧾✅=tiquet de compra|refund=💳↩️=reemborsament|discount=🏷️%=descompte|size=S M L=talla|packet=🍪📦=paquet|delivery=@delivery_trolley=lliurament a domicili`),
+            ...row('verb', `try on=👕🪞=emprovar-se|exchange=👕🔄=canviar (un producte)|afford=👛✅=poder-se permetre|weigh=⚖️🍎=pesar`),
+            ...row('describe', `second-hand=👕♻️=de segona mà|sold out=🛒❌=exhaurit / exhaurida`)
+        ] },
         { id: 'things', name: 'Things', ca: 'Coses', icon: '📱', words: withSymbols('things', [
             ...row('noun', `phone=📱=telèfon / mòbil|money=💶=diners|card=💳=targeta|key=🔑=clau|bag=👜=bossa|box=📦=caixa|ticket=🎫=bitllet / entrada|passport=🛂=passaport|paper=📄=paper|form=📝=formulari|pen=🖊️=bolígraf|book=📕=llibre|newspaper=📰=diari|magazine=@scene_magazine=revista|computer=💻=ordinador|internet=🌐=internet|website=🌐🖥️=web|email=📧=correu electrònic|message=📩=missatge|password=🔐=contrasenya|radio=📻=ràdio|clock=🕰️=rellotge|picture=@picture=imatge / dibuix|present=🎁=regal|bed=🛏️=llit|door=🚪=porta|window=🪟=finestra|wall=@wall=paret|floor=@floor=terra / pis|table==taula|chair=🪑=cadira|light=💡=llum|machine=⚙️=màquina|job=💼=feina|business=@scene_business=negoci|company=🏢👥=empresa|meeting=👥💬=reunió|advice=@scene_advice=consell|problem=⚠️=problema|question=❓=pregunta|answer==resposta|name=📛=nom|address=🏷️=adreça|number=🔢=número|English=💬EN=anglès|word=🔤=paraula|news=📺📰=notícies|life=@scene_life=vida|way=🛤️=manera / camí|reason=@scene_reason=raó / motiu|kind=@scene_kind=tipus|part=@part=part|piece=@scene_piece=tros / peça|sound=🔊=so|thing=@scene_thing=cosa|something=@scene_something=alguna cosa|anything=🎁❔=res / qualsevol cosa|nothing=@scene_nothing=res|everything=🌎✳️=tot`),
             ...row('noun', `charger=@charger_electric=carregador|battery=@battery_1=bateria / pila|Wi-Fi=📶=wifi|keyboard=@computer_keyboard=teclat|screen=@touch_screen=pantalla|headphones=@headphones=auriculars|attachment=@email_attachment=fitxer adjunt`),
@@ -218,19 +222,12 @@ const FIRST_BOARD: Board = {
             ...row('little', `somewhere=❔📍=en algun lloc|anywhere=🌐📍=a qualsevol lloc|nowhere=🚫📍=enlloc|else=➕❔=més / altre`),
             ...row('little', `although=🌧️↔☀️=tot i que|however=💬↩️=tanmateix / però|instead=🔀☝️=en comptes d'això|while=⏱️⇉=mentre|since=📅→=des de / des que|unless=⚠️↪️=tret que|except=👥➖👤=excepte|either=@either=l'un o l'altre|neither=@neither=ni l'un ni l'altre|against=@against=contra|towards=→📍=cap a`)
         ] },
-        { id: 'languages', name: 'Languages', ca: 'Llengües', icon: '💬', words: [
+        { id: 'languages', name: 'Languages & countries', ca: 'Llengües i països', icon: '🌍', words: [
             ...row('noun', `English=💬EN=anglès|Catalan=💬CA=català|Spanish=💬ES=castellà / espanyol|Arabic=💬AR=àrab|Darija=💬MA=àrab marroquí / darija|Amazigh=💬ⵣ=amazic|Basque=💬EU=basc / euskera|Bengali=💬BN=bengalí|Chinese=💬ZH=xinès|Dutch=💬NL=neerlandès|French=💬FR=francès|Galician=💬GL=gallec|German=💬DE=alemany|Greek=💬EL=grec|Hindi=💬HI=hindi`),
-            ...row('noun', `Italian=💬IT=italià|Japanese=💬JA=japonès|Korean=💬KO=coreà|Mandarin=💬普=mandarí|Polish=💬PL=polonès|Portuguese=💬PT=portuguès|Punjabi=💬PA=panjabi|Romanian=💬RO=romanès|Russian=💬RU=rus|Turkish=💬TR=turc|Ukrainian=💬UK=ucraïnès|Urdu=💬UR=urdú|Wolof=💬WO=wòlof|sign language=🤟💬=llengua de signes|Catalan Sign Language=🤟LSC=llengua de signes catalana`)
-        ] },
-        { id: 'countries', name: 'Countries', ca: 'Països', icon: '🌍', words: [
+            ...row('noun', `Italian=💬IT=italià|Japanese=💬JA=japonès|Korean=💬KO=coreà|Mandarin=💬普=mandarí|Polish=💬PL=polonès|Portuguese=💬PT=portuguès|Punjabi=💬PA=panjabi|Romanian=💬RO=romanès|Russian=💬RU=rus|Turkish=💬TR=turc|Ukrainian=💬UK=ucraïnès|Urdu=💬UR=urdú|Wolof=💬WO=wòlof|sign language=🤟💬=llengua de signes|Catalan Sign Language=🤟LSC=llengua de signes catalana`),
             ...row('noun', `Spain=@flag_Spain=Espanya|Andorra=@flag_Andorra=Andorra|Algeria=@flag_Algeria=Algèria|Argentina=@flag_Argentina=Argentina|Australia=@scene_australia=Austràlia|Bangladesh=@flag_Bangladesh=Bangladesh|Belgium=@flag_Belgium=Bèlgica|Bolivia=@flag_Bolivia=Bolívia|Brazil=@flag_Brazil=Brasil|Canada=@flag_Canada=Canadà|Chile=@flag_Chile=Xile|China=@flag_China=Xina|Colombia=@flag_Colombia=Colòmbia`),
             ...row('noun', `Ecuador=@flag_Ecuador=Equador|Egypt=@flag_Egypt=Egipte|France=@flag_France=França|Germany=@flag_Germany=Alemanya|Greece=@flag_Greece=Grècia|India=@flag_India=Índia|Ireland=@flag_Ireland=Irlanda|Italy=@flag_Italy=Itàlia|Japan=@flag_Japan=Japó|Mexico=@flag_Mexico=Mèxic|Morocco=@flag_Morocco=Marroc|Netherlands=@flag_The_Netherlands=Països Baixos|Nigeria=@flag_Nigeria=Nigèria`),
             ...row('noun', `Pakistan=@flag_Pakistan=Pakistan|Peru=@flag_Peru=Perú|Philippines=@flag_Philippines=Filipines|Poland=@flag_Poland=Polònia|Portugal=@flag_Portugal=Portugal|Romania=@flag_Romania=Romania|Russia=@flag_Russian_Federation=Rússia|Senegal=@flag_Senegal=Senegal|South Africa=@flag_South_Africa=Sud-àfrica|South Korea=@flag_South_Korea=Corea del Sud|Turkey=@flag_Turkey=Turquia|Ukraine=@flag_Ukraine=Ucraïna|United Kingdom=@flag_United_Kingdom=Regne Unit|United States=@flag_United_States_of_America=Estats Units|Venezuela=@flag_Venezuela=Veneçuela`)
-        ] },
-        { id: 'shopping', name: 'Shopping', ca: 'Compres', icon: '🛍️', words: [
-            ...row('noun', `cash=💵🪙=diners en efectiu|change=🪙↩️=canvi / monedes|wallet=@wallet=cartera|cash machine=@cash_point=caixer automàtic|basket=@basket=cistell|checkout=🛒💳=caixa (de la botiga)|queue=@queue_,_to=cua|receipt=🧾✅=tiquet de compra|refund=💳↩️=reemborsament|discount=🏷️%=descompte|size=S M L=talla|packet=🍪📦=paquet|delivery=@delivery_trolley=lliurament a domicili`),
-            ...row('verb', `try on=👕🪞=emprovar-se|exchange=👕🔄=canviar (un producte)|afford=👛✅=poder-se permetre|weigh=⚖️🍎=pesar`),
-            ...row('describe', `second-hand=👕♻️=de segona mà|sold out=🛒❌=exhaurit / exhaurida`)
         ] },
         { id: 'work', name: 'Work', ca: 'Feina', icon: '💼', words: [
             ...row('noun', `interview=💼💬=entrevista|application=📝📨=sol·licitud|CV=📄👤=currículum|contract=📄✍️=contracte|salary=💼💶=sou|shift=🕗💼=torn de feina|task=📋☐=tasca|deadline=🗓️🏁=data límit|skill=🧠🛠️=habilitat|experience=💼🗓️=experiència|training=🧑‍🏫🛠️=formació|uniform=👔🪪=uniforme`),
@@ -264,7 +261,7 @@ const FIRST_BOARD: Board = {
     ].map(([t, ca]) => ({ t, ca }))
 };
 
-// The A2 and B1 words (src/vocabMore.ts) go after each page's own words, and on four pages of their own at the end.
+// The A2 and B1 words (src/vocabMore.ts) go after each page's own words, and on two pages of their own at the end.
 const more = (id: string) => (MORE[id] ?? []).flatMap(([kind, items]) => row(kind, items));
 export const DEFAULT_BOARD: Board = {
     ...FIRST_BOARD,

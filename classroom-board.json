@@ -2211,6 +2211,792 @@
           "k": "verb",
           "e": "😭",
           "ca": "plorar"
+        },
+        {
+          "w": "attend",
+          "k": "verb",
+          "e": "🙋📅",
+          "ca": "assistir (a)"
+        },
+        {
+          "w": "appear",
+          "k": "verb",
+          "e": "✨🧍",
+          "ca": "aparèixer / semblar"
+        },
+        {
+          "w": "avoid",
+          "k": "verb",
+          "e": "↪️🚧",
+          "ca": "evitar"
+        },
+        {
+          "w": "achieve",
+          "k": "verb",
+          "e": "🎯✅",
+          "ca": "aconseguir"
+        },
+        {
+          "w": "argue",
+          "k": "verb",
+          "e": "🗯️",
+          "ca": "discutir"
+        },
+        {
+          "w": "arrange",
+          "k": "verb",
+          "e": "🗂️📅",
+          "ca": "organitzar / arranjar"
+        },
+        {
+          "w": "advertise",
+          "k": "verb",
+          "e": "📢📦",
+          "ca": "anunciar (fer publicitat)"
+        },
+        {
+          "w": "affect",
+          "k": "verb",
+          "e": "👉💥",
+          "ca": "afectar"
+        },
+        {
+          "w": "behave",
+          "k": "verb",
+          "e": "🧒👍",
+          "ca": "comportar-se"
+        },
+        {
+          "w": "belong",
+          "k": "verb",
+          "e": "🎒👤",
+          "ca": "pertànyer / ser de"
+        },
+        {
+          "w": "chat",
+          "k": "verb",
+          "e": "💬🙂",
+          "ca": "xerrar"
+        },
+        {
+          "w": "complain",
+          "k": "verb",
+          "e": "🗯️😠",
+          "ca": "queixar-se"
+        },
+        {
+          "w": "cover",
+          "k": "verb",
+          "e": "☂️⬇️",
+          "ca": "tapar / cobrir"
+        },
+        {
+          "w": "disappear",
+          "k": "verb",
+          "e": "🫥",
+          "ca": "desaparèixer"
+        },
+        {
+          "w": "connect",
+          "k": "verb",
+          "e": "🔌🔗",
+          "ca": "connectar"
+        },
+        {
+          "w": "consider",
+          "k": "verb",
+          "e": "🤔💭",
+          "ca": "considerar / pensar-s'ho"
+        },
+        {
+          "w": "contain",
+          "k": "verb",
+          "e": "🫙📥",
+          "ca": "contenir"
+        },
+        {
+          "w": "depend",
+          "k": "verb",
+          "e": "🔗❓",
+          "ca": "dependre"
+        },
+        {
+          "w": "continue",
+          "k": "verb",
+          "e": "▶️➡️",
+          "ca": "continuar"
+        },
+        {
+          "w": "destroy",
+          "k": "verb",
+          "e": "💥🏚️",
+          "ca": "destruir"
+        },
+        {
+          "w": "pull",
+          "k": "verb",
+          "ca": "estirar (de)",
+          "s": "pull_,_to"
+        },
+        {
+          "w": "push",
+          "k": "verb",
+          "ca": "empènyer",
+          "s": "push_,_to"
+        },
+        {
+          "w": "hide",
+          "k": "verb",
+          "e": "🫣",
+          "ca": "amagar(-se)"
+        },
+        {
+          "w": "throw",
+          "k": "verb",
+          "e": "🤾",
+          "ca": "llançar / tirar"
+        },
+        {
+          "w": "shout",
+          "k": "verb",
+          "ca": "cridar",
+          "s": "shout_,_to"
+        },
+        {
+          "w": "develop",
+          "k": "verb",
+          "e": "🌱📈",
+          "ca": "desenvolupar"
+        },
+        {
+          "w": "deal",
+          "k": "verb",
+          "e": "🤝💬",
+          "ca": "tractar (amb) / acord"
+        },
+        {
+          "w": "drop",
+          "k": "verb",
+          "e": "🫳⬇️",
+          "ca": "deixar caure"
+        },
+        {
+          "w": "expect",
+          "k": "verb",
+          "e": "⏳👀",
+          "ca": "esperar (que passi)"
+        },
+        {
+          "w": "express",
+          "k": "verb",
+          "e": "🗣️💭",
+          "ca": "expressar"
+        },
+        {
+          "w": "fit",
+          "k": "verb",
+          "e": "🧩✅",
+          "ca": "anar bé (de mida)"
+        },
+        {
+          "w": "fail",
+          "k": "verb",
+          "e": "❌📝",
+          "ca": "suspendre / fallar"
+        },
+        {
+          "w": "focus",
+          "k": "verb",
+          "e": "🎯👀",
+          "ca": "centrar-se"
+        },
+        {
+          "w": "exist",
+          "k": "verb",
+          "e": "✨🌍",
+          "ca": "existir"
+        },
+        {
+          "w": "identify",
+          "k": "verb",
+          "e": "🔍👤",
+          "ca": "identificar"
+        },
+        {
+          "w": "greet",
+          "k": "verb",
+          "e": "👋🙂",
+          "ca": "saludar"
+        },
+        {
+          "w": "increase",
+          "k": "verb",
+          "e": "⬆️📊",
+          "ca": "augmentar"
+        },
+        {
+          "w": "knock",
+          "k": "verb",
+          "ca": "trucar (a la porta) / cop",
+          "s": "knock_,_to"
+        },
+        {
+          "w": "lead",
+          "k": "verb",
+          "e": "🚩➡️",
+          "ca": "portar / dirigir"
+        },
+        {
+          "w": "mention",
+          "k": "verb",
+          "e": "💬☝️",
+          "ca": "esmentar"
+        },
+        {
+          "w": "organise",
+          "k": "verb",
+          "e": "📋✅",
+          "ca": "organitzar"
+        },
+        {
+          "w": "notice",
+          "k": "verb",
+          "e": "👀❗",
+          "ca": "adonar-se / avís"
+        },
+        {
+          "w": "realise",
+          "k": "verb",
+          "e": "💡❗",
+          "ca": "adonar-se (de)"
+        },
+        {
+          "w": "pick",
+          "k": "verb",
+          "ca": "triar / collir",
+          "s": "pick_,_to"
+        },
+        {
+          "w": "protect",
+          "k": "verb",
+          "ca": "protegir",
+          "s": "protect_,_to"
+        },
+        {
+          "w": "provide",
+          "k": "verb",
+          "e": "🤲📦",
+          "ca": "proporcionar"
+        },
+        {
+          "w": "recognise",
+          "k": "verb",
+          "e": "👀✔️",
+          "ca": "reconèixer"
+        },
+        {
+          "w": "predict",
+          "k": "verb",
+          "e": "🔮",
+          "ca": "predir"
+        },
+        {
+          "w": "recommend",
+          "k": "verb",
+          "e": "👍💬",
+          "ca": "recomanar"
+        },
+        {
+          "w": "publish",
+          "k": "verb",
+          "e": "📰➡️",
+          "ca": "publicar"
+        },
+        {
+          "w": "reduce",
+          "k": "verb",
+          "e": "⬇️➖",
+          "ca": "reduir"
+        },
+        {
+          "w": "refer",
+          "k": "verb",
+          "e": "👉📄",
+          "ca": "referir-se"
+        },
+        {
+          "w": "prevent",
+          "k": "verb",
+          "e": "🛡️❌",
+          "ca": "prevenir / impedir"
+        },
+        {
+          "w": "raise",
+          "k": "verb",
+          "e": "🙋⬆️",
+          "ca": "aixecar / pujar"
+        },
+        {
+          "w": "produce",
+          "k": "verb",
+          "e": "🏭➡️",
+          "ca": "produir"
+        },
+        {
+          "w": "remove",
+          "k": "verb",
+          "ca": "treure",
+          "s": "remove_,_to"
+        },
+        {
+          "w": "reach",
+          "k": "verb",
+          "ca": "arribar a / abastar",
+          "s": "reach_for_,_to"
+        },
+        {
+          "w": "react",
+          "k": "verb",
+          "e": "😮⚡",
+          "ca": "reaccionar"
+        },
+        {
+          "w": "replace",
+          "k": "verb",
+          "e": "🔄📦",
+          "ca": "substituir"
+        },
+        {
+          "w": "reply",
+          "k": "verb",
+          "e": "↩️💬",
+          "ca": "respondre / resposta"
+        },
+        {
+          "w": "respond",
+          "k": "verb",
+          "e": "🗨️↩️",
+          "ca": "respondre / reaccionar"
+        },
+        {
+          "w": "shake",
+          "k": "verb",
+          "ca": "sacsejar / tremolar",
+          "s": "shake_,_to"
+        },
+        {
+          "w": "shut",
+          "k": "verb",
+          "e": "🚪🔒",
+          "ca": "tancar"
+        },
+        {
+          "w": "seem",
+          "k": "verb",
+          "e": "🤔🪞",
+          "ca": "semblar"
+        },
+        {
+          "w": "succeed",
+          "k": "verb",
+          "e": "🏆✅",
+          "ca": "tenir èxit / aconseguir"
+        },
+        {
+          "w": "support",
+          "k": "verb",
+          "e": "🤝💪",
+          "ca": "donar suport"
+        },
+        {
+          "w": "suppose",
+          "k": "verb",
+          "e": "🤔💬",
+          "ca": "suposar"
+        },
+        {
+          "w": "wish",
+          "k": "verb",
+          "e": "⭐🙏",
+          "ca": "desitjar / desig"
+        },
+        {
+          "w": "worry",
+          "k": "verb",
+          "e": "😟💭",
+          "ca": "preocupar-se"
+        },
+        {
+          "w": "attract",
+          "k": "verb",
+          "ca": "atraure",
+          "s": "attract_,_to"
+        },
+        {
+          "w": "aim",
+          "k": "verb",
+          "e": "🎯➡️",
+          "ca": "apuntar / tenir com a objectiu"
+        },
+        {
+          "w": "appreciate",
+          "k": "verb",
+          "e": "🙏💖",
+          "ca": "agrair / valorar"
+        },
+        {
+          "w": "admire",
+          "k": "verb",
+          "e": "😍👏",
+          "ca": "admirar"
+        },
+        {
+          "w": "admit",
+          "k": "verb",
+          "e": "🙋✔️",
+          "ca": "admetre"
+        },
+        {
+          "w": "announce",
+          "k": "verb",
+          "e": "📢❗",
+          "ca": "anunciar"
+        },
+        {
+          "w": "advise",
+          "k": "verb",
+          "e": "💡🗣️",
+          "ca": "aconsellar"
+        },
+        {
+          "w": "annoy",
+          "k": "verb",
+          "e": "😤👉",
+          "ca": "molestar"
+        },
+        {
+          "w": "bend",
+          "k": "verb",
+          "ca": "doblegar / ajupir-se",
+          "s": "bend_,_to"
+        },
+        {
+          "w": "bury",
+          "k": "verb",
+          "e": "⚰️⬇️",
+          "ca": "enterrar"
+        },
+        {
+          "w": "combine",
+          "k": "verb",
+          "e": "➕🔗",
+          "ca": "combinar"
+        },
+        {
+          "w": "bother",
+          "k": "verb",
+          "e": "😩",
+          "ca": "amoïnar / molestar"
+        },
+        {
+          "w": "claim",
+          "k": "verb",
+          "e": "🗣️📄",
+          "ca": "afirmar / reclamar"
+        },
+        {
+          "w": "conclude",
+          "k": "verb",
+          "e": "🏁💭",
+          "ca": "concloure"
+        },
+        {
+          "w": "confirm",
+          "k": "verb",
+          "e": "✅📞",
+          "ca": "confirmar"
+        },
+        {
+          "w": "confuse",
+          "k": "verb",
+          "e": "😕❓",
+          "ca": "confondre"
+        },
+        {
+          "w": "consist",
+          "k": "verb",
+          "e": "🧩📦",
+          "ca": "consistir (en)"
+        },
+        {
+          "w": "dislike",
+          "k": "verb",
+          "e": "👎❤️",
+          "ca": "no agradar"
+        },
+        {
+          "w": "convince",
+          "k": "verb",
+          "e": "🗣️✅",
+          "ca": "convèncer"
+        },
+        {
+          "w": "determine",
+          "k": "verb",
+          "e": "🎯🔍",
+          "ca": "determinar"
+        },
+        {
+          "w": "expand",
+          "k": "verb",
+          "e": "↔️⬆️",
+          "ca": "ampliar"
+        },
+        {
+          "w": "escape",
+          "k": "verb",
+          "ca": "escapar-se",
+          "s": "escape_,_to"
+        },
+        {
+          "w": "fancy",
+          "k": "verb",
+          "e": "😍❓",
+          "ca": "venir de gust / elegant"
+        },
+        {
+          "w": "encourage",
+          "k": "verb",
+          "e": "📣💪",
+          "ca": "animar (encoratjar)"
+        },
+        {
+          "w": "ignore",
+          "k": "verb",
+          "e": "🙉",
+          "ca": "ignorar"
+        },
+        {
+          "w": "frighten",
+          "k": "verb",
+          "e": "👻😨",
+          "ca": "espantar"
+        },
+        {
+          "w": "highlight",
+          "k": "verb",
+          "e": "🖊️✨",
+          "ca": "destacar / subratllar"
+        },
+        {
+          "w": "indicate",
+          "k": "verb",
+          "e": "👉❗",
+          "ca": "indicar"
+        },
+        {
+          "w": "gather",
+          "k": "verb",
+          "e": "👥⭕",
+          "ca": "reunir(-se) / recollir"
+        },
+        {
+          "w": "intend",
+          "k": "verb",
+          "e": "🎯💭",
+          "ca": "tenir intenció de"
+        },
+        {
+          "w": "investigate",
+          "k": "verb",
+          "e": "🕵️🔍",
+          "ca": "investigar"
+        },
+        {
+          "w": "locate",
+          "k": "verb",
+          "e": "📍🔍",
+          "ca": "localitzar"
+        },
+        {
+          "w": "lay",
+          "k": "verb",
+          "e": "🫳",
+          "ca": "posar / estendre / pondre"
+        },
+        {
+          "w": "occur",
+          "k": "verb",
+          "e": "⚡📅",
+          "ca": "passar / ocórrer"
+        },
+        {
+          "w": "participate",
+          "k": "verb",
+          "e": "🙋👥",
+          "ca": "participar"
+        },
+        {
+          "w": "persuade",
+          "k": "verb",
+          "e": "🗣️👉",
+          "ca": "persuadir"
+        },
+        {
+          "w": "pretend",
+          "k": "verb",
+          "e": "🎭🙂",
+          "ca": "fer veure"
+        },
+        {
+          "w": "reject",
+          "k": "verb",
+          "e": "✋❌",
+          "ca": "rebutjar (no acceptar)"
+        },
+        {
+          "w": "relate",
+          "k": "verb",
+          "e": "🔗💭",
+          "ca": "relacionar"
+        },
+        {
+          "w": "release",
+          "k": "verb",
+          "e": "🕊️➡️",
+          "ca": "alliberar / publicar"
+        },
+        {
+          "w": "remain",
+          "k": "verb",
+          "e": "⏸️",
+          "ca": "quedar-se / romandre"
+        },
+        {
+          "w": "represent",
+          "k": "verb",
+          "e": "🧑‍💼👥",
+          "ca": "representar"
+        },
+        {
+          "w": "require",
+          "k": "verb",
+          "e": "🔑📋",
+          "ca": "requerir"
+        },
+        {
+          "w": "set",
+          "k": "verb",
+          "e": "⬇️📍",
+          "ca": "posar / establir / joc"
+        },
+        {
+          "w": "roll",
+          "k": "verb",
+          "ca": "rodar / tirar (els daus)",
+          "s": "roll_dice_,_to"
+        },
+        {
+          "w": "spread",
+          "k": "verb",
+          "ca": "estendre / escampar",
+          "s": "spread_,_to"
+        },
+        {
+          "w": "tend",
+          "k": "verb",
+          "e": "📈🔁",
+          "ca": "tendir a"
+        },
+        {
+          "w": "stick",
+          "k": "verb",
+          "e": "📎🩹",
+          "ca": "enganxar / clavar"
+        },
+        {
+          "w": "warn",
+          "k": "verb",
+          "e": "⚠️🗣️",
+          "ca": "avisar / advertir"
+        },
+        {
+          "w": "wonder",
+          "k": "verb",
+          "e": "💭❔",
+          "ca": "preguntar-se / meravella"
+        },
+        {
+          "w": "hurry",
+          "k": "verb",
+          "e": "🏃💨",
+          "ca": "afanyar-se / pressa"
+        },
+        {
+          "w": "involve",
+          "k": "verb",
+          "e": "🔗🙋",
+          "ca": "implicar"
+        },
+        {
+          "w": "pass",
+          "k": "verb",
+          "e": "➡️✅",
+          "ca": "passar / aprovar"
+        },
+        {
+          "w": "prove",
+          "k": "verb",
+          "e": "🔍✅",
+          "ca": "demostrar"
+        },
+        {
+          "w": "reflect",
+          "k": "verb",
+          "e": "🪞💭",
+          "ca": "reflectir / reflexionar"
+        },
+        {
+          "w": "quit",
+          "k": "verb",
+          "e": "🚪🏃",
+          "ca": "deixar (de fer) / plegar"
+        },
+        {
+          "w": "search",
+          "k": "verb",
+          "e": "🔍❓",
+          "ca": "buscar / cerca"
+        },
+        {
+          "w": "sort",
+          "k": "verb",
+          "ca": "ordenar / mena",
+          "s": "sort_,_to"
+        },
+        {
+          "w": "dream",
+          "k": "verb",
+          "ca": "somiar / somni",
+          "s": "dream_,_to"
+        },
+        {
+          "w": "fix",
+          "k": "verb",
+          "e": "🛠️",
+          "ca": "arreglar"
+        },
+        {
+          "w": "shall",
+          "k": "verb",
+          "e": "🤝❔",
+          "ca": "(proposta) Shall we…? → Hi anem?"
+        },
+        {
+          "w": "ought",
+          "k": "verb",
+          "e": "☝️📋",
+          "ca": "hauria de"
         }
       ]
     },
@@ -5273,6 +6059,948 @@
           "k": "describe",
           "e": "😛",
           "ca": "maleducat / maleducada"
+        },
+        {
+          "w": "able",
+          "k": "describe",
+          "e": "💪✅",
+          "ca": "capaç"
+        },
+        {
+          "w": "attractive",
+          "k": "describe",
+          "e": "😍",
+          "ca": "atractiu / atractiva"
+        },
+        {
+          "w": "awful",
+          "k": "describe",
+          "e": "🤮",
+          "ca": "espantós / fatal"
+        },
+        {
+          "w": "alone",
+          "k": "describe",
+          "e": "🙍",
+          "ca": "sol / sola"
+        },
+        {
+          "w": "active",
+          "k": "describe",
+          "e": "🏃⚡",
+          "ca": "actiu / activa"
+        },
+        {
+          "w": "based",
+          "k": "describe",
+          "e": "📍🧱",
+          "ca": "basat / amb seu a"
+        },
+        {
+          "w": "careful",
+          "k": "describe",
+          "e": "⚠️👀",
+          "ca": "prudent / amb compte"
+        },
+        {
+          "w": "classical",
+          "k": "describe",
+          "e": "🎻🏛️",
+          "ca": "clàssic / clàssica"
+        },
+        {
+          "w": "clear",
+          "k": "describe",
+          "e": "💧✨",
+          "ca": "clar / clara"
+        },
+        {
+          "w": "brilliant",
+          "k": "describe",
+          "e": "💡🌟",
+          "ca": "brillant / genial"
+        },
+        {
+          "w": "certain",
+          "k": "describe",
+          "e": "✅💯",
+          "ca": "segur / cert"
+        },
+        {
+          "w": "direct",
+          "k": "describe",
+          "e": "➡️🎯",
+          "ca": "directe / directa"
+        },
+        {
+          "w": "deep",
+          "k": "describe",
+          "ca": "profund / profunda",
+          "s": "deep"
+        },
+        {
+          "w": "creative",
+          "k": "describe",
+          "e": "🎨💡",
+          "ca": "creatiu / creativa"
+        },
+        {
+          "w": "connected",
+          "k": "describe",
+          "e": "🔗✅",
+          "ca": "connectat / connectada"
+        },
+        {
+          "w": "enormous",
+          "k": "describe",
+          "e": "🐳",
+          "ca": "enorme"
+        },
+        {
+          "w": "extreme",
+          "k": "describe",
+          "e": "🌶️🔥",
+          "ca": "extrem / extrema"
+        },
+        {
+          "w": "fair",
+          "k": "describe",
+          "e": "⚖️🙂",
+          "ca": "just / justa"
+        },
+        {
+          "w": "following",
+          "k": "describe",
+          "e": "➡️⏭️",
+          "ca": "següent"
+        },
+        {
+          "w": "excellent",
+          "k": "describe",
+          "e": "🏆✨",
+          "ca": "excel·lent"
+        },
+        {
+          "w": "wide",
+          "k": "describe",
+          "e": "↔️↔️",
+          "ca": "ample / ampla"
+        },
+        {
+          "w": "disappointing",
+          "k": "describe",
+          "e": "😞👎",
+          "ca": "decebedor / decebedora"
+        },
+        {
+          "w": "keen",
+          "k": "describe",
+          "e": "🙋✨",
+          "ca": "interessat / amb ganes"
+        },
+        {
+          "w": "crazy",
+          "k": "describe",
+          "e": "🤪",
+          "ca": "boig / boja"
+        },
+        {
+          "w": "mad",
+          "k": "describe",
+          "e": "🤬",
+          "ca": "boig / molt enfadat"
+        },
+        {
+          "w": "lazy",
+          "k": "describe",
+          "e": "🦥",
+          "ca": "mandrós / mandrosa"
+        },
+        {
+          "w": "formal",
+          "k": "describe",
+          "e": "🤵📝",
+          "ca": "formal"
+        },
+        {
+          "w": "informal",
+          "k": "describe",
+          "e": "👕💬",
+          "ca": "informal"
+        },
+        {
+          "w": "ideal",
+          "k": "describe",
+          "e": "💯🌟",
+          "ca": "ideal"
+        },
+        {
+          "w": "helpful",
+          "k": "describe",
+          "e": "🤝🙂",
+          "ca": "útil / servicial"
+        },
+        {
+          "w": "impossible",
+          "k": "describe",
+          "e": "🙅",
+          "ca": "impossible"
+        },
+        {
+          "w": "further",
+          "k": "describe",
+          "e": "➡️➡️",
+          "ca": "més lluny / més"
+        },
+        {
+          "w": "included",
+          "k": "describe",
+          "e": "✅📦",
+          "ca": "inclòs / inclosa"
+        },
+        {
+          "w": "incredible",
+          "k": "describe",
+          "e": "😲🌟",
+          "ca": "increïble"
+        },
+        {
+          "w": "independent",
+          "k": "describe",
+          "e": "🧍✊",
+          "ca": "independent"
+        },
+        {
+          "w": "general",
+          "k": "describe",
+          "e": "🌐📋",
+          "ca": "general"
+        },
+        {
+          "w": "huge",
+          "k": "describe",
+          "e": "🏔️",
+          "ca": "immens / enorme"
+        },
+        {
+          "w": "major",
+          "k": "describe",
+          "e": "⭐⬆️",
+          "ca": "important / principal"
+        },
+        {
+          "w": "likely",
+          "k": "describe",
+          "e": "👍🎲",
+          "ca": "probable"
+        },
+        {
+          "w": "loud",
+          "k": "describe",
+          "ca": "fort (so)",
+          "s": "loud"
+        },
+        {
+          "w": "lovely",
+          "k": "describe",
+          "e": "🥰",
+          "ca": "preciós / encantador"
+        },
+        {
+          "w": "low",
+          "k": "describe",
+          "e": "⬇️📏",
+          "ca": "baix / baixa"
+        },
+        {
+          "w": "lucky",
+          "k": "describe",
+          "ca": "afortunat / tenir sort",
+          "s": "lucky"
+        },
+        {
+          "w": "necessary",
+          "k": "describe",
+          "e": "❗📋",
+          "ca": "necessari / necessària"
+        },
+        {
+          "w": "missing",
+          "k": "describe",
+          "e": "❓🧩",
+          "ca": "que falta / desaparegut"
+        },
+        {
+          "w": "particular",
+          "k": "describe",
+          "e": "🔍☝️",
+          "ca": "concret / particular"
+        },
+        {
+          "w": "normal",
+          "k": "describe",
+          "e": "👌📏",
+          "ca": "normal"
+        },
+        {
+          "w": "ordinary",
+          "k": "describe",
+          "e": "⚪🙂",
+          "ca": "corrent / normal"
+        },
+        {
+          "w": "original",
+          "k": "describe",
+          "e": "🌱💡",
+          "ca": "original"
+        },
+        {
+          "w": "narrow",
+          "k": "describe",
+          "e": "↔️🤏",
+          "ca": "estret (poc ample)"
+        },
+        {
+          "w": "separate",
+          "k": "describe",
+          "ca": "separat / separar",
+          "s": "separate_,_to"
+        },
+        {
+          "w": "simple",
+          "k": "describe",
+          "e": "1️⃣👌",
+          "ca": "senzill / senzilla"
+        },
+        {
+          "w": "serious",
+          "k": "describe",
+          "e": "😐",
+          "ca": "seriós / seriosa"
+        },
+        {
+          "w": "secret",
+          "k": "describe",
+          "e": "🤐",
+          "ca": "secret / secreta"
+        },
+        {
+          "w": "strange",
+          "k": "describe",
+          "e": "👽",
+          "ca": "estrany / estranya"
+        },
+        {
+          "w": "tidy",
+          "k": "describe",
+          "ca": "endreçat / endreçar",
+          "s": "tidy_up_,_to"
+        },
+        {
+          "w": "specific",
+          "k": "describe",
+          "e": "🎯📌",
+          "ca": "específic / específica"
+        },
+        {
+          "w": "stupid",
+          "k": "describe",
+          "e": "🤦",
+          "ca": "estúpid / ximple"
+        },
+        {
+          "w": "successful",
+          "k": "describe",
+          "e": "🏆😊",
+          "ca": "d'èxit"
+        },
+        {
+          "w": "surprising",
+          "k": "describe",
+          "e": "🎁😮",
+          "ca": "sorprenent"
+        },
+        {
+          "w": "thick",
+          "k": "describe",
+          "ca": "gruixut / gruixuda",
+          "s": "thick"
+        },
+        {
+          "w": "thin",
+          "k": "describe",
+          "ca": "prim / prima",
+          "s": "thin"
+        },
+        {
+          "w": "unusual",
+          "k": "describe",
+          "e": "🦄",
+          "ca": "poc habitual"
+        },
+        {
+          "w": "weak",
+          "k": "describe",
+          "e": "🥀",
+          "ca": "feble"
+        },
+        {
+          "w": "usual",
+          "k": "describe",
+          "e": "🔁👌",
+          "ca": "habitual"
+        },
+        {
+          "w": "working",
+          "k": "describe",
+          "e": "⚙️✅",
+          "ca": "que funciona / laboral"
+        },
+        {
+          "w": "typical",
+          "k": "describe",
+          "e": "📋👌",
+          "ca": "típic / típica"
+        },
+        {
+          "w": "worst",
+          "k": "describe",
+          "e": "👎👎",
+          "ca": "el pitjor"
+        },
+        {
+          "w": "whole",
+          "k": "describe",
+          "ca": "sencer / tot",
+          "s": "whole"
+        },
+        {
+          "w": "aware",
+          "k": "describe",
+          "e": "💡👀",
+          "ca": "conscient"
+        },
+        {
+          "w": "ambitious",
+          "k": "describe",
+          "e": "🚀🎯",
+          "ca": "ambiciós / ambiciosa"
+        },
+        {
+          "w": "basic",
+          "k": "describe",
+          "e": "1️⃣🧱",
+          "ca": "bàsic / bàsica"
+        },
+        {
+          "w": "advanced",
+          "k": "describe",
+          "e": "🚀📈",
+          "ca": "avançat / avançada"
+        },
+        {
+          "w": "annoying",
+          "k": "describe",
+          "e": "😤💢",
+          "ca": "molest (que molesta)"
+        },
+        {
+          "w": "careless",
+          "k": "describe",
+          "e": "🙈⚠️",
+          "ca": "descuidat / descuidada"
+        },
+        {
+          "w": "central",
+          "k": "describe",
+          "e": "🎯⭕",
+          "ca": "central"
+        },
+        {
+          "w": "complex",
+          "k": "describe",
+          "e": "🧩🧩",
+          "ca": "complex / complexa"
+        },
+        {
+          "w": "covered",
+          "k": "describe",
+          "e": "🧥✅",
+          "ca": "cobert / coberta"
+        },
+        {
+          "w": "definite",
+          "k": "describe",
+          "e": "✅📌",
+          "ca": "definit / clar"
+        },
+        {
+          "w": "cruel",
+          "k": "describe",
+          "e": "👿",
+          "ca": "cruel"
+        },
+        {
+          "w": "convenient",
+          "k": "describe",
+          "e": "👍🕒",
+          "ca": "convenient / còmode"
+        },
+        {
+          "w": "determined",
+          "k": "describe",
+          "e": "✊🎯",
+          "ca": "decidit / decidida"
+        },
+        {
+          "w": "expected",
+          "k": "describe",
+          "e": "📅✅",
+          "ca": "previst / esperat"
+        },
+        {
+          "w": "effective",
+          "k": "describe",
+          "e": "✅🎯",
+          "ca": "eficaç"
+        },
+        {
+          "w": "essential",
+          "k": "describe",
+          "e": "🔑❗",
+          "ca": "essencial"
+        },
+        {
+          "w": "fixed",
+          "k": "describe",
+          "e": "📌🔒",
+          "ca": "fix / fixa"
+        },
+        {
+          "w": "familiar",
+          "k": "describe",
+          "e": "👀🙂",
+          "ca": "conegut / familiar"
+        },
+        {
+          "w": "fascinating",
+          "k": "describe",
+          "e": "🤩🔍",
+          "ca": "fascinant"
+        },
+        {
+          "w": "embarrassing",
+          "k": "describe",
+          "e": "😳",
+          "ca": "vergonyós / que fa vergonya"
+        },
+        {
+          "w": "impressive",
+          "k": "describe",
+          "e": "👏✨",
+          "ca": "impressionant"
+        },
+        {
+          "w": "horrible",
+          "k": "describe",
+          "e": "👹",
+          "ca": "horrible"
+        },
+        {
+          "w": "indirect",
+          "k": "describe",
+          "e": "↪️",
+          "ca": "indirecte / indirecta"
+        },
+        {
+          "w": "indoor",
+          "k": "describe",
+          "e": "🏠🏀",
+          "ca": "interior (a cobert)"
+        },
+        {
+          "w": "indoors",
+          "k": "describe",
+          "e": "🏠👈",
+          "ca": "a dins (de casa)"
+        },
+        {
+          "w": "outdoor",
+          "k": "describe",
+          "e": "🌳🏀",
+          "ca": "a l'aire lliure"
+        },
+        {
+          "w": "outdoors",
+          "k": "describe",
+          "e": "🌳👉",
+          "ca": "a fora"
+        },
+        {
+          "w": "gentle",
+          "k": "describe",
+          "e": "🕊️",
+          "ca": "suau / delicat"
+        },
+        {
+          "w": "involved",
+          "k": "describe",
+          "e": "🙋🔗",
+          "ca": "implicat / implicada"
+        },
+        {
+          "w": "leading",
+          "k": "describe",
+          "e": "🥇➡️",
+          "ca": "principal / capdavanter"
+        },
+        {
+          "w": "odd",
+          "k": "describe",
+          "e": "🧦❓",
+          "ca": "estrany / senar"
+        },
+        {
+          "w": "peaceful",
+          "k": "describe",
+          "e": "☮️",
+          "ca": "tranquil / pacífic"
+        },
+        {
+          "w": "organised",
+          "k": "describe",
+          "e": "🗂️",
+          "ca": "organitzat / organitzada"
+        },
+        {
+          "w": "obvious",
+          "k": "describe",
+          "e": "👀💯",
+          "ca": "evident"
+        },
+        {
+          "w": "proper",
+          "k": "describe",
+          "e": "✔️👔",
+          "ca": "correcte / de debò"
+        },
+        {
+          "w": "powerful",
+          "k": "describe",
+          "e": "⚡💪",
+          "ca": "poderós / poderosa"
+        },
+        {
+          "w": "practical",
+          "k": "describe",
+          "e": "🛠️👍",
+          "ca": "pràctic / pràctica"
+        },
+        {
+          "w": "prepared",
+          "k": "describe",
+          "e": "🎒✅",
+          "ca": "preparat / preparada"
+        },
+        {
+          "w": "pleasant",
+          "k": "describe",
+          "e": "😊🌼",
+          "ca": "agradable"
+        },
+        {
+          "w": "related",
+          "k": "describe",
+          "e": "🔗📎",
+          "ca": "relacionat / relacionada"
+        },
+        {
+          "w": "relaxing",
+          "k": "describe",
+          "e": "🛀",
+          "ca": "relaxant"
+        },
+        {
+          "w": "reliable",
+          "k": "describe",
+          "e": "🤝🔒",
+          "ca": "fiable"
+        },
+        {
+          "w": "rare",
+          "k": "describe",
+          "e": "💎❓",
+          "ca": "rar / poc freqüent"
+        },
+        {
+          "w": "repeated",
+          "k": "describe",
+          "e": "🔂",
+          "ca": "repetit / repetida"
+        },
+        {
+          "w": "sensible",
+          "k": "describe",
+          "e": "🧠👍",
+          "ca": "assenyat / sensat"
+        },
+        {
+          "w": "silly",
+          "k": "describe",
+          "e": "🙃",
+          "ca": "ximple / ridícul"
+        },
+        {
+          "w": "responsible",
+          "k": "describe",
+          "e": "🙋📋",
+          "ca": "responsable"
+        },
+        {
+          "w": "sharp",
+          "k": "describe",
+          "ca": "esmolat / punxegut",
+          "s": "sharp"
+        },
+        {
+          "w": "smart",
+          "k": "describe",
+          "e": "🤓",
+          "ca": "llest / elegant"
+        },
+        {
+          "w": "silent",
+          "k": "describe",
+          "e": "🔇",
+          "ca": "silenciós / en silenci"
+        },
+        {
+          "w": "tiny",
+          "k": "describe",
+          "e": "🐁🤏",
+          "ca": "petitó / diminut"
+        },
+        {
+          "w": "technical",
+          "k": "describe",
+          "e": "🔧⚙️",
+          "ca": "tècnic / tècnica"
+        },
+        {
+          "w": "sudden",
+          "k": "describe",
+          "e": "⚡😮",
+          "ca": "sobtat / sobtada"
+        },
+        {
+          "w": "suitable",
+          "k": "describe",
+          "e": "👍✔️",
+          "ca": "adequat / apropiat"
+        },
+        {
+          "w": "unpleasant",
+          "k": "describe",
+          "e": "😣👎",
+          "ca": "desagradable"
+        },
+        {
+          "w": "used",
+          "k": "describe",
+          "e": "♻️✔️",
+          "ca": "usat / usada"
+        },
+        {
+          "w": "various",
+          "k": "describe",
+          "e": "🎨🔢",
+          "ca": "variat / diversos"
+        },
+        {
+          "w": "ugly",
+          "k": "describe",
+          "ca": "lleig / lletja",
+          "s": "ugly"
+        },
+        {
+          "w": "unable",
+          "k": "describe",
+          "e": "🚫✋",
+          "ca": "incapaç"
+        },
+        {
+          "w": "unfair",
+          "k": "describe",
+          "e": "⚖️❌",
+          "ca": "injust / injusta"
+        },
+        {
+          "w": "unlikely",
+          "k": "describe",
+          "e": "👎🎲",
+          "ca": "poc probable"
+        },
+        {
+          "w": "unnecessary",
+          "k": "describe",
+          "e": "❌📋",
+          "ca": "innecessari / innecessària"
+        },
+        {
+          "w": "light",
+          "k": "describe",
+          "ca": "lleuger / lleugera",
+          "s": "light"
+        },
+        {
+          "w": "little",
+          "k": "describe",
+          "ca": "petit / petita (little)",
+          "s": "little"
+        },
+        {
+          "w": "common",
+          "k": "describe",
+          "e": "👥✅",
+          "ca": "comú / freqüent"
+        },
+        {
+          "w": "main",
+          "k": "describe",
+          "e": "⭐1️⃣",
+          "ca": "principal"
+        },
+        {
+          "w": "negative",
+          "k": "describe",
+          "e": "➖👎",
+          "ca": "negatiu / negativa"
+        },
+        {
+          "w": "quick",
+          "k": "describe",
+          "e": "⚡🏃",
+          "ca": "ràpid / ràpida"
+        },
+        {
+          "w": "positive",
+          "k": "describe",
+          "e": "➕👍",
+          "ca": "positiu / positiva"
+        },
+        {
+          "w": "similar",
+          "k": "describe",
+          "e": "🟰🤏",
+          "ca": "semblant"
+        },
+        {
+          "w": "clearly",
+          "k": "describe",
+          "e": "💡👉",
+          "ca": "clarament"
+        },
+        {
+          "w": "completely",
+          "k": "describe",
+          "e": "🌕✅",
+          "ca": "completament"
+        },
+        {
+          "w": "differently",
+          "k": "describe",
+          "e": "🔀👉",
+          "ca": "de manera diferent"
+        },
+        {
+          "w": "extremely",
+          "k": "describe",
+          "e": "‼️🔥",
+          "ca": "extremadament"
+        },
+        {
+          "w": "absolutely",
+          "k": "describe",
+          "e": "💯💯",
+          "ca": "absolutament"
+        },
+        {
+          "w": "directly",
+          "k": "describe",
+          "e": "➡️👉",
+          "ca": "directament"
+        },
+        {
+          "w": "effectively",
+          "k": "describe",
+          "e": "✅⚙️",
+          "ca": "eficaçment"
+        },
+        {
+          "w": "fairly",
+          "k": "describe",
+          "e": "◑🙂",
+          "ca": "bastant / amb justícia"
+        },
+        {
+          "w": "heavily",
+          "k": "describe",
+          "e": "🏋️👉",
+          "ca": "molt / amb força (pes)"
+        },
+        {
+          "w": "highly",
+          "k": "describe",
+          "e": "⬆️⬆️",
+          "ca": "molt / altament"
+        },
+        {
+          "w": "incredibly",
+          "k": "describe",
+          "e": "🤯👉",
+          "ca": "increïblement"
+        },
+        {
+          "w": "perfectly",
+          "k": "describe",
+          "e": "👌✨",
+          "ca": "perfectament"
+        },
+        {
+          "w": "properly",
+          "k": "describe",
+          "e": "✔️👉",
+          "ca": "bé / correctament"
+        },
+        {
+          "w": "seriously",
+          "k": "describe",
+          "e": "😐👉",
+          "ca": "seriosament"
+        },
+        {
+          "w": "slightly",
+          "k": "describe",
+          "e": "🤏👉",
+          "ca": "una mica / lleugerament"
+        },
+        {
+          "w": "strongly",
+          "k": "describe",
+          "e": "💪👉",
+          "ca": "amb força"
+        },
+        {
+          "w": "successfully",
+          "k": "describe",
+          "e": "🏆👉",
+          "ca": "amb èxit"
+        },
+        {
+          "w": "totally",
+          "k": "describe",
+          "e": "💯👉",
+          "ca": "totalment"
         }
       ]
     },
@@ -6128,9 +7856,9 @@
     },
     {
       "id": "numbers",
-      "name": "Numbers",
+      "name": "Numbers & shopping",
       "icon": "🔢",
-      "ca": "Nombres",
+      "ca": "Nombres i compres",
       "words": [
         {
           "w": "zero",
@@ -6611,6 +8339,252 @@
           "k": "verb",
           "e": "📏",
           "ca": "mesurar / mesura"
+        },
+        {
+          "w": "cash",
+          "k": "noun",
+          "e": "💵🪙",
+          "ca": "diners en efectiu"
+        },
+        {
+          "w": "change",
+          "k": "noun",
+          "e": "🪙↩️",
+          "ca": "canvi / monedes"
+        },
+        {
+          "w": "wallet",
+          "k": "noun",
+          "ca": "cartera",
+          "s": "wallet"
+        },
+        {
+          "w": "cash machine",
+          "k": "noun",
+          "ca": "caixer automàtic",
+          "s": "cash_point"
+        },
+        {
+          "w": "basket",
+          "k": "noun",
+          "ca": "cistell",
+          "s": "basket"
+        },
+        {
+          "w": "checkout",
+          "k": "noun",
+          "e": "🛒💳",
+          "ca": "caixa (de la botiga)"
+        },
+        {
+          "w": "queue",
+          "k": "noun",
+          "ca": "cua",
+          "s": "queue_,_to"
+        },
+        {
+          "w": "receipt",
+          "k": "noun",
+          "e": "🧾✅",
+          "ca": "tiquet de compra"
+        },
+        {
+          "w": "refund",
+          "k": "noun",
+          "e": "💳↩️",
+          "ca": "reemborsament"
+        },
+        {
+          "w": "discount",
+          "k": "noun",
+          "e": "🏷️%",
+          "ca": "descompte"
+        },
+        {
+          "w": "size",
+          "k": "noun",
+          "e": "S M L",
+          "ca": "talla"
+        },
+        {
+          "w": "packet",
+          "k": "noun",
+          "e": "🍪📦",
+          "ca": "paquet"
+        },
+        {
+          "w": "delivery",
+          "k": "noun",
+          "ca": "lliurament a domicili",
+          "s": "delivery_trolley"
+        },
+        {
+          "w": "try on",
+          "k": "verb",
+          "e": "👕🪞",
+          "ca": "emprovar-se"
+        },
+        {
+          "w": "exchange",
+          "k": "verb",
+          "e": "👕🔄",
+          "ca": "canviar (un producte)"
+        },
+        {
+          "w": "afford",
+          "k": "verb",
+          "e": "👛✅",
+          "ca": "poder-se permetre"
+        },
+        {
+          "w": "weigh",
+          "k": "verb",
+          "e": "⚖️🍎",
+          "ca": "pesar"
+        },
+        {
+          "w": "second-hand",
+          "k": "describe",
+          "e": "👕♻️",
+          "ca": "de segona mà"
+        },
+        {
+          "w": "sold out",
+          "k": "describe",
+          "e": "🛒❌",
+          "ca": "exhaurit / exhaurida"
+        },
+        {
+          "w": "product",
+          "k": "noun",
+          "e": "📦🏷️",
+          "ca": "producte"
+        },
+        {
+          "w": "brand",
+          "k": "noun",
+          "e": "™️",
+          "ca": "marca"
+        },
+        {
+          "w": "sale",
+          "k": "noun",
+          "e": "🏷️⬇️",
+          "ca": "rebaixes / venda"
+        },
+        {
+          "w": "goods",
+          "k": "noun",
+          "e": "📦📦",
+          "ca": "mercaderies / productes"
+        },
+        {
+          "w": "credit",
+          "k": "noun",
+          "e": "💳✅",
+          "ca": "crèdit"
+        },
+        {
+          "w": "account",
+          "k": "noun",
+          "e": "🏦👤",
+          "ca": "compte"
+        },
+        {
+          "w": "currency",
+          "k": "noun",
+          "e": "💱",
+          "ca": "moneda (divisa)"
+        },
+        {
+          "w": "coin",
+          "k": "noun",
+          "e": "🪙🪙",
+          "ca": "moneda (peça)"
+        },
+        {
+          "w": "penny",
+          "k": "noun",
+          "e": "1p",
+          "ca": "penic"
+        },
+        {
+          "w": "payment",
+          "k": "noun",
+          "e": "💳💸",
+          "ca": "pagament"
+        },
+        {
+          "w": "luxury",
+          "k": "noun",
+          "e": "💎👑",
+          "ca": "luxe"
+        },
+        {
+          "w": "value",
+          "k": "noun",
+          "e": "💰⚖️",
+          "ca": "valor"
+        },
+        {
+          "w": "spending",
+          "k": "noun",
+          "e": "💸",
+          "ca": "despesa"
+        },
+        {
+          "w": "rent",
+          "k": "noun",
+          "e": "🏠💶",
+          "ca": "lloguer / llogar"
+        },
+        {
+          "w": "service",
+          "k": "noun",
+          "e": "🛎️",
+          "ca": "servei"
+        },
+        {
+          "w": "stamp",
+          "k": "noun",
+          "e": "✉️🔖",
+          "ca": "segell"
+        },
+        {
+          "w": "consumer",
+          "k": "person",
+          "e": "🛒👤",
+          "ca": "consumidor / consumidora"
+        },
+        {
+          "w": "consume",
+          "k": "verb",
+          "e": "🛒➡️",
+          "ca": "consumir"
+        },
+        {
+          "w": "store",
+          "k": "verb",
+          "e": "🗄️📦",
+          "ca": "guardar / emmagatzemar"
+        },
+        {
+          "w": "invest",
+          "k": "verb",
+          "e": "💰🌱",
+          "ca": "invertir"
+        },
+        {
+          "w": "valuable",
+          "k": "describe",
+          "e": "💎💰",
+          "ca": "valuós / valuosa"
+        },
+        {
+          "w": "worth",
+          "k": "describe",
+          "e": "💰✅",
+          "ca": "que val (la pena)"
         }
       ]
     },
@@ -11676,9 +13650,9 @@
     },
     {
       "id": "languages",
-      "name": "Languages",
-      "icon": "💬",
-      "ca": "Llengües",
+      "name": "Languages & countries",
+      "icon": "🌍",
+      "ca": "Llengües i països",
       "words": [
         {
           "w": "English",
@@ -11895,15 +13869,7 @@
           "k": "describe",
           "e": "🏡🗣️",
           "ca": "nadiu / nadiua (llengua materna)"
-        }
-      ]
-    },
-    {
-      "id": "countries",
-      "name": "Countries",
-      "icon": "🌍",
-      "ca": "Països",
-      "words": [
+        },
         {
           "w": "Spain",
           "k": "noun",
@@ -12269,260 +14235,6 @@
           "k": "describe",
           "e": "🔗🤝",
           "ca": "unit / unida"
-        }
-      ]
-    },
-    {
-      "id": "shopping",
-      "name": "Shopping",
-      "icon": "🛍️",
-      "ca": "Compres",
-      "words": [
-        {
-          "w": "cash",
-          "k": "noun",
-          "e": "💵🪙",
-          "ca": "diners en efectiu"
-        },
-        {
-          "w": "change",
-          "k": "noun",
-          "e": "🪙↩️",
-          "ca": "canvi / monedes"
-        },
-        {
-          "w": "wallet",
-          "k": "noun",
-          "ca": "cartera",
-          "s": "wallet"
-        },
-        {
-          "w": "cash machine",
-          "k": "noun",
-          "ca": "caixer automàtic",
-          "s": "cash_point"
-        },
-        {
-          "w": "basket",
-          "k": "noun",
-          "ca": "cistell",
-          "s": "basket"
-        },
-        {
-          "w": "checkout",
-          "k": "noun",
-          "e": "🛒💳",
-          "ca": "caixa (de la botiga)"
-        },
-        {
-          "w": "queue",
-          "k": "noun",
-          "ca": "cua",
-          "s": "queue_,_to"
-        },
-        {
-          "w": "receipt",
-          "k": "noun",
-          "e": "🧾✅",
-          "ca": "tiquet de compra"
-        },
-        {
-          "w": "refund",
-          "k": "noun",
-          "e": "💳↩️",
-          "ca": "reemborsament"
-        },
-        {
-          "w": "discount",
-          "k": "noun",
-          "e": "🏷️%",
-          "ca": "descompte"
-        },
-        {
-          "w": "size",
-          "k": "noun",
-          "e": "S M L",
-          "ca": "talla"
-        },
-        {
-          "w": "packet",
-          "k": "noun",
-          "e": "🍪📦",
-          "ca": "paquet"
-        },
-        {
-          "w": "delivery",
-          "k": "noun",
-          "ca": "lliurament a domicili",
-          "s": "delivery_trolley"
-        },
-        {
-          "w": "try on",
-          "k": "verb",
-          "e": "👕🪞",
-          "ca": "emprovar-se"
-        },
-        {
-          "w": "exchange",
-          "k": "verb",
-          "e": "👕🔄",
-          "ca": "canviar (un producte)"
-        },
-        {
-          "w": "afford",
-          "k": "verb",
-          "e": "👛✅",
-          "ca": "poder-se permetre"
-        },
-        {
-          "w": "weigh",
-          "k": "verb",
-          "e": "⚖️🍎",
-          "ca": "pesar"
-        },
-        {
-          "w": "second-hand",
-          "k": "describe",
-          "e": "👕♻️",
-          "ca": "de segona mà"
-        },
-        {
-          "w": "sold out",
-          "k": "describe",
-          "e": "🛒❌",
-          "ca": "exhaurit / exhaurida"
-        },
-        {
-          "w": "product",
-          "k": "noun",
-          "e": "📦🏷️",
-          "ca": "producte"
-        },
-        {
-          "w": "brand",
-          "k": "noun",
-          "e": "™️",
-          "ca": "marca"
-        },
-        {
-          "w": "sale",
-          "k": "noun",
-          "e": "🏷️⬇️",
-          "ca": "rebaixes / venda"
-        },
-        {
-          "w": "goods",
-          "k": "noun",
-          "e": "📦📦",
-          "ca": "mercaderies / productes"
-        },
-        {
-          "w": "credit",
-          "k": "noun",
-          "e": "💳✅",
-          "ca": "crèdit"
-        },
-        {
-          "w": "account",
-          "k": "noun",
-          "e": "🏦👤",
-          "ca": "compte"
-        },
-        {
-          "w": "currency",
-          "k": "noun",
-          "e": "💱",
-          "ca": "moneda (divisa)"
-        },
-        {
-          "w": "coin",
-          "k": "noun",
-          "e": "🪙🪙",
-          "ca": "moneda (peça)"
-        },
-        {
-          "w": "penny",
-          "k": "noun",
-          "e": "1p",
-          "ca": "penic"
-        },
-        {
-          "w": "payment",
-          "k": "noun",
-          "e": "💳💸",
-          "ca": "pagament"
-        },
-        {
-          "w": "luxury",
-          "k": "noun",
-          "e": "💎👑",
-          "ca": "luxe"
-        },
-        {
-          "w": "value",
-          "k": "noun",
-          "e": "💰⚖️",
-          "ca": "valor"
-        },
-        {
-          "w": "spending",
-          "k": "noun",
-          "e": "💸",
-          "ca": "despesa"
-        },
-        {
-          "w": "rent",
-          "k": "noun",
-          "e": "🏠💶",
-          "ca": "lloguer / llogar"
-        },
-        {
-          "w": "service",
-          "k": "noun",
-          "e": "🛎️",
-          "ca": "servei"
-        },
-        {
-          "w": "stamp",
-          "k": "noun",
-          "e": "✉️🔖",
-          "ca": "segell"
-        },
-        {
-          "w": "consumer",
-          "k": "person",
-          "e": "🛒👤",
-          "ca": "consumidor / consumidora"
-        },
-        {
-          "w": "consume",
-          "k": "verb",
-          "e": "🛒➡️",
-          "ca": "consumir"
-        },
-        {
-          "w": "store",
-          "k": "verb",
-          "e": "🗄️📦",
-          "ca": "guardar / emmagatzemar"
-        },
-        {
-          "w": "invest",
-          "k": "verb",
-          "e": "💰🌱",
-          "ca": "invertir"
-        },
-        {
-          "w": "valuable",
-          "k": "describe",
-          "e": "💎💰",
-          "ca": "valuós / valuosa"
-        },
-        {
-          "w": "worth",
-          "k": "describe",
-          "e": "💰✅",
-          "ca": "que val (la pena)"
         }
       ]
     },
@@ -13071,1750 +14783,6 @@
           "k": "describe",
           "e": "🏪💰",
           "ca": "comercial"
-        }
-      ]
-    },
-    {
-      "id": "more-actions",
-      "name": "More actions",
-      "icon": "🤸",
-      "ca": "Més accions",
-      "words": [
-        {
-          "w": "attend",
-          "k": "verb",
-          "e": "🙋📅",
-          "ca": "assistir (a)"
-        },
-        {
-          "w": "appear",
-          "k": "verb",
-          "e": "✨🧍",
-          "ca": "aparèixer / semblar"
-        },
-        {
-          "w": "avoid",
-          "k": "verb",
-          "e": "↪️🚧",
-          "ca": "evitar"
-        },
-        {
-          "w": "achieve",
-          "k": "verb",
-          "e": "🎯✅",
-          "ca": "aconseguir"
-        },
-        {
-          "w": "argue",
-          "k": "verb",
-          "e": "🗯️",
-          "ca": "discutir"
-        },
-        {
-          "w": "arrange",
-          "k": "verb",
-          "e": "🗂️📅",
-          "ca": "organitzar / arranjar"
-        },
-        {
-          "w": "advertise",
-          "k": "verb",
-          "e": "📢📦",
-          "ca": "anunciar (fer publicitat)"
-        },
-        {
-          "w": "affect",
-          "k": "verb",
-          "e": "👉💥",
-          "ca": "afectar"
-        },
-        {
-          "w": "behave",
-          "k": "verb",
-          "e": "🧒👍",
-          "ca": "comportar-se"
-        },
-        {
-          "w": "belong",
-          "k": "verb",
-          "e": "🎒👤",
-          "ca": "pertànyer / ser de"
-        },
-        {
-          "w": "chat",
-          "k": "verb",
-          "e": "💬🙂",
-          "ca": "xerrar"
-        },
-        {
-          "w": "complain",
-          "k": "verb",
-          "e": "🗯️😠",
-          "ca": "queixar-se"
-        },
-        {
-          "w": "cover",
-          "k": "verb",
-          "e": "☂️⬇️",
-          "ca": "tapar / cobrir"
-        },
-        {
-          "w": "disappear",
-          "k": "verb",
-          "e": "🫥",
-          "ca": "desaparèixer"
-        },
-        {
-          "w": "connect",
-          "k": "verb",
-          "e": "🔌🔗",
-          "ca": "connectar"
-        },
-        {
-          "w": "consider",
-          "k": "verb",
-          "e": "🤔💭",
-          "ca": "considerar / pensar-s'ho"
-        },
-        {
-          "w": "contain",
-          "k": "verb",
-          "e": "🫙📥",
-          "ca": "contenir"
-        },
-        {
-          "w": "depend",
-          "k": "verb",
-          "e": "🔗❓",
-          "ca": "dependre"
-        },
-        {
-          "w": "continue",
-          "k": "verb",
-          "e": "▶️➡️",
-          "ca": "continuar"
-        },
-        {
-          "w": "destroy",
-          "k": "verb",
-          "e": "💥🏚️",
-          "ca": "destruir"
-        },
-        {
-          "w": "pull",
-          "k": "verb",
-          "ca": "estirar (de)",
-          "s": "pull_,_to"
-        },
-        {
-          "w": "push",
-          "k": "verb",
-          "ca": "empènyer",
-          "s": "push_,_to"
-        },
-        {
-          "w": "hide",
-          "k": "verb",
-          "e": "🫣",
-          "ca": "amagar(-se)"
-        },
-        {
-          "w": "throw",
-          "k": "verb",
-          "e": "🤾",
-          "ca": "llançar / tirar"
-        },
-        {
-          "w": "shout",
-          "k": "verb",
-          "ca": "cridar",
-          "s": "shout_,_to"
-        },
-        {
-          "w": "develop",
-          "k": "verb",
-          "e": "🌱📈",
-          "ca": "desenvolupar"
-        },
-        {
-          "w": "deal",
-          "k": "verb",
-          "e": "🤝💬",
-          "ca": "tractar (amb) / acord"
-        },
-        {
-          "w": "drop",
-          "k": "verb",
-          "e": "🫳⬇️",
-          "ca": "deixar caure"
-        },
-        {
-          "w": "expect",
-          "k": "verb",
-          "e": "⏳👀",
-          "ca": "esperar (que passi)"
-        },
-        {
-          "w": "express",
-          "k": "verb",
-          "e": "🗣️💭",
-          "ca": "expressar"
-        },
-        {
-          "w": "fit",
-          "k": "verb",
-          "e": "🧩✅",
-          "ca": "anar bé (de mida)"
-        },
-        {
-          "w": "fail",
-          "k": "verb",
-          "e": "❌📝",
-          "ca": "suspendre / fallar"
-        },
-        {
-          "w": "focus",
-          "k": "verb",
-          "e": "🎯👀",
-          "ca": "centrar-se"
-        },
-        {
-          "w": "exist",
-          "k": "verb",
-          "e": "✨🌍",
-          "ca": "existir"
-        },
-        {
-          "w": "identify",
-          "k": "verb",
-          "e": "🔍👤",
-          "ca": "identificar"
-        },
-        {
-          "w": "greet",
-          "k": "verb",
-          "e": "👋🙂",
-          "ca": "saludar"
-        },
-        {
-          "w": "increase",
-          "k": "verb",
-          "e": "⬆️📊",
-          "ca": "augmentar"
-        },
-        {
-          "w": "knock",
-          "k": "verb",
-          "ca": "trucar (a la porta) / cop",
-          "s": "knock_,_to"
-        },
-        {
-          "w": "lead",
-          "k": "verb",
-          "e": "🚩➡️",
-          "ca": "portar / dirigir"
-        },
-        {
-          "w": "mention",
-          "k": "verb",
-          "e": "💬☝️",
-          "ca": "esmentar"
-        },
-        {
-          "w": "organise",
-          "k": "verb",
-          "e": "📋✅",
-          "ca": "organitzar"
-        },
-        {
-          "w": "notice",
-          "k": "verb",
-          "e": "👀❗",
-          "ca": "adonar-se / avís"
-        },
-        {
-          "w": "realise",
-          "k": "verb",
-          "e": "💡❗",
-          "ca": "adonar-se (de)"
-        },
-        {
-          "w": "pick",
-          "k": "verb",
-          "ca": "triar / collir",
-          "s": "pick_,_to"
-        },
-        {
-          "w": "protect",
-          "k": "verb",
-          "ca": "protegir",
-          "s": "protect_,_to"
-        },
-        {
-          "w": "provide",
-          "k": "verb",
-          "e": "🤲📦",
-          "ca": "proporcionar"
-        },
-        {
-          "w": "recognise",
-          "k": "verb",
-          "e": "👀✔️",
-          "ca": "reconèixer"
-        },
-        {
-          "w": "predict",
-          "k": "verb",
-          "e": "🔮",
-          "ca": "predir"
-        },
-        {
-          "w": "recommend",
-          "k": "verb",
-          "e": "👍💬",
-          "ca": "recomanar"
-        },
-        {
-          "w": "publish",
-          "k": "verb",
-          "e": "📰➡️",
-          "ca": "publicar"
-        },
-        {
-          "w": "reduce",
-          "k": "verb",
-          "e": "⬇️➖",
-          "ca": "reduir"
-        },
-        {
-          "w": "refer",
-          "k": "verb",
-          "e": "👉📄",
-          "ca": "referir-se"
-        },
-        {
-          "w": "prevent",
-          "k": "verb",
-          "e": "🛡️❌",
-          "ca": "prevenir / impedir"
-        },
-        {
-          "w": "raise",
-          "k": "verb",
-          "e": "🙋⬆️",
-          "ca": "aixecar / pujar"
-        },
-        {
-          "w": "produce",
-          "k": "verb",
-          "e": "🏭➡️",
-          "ca": "produir"
-        },
-        {
-          "w": "remove",
-          "k": "verb",
-          "ca": "treure",
-          "s": "remove_,_to"
-        },
-        {
-          "w": "reach",
-          "k": "verb",
-          "ca": "arribar a / abastar",
-          "s": "reach_for_,_to"
-        },
-        {
-          "w": "react",
-          "k": "verb",
-          "e": "😮⚡",
-          "ca": "reaccionar"
-        },
-        {
-          "w": "replace",
-          "k": "verb",
-          "e": "🔄📦",
-          "ca": "substituir"
-        },
-        {
-          "w": "reply",
-          "k": "verb",
-          "e": "↩️💬",
-          "ca": "respondre / resposta"
-        },
-        {
-          "w": "respond",
-          "k": "verb",
-          "e": "🗨️↩️",
-          "ca": "respondre / reaccionar"
-        },
-        {
-          "w": "shake",
-          "k": "verb",
-          "ca": "sacsejar / tremolar",
-          "s": "shake_,_to"
-        },
-        {
-          "w": "shut",
-          "k": "verb",
-          "e": "🚪🔒",
-          "ca": "tancar"
-        },
-        {
-          "w": "seem",
-          "k": "verb",
-          "e": "🤔🪞",
-          "ca": "semblar"
-        },
-        {
-          "w": "succeed",
-          "k": "verb",
-          "e": "🏆✅",
-          "ca": "tenir èxit / aconseguir"
-        },
-        {
-          "w": "support",
-          "k": "verb",
-          "e": "🤝💪",
-          "ca": "donar suport"
-        },
-        {
-          "w": "suppose",
-          "k": "verb",
-          "e": "🤔💬",
-          "ca": "suposar"
-        },
-        {
-          "w": "wish",
-          "k": "verb",
-          "e": "⭐🙏",
-          "ca": "desitjar / desig"
-        },
-        {
-          "w": "worry",
-          "k": "verb",
-          "e": "😟💭",
-          "ca": "preocupar-se"
-        },
-        {
-          "w": "attract",
-          "k": "verb",
-          "ca": "atraure",
-          "s": "attract_,_to"
-        },
-        {
-          "w": "aim",
-          "k": "verb",
-          "e": "🎯➡️",
-          "ca": "apuntar / tenir com a objectiu"
-        },
-        {
-          "w": "appreciate",
-          "k": "verb",
-          "e": "🙏💖",
-          "ca": "agrair / valorar"
-        },
-        {
-          "w": "admire",
-          "k": "verb",
-          "e": "😍👏",
-          "ca": "admirar"
-        },
-        {
-          "w": "admit",
-          "k": "verb",
-          "e": "🙋✔️",
-          "ca": "admetre"
-        },
-        {
-          "w": "announce",
-          "k": "verb",
-          "e": "📢❗",
-          "ca": "anunciar"
-        },
-        {
-          "w": "advise",
-          "k": "verb",
-          "e": "💡🗣️",
-          "ca": "aconsellar"
-        },
-        {
-          "w": "annoy",
-          "k": "verb",
-          "e": "😤👉",
-          "ca": "molestar"
-        },
-        {
-          "w": "bend",
-          "k": "verb",
-          "ca": "doblegar / ajupir-se",
-          "s": "bend_,_to"
-        },
-        {
-          "w": "bury",
-          "k": "verb",
-          "e": "⚰️⬇️",
-          "ca": "enterrar"
-        },
-        {
-          "w": "combine",
-          "k": "verb",
-          "e": "➕🔗",
-          "ca": "combinar"
-        },
-        {
-          "w": "bother",
-          "k": "verb",
-          "e": "😩",
-          "ca": "amoïnar / molestar"
-        },
-        {
-          "w": "claim",
-          "k": "verb",
-          "e": "🗣️📄",
-          "ca": "afirmar / reclamar"
-        },
-        {
-          "w": "conclude",
-          "k": "verb",
-          "e": "🏁💭",
-          "ca": "concloure"
-        },
-        {
-          "w": "confirm",
-          "k": "verb",
-          "e": "✅📞",
-          "ca": "confirmar"
-        },
-        {
-          "w": "confuse",
-          "k": "verb",
-          "e": "😕❓",
-          "ca": "confondre"
-        },
-        {
-          "w": "consist",
-          "k": "verb",
-          "e": "🧩📦",
-          "ca": "consistir (en)"
-        },
-        {
-          "w": "dislike",
-          "k": "verb",
-          "e": "👎❤️",
-          "ca": "no agradar"
-        },
-        {
-          "w": "convince",
-          "k": "verb",
-          "e": "🗣️✅",
-          "ca": "convèncer"
-        },
-        {
-          "w": "determine",
-          "k": "verb",
-          "e": "🎯🔍",
-          "ca": "determinar"
-        },
-        {
-          "w": "expand",
-          "k": "verb",
-          "e": "↔️⬆️",
-          "ca": "ampliar"
-        },
-        {
-          "w": "escape",
-          "k": "verb",
-          "ca": "escapar-se",
-          "s": "escape_,_to"
-        },
-        {
-          "w": "fancy",
-          "k": "verb",
-          "e": "😍❓",
-          "ca": "venir de gust / elegant"
-        },
-        {
-          "w": "encourage",
-          "k": "verb",
-          "e": "📣💪",
-          "ca": "animar (encoratjar)"
-        },
-        {
-          "w": "ignore",
-          "k": "verb",
-          "e": "🙉",
-          "ca": "ignorar"
-        },
-        {
-          "w": "frighten",
-          "k": "verb",
-          "e": "👻😨",
-          "ca": "espantar"
-        },
-        {
-          "w": "highlight",
-          "k": "verb",
-          "e": "🖊️✨",
-          "ca": "destacar / subratllar"
-        },
-        {
-          "w": "indicate",
-          "k": "verb",
-          "e": "👉❗",
-          "ca": "indicar"
-        },
-        {
-          "w": "gather",
-          "k": "verb",
-          "e": "👥⭕",
-          "ca": "reunir(-se) / recollir"
-        },
-        {
-          "w": "intend",
-          "k": "verb",
-          "e": "🎯💭",
-          "ca": "tenir intenció de"
-        },
-        {
-          "w": "investigate",
-          "k": "verb",
-          "e": "🕵️🔍",
-          "ca": "investigar"
-        },
-        {
-          "w": "locate",
-          "k": "verb",
-          "e": "📍🔍",
-          "ca": "localitzar"
-        },
-        {
-          "w": "lay",
-          "k": "verb",
-          "e": "🫳",
-          "ca": "posar / estendre / pondre"
-        },
-        {
-          "w": "occur",
-          "k": "verb",
-          "e": "⚡📅",
-          "ca": "passar / ocórrer"
-        },
-        {
-          "w": "participate",
-          "k": "verb",
-          "e": "🙋👥",
-          "ca": "participar"
-        },
-        {
-          "w": "persuade",
-          "k": "verb",
-          "e": "🗣️👉",
-          "ca": "persuadir"
-        },
-        {
-          "w": "pretend",
-          "k": "verb",
-          "e": "🎭🙂",
-          "ca": "fer veure"
-        },
-        {
-          "w": "reject",
-          "k": "verb",
-          "e": "✋❌",
-          "ca": "rebutjar (no acceptar)"
-        },
-        {
-          "w": "relate",
-          "k": "verb",
-          "e": "🔗💭",
-          "ca": "relacionar"
-        },
-        {
-          "w": "release",
-          "k": "verb",
-          "e": "🕊️➡️",
-          "ca": "alliberar / publicar"
-        },
-        {
-          "w": "remain",
-          "k": "verb",
-          "e": "⏸️",
-          "ca": "quedar-se / romandre"
-        },
-        {
-          "w": "represent",
-          "k": "verb",
-          "e": "🧑‍💼👥",
-          "ca": "representar"
-        },
-        {
-          "w": "require",
-          "k": "verb",
-          "e": "🔑📋",
-          "ca": "requerir"
-        },
-        {
-          "w": "set",
-          "k": "verb",
-          "e": "⬇️📍",
-          "ca": "posar / establir / joc"
-        },
-        {
-          "w": "roll",
-          "k": "verb",
-          "ca": "rodar / tirar (els daus)",
-          "s": "roll_dice_,_to"
-        },
-        {
-          "w": "spread",
-          "k": "verb",
-          "ca": "estendre / escampar",
-          "s": "spread_,_to"
-        },
-        {
-          "w": "tend",
-          "k": "verb",
-          "e": "📈🔁",
-          "ca": "tendir a"
-        },
-        {
-          "w": "stick",
-          "k": "verb",
-          "e": "📎🩹",
-          "ca": "enganxar / clavar"
-        },
-        {
-          "w": "warn",
-          "k": "verb",
-          "e": "⚠️🗣️",
-          "ca": "avisar / advertir"
-        },
-        {
-          "w": "wonder",
-          "k": "verb",
-          "e": "💭❔",
-          "ca": "preguntar-se / meravella"
-        },
-        {
-          "w": "hurry",
-          "k": "verb",
-          "e": "🏃💨",
-          "ca": "afanyar-se / pressa"
-        },
-        {
-          "w": "involve",
-          "k": "verb",
-          "e": "🔗🙋",
-          "ca": "implicar"
-        },
-        {
-          "w": "pass",
-          "k": "verb",
-          "e": "➡️✅",
-          "ca": "passar / aprovar"
-        },
-        {
-          "w": "prove",
-          "k": "verb",
-          "e": "🔍✅",
-          "ca": "demostrar"
-        },
-        {
-          "w": "reflect",
-          "k": "verb",
-          "e": "🪞💭",
-          "ca": "reflectir / reflexionar"
-        },
-        {
-          "w": "quit",
-          "k": "verb",
-          "e": "🚪🏃",
-          "ca": "deixar (de fer) / plegar"
-        },
-        {
-          "w": "search",
-          "k": "verb",
-          "e": "🔍❓",
-          "ca": "buscar / cerca"
-        },
-        {
-          "w": "sort",
-          "k": "verb",
-          "ca": "ordenar / mena",
-          "s": "sort_,_to"
-        },
-        {
-          "w": "dream",
-          "k": "verb",
-          "ca": "somiar / somni",
-          "s": "dream_,_to"
-        },
-        {
-          "w": "fix",
-          "k": "verb",
-          "e": "🛠️",
-          "ca": "arreglar"
-        },
-        {
-          "w": "shall",
-          "k": "verb",
-          "e": "🤝❔",
-          "ca": "(proposta) Shall we…? → Hi anem?"
-        },
-        {
-          "w": "ought",
-          "k": "verb",
-          "e": "☝️📋",
-          "ca": "hauria de"
-        }
-      ]
-    },
-    {
-      "id": "more-describe",
-      "name": "More describing",
-      "icon": "🖍️",
-      "ca": "Més per descriure",
-      "words": [
-        {
-          "w": "able",
-          "k": "describe",
-          "e": "💪✅",
-          "ca": "capaç"
-        },
-        {
-          "w": "attractive",
-          "k": "describe",
-          "e": "😍",
-          "ca": "atractiu / atractiva"
-        },
-        {
-          "w": "awful",
-          "k": "describe",
-          "e": "🤮",
-          "ca": "espantós / fatal"
-        },
-        {
-          "w": "alone",
-          "k": "describe",
-          "e": "🙍",
-          "ca": "sol / sola"
-        },
-        {
-          "w": "active",
-          "k": "describe",
-          "e": "🏃⚡",
-          "ca": "actiu / activa"
-        },
-        {
-          "w": "based",
-          "k": "describe",
-          "e": "📍🧱",
-          "ca": "basat / amb seu a"
-        },
-        {
-          "w": "careful",
-          "k": "describe",
-          "e": "⚠️👀",
-          "ca": "prudent / amb compte"
-        },
-        {
-          "w": "classical",
-          "k": "describe",
-          "e": "🎻🏛️",
-          "ca": "clàssic / clàssica"
-        },
-        {
-          "w": "clear",
-          "k": "describe",
-          "e": "💧✨",
-          "ca": "clar / clara"
-        },
-        {
-          "w": "brilliant",
-          "k": "describe",
-          "e": "💡🌟",
-          "ca": "brillant / genial"
-        },
-        {
-          "w": "certain",
-          "k": "describe",
-          "e": "✅💯",
-          "ca": "segur / cert"
-        },
-        {
-          "w": "direct",
-          "k": "describe",
-          "e": "➡️🎯",
-          "ca": "directe / directa"
-        },
-        {
-          "w": "deep",
-          "k": "describe",
-          "ca": "profund / profunda",
-          "s": "deep"
-        },
-        {
-          "w": "creative",
-          "k": "describe",
-          "e": "🎨💡",
-          "ca": "creatiu / creativa"
-        },
-        {
-          "w": "connected",
-          "k": "describe",
-          "e": "🔗✅",
-          "ca": "connectat / connectada"
-        },
-        {
-          "w": "enormous",
-          "k": "describe",
-          "e": "🐳",
-          "ca": "enorme"
-        },
-        {
-          "w": "extreme",
-          "k": "describe",
-          "e": "🌶️🔥",
-          "ca": "extrem / extrema"
-        },
-        {
-          "w": "fair",
-          "k": "describe",
-          "e": "⚖️🙂",
-          "ca": "just / justa"
-        },
-        {
-          "w": "following",
-          "k": "describe",
-          "e": "➡️⏭️",
-          "ca": "següent"
-        },
-        {
-          "w": "excellent",
-          "k": "describe",
-          "e": "🏆✨",
-          "ca": "excel·lent"
-        },
-        {
-          "w": "wide",
-          "k": "describe",
-          "e": "↔️↔️",
-          "ca": "ample / ampla"
-        },
-        {
-          "w": "disappointing",
-          "k": "describe",
-          "e": "😞👎",
-          "ca": "decebedor / decebedora"
-        },
-        {
-          "w": "keen",
-          "k": "describe",
-          "e": "🙋✨",
-          "ca": "interessat / amb ganes"
-        },
-        {
-          "w": "crazy",
-          "k": "describe",
-          "e": "🤪",
-          "ca": "boig / boja"
-        },
-        {
-          "w": "mad",
-          "k": "describe",
-          "e": "🤬",
-          "ca": "boig / molt enfadat"
-        },
-        {
-          "w": "lazy",
-          "k": "describe",
-          "e": "🦥",
-          "ca": "mandrós / mandrosa"
-        },
-        {
-          "w": "formal",
-          "k": "describe",
-          "e": "🤵📝",
-          "ca": "formal"
-        },
-        {
-          "w": "informal",
-          "k": "describe",
-          "e": "👕💬",
-          "ca": "informal"
-        },
-        {
-          "w": "ideal",
-          "k": "describe",
-          "e": "💯🌟",
-          "ca": "ideal"
-        },
-        {
-          "w": "helpful",
-          "k": "describe",
-          "e": "🤝🙂",
-          "ca": "útil / servicial"
-        },
-        {
-          "w": "impossible",
-          "k": "describe",
-          "e": "🙅",
-          "ca": "impossible"
-        },
-        {
-          "w": "further",
-          "k": "describe",
-          "e": "➡️➡️",
-          "ca": "més lluny / més"
-        },
-        {
-          "w": "included",
-          "k": "describe",
-          "e": "✅📦",
-          "ca": "inclòs / inclosa"
-        },
-        {
-          "w": "incredible",
-          "k": "describe",
-          "e": "😲🌟",
-          "ca": "increïble"
-        },
-        {
-          "w": "independent",
-          "k": "describe",
-          "e": "🧍✊",
-          "ca": "independent"
-        },
-        {
-          "w": "general",
-          "k": "describe",
-          "e": "🌐📋",
-          "ca": "general"
-        },
-        {
-          "w": "huge",
-          "k": "describe",
-          "e": "🏔️",
-          "ca": "immens / enorme"
-        },
-        {
-          "w": "major",
-          "k": "describe",
-          "e": "⭐⬆️",
-          "ca": "important / principal"
-        },
-        {
-          "w": "likely",
-          "k": "describe",
-          "e": "👍🎲",
-          "ca": "probable"
-        },
-        {
-          "w": "loud",
-          "k": "describe",
-          "ca": "fort (so)",
-          "s": "loud"
-        },
-        {
-          "w": "lovely",
-          "k": "describe",
-          "e": "🥰",
-          "ca": "preciós / encantador"
-        },
-        {
-          "w": "low",
-          "k": "describe",
-          "e": "⬇️📏",
-          "ca": "baix / baixa"
-        },
-        {
-          "w": "lucky",
-          "k": "describe",
-          "ca": "afortunat / tenir sort",
-          "s": "lucky"
-        },
-        {
-          "w": "necessary",
-          "k": "describe",
-          "e": "❗📋",
-          "ca": "necessari / necessària"
-        },
-        {
-          "w": "missing",
-          "k": "describe",
-          "e": "❓🧩",
-          "ca": "que falta / desaparegut"
-        },
-        {
-          "w": "particular",
-          "k": "describe",
-          "e": "🔍☝️",
-          "ca": "concret / particular"
-        },
-        {
-          "w": "normal",
-          "k": "describe",
-          "e": "👌📏",
-          "ca": "normal"
-        },
-        {
-          "w": "ordinary",
-          "k": "describe",
-          "e": "⚪🙂",
-          "ca": "corrent / normal"
-        },
-        {
-          "w": "original",
-          "k": "describe",
-          "e": "🌱💡",
-          "ca": "original"
-        },
-        {
-          "w": "narrow",
-          "k": "describe",
-          "e": "↔️🤏",
-          "ca": "estret (poc ample)"
-        },
-        {
-          "w": "separate",
-          "k": "describe",
-          "ca": "separat / separar",
-          "s": "separate_,_to"
-        },
-        {
-          "w": "simple",
-          "k": "describe",
-          "e": "1️⃣👌",
-          "ca": "senzill / senzilla"
-        },
-        {
-          "w": "serious",
-          "k": "describe",
-          "e": "😐",
-          "ca": "seriós / seriosa"
-        },
-        {
-          "w": "secret",
-          "k": "describe",
-          "e": "🤐",
-          "ca": "secret / secreta"
-        },
-        {
-          "w": "strange",
-          "k": "describe",
-          "e": "👽",
-          "ca": "estrany / estranya"
-        },
-        {
-          "w": "tidy",
-          "k": "describe",
-          "ca": "endreçat / endreçar",
-          "s": "tidy_up_,_to"
-        },
-        {
-          "w": "specific",
-          "k": "describe",
-          "e": "🎯📌",
-          "ca": "específic / específica"
-        },
-        {
-          "w": "stupid",
-          "k": "describe",
-          "e": "🤦",
-          "ca": "estúpid / ximple"
-        },
-        {
-          "w": "successful",
-          "k": "describe",
-          "e": "🏆😊",
-          "ca": "d'èxit"
-        },
-        {
-          "w": "surprising",
-          "k": "describe",
-          "e": "🎁😮",
-          "ca": "sorprenent"
-        },
-        {
-          "w": "thick",
-          "k": "describe",
-          "ca": "gruixut / gruixuda",
-          "s": "thick"
-        },
-        {
-          "w": "thin",
-          "k": "describe",
-          "ca": "prim / prima",
-          "s": "thin"
-        },
-        {
-          "w": "unusual",
-          "k": "describe",
-          "e": "🦄",
-          "ca": "poc habitual"
-        },
-        {
-          "w": "weak",
-          "k": "describe",
-          "e": "🥀",
-          "ca": "feble"
-        },
-        {
-          "w": "usual",
-          "k": "describe",
-          "e": "🔁👌",
-          "ca": "habitual"
-        },
-        {
-          "w": "working",
-          "k": "describe",
-          "e": "⚙️✅",
-          "ca": "que funciona / laboral"
-        },
-        {
-          "w": "typical",
-          "k": "describe",
-          "e": "📋👌",
-          "ca": "típic / típica"
-        },
-        {
-          "w": "worst",
-          "k": "describe",
-          "e": "👎👎",
-          "ca": "el pitjor"
-        },
-        {
-          "w": "whole",
-          "k": "describe",
-          "ca": "sencer / tot",
-          "s": "whole"
-        },
-        {
-          "w": "aware",
-          "k": "describe",
-          "e": "💡👀",
-          "ca": "conscient"
-        },
-        {
-          "w": "ambitious",
-          "k": "describe",
-          "e": "🚀🎯",
-          "ca": "ambiciós / ambiciosa"
-        },
-        {
-          "w": "basic",
-          "k": "describe",
-          "e": "1️⃣🧱",
-          "ca": "bàsic / bàsica"
-        },
-        {
-          "w": "advanced",
-          "k": "describe",
-          "e": "🚀📈",
-          "ca": "avançat / avançada"
-        },
-        {
-          "w": "annoying",
-          "k": "describe",
-          "e": "😤💢",
-          "ca": "molest (que molesta)"
-        },
-        {
-          "w": "careless",
-          "k": "describe",
-          "e": "🙈⚠️",
-          "ca": "descuidat / descuidada"
-        },
-        {
-          "w": "central",
-          "k": "describe",
-          "e": "🎯⭕",
-          "ca": "central"
-        },
-        {
-          "w": "complex",
-          "k": "describe",
-          "e": "🧩🧩",
-          "ca": "complex / complexa"
-        },
-        {
-          "w": "covered",
-          "k": "describe",
-          "e": "🧥✅",
-          "ca": "cobert / coberta"
-        },
-        {
-          "w": "definite",
-          "k": "describe",
-          "e": "✅📌",
-          "ca": "definit / clar"
-        },
-        {
-          "w": "cruel",
-          "k": "describe",
-          "e": "👿",
-          "ca": "cruel"
-        },
-        {
-          "w": "convenient",
-          "k": "describe",
-          "e": "👍🕒",
-          "ca": "convenient / còmode"
-        },
-        {
-          "w": "determined",
-          "k": "describe",
-          "e": "✊🎯",
-          "ca": "decidit / decidida"
-        },
-        {
-          "w": "expected",
-          "k": "describe",
-          "e": "📅✅",
-          "ca": "previst / esperat"
-        },
-        {
-          "w": "effective",
-          "k": "describe",
-          "e": "✅🎯",
-          "ca": "eficaç"
-        },
-        {
-          "w": "essential",
-          "k": "describe",
-          "e": "🔑❗",
-          "ca": "essencial"
-        },
-        {
-          "w": "fixed",
-          "k": "describe",
-          "e": "📌🔒",
-          "ca": "fix / fixa"
-        },
-        {
-          "w": "familiar",
-          "k": "describe",
-          "e": "👀🙂",
-          "ca": "conegut / familiar"
-        },
-        {
-          "w": "fascinating",
-          "k": "describe",
-          "e": "🤩🔍",
-          "ca": "fascinant"
-        },
-        {
-          "w": "embarrassing",
-          "k": "describe",
-          "e": "😳",
-          "ca": "vergonyós / que fa vergonya"
-        },
-        {
-          "w": "impressive",
-          "k": "describe",
-          "e": "👏✨",
-          "ca": "impressionant"
-        },
-        {
-          "w": "horrible",
-          "k": "describe",
-          "e": "👹",
-          "ca": "horrible"
-        },
-        {
-          "w": "indirect",
-          "k": "describe",
-          "e": "↪️",
-          "ca": "indirecte / indirecta"
-        },
-        {
-          "w": "indoor",
-          "k": "describe",
-          "e": "🏠🏀",
-          "ca": "interior (a cobert)"
-        },
-        {
-          "w": "indoors",
-          "k": "describe",
-          "e": "🏠👈",
-          "ca": "a dins (de casa)"
-        },
-        {
-          "w": "outdoor",
-          "k": "describe",
-          "e": "🌳🏀",
-          "ca": "a l'aire lliure"
-        },
-        {
-          "w": "outdoors",
-          "k": "describe",
-          "e": "🌳👉",
-          "ca": "a fora"
-        },
-        {
-          "w": "gentle",
-          "k": "describe",
-          "e": "🕊️",
-          "ca": "suau / delicat"
-        },
-        {
-          "w": "involved",
-          "k": "describe",
-          "e": "🙋🔗",
-          "ca": "implicat / implicada"
-        },
-        {
-          "w": "leading",
-          "k": "describe",
-          "e": "🥇➡️",
-          "ca": "principal / capdavanter"
-        },
-        {
-          "w": "odd",
-          "k": "describe",
-          "e": "🧦❓",
-          "ca": "estrany / senar"
-        },
-        {
-          "w": "peaceful",
-          "k": "describe",
-          "e": "☮️",
-          "ca": "tranquil / pacífic"
-        },
-        {
-          "w": "organised",
-          "k": "describe",
-          "e": "🗂️",
-          "ca": "organitzat / organitzada"
-        },
-        {
-          "w": "obvious",
-          "k": "describe",
-          "e": "👀💯",
-          "ca": "evident"
-        },
-        {
-          "w": "proper",
-          "k": "describe",
-          "e": "✔️👔",
-          "ca": "correcte / de debò"
-        },
-        {
-          "w": "powerful",
-          "k": "describe",
-          "e": "⚡💪",
-          "ca": "poderós / poderosa"
-        },
-        {
-          "w": "practical",
-          "k": "describe",
-          "e": "🛠️👍",
-          "ca": "pràctic / pràctica"
-        },
-        {
-          "w": "prepared",
-          "k": "describe",
-          "e": "🎒✅",
-          "ca": "preparat / preparada"
-        },
-        {
-          "w": "pleasant",
-          "k": "describe",
-          "e": "😊🌼",
-          "ca": "agradable"
-        },
-        {
-          "w": "related",
-          "k": "describe",
-          "e": "🔗📎",
-          "ca": "relacionat / relacionada"
-        },
-        {
-          "w": "relaxing",
-          "k": "describe",
-          "e": "🛀",
-          "ca": "relaxant"
-        },
-        {
-          "w": "reliable",
-          "k": "describe",
-          "e": "🤝🔒",
-          "ca": "fiable"
-        },
-        {
-          "w": "rare",
-          "k": "describe",
-          "e": "💎❓",
-          "ca": "rar / poc freqüent"
-        },
-        {
-          "w": "repeated",
-          "k": "describe",
-          "e": "🔂",
-          "ca": "repetit / repetida"
-        },
-        {
-          "w": "sensible",
-          "k": "describe",
-          "e": "🧠👍",
-          "ca": "assenyat / sensat"
-        },
-        {
-          "w": "silly",
-          "k": "describe",
-          "e": "🙃",
-          "ca": "ximple / ridícul"
-        },
-        {
-          "w": "responsible",
-          "k": "describe",
-          "e": "🙋📋",
-          "ca": "responsable"
-        },
-        {
-          "w": "sharp",
-          "k": "describe",
-          "ca": "esmolat / punxegut",
-          "s": "sharp"
-        },
-        {
-          "w": "smart",
-          "k": "describe",
-          "e": "🤓",
-          "ca": "llest / elegant"
-        },
-        {
-          "w": "silent",
-          "k": "describe",
-          "e": "🔇",
-          "ca": "silenciós / en silenci"
-        },
-        {
-          "w": "tiny",
-          "k": "describe",
-          "e": "🐁🤏",
-          "ca": "petitó / diminut"
-        },
-        {
-          "w": "technical",
-          "k": "describe",
-          "e": "🔧⚙️",
-          "ca": "tècnic / tècnica"
-        },
-        {
-          "w": "sudden",
-          "k": "describe",
-          "e": "⚡😮",
-          "ca": "sobtat / sobtada"
-        },
-        {
-          "w": "suitable",
-          "k": "describe",
-          "e": "👍✔️",
-          "ca": "adequat / apropiat"
-        },
-        {
-          "w": "unpleasant",
-          "k": "describe",
-          "e": "😣👎",
-          "ca": "desagradable"
-        },
-        {
-          "w": "used",
-          "k": "describe",
-          "e": "♻️✔️",
-          "ca": "usat / usada"
-        },
-        {
-          "w": "various",
-          "k": "describe",
-          "e": "🎨🔢",
-          "ca": "variat / diversos"
-        },
-        {
-          "w": "ugly",
-          "k": "describe",
-          "ca": "lleig / lletja",
-          "s": "ugly"
-        },
-        {
-          "w": "unable",
-          "k": "describe",
-          "e": "🚫✋",
-          "ca": "incapaç"
-        },
-        {
-          "w": "unfair",
-          "k": "describe",
-          "e": "⚖️❌",
-          "ca": "injust / injusta"
-        },
-        {
-          "w": "unlikely",
-          "k": "describe",
-          "e": "👎🎲",
-          "ca": "poc probable"
-        },
-        {
-          "w": "unnecessary",
-          "k": "describe",
-          "e": "❌📋",
-          "ca": "innecessari / innecessària"
-        },
-        {
-          "w": "light",
-          "k": "describe",
-          "ca": "lleuger / lleugera",
-          "s": "light"
-        },
-        {
-          "w": "little",
-          "k": "describe",
-          "ca": "petit / petita (little)",
-          "s": "little"
-        },
-        {
-          "w": "common",
-          "k": "describe",
-          "e": "👥✅",
-          "ca": "comú / freqüent"
-        },
-        {
-          "w": "main",
-          "k": "describe",
-          "e": "⭐1️⃣",
-          "ca": "principal"
-        },
-        {
-          "w": "negative",
-          "k": "describe",
-          "e": "➖👎",
-          "ca": "negatiu / negativa"
-        },
-        {
-          "w": "quick",
-          "k": "describe",
-          "e": "⚡🏃",
-          "ca": "ràpid / ràpida"
-        },
-        {
-          "w": "positive",
-          "k": "describe",
-          "e": "➕👍",
-          "ca": "positiu / positiva"
-        },
-        {
-          "w": "similar",
-          "k": "describe",
-          "e": "🟰🤏",
-          "ca": "semblant"
-        },
-        {
-          "w": "clearly",
-          "k": "describe",
-          "e": "💡👉",
-          "ca": "clarament"
-        },
-        {
-          "w": "completely",
-          "k": "describe",
-          "e": "🌕✅",
-          "ca": "completament"
-        },
-        {
-          "w": "differently",
-          "k": "describe",
-          "e": "🔀👉",
-          "ca": "de manera diferent"
-        },
-        {
-          "w": "extremely",
-          "k": "describe",
-          "e": "‼️🔥",
-          "ca": "extremadament"
-        },
-        {
-          "w": "absolutely",
-          "k": "describe",
-          "e": "💯💯",
-          "ca": "absolutament"
-        },
-        {
-          "w": "directly",
-          "k": "describe",
-          "e": "➡️👉",
-          "ca": "directament"
-        },
-        {
-          "w": "effectively",
-          "k": "describe",
-          "e": "✅⚙️",
-          "ca": "eficaçment"
-        },
-        {
-          "w": "fairly",
-          "k": "describe",
-          "e": "◑🙂",
-          "ca": "bastant / amb justícia"
-        },
-        {
-          "w": "heavily",
-          "k": "describe",
-          "e": "🏋️👉",
-          "ca": "molt / amb força (pes)"
-        },
-        {
-          "w": "highly",
-          "k": "describe",
-          "e": "⬆️⬆️",
-          "ca": "molt / altament"
-        },
-        {
-          "w": "incredibly",
-          "k": "describe",
-          "e": "🤯👉",
-          "ca": "increïblement"
-        },
-        {
-          "w": "perfectly",
-          "k": "describe",
-          "e": "👌✨",
-          "ca": "perfectament"
-        },
-        {
-          "w": "properly",
-          "k": "describe",
-          "e": "✔️👉",
-          "ca": "bé / correctament"
-        },
-        {
-          "w": "seriously",
-          "k": "describe",
-          "e": "😐👉",
-          "ca": "seriosament"
-        },
-        {
-          "w": "slightly",
-          "k": "describe",
-          "e": "🤏👉",
-          "ca": "una mica / lleugerament"
-        },
-        {
-          "w": "strongly",
-          "k": "describe",
-          "e": "💪👉",
-          "ca": "amb força"
-        },
-        {
-          "w": "successfully",
-          "k": "describe",
-          "e": "🏆👉",
-          "ca": "amb èxit"
-        },
-        {
-          "w": "totally",
-          "k": "describe",
-          "e": "💯👉",
-          "ca": "totalment"
         }
       ]
     },

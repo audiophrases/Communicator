@@ -180,7 +180,7 @@ it do not move, and the button stays on its page. Removing a starred button from
 
 | Part | Where | What it does |
 | --- | --- | --- |
-| Board | `src/vocab.ts`, `src/App.tsx` | 60 fixed core buttons, 24 pages with about 2,650 words and expressions, and 38 quick phrases, all with Catalan |
+| Board | `src/vocab.ts`, `src/App.tsx` | 60 fixed core buttons, 20 pages with about 2,650 words and expressions, and 38 quick phrases, all with Catalan |
 | Catalan tooltips | `src/tooltip.ts` | Any button with `data-ca` shows its Catalan on hover, or on a half-second hold on touch screens (the hold does not press the button) |
 | Editor | `src/Create.tsx`, `src/stars.ts`, `scripts/board-sync.mjs`, `worker/teacher.ts` | Teacher boards sync through Git. The Fix switch and saved answers use local Durable Object storage. Signed sessions last 12 hours. |
 | Board rules | `shared/board.ts` | One `sanitizeBoard` for the page and the Worker: sizes, colours, empty core slots, core words and their page copies kept alike |
@@ -221,16 +221,16 @@ it do not move, and the button stays on its page. Removing a starred button from
 - **The A1, A2 and B1 words are all there.** The pages hold the CEFR A1 to B1 vocabulary: the A1, A2 and B1 words of the
   [Oxford 3000](https://www.oxfordlearnersdictionaries.com/about/wordlists/oxford3000-5000) (about 2,400 words) and
   Cambridge's [A1 Movers](https://www.cambridgeenglish.org/Images/351850-a1-movers-word-list-2018.pdf) word list. Most
-  sit on the page of their topic (Numbers, Clothes & colours, Nature & weather, Animals, School, Free time, Work); verbs,
-  describing words and little words that fit no topic go on Actions, Describe and Little words. The A2 and B1 words
-  (`src/vocabMore.ts`) follow each page's first words, so those keep their place, and fill four pages at the end:
-  More actions, More describing, Society (government, law, religion, the news) and Ideas (abstract nouns such as
-  *advantage* or *decision*). Left out: alcohol, CDs and DVDs; second spellings or forms of a word already there
+  sit on the page of their topic (Numbers & shopping, Clothes & colours, Nature & weather, Animals, School, Free time,
+  Work); verbs, describing words and little words that fit no topic go on Actions, Describe and Little words, so
+  Actions and Describe are big pages of about 300 buttons each. The A2 and B1 words (`src/vocabMore.ts`) follow each
+  page's first words, so those keep their place. Two pages at the end hold the rest: Society (government, law,
+  religion, the news) and Ideas (abstract nouns such as *advantage* or *decision*). Left out: alcohol, CDs and DVDs; second spellings or forms of a word already there
   (bicycle for bike, telephone for phone, cannot for can't, photograph for photo, everybody for everyone); American words
   for ones the board has (vacation, soccer, pants, truck); and rare second meanings (a river bank, a coal mine).
   Spelling is British: organise, realise, summarise.
 - **Everyday A2–B1 conversations.** Learners can borrow a pencil, ask which platform they need, describe a headache,
-  request a refund or explain why they disagree. Languages and Countries have their own pages. On Places, students can
+  request a refund or explain why they disagree. Languages and countries share a page. On Places, students can
   also find Catalonia, Barcelona and Madrid. Quick phrases include “I need an interpreter” and “Please let me finish.”
 - **Built for ESL.** The level setting (A1 to B2) keeps suggestions in words the speaker knows. "My language" (Catalan, on by default on every device; a student can choose "Do not translate") shows the
   sentence translated, so the speaker can check the meaning before saying it out loud. Catalan tooltips let a learner
