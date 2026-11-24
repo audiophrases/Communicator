@@ -2038,7 +2038,7 @@
           "w": "cream",
           "k": "noun",
           "ca": "nata",
-          "s": "cream"
+          "s": "ice_cream_tub"
         },
         {
           "w": "sugar",
@@ -2219,6 +2219,12 @@
           "k": "describe",
           "e": "🌾🚫",
           "ca": "sense gluten"
+        },
+        {
+          "w": "chips",
+          "k": "noun",
+          "ca": "patates chip",
+          "s": "upload_a20a55fec8d137fd0308a52862ff35ece6d3dbb6c5bad9828f7222e41699cca6.gif"
         }
       ]
     },
