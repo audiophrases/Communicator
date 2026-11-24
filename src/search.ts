@@ -6,8 +6,14 @@
 // not matter ("germa" finds "germà").
 
 import type { Board, Word } from '../shared/board.ts';
+import { MORE } from './vocabMore.ts';
 
 export type Hit = { word: Word; page: string; pageName: string; index: number };
+
+// The A2 and B1 words (src/vocabMore.ts), by English and colour: among equal matches they come after the everyday
+// ones, so "wa" still offers want, water and wait before war, warn and wave.
+const LATER = new Set(Object.values(MORE).flatMap(rows => rows.flatMap(([kind, items]) =>
+    items.split('|').map(item => `${item.split('=')[0]}|${kind}`))));
 
 // Lower case, without accents, one kind of apostrophe.
 export const fold = (text: string) => text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[’`]/g, "'").trim();
@@ -49,9 +55,10 @@ export function findButtons(board: Board, query: string, { limit = 12, distinct 
         place.words.forEach((word, index) => {
             if (!word.w) return;
             const value = score(word, start, whole);
-            // Among equal matches, core words (the most used) first, then shorter ones: Tab picks the first.
+            // Among equal matches, core words (the most used) first, then the other A1 words, then shorter ones: Tab
+            // picks the first.
             if (value) hits.push({ word, page: place.page, pageName: place.pageName, index, order: hits.length,
-                score: value + (place.page === 'core' ? 5 : 0) - word.w.length / 100 });
+                score: value + (place.page === 'core' ? 5 : 0) - (LATER.has(`${word.w}|${word.k}`) ? 1 : 0) - word.w.length / 100 });
         });
     }
     hits.sort((a, b) => b.score - a.score || a.order - b.order);

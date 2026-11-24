@@ -7,6 +7,7 @@
 // A2–B1 additions cover everyday conversations, school, shopping, work and getting around.
 
 import type { Board, Kind, Word } from '../shared/board.ts';
+import { MORE, MORE_PAGES } from './vocabMore.ts';
 
 const row = (kind: Kind, items: string): Word[] => items.split('|').map(item => {
     const [w, picture, ca] = item.split('=');
@@ -114,7 +115,7 @@ const fromCore = (...words: string[]): Word[] => words.map(w => {
     return { ...word };
 });
 
-export const DEFAULT_BOARD: Board = {
+const FIRST_BOARD: Board = {
     pictureVersion: 4,
     core: CORE_BOARD,
     pages: [
@@ -261,4 +262,14 @@ export const DEFAULT_BOARD: Board = {
         ["I've changed my mind.", "He canviat d'opinió."],
         ['Which languages do you speak?', 'Quines llengües parla?']
     ].map(([t, ca]) => ({ t, ca }))
+};
+
+// The A2 and B1 words (src/vocabMore.ts) go after each page's own words, and on four pages of their own at the end.
+const more = (id: string) => (MORE[id] ?? []).flatMap(([kind, items]) => row(kind, items));
+export const DEFAULT_BOARD: Board = {
+    ...FIRST_BOARD,
+    pages: [
+        ...FIRST_BOARD.pages.map(page => ({ ...page, words: [...page.words, ...more(page.id)] })),
+        ...MORE_PAGES.map(page => ({ ...page, words: more(page.id) }))
+    ]
 };

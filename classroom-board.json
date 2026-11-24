@@ -925,6 +925,354 @@
           "k": "person",
           "e": "🛎️🧑",
           "ca": "convidat / convidada"
+        },
+        {
+          "w": "kid",
+          "k": "person",
+          "e": "🧒🧢",
+          "ca": "nen / nena (col·loquial)"
+        },
+        {
+          "w": "guy",
+          "k": "person",
+          "e": "🙋‍♂️",
+          "ca": "noi / tio (col·loquial)"
+        },
+        {
+          "w": "lady",
+          "k": "person",
+          "e": "👩👒",
+          "ca": "senyora"
+        },
+        {
+          "w": "sir",
+          "k": "person",
+          "e": "🎩👨",
+          "ca": "senyor"
+        },
+        {
+          "w": "neighbour",
+          "k": "person",
+          "e": "🏠👋",
+          "ca": "veí / veïna"
+        },
+        {
+          "w": "grandparent",
+          "k": "person",
+          "ca": "avi / àvia",
+          "s": "grandparents"
+        },
+        {
+          "w": "couple",
+          "k": "person",
+          "e": "💑",
+          "ca": "parella"
+        },
+        {
+          "w": "twin",
+          "k": "person",
+          "e": "👯",
+          "ca": "bessó / bessona"
+        },
+        {
+          "w": "relative",
+          "k": "person",
+          "e": "👪🔗",
+          "ca": "familiar (parent / parenta)"
+        },
+        {
+          "w": "bride",
+          "k": "person",
+          "e": "👰💐",
+          "ca": "núvia"
+        },
+        {
+          "w": "host",
+          "k": "person",
+          "e": "🏠🤗",
+          "ca": "amfitrió / amfitriona"
+        },
+        {
+          "w": "owner",
+          "k": "person",
+          "e": "🔑👤",
+          "ca": "propietari / propietària"
+        },
+        {
+          "w": "leader",
+          "k": "person",
+          "e": "🚩👤",
+          "ca": "líder"
+        },
+        {
+          "w": "hero",
+          "k": "person",
+          "e": "🦸",
+          "ca": "heroi / heroïna"
+        },
+        {
+          "w": "celebrity",
+          "k": "person",
+          "e": "⭐🎤",
+          "ca": "famós / famosa"
+        },
+        {
+          "w": "fan",
+          "k": "person",
+          "e": "🙌📣",
+          "ca": "fan / aficionat / aficionada"
+        },
+        {
+          "w": "king",
+          "k": "person",
+          "e": "👑👨",
+          "ca": "rei"
+        },
+        {
+          "w": "queen",
+          "k": "person",
+          "e": "👑👩",
+          "ca": "reina"
+        },
+        {
+          "w": "prince",
+          "k": "person",
+          "e": "🤴",
+          "ca": "príncep"
+        },
+        {
+          "w": "princess",
+          "k": "person",
+          "e": "👸",
+          "ca": "princesa"
+        },
+        {
+          "w": "enemy",
+          "k": "person",
+          "e": "😠⚔️",
+          "ca": "enemic / enemiga"
+        },
+        {
+          "w": "individual",
+          "k": "person",
+          "e": "☝️👤",
+          "ca": "individu / persona"
+        },
+        {
+          "w": "human",
+          "k": "person",
+          "e": "🧍🌍",
+          "ca": "humà / ésser humà"
+        },
+        {
+          "w": "youth",
+          "k": "person",
+          "e": "🛹🧑",
+          "ca": "jove / joventut"
+        },
+        {
+          "w": "crowd",
+          "k": "person",
+          "e": "👥👥👥",
+          "ca": "multitud / gentada"
+        },
+        {
+          "w": "reader",
+          "k": "person",
+          "e": "📖🙂",
+          "ca": "lector / lectora"
+        },
+        {
+          "w": "listener",
+          "k": "person",
+          "e": "👂🙂",
+          "ca": "oient"
+        },
+        {
+          "w": "speaker",
+          "k": "person",
+          "e": "🎤🙋",
+          "ca": "orador / oradora / parlant"
+        },
+        {
+          "w": "viewer",
+          "k": "person",
+          "e": "📺👀",
+          "ca": "espectador / espectadora"
+        },
+        {
+          "w": "user",
+          "k": "person",
+          "e": "👤💻",
+          "ca": "usuari / usuària"
+        },
+        {
+          "w": "supporter",
+          "k": "person",
+          "e": "🙌⚽",
+          "ca": "seguidor / seguidora"
+        },
+        {
+          "w": "servant",
+          "k": "person",
+          "e": "🛎️🧹",
+          "ca": "criat / criada"
+        },
+        {
+          "w": "hers",
+          "k": "person",
+          "e": "👩🔑",
+          "ca": "el seu / la seva (d'ella)"
+        },
+        {
+          "w": "herself",
+          "k": "person",
+          "e": "👩🪞",
+          "ca": "ella mateixa"
+        },
+        {
+          "w": "himself",
+          "k": "person",
+          "e": "👨🪞",
+          "ca": "ell mateix"
+        },
+        {
+          "w": "itself",
+          "k": "person",
+          "e": "📦🪞",
+          "ca": "ell mateix / si mateix (una cosa)"
+        },
+        {
+          "w": "themselves",
+          "k": "person",
+          "e": "👫🪞",
+          "ca": "ells mateixos / elles mateixes"
+        },
+        {
+          "w": "relationship",
+          "k": "noun",
+          "e": "💞",
+          "ca": "relació"
+        },
+        {
+          "w": "friendship",
+          "k": "noun",
+          "e": "🤝❤️",
+          "ca": "amistat"
+        },
+        {
+          "w": "marriage",
+          "k": "noun",
+          "e": "💍👫",
+          "ca": "matrimoni"
+        },
+        {
+          "w": "wedding",
+          "k": "noun",
+          "e": "💒",
+          "ca": "casament"
+        },
+        {
+          "w": "childhood",
+          "k": "noun",
+          "e": "🧸🧒",
+          "ca": "infància"
+        },
+        {
+          "w": "birth",
+          "k": "noun",
+          "e": "👶✨",
+          "ca": "naixement"
+        },
+        {
+          "w": "death",
+          "k": "noun",
+          "e": "⚰️",
+          "ca": "mort"
+        },
+        {
+          "w": "personality",
+          "k": "noun",
+          "e": "😀🧠",
+          "ca": "personalitat"
+        },
+        {
+          "w": "character",
+          "k": "noun",
+          "e": "🦸‍♀️📖",
+          "ca": "personatge / caràcter"
+        },
+        {
+          "w": "generation",
+          "k": "noun",
+          "e": "👴👨👦",
+          "ca": "generació"
+        },
+        {
+          "w": "relation",
+          "k": "noun",
+          "e": "🔗👥",
+          "ca": "relació / parent"
+        },
+        {
+          "w": "marry",
+          "k": "verb",
+          "e": "👰🤵",
+          "ca": "casar-se (amb)"
+        },
+        {
+          "w": "divorced",
+          "k": "describe",
+          "e": "💔💍",
+          "ca": "divorciat / divorciada"
+        },
+        {
+          "w": "single",
+          "k": "describe",
+          "e": "🙋1️⃣",
+          "ca": "solter / soltera / individual"
+        },
+        {
+          "w": "engaged",
+          "k": "describe",
+          "e": "💍🙋",
+          "ca": "promès / promesa (o ocupat)"
+        },
+        {
+          "w": "male",
+          "k": "describe",
+          "e": "♂️",
+          "ca": "masculí / home"
+        },
+        {
+          "w": "female",
+          "k": "describe",
+          "e": "♀️",
+          "ca": "femení / dona"
+        },
+        {
+          "w": "teenage",
+          "k": "describe",
+          "e": "🎧🧑",
+          "ca": "adolescent"
+        },
+        {
+          "w": "aged",
+          "k": "describe",
+          "e": "🎂🔢",
+          "ca": "de (…) anys"
+        },
+        {
+          "w": "romantic",
+          "k": "describe",
+          "e": "💘",
+          "ca": "romàntic / romàntica"
+        },
+        {
+          "w": "personal",
+          "k": "describe",
+          "e": "👤🔒",
+          "ca": "personal"
         }
       ]
     },
@@ -1833,6 +2181,36 @@
           "k": "verb",
           "ca": "canviar d'opinió",
           "s": "change_mind_,_to"
+        },
+        {
+          "w": "include",
+          "k": "verb",
+          "e": "📥➕",
+          "ca": "incloure"
+        },
+        {
+          "w": "wake",
+          "k": "verb",
+          "ca": "despertar-se",
+          "s": "wake_up_,_to"
+        },
+        {
+          "w": "lie",
+          "k": "verb",
+          "ca": "estirar-se / mentir",
+          "s": "lie_on_back_,_to"
+        },
+        {
+          "w": "hold",
+          "k": "verb",
+          "ca": "aguantar / agafar",
+          "s": "hold_,_to"
+        },
+        {
+          "w": "cry",
+          "k": "verb",
+          "e": "😭",
+          "ca": "plorar"
         }
       ]
     },
@@ -2231,6 +2609,156 @@
           "k": "noun",
           "ca": "galeta",
           "s": "upload_803c423225f01746a68f3436773216ceb841ed36d7d3abed295a8f68bdf81877.gif"
+        },
+        {
+          "w": "beef",
+          "k": "noun",
+          "ca": "vedella",
+          "s": "beef"
+        },
+        {
+          "w": "biscuit",
+          "k": "noun",
+          "e": "🍪",
+          "ca": "galeta"
+        },
+        {
+          "w": "chip",
+          "k": "noun",
+          "ca": "patata fregida / xip",
+          "s": "chips"
+        },
+        {
+          "w": "dessert",
+          "k": "noun",
+          "ca": "postres",
+          "s": "dessert"
+        },
+        {
+          "w": "jam",
+          "k": "noun",
+          "ca": "melmelada",
+          "s": "jam"
+        },
+        {
+          "w": "lemon",
+          "k": "noun",
+          "ca": "llimona",
+          "s": "lemon"
+        },
+        {
+          "w": "sauce",
+          "k": "noun",
+          "e": "🍅🥄",
+          "ca": "salsa"
+        },
+        {
+          "w": "recipe",
+          "k": "noun",
+          "ca": "recepta",
+          "s": "recipe"
+        },
+        {
+          "w": "flour",
+          "k": "noun",
+          "e": "🌾",
+          "ca": "farina"
+        },
+        {
+          "w": "oil",
+          "k": "noun",
+          "e": "🫒",
+          "ca": "oli"
+        },
+        {
+          "w": "grain",
+          "k": "noun",
+          "e": "🌾🔍",
+          "ca": "gra"
+        },
+        {
+          "w": "diet",
+          "k": "noun",
+          "e": "🥗⚖️",
+          "ca": "dieta"
+        },
+        {
+          "w": "pan",
+          "k": "noun",
+          "e": "🥘",
+          "ca": "paella (estri de cuina)"
+        },
+        {
+          "w": "pot",
+          "k": "noun",
+          "ca": "olla",
+          "s": "saucepan"
+        },
+        {
+          "w": "slice",
+          "k": "noun",
+          "ca": "llesca / tros",
+          "s": "slice"
+        },
+        {
+          "w": "mixture",
+          "k": "noun",
+          "e": "🥣🔀",
+          "ca": "barreja"
+        },
+        {
+          "w": "bake",
+          "k": "verb",
+          "ca": "coure al forn",
+          "s": "bake_,_to"
+        },
+        {
+          "w": "boil",
+          "k": "verb",
+          "e": "🫧♨️",
+          "ca": "bullir"
+        },
+        {
+          "w": "fry",
+          "k": "verb",
+          "ca": "fregir",
+          "s": "fry_,_to"
+        },
+        {
+          "w": "pour",
+          "k": "verb",
+          "ca": "abocar",
+          "s": "pour_,_to"
+        },
+        {
+          "w": "mix",
+          "k": "verb",
+          "e": "🥄🔄",
+          "ca": "barrejar"
+        },
+        {
+          "w": "taste",
+          "k": "verb",
+          "ca": "tastar / gust",
+          "s": "taste_,_to"
+        },
+        {
+          "w": "serve",
+          "k": "verb",
+          "ca": "servir",
+          "s": "serve_,_to"
+        },
+        {
+          "w": "fresh",
+          "k": "describe",
+          "e": "🥬✨",
+          "ca": "fresc / fresca"
+        },
+        {
+          "w": "frozen",
+          "k": "describe",
+          "e": "🧊🥦",
+          "ca": "congelat / congelada"
         }
       ]
     },
@@ -2791,6 +3319,396 @@
           "k": "describe",
           "ca": "accessible",
           "s": "disabled_sign"
+        },
+        {
+          "w": "flat",
+          "k": "noun",
+          "e": "🏢🔑",
+          "ca": "pis"
+        },
+        {
+          "w": "bar",
+          "k": "noun",
+          "e": "☕🥐",
+          "ca": "bar"
+        },
+        {
+          "w": "castle",
+          "k": "noun",
+          "ca": "castell",
+          "s": "castle"
+        },
+        {
+          "w": "bridge",
+          "k": "noun",
+          "e": "🌉",
+          "ca": "pont"
+        },
+        {
+          "w": "gallery",
+          "k": "noun",
+          "e": "🖼️🏛️",
+          "ca": "galeria (d'art)"
+        },
+        {
+          "w": "hall",
+          "k": "noun",
+          "e": "🏛️🚪",
+          "ca": "sala / vestíbul"
+        },
+        {
+          "w": "palace",
+          "k": "noun",
+          "e": "🏰",
+          "ca": "palau"
+        },
+        {
+          "w": "railway",
+          "k": "noun",
+          "e": "🚂🛤️",
+          "ca": "ferrocarril"
+        },
+        {
+          "w": "stadium",
+          "k": "noun",
+          "e": "🏟️",
+          "ca": "estadi"
+        },
+        {
+          "w": "studio",
+          "k": "noun",
+          "e": "🎙️🎚️",
+          "ca": "estudi"
+        },
+        {
+          "w": "garage",
+          "k": "noun",
+          "ca": "garatge",
+          "s": "garage"
+        },
+        {
+          "w": "cottage",
+          "k": "noun",
+          "e": "🛖",
+          "ca": "caseta de camp"
+        },
+        {
+          "w": "campus",
+          "k": "noun",
+          "e": "🎓🌳",
+          "ca": "campus"
+        },
+        {
+          "w": "mall",
+          "k": "noun",
+          "e": "🏬",
+          "ca": "centre comercial"
+        },
+        {
+          "w": "port",
+          "k": "noun",
+          "e": "⚓🚢",
+          "ca": "port"
+        },
+        {
+          "w": "airline",
+          "k": "noun",
+          "e": "✈️🏢",
+          "ca": "companyia aèria"
+        },
+        {
+          "w": "parking",
+          "k": "noun",
+          "e": "🅿️",
+          "ca": "aparcament"
+        },
+        {
+          "w": "route",
+          "k": "noun",
+          "e": "🗺️➡️",
+          "ca": "ruta / itinerari"
+        },
+        {
+          "w": "path",
+          "k": "noun",
+          "e": "👣🌿",
+          "ca": "camí"
+        },
+        {
+          "w": "tower",
+          "k": "noun",
+          "e": "🗼",
+          "ca": "torre"
+        },
+        {
+          "w": "gate",
+          "k": "noun",
+          "e": "🚪🚧",
+          "ca": "porta (de reixa) / porta d'embarcament"
+        },
+        {
+          "w": "fence",
+          "k": "noun",
+          "e": "🚧",
+          "ca": "tanca"
+        },
+        {
+          "w": "yard",
+          "k": "noun",
+          "e": "🏡🌿",
+          "ca": "pati"
+        },
+        {
+          "w": "accommodation",
+          "k": "noun",
+          "e": "🏨🛏️",
+          "ca": "allotjament"
+        },
+        {
+          "w": "destination",
+          "k": "noun",
+          "e": "🎯📍",
+          "ca": "destinació"
+        },
+        {
+          "w": "arrival",
+          "k": "noun",
+          "e": "🛬",
+          "ca": "arribada"
+        },
+        {
+          "w": "departure",
+          "k": "noun",
+          "e": "🛫🕒",
+          "ca": "sortida"
+        },
+        {
+          "w": "attraction",
+          "k": "noun",
+          "e": "🎢",
+          "ca": "atracció"
+        },
+        {
+          "w": "tour",
+          "k": "noun",
+          "e": "🚌📸",
+          "ca": "visita guiada / gira"
+        },
+        {
+          "w": "tourism",
+          "k": "noun",
+          "e": "📸🗺️",
+          "ca": "turisme"
+        },
+        {
+          "w": "location",
+          "k": "noun",
+          "e": "📍🗺️",
+          "ca": "ubicació"
+        },
+        {
+          "w": "region",
+          "k": "noun",
+          "e": "🗺️📌",
+          "ca": "regió"
+        },
+        {
+          "w": "capital",
+          "k": "noun",
+          "e": "🏛️📍",
+          "ca": "capital"
+        },
+        {
+          "w": "neighbourhood",
+          "k": "noun",
+          "e": "🏘️👋",
+          "ca": "barri"
+        },
+        {
+          "w": "reception",
+          "k": "noun",
+          "e": "🛎️🙋",
+          "ca": "recepció"
+        },
+        {
+          "w": "entry",
+          "k": "noun",
+          "e": "🚪🎟️",
+          "ca": "entrada"
+        },
+        {
+          "w": "property",
+          "k": "noun",
+          "e": "🏠📜",
+          "ca": "propietat / immoble"
+        },
+        {
+          "w": "statue",
+          "k": "noun",
+          "e": "🗽",
+          "ca": "estàtua"
+        },
+        {
+          "w": "architecture",
+          "k": "noun",
+          "e": "🏛️📐",
+          "ca": "arquitectura"
+        },
+        {
+          "w": "step",
+          "k": "noun",
+          "e": "👣",
+          "ca": "pas / esglaó"
+        },
+        {
+          "w": "vehicle",
+          "k": "noun",
+          "e": "🚙",
+          "ca": "vehicle"
+        },
+        {
+          "w": "van",
+          "k": "noun",
+          "ca": "furgoneta",
+          "s": "van"
+        },
+        {
+          "w": "lorry",
+          "k": "noun",
+          "ca": "camió",
+          "s": "lorry"
+        },
+        {
+          "w": "motorcycle",
+          "k": "noun",
+          "ca": "moto",
+          "s": "motorcycle"
+        },
+        {
+          "w": "helicopter",
+          "k": "noun",
+          "ca": "helicòpter",
+          "s": "helicopter"
+        },
+        {
+          "w": "ship",
+          "k": "noun",
+          "e": "🚢",
+          "ca": "vaixell"
+        },
+        {
+          "w": "engine",
+          "k": "noun",
+          "ca": "motor",
+          "s": "engine"
+        },
+        {
+          "w": "wheel",
+          "k": "noun",
+          "e": "🛞",
+          "ca": "roda"
+        },
+        {
+          "w": "tyre",
+          "k": "noun",
+          "e": "🛞💨",
+          "ca": "pneumàtic"
+        },
+        {
+          "w": "petrol",
+          "k": "noun",
+          "e": "⛽",
+          "ca": "gasolina"
+        },
+        {
+          "w": "fuel",
+          "k": "noun",
+          "e": "🛢️",
+          "ca": "combustible"
+        },
+        {
+          "w": "driving",
+          "k": "noun",
+          "e": "🚗🧑",
+          "ca": "conducció"
+        },
+        {
+          "w": "transport",
+          "k": "noun",
+          "e": "🚌🚆",
+          "ca": "transport"
+        },
+        {
+          "w": "speed",
+          "k": "noun",
+          "e": "⏩",
+          "ca": "velocitat"
+        },
+        {
+          "w": "coach",
+          "k": "noun",
+          "ca": "autocar / entrenador",
+          "s": "coach"
+        },
+        {
+          "w": "seat",
+          "k": "noun",
+          "e": "💺",
+          "ca": "seient"
+        },
+        {
+          "w": "traveller",
+          "k": "person",
+          "e": "🧳🚶",
+          "ca": "viatger / viatgera"
+        },
+        {
+          "w": "guide",
+          "k": "person",
+          "e": "🗺️🧑",
+          "ca": "guia"
+        },
+        {
+          "w": "cross",
+          "k": "verb",
+          "e": "🚸",
+          "ca": "creuar / travessar"
+        },
+        {
+          "w": "pack",
+          "k": "verb",
+          "ca": "fer la maleta / empaquetar",
+          "s": "pack_suitcase_,_to"
+        },
+        {
+          "w": "enter",
+          "k": "verb",
+          "ca": "entrar",
+          "s": "enter_,_to"
+        },
+        {
+          "w": "explore",
+          "k": "verb",
+          "e": "🧭",
+          "ca": "explorar"
+        },
+        {
+          "w": "located",
+          "k": "describe",
+          "e": "📍✅",
+          "ca": "situat / situada"
+        },
+        {
+          "w": "remote",
+          "k": "describe",
+          "e": "🏝️📍",
+          "ca": "remot / aïllat"
+        },
+        {
+          "w": "local",
+          "k": "describe",
+          "e": "📍🏘️",
+          "ca": "local / del barri"
         }
       ]
     },
@@ -3111,6 +4029,312 @@
           "k": "describe",
           "e": "🩹😣",
           "ca": "adolorit / adolorida"
+        },
+        {
+          "w": "ankle",
+          "k": "noun",
+          "ca": "turmell",
+          "s": "ankle"
+        },
+        {
+          "w": "brain",
+          "k": "noun",
+          "ca": "cervell",
+          "s": "brain"
+        },
+        {
+          "w": "bone",
+          "k": "noun",
+          "ca": "os",
+          "s": "bone"
+        },
+        {
+          "w": "finger",
+          "k": "noun",
+          "ca": "dit",
+          "s": "finger"
+        },
+        {
+          "w": "knee",
+          "k": "noun",
+          "ca": "genoll",
+          "s": "knee"
+        },
+        {
+          "w": "neck",
+          "k": "noun",
+          "ca": "coll",
+          "s": "neck"
+        },
+        {
+          "w": "shoulder",
+          "k": "noun",
+          "ca": "espatlla",
+          "s": "shoulder"
+        },
+        {
+          "w": "skin",
+          "k": "noun",
+          "ca": "pell",
+          "s": "skin"
+        },
+        {
+          "w": "chest",
+          "k": "noun",
+          "e": "👕🫁",
+          "ca": "pit"
+        },
+        {
+          "w": "lip",
+          "k": "noun",
+          "e": "👄",
+          "ca": "llavi"
+        },
+        {
+          "w": "toe",
+          "k": "noun",
+          "e": "🦶👆",
+          "ca": "dit del peu"
+        },
+        {
+          "w": "tongue",
+          "k": "noun",
+          "ca": "llengua",
+          "s": "tongue"
+        },
+        {
+          "w": "muscle",
+          "k": "noun",
+          "e": "💪💥",
+          "ca": "múscul"
+        },
+        {
+          "w": "disease",
+          "k": "noun",
+          "e": "🦠🤒",
+          "ca": "malaltia"
+        },
+        {
+          "w": "illness",
+          "k": "noun",
+          "e": "🤒🛌",
+          "ca": "malaltia (estar malalt)"
+        },
+        {
+          "w": "flu",
+          "k": "noun",
+          "e": "🤧🌡️",
+          "ca": "grip"
+        },
+        {
+          "w": "virus",
+          "k": "noun",
+          "e": "🦠",
+          "ca": "virus"
+        },
+        {
+          "w": "symptom",
+          "k": "noun",
+          "e": "🌡️❓",
+          "ca": "símptoma"
+        },
+        {
+          "w": "treatment",
+          "k": "noun",
+          "e": "💉",
+          "ca": "tractament"
+        },
+        {
+          "w": "operation",
+          "k": "noun",
+          "ca": "operació",
+          "s": "operation"
+        },
+        {
+          "w": "accident",
+          "k": "noun",
+          "e": "💥🚗",
+          "ca": "accident"
+        },
+        {
+          "w": "drug",
+          "k": "noun",
+          "e": "💊💉",
+          "ca": "droga / medicament"
+        },
+        {
+          "w": "cigarette",
+          "k": "noun",
+          "ca": "cigarreta",
+          "s": "cigarette"
+        },
+        {
+          "w": "smoking",
+          "k": "noun",
+          "e": "🚬",
+          "ca": "el tabac (fumar)"
+        },
+        {
+          "w": "breathing",
+          "k": "noun",
+          "e": "🫁",
+          "ca": "respiració"
+        },
+        {
+          "w": "fitness",
+          "k": "noun",
+          "e": "🏃‍♀️💪",
+          "ca": "forma física"
+        },
+        {
+          "w": "weight",
+          "k": "noun",
+          "e": "⚖️",
+          "ca": "pes"
+        },
+        {
+          "w": "height",
+          "k": "noun",
+          "e": "📏🧍",
+          "ca": "alçada"
+        },
+        {
+          "w": "safety",
+          "k": "noun",
+          "e": "🦺",
+          "ca": "seguretat"
+        },
+        {
+          "w": "sight",
+          "k": "noun",
+          "e": "👁️✨",
+          "ca": "vista"
+        },
+        {
+          "w": "stress",
+          "k": "noun",
+          "e": "😫",
+          "ca": "estrès"
+        },
+        {
+          "w": "poison",
+          "k": "noun",
+          "e": "☠️",
+          "ca": "verí"
+        },
+        {
+          "w": "patient",
+          "k": "person",
+          "e": "🏥🧑",
+          "ca": "pacient"
+        },
+        {
+          "w": "injure",
+          "k": "verb",
+          "e": "🤕💥",
+          "ca": "ferir / lesionar"
+        },
+        {
+          "w": "suffer",
+          "k": "verb",
+          "e": "😣",
+          "ca": "patir"
+        },
+        {
+          "w": "survive",
+          "k": "verb",
+          "e": "🛟",
+          "ca": "sobreviure"
+        },
+        {
+          "w": "treat",
+          "k": "verb",
+          "e": "🩺🤲",
+          "ca": "tractar / convidar"
+        },
+        {
+          "w": "smoke",
+          "k": "verb",
+          "ca": "fumar / fum",
+          "s": "smoke_,_to"
+        },
+        {
+          "w": "smell",
+          "k": "verb",
+          "e": "👃🌸",
+          "ca": "olorar / fer olor"
+        },
+        {
+          "w": "brush",
+          "k": "verb",
+          "ca": "raspallar(-se)",
+          "s": "brush_teeth_,_to"
+        },
+        {
+          "w": "ill",
+          "k": "describe",
+          "e": "🤢",
+          "ca": "malalt / malalta"
+        },
+        {
+          "w": "injured",
+          "k": "describe",
+          "e": "🩼",
+          "ca": "ferit / ferida"
+        },
+        {
+          "w": "painful",
+          "k": "describe",
+          "e": "😖",
+          "ca": "dolorós / dolorosa"
+        },
+        {
+          "w": "physical",
+          "k": "describe",
+          "e": "🏃💪",
+          "ca": "físic / física"
+        },
+        {
+          "w": "mental",
+          "k": "describe",
+          "e": "🧠💭",
+          "ca": "mental"
+        },
+        {
+          "w": "medical",
+          "k": "describe",
+          "e": "🩺",
+          "ca": "mèdic / mèdica"
+        },
+        {
+          "w": "dead",
+          "k": "describe",
+          "ca": "mort / morta",
+          "s": "dead"
+        },
+        {
+          "w": "alive",
+          "k": "describe",
+          "e": "💓🙂",
+          "ca": "viu / viva"
+        },
+        {
+          "w": "asleep",
+          "k": "describe",
+          "e": "😪",
+          "ca": "adormit / adormida"
+        },
+        {
+          "w": "poisonous",
+          "k": "describe",
+          "e": "☠️🍄",
+          "ca": "verinós / verinosa"
+        },
+        {
+          "w": "fat",
+          "k": "describe",
+          "ca": "gras / grassa",
+          "s": "fat"
         }
       ]
     },
@@ -3929,6 +5153,126 @@
           "k": "describe",
           "e": "🗓️✔️",
           "ca": "disponible"
+        },
+        {
+          "w": "amazed",
+          "k": "describe",
+          "e": "😮✨",
+          "ca": "meravellat / meravellada"
+        },
+        {
+          "w": "annoyed",
+          "k": "describe",
+          "e": "😤",
+          "ca": "molest / molesta"
+        },
+        {
+          "w": "disappointed",
+          "k": "describe",
+          "e": "😞",
+          "ca": "decebut / decebuda"
+        },
+        {
+          "w": "frightened",
+          "k": "describe",
+          "e": "😰",
+          "ca": "espantat / espantada"
+        },
+        {
+          "w": "scared",
+          "k": "describe",
+          "e": "😧",
+          "ca": "espantat / tenir por"
+        },
+        {
+          "w": "pleased",
+          "k": "describe",
+          "e": "😌👍",
+          "ca": "content / satisfet"
+        },
+        {
+          "w": "glad",
+          "k": "describe",
+          "e": "😄",
+          "ca": "content / contenta"
+        },
+        {
+          "w": "grateful",
+          "k": "describe",
+          "e": "🙏😊",
+          "ca": "agraït / agraïda"
+        },
+        {
+          "w": "confident",
+          "k": "describe",
+          "e": "💪😊",
+          "ca": "segur / segura de si"
+        },
+        {
+          "w": "upset",
+          "k": "describe",
+          "e": "😥",
+          "ca": "disgustat / disgustada"
+        },
+        {
+          "w": "unhappy",
+          "k": "describe",
+          "e": "☹️",
+          "ca": "infeliç"
+        },
+        {
+          "w": "cheerful",
+          "k": "describe",
+          "e": "😁",
+          "ca": "alegre"
+        },
+        {
+          "w": "relaxed",
+          "k": "describe",
+          "e": "🧘",
+          "ca": "relaxat / relaxada"
+        },
+        {
+          "w": "shy",
+          "k": "describe",
+          "e": "🙈",
+          "ca": "tímid / tímida"
+        },
+        {
+          "w": "brave",
+          "k": "describe",
+          "e": "🦁💪",
+          "ca": "valent / valenta"
+        },
+        {
+          "w": "kind",
+          "k": "describe",
+          "e": "🤗",
+          "ca": "amable"
+        },
+        {
+          "w": "generous",
+          "k": "describe",
+          "e": "🤲💝",
+          "ca": "generós / generosa"
+        },
+        {
+          "w": "honest",
+          "k": "describe",
+          "e": "😇",
+          "ca": "honest / sincer"
+        },
+        {
+          "w": "polite",
+          "k": "describe",
+          "e": "🎩🙂",
+          "ca": "educat / educada"
+        },
+        {
+          "w": "rude",
+          "k": "describe",
+          "e": "😛",
+          "ca": "maleducat / maleducada"
         }
       ]
     },
@@ -4141,6 +5485,42 @@
           "k": "social",
           "e": "👌🙂",
           "ca": "cap problema"
+        },
+        {
+          "w": "hey",
+          "k": "social",
+          "e": "📣🙋",
+          "ca": "ei!"
+        },
+        {
+          "w": "oh",
+          "k": "social",
+          "e": "😮",
+          "ca": "oh!"
+        },
+        {
+          "w": "ah",
+          "k": "social",
+          "e": "😯",
+          "ca": "ah!"
+        },
+        {
+          "w": "wow",
+          "k": "social",
+          "e": "😲",
+          "ca": "uau!"
+        },
+        {
+          "w": "all right",
+          "k": "social",
+          "e": "🆗",
+          "ca": "d'acord / bé"
+        },
+        {
+          "w": "dear",
+          "k": "social",
+          "e": "💌",
+          "ca": "estimat / estimada"
         }
       ]
     },
@@ -4569,6 +5949,180 @@
           "k": "noun",
           "e": "1 Jan",
           "ca": "Cap d'Any"
+        },
+        {
+          "w": "period",
+          "k": "noun",
+          "e": "🗓️↔️",
+          "ca": "període / regla"
+        },
+        {
+          "w": "decade",
+          "k": "noun",
+          "e": "🔟📅",
+          "ca": "dècada"
+        },
+        {
+          "w": "schedule",
+          "k": "noun",
+          "e": "🗓️📋",
+          "ca": "horari / programar"
+        },
+        {
+          "w": "season",
+          "k": "noun",
+          "e": "🍂🌸",
+          "ca": "estació (de l'any) / temporada"
+        },
+        {
+          "w": "second",
+          "k": "noun",
+          "e": "⏱️1️⃣",
+          "ca": "segon (de temps)"
+        },
+        {
+          "w": "ending",
+          "k": "noun",
+          "e": "🔚📖",
+          "ca": "final (d'una història)"
+        },
+        {
+          "w": "last",
+          "k": "verb",
+          "e": "⏳➡️",
+          "ca": "durar"
+        },
+        {
+          "w": "daily",
+          "k": "describe",
+          "e": "☀️📅",
+          "ca": "diari / cada dia"
+        },
+        {
+          "w": "current",
+          "k": "describe",
+          "e": "🔄⏱️",
+          "ca": "actual"
+        },
+        {
+          "w": "currently",
+          "k": "describe",
+          "e": "⏱️📍",
+          "ca": "actualment"
+        },
+        {
+          "w": "recent",
+          "k": "describe",
+          "e": "🕐⬅️",
+          "ca": "recent"
+        },
+        {
+          "w": "previous",
+          "k": "describe",
+          "e": "⬅️📅",
+          "ca": "anterior"
+        },
+        {
+          "w": "previously",
+          "k": "describe",
+          "e": "⏪📅",
+          "ca": "abans / anteriorment"
+        },
+        {
+          "w": "latest",
+          "k": "describe",
+          "e": "🆕",
+          "ca": "el més recent / últim"
+        },
+        {
+          "w": "immediately",
+          "k": "describe",
+          "e": "⚡🔜",
+          "ca": "immediatament"
+        },
+        {
+          "w": "immediate",
+          "k": "describe",
+          "e": "⚡❗",
+          "ca": "immediat / immediata"
+        },
+        {
+          "w": "eventually",
+          "k": "describe",
+          "e": "⏳🏁",
+          "ca": "al final (amb el temps)"
+        },
+        {
+          "w": "forever",
+          "k": "describe",
+          "e": "♾️",
+          "ca": "per sempre"
+        },
+        {
+          "w": "frequently",
+          "k": "describe",
+          "e": "🔁🔁",
+          "ca": "sovint"
+        },
+        {
+          "w": "regularly",
+          "k": "describe",
+          "e": "🗓️🔁",
+          "ca": "regularment"
+        },
+        {
+          "w": "regular",
+          "k": "describe",
+          "e": "🔁✅",
+          "ca": "regular / habitual"
+        },
+        {
+          "w": "rarely",
+          "k": "describe",
+          "e": "🔁🤏",
+          "ca": "rarament"
+        },
+        {
+          "w": "meanwhile",
+          "k": "describe",
+          "e": "⏱️↔️",
+          "ca": "mentrestant"
+        },
+        {
+          "w": "final",
+          "k": "describe",
+          "e": "🏁🥇",
+          "ca": "final / últim"
+        },
+        {
+          "w": "continuous",
+          "k": "describe",
+          "e": "➰",
+          "ca": "continu / contínua"
+        },
+        {
+          "w": "ancient",
+          "k": "describe",
+          "e": "🏺📜",
+          "ca": "antic / antiga"
+        },
+        {
+          "w": "historic",
+          "k": "describe",
+          "e": "🏛️⭐",
+          "ca": "històric (important)"
+        },
+        {
+          "w": "historical",
+          "k": "describe",
+          "e": "🏛️📜",
+          "ca": "històric (del passat)"
+        },
+        {
+          "w": "due",
+          "k": "describe",
+          "e": "📅❗",
+          "ca": "previst / que s'ha de lliurar"
         }
       ]
     },
@@ -4877,6 +6431,186 @@
           "k": "verb",
           "e": "🏷️💰",
           "ca": "costar"
+        },
+        {
+          "w": "billion",
+          "k": "little",
+          "e": "10⁹",
+          "ca": "mil milions"
+        },
+        {
+          "w": "per cent",
+          "k": "little",
+          "e": "%",
+          "ca": "per cent"
+        },
+        {
+          "w": "plus",
+          "k": "little",
+          "e": "2+2",
+          "ca": "més (+)"
+        },
+        {
+          "w": "percentage",
+          "k": "noun",
+          "e": "%📊",
+          "ca": "percentatge"
+        },
+        {
+          "w": "amount",
+          "k": "noun",
+          "e": "🔢💧",
+          "ca": "quantitat / import"
+        },
+        {
+          "w": "quantity",
+          "k": "noun",
+          "e": "🔢📦",
+          "ca": "quantitat"
+        },
+        {
+          "w": "total",
+          "k": "noun",
+          "e": "∑",
+          "ca": "total"
+        },
+        {
+          "w": "statistic",
+          "k": "noun",
+          "e": "📈🔢",
+          "ca": "estadística"
+        },
+        {
+          "w": "figure",
+          "k": "noun",
+          "e": "🔢📊",
+          "ca": "xifra / figura"
+        },
+        {
+          "w": "rate",
+          "k": "noun",
+          "e": "📈%",
+          "ca": "índex / taxa"
+        },
+        {
+          "w": "length",
+          "k": "noun",
+          "e": "📏↔️",
+          "ca": "llargada"
+        },
+        {
+          "w": "distance",
+          "k": "noun",
+          "e": "📍↔️📍",
+          "ca": "distància"
+        },
+        {
+          "w": "unit",
+          "k": "noun",
+          "e": "📐1️⃣",
+          "ca": "unitat"
+        },
+        {
+          "w": "range",
+          "k": "noun",
+          "e": "↔️📊",
+          "ca": "gamma / interval"
+        },
+        {
+          "w": "limit",
+          "k": "noun",
+          "e": "🚧🔢",
+          "ca": "límit"
+        },
+        {
+          "w": "level",
+          "k": "noun",
+          "e": "🎚️",
+          "ca": "nivell"
+        },
+        {
+          "w": "rest",
+          "k": "noun",
+          "e": "➖🔢",
+          "ca": "la resta / descans"
+        },
+        {
+          "w": "circle",
+          "k": "noun",
+          "ca": "cercle",
+          "s": "circle"
+        },
+        {
+          "w": "shape",
+          "k": "noun",
+          "e": "🔺🟦",
+          "ca": "forma"
+        },
+        {
+          "w": "average",
+          "k": "describe",
+          "e": "x̄",
+          "ca": "mitjana / normal"
+        },
+        {
+          "w": "double",
+          "k": "describe",
+          "e": "2️⃣✖️",
+          "ca": "doble"
+        },
+        {
+          "w": "equal",
+          "k": "describe",
+          "e": "🟰",
+          "ca": "igual"
+        },
+        {
+          "w": "equally",
+          "k": "describe",
+          "e": "⚖️🟰",
+          "ca": "igualment / per igual"
+        },
+        {
+          "w": "extra",
+          "k": "describe",
+          "ca": "extra / de més",
+          "s": "extra"
+        },
+        {
+          "w": "approximately",
+          "k": "describe",
+          "e": "≈",
+          "ca": "aproximadament"
+        },
+        {
+          "w": "exact",
+          "k": "describe",
+          "e": "🎯🔢",
+          "ca": "exacte / exacta"
+        },
+        {
+          "w": "exactly",
+          "k": "describe",
+          "e": "🎯✔️",
+          "ca": "exactament"
+        },
+        {
+          "w": "square",
+          "k": "describe",
+          "ca": "quadrat / plaça",
+          "s": "square"
+        },
+        {
+          "w": "divide",
+          "k": "verb",
+          "ca": "dividir",
+          "s": "divide"
+        },
+        {
+          "w": "measure",
+          "k": "verb",
+          "e": "📏",
+          "ca": "mesurar / mesura"
         }
       ]
     },
@@ -5323,6 +7057,522 @@
           "k": "noun",
           "ca": "manta",
           "s": "blanket"
+        },
+        {
+          "w": "app",
+          "k": "noun",
+          "e": "📲",
+          "ca": "aplicació (app)"
+        },
+        {
+          "w": "laptop",
+          "k": "noun",
+          "ca": "portàtil",
+          "s": "laptop"
+        },
+        {
+          "w": "smartphone",
+          "k": "noun",
+          "e": "📱🌐",
+          "ca": "telèfon intel·ligent"
+        },
+        {
+          "w": "tablet",
+          "k": "noun",
+          "e": "📲🔲",
+          "ca": "tauleta (tablet) / pastilla"
+        },
+        {
+          "w": "device",
+          "k": "noun",
+          "e": "🔌📱",
+          "ca": "dispositiu / aparell"
+        },
+        {
+          "w": "printer",
+          "k": "noun",
+          "ca": "impressora",
+          "s": "printer"
+        },
+        {
+          "w": "button",
+          "k": "noun",
+          "ca": "botó",
+          "s": "button"
+        },
+        {
+          "w": "lamp",
+          "k": "noun",
+          "ca": "làmpada",
+          "s": "lamp"
+        },
+        {
+          "w": "mirror",
+          "k": "noun",
+          "ca": "mirall",
+          "s": "mirror"
+        },
+        {
+          "w": "carpet",
+          "k": "noun",
+          "e": "🧶🏠",
+          "ca": "catifa / moqueta"
+        },
+        {
+          "w": "cupboard",
+          "k": "noun",
+          "ca": "armari",
+          "s": "cupboard"
+        },
+        {
+          "w": "cooker",
+          "k": "noun",
+          "ca": "cuina (fogons)",
+          "s": "cooker"
+        },
+        {
+          "w": "fridge",
+          "k": "noun",
+          "ca": "nevera",
+          "s": "fridge"
+        },
+        {
+          "w": "oven",
+          "k": "noun",
+          "e": "♨️🍞",
+          "ca": "forn"
+        },
+        {
+          "w": "furniture",
+          "k": "noun",
+          "ca": "mobles",
+          "s": "furniture"
+        },
+        {
+          "w": "curtain",
+          "k": "noun",
+          "ca": "cortina",
+          "s": "curtains"
+        },
+        {
+          "w": "shelf",
+          "k": "noun",
+          "e": "📚🪵",
+          "ca": "prestatge"
+        },
+        {
+          "w": "sheet",
+          "k": "noun",
+          "e": "🛏️📄",
+          "ca": "llençol / full (de paper)"
+        },
+        {
+          "w": "ceiling",
+          "k": "noun",
+          "ca": "sostre",
+          "s": "ceiling"
+        },
+        {
+          "w": "roof",
+          "k": "noun",
+          "e": "🏠🔺",
+          "ca": "teulada"
+        },
+        {
+          "w": "heating",
+          "k": "noun",
+          "e": "🔥🏠",
+          "ca": "calefacció"
+        },
+        {
+          "w": "iron",
+          "k": "noun",
+          "ca": "planxa / ferro",
+          "s": "iron"
+        },
+        {
+          "w": "bin",
+          "k": "noun",
+          "e": "🗑️",
+          "ca": "paperera / cubell d'escombraries"
+        },
+        {
+          "w": "plastic",
+          "k": "noun",
+          "ca": "plàstic",
+          "s": "plastic"
+        },
+        {
+          "w": "metal",
+          "k": "noun",
+          "e": "🔩",
+          "ca": "metall"
+        },
+        {
+          "w": "wood",
+          "k": "noun",
+          "ca": "fusta",
+          "s": "wood"
+        },
+        {
+          "w": "stone",
+          "k": "noun",
+          "ca": "pedra",
+          "s": "stone"
+        },
+        {
+          "w": "material",
+          "k": "noun",
+          "e": "🧵🪵",
+          "ca": "material"
+        },
+        {
+          "w": "container",
+          "k": "noun",
+          "e": "🫙",
+          "ca": "recipient / contenidor"
+        },
+        {
+          "w": "tin",
+          "k": "noun",
+          "ca": "llauna",
+          "s": "tin"
+        },
+        {
+          "w": "tube",
+          "k": "noun",
+          "e": "🧪",
+          "ca": "tub"
+        },
+        {
+          "w": "pipe",
+          "k": "noun",
+          "e": "🚰",
+          "ca": "canonada / tub"
+        },
+        {
+          "w": "rope",
+          "k": "noun",
+          "e": "🪢",
+          "ca": "corda"
+        },
+        {
+          "w": "string",
+          "k": "noun",
+          "ca": "cordill / fil",
+          "s": "string"
+        },
+        {
+          "w": "chain",
+          "k": "noun",
+          "e": "⛓️",
+          "ca": "cadena"
+        },
+        {
+          "w": "needle",
+          "k": "noun",
+          "e": "🪡",
+          "ca": "agulla"
+        },
+        {
+          "w": "pin",
+          "k": "noun",
+          "e": "🧷",
+          "ca": "agulla / imperdible / PIN"
+        },
+        {
+          "w": "nail",
+          "k": "noun",
+          "ca": "clau / ungla",
+          "s": "nail"
+        },
+        {
+          "w": "tool",
+          "k": "noun",
+          "e": "🔨",
+          "ca": "eina"
+        },
+        {
+          "w": "label",
+          "k": "noun",
+          "e": "🏷️📝",
+          "ca": "etiqueta"
+        },
+        {
+          "w": "package",
+          "k": "noun",
+          "e": "📦🎀",
+          "ca": "paquet"
+        },
+        {
+          "w": "toy",
+          "k": "noun",
+          "ca": "joguina",
+          "s": "toys"
+        },
+        {
+          "w": "gift",
+          "k": "noun",
+          "e": "🎁🎀",
+          "ca": "regal / do"
+        },
+        {
+          "w": "item",
+          "k": "noun",
+          "e": "☑️📦",
+          "ca": "article / element"
+        },
+        {
+          "w": "object",
+          "k": "noun",
+          "e": "🏺",
+          "ca": "objecte"
+        },
+        {
+          "w": "stuff",
+          "k": "noun",
+          "e": "🎒📦",
+          "ca": "coses (col·loquial)"
+        },
+        {
+          "w": "bell",
+          "k": "noun",
+          "ca": "campana / timbre",
+          "s": "bell"
+        },
+        {
+          "w": "alarm",
+          "k": "noun",
+          "e": "🔔🚨",
+          "ca": "alarma"
+        },
+        {
+          "w": "frame",
+          "k": "noun",
+          "e": "🔲🖼️",
+          "ca": "marc"
+        },
+        {
+          "w": "software",
+          "k": "noun",
+          "e": "💾💻",
+          "ca": "programari"
+        },
+        {
+          "w": "AI",
+          "k": "noun",
+          "e": "🤖🧠",
+          "ca": "IA (intel·ligència artificial)"
+        },
+        {
+          "w": "robot",
+          "k": "noun",
+          "e": "🤖",
+          "ca": "robot"
+        },
+        {
+          "w": "data",
+          "k": "noun",
+          "e": "📊💾",
+          "ca": "dades"
+        },
+        {
+          "w": "file",
+          "k": "noun",
+          "e": "📁",
+          "ca": "arxiu / fitxer"
+        },
+        {
+          "w": "document",
+          "k": "noun",
+          "e": "📑",
+          "ca": "document"
+        },
+        {
+          "w": "network",
+          "k": "noun",
+          "e": "🔗💻",
+          "ca": "xarxa"
+        },
+        {
+          "w": "link",
+          "k": "noun",
+          "e": "🔗",
+          "ca": "enllaç"
+        },
+        {
+          "w": "site",
+          "k": "noun",
+          "e": "🏗️📍",
+          "ca": "lloc (web) / solar"
+        },
+        {
+          "w": "web",
+          "k": "noun",
+          "e": "🕸️",
+          "ca": "web"
+        },
+        {
+          "w": "podcast",
+          "k": "noun",
+          "e": "🎧🎙️",
+          "ca": "pòdcast"
+        },
+        {
+          "w": "blog",
+          "k": "noun",
+          "e": "📝🌐",
+          "ca": "blog"
+        },
+        {
+          "w": "post",
+          "k": "noun",
+          "e": "📬",
+          "ca": "correu / publicació"
+        },
+        {
+          "w": "audio",
+          "k": "noun",
+          "e": "🔈🎧",
+          "ca": "àudio"
+        },
+        {
+          "w": "recording",
+          "k": "noun",
+          "e": "⏺️🎙️",
+          "ca": "enregistrament"
+        },
+        {
+          "w": "record",
+          "k": "noun",
+          "e": "⏺️",
+          "ca": "rècord / gravar"
+        },
+        {
+          "w": "version",
+          "k": "noun",
+          "e": "🔢📄",
+          "ca": "versió"
+        },
+        {
+          "w": "code",
+          "k": "noun",
+          "e": "</>",
+          "ca": "codi"
+        },
+        {
+          "w": "channel",
+          "k": "noun",
+          "e": "📺🔢",
+          "ca": "canal"
+        },
+        {
+          "w": "signal",
+          "k": "noun",
+          "e": "📡",
+          "ca": "senyal"
+        },
+        {
+          "w": "switch",
+          "k": "noun",
+          "e": "🔛",
+          "ca": "interruptor / canviar"
+        },
+        {
+          "w": "technology",
+          "k": "noun",
+          "ca": "tecnologia",
+          "s": "technology"
+        },
+        {
+          "w": "electricity",
+          "k": "noun",
+          "e": "💡⚡",
+          "ca": "electricitat"
+        },
+        {
+          "w": "profile",
+          "k": "noun",
+          "e": "👤🖼️",
+          "ca": "perfil"
+        },
+        {
+          "w": "click",
+          "k": "verb",
+          "e": "🖱️",
+          "ca": "fer clic"
+        },
+        {
+          "w": "scan",
+          "k": "verb",
+          "e": "🔍📄",
+          "ca": "escanejar"
+        },
+        {
+          "w": "update",
+          "k": "verb",
+          "e": "🔄📲",
+          "ca": "actualitzar"
+        },
+        {
+          "w": "attach",
+          "k": "verb",
+          "e": "📎",
+          "ca": "adjuntar / enganxar"
+        },
+        {
+          "w": "lock",
+          "k": "verb",
+          "e": "🔒",
+          "ca": "tancar amb clau"
+        },
+        {
+          "w": "ring",
+          "k": "verb",
+          "e": "📞🔔",
+          "ca": "trucar / sonar"
+        },
+        {
+          "w": "press",
+          "k": "verb",
+          "ca": "prémer",
+          "s": "press_button_,_to"
+        },
+        {
+          "w": "charge",
+          "k": "verb",
+          "ca": "carregar (el mòbil) / cobrar",
+          "s": "charge"
+        },
+        {
+          "w": "digital",
+          "k": "describe",
+          "e": "💻🔢",
+          "ca": "digital"
+        },
+        {
+          "w": "electronic",
+          "k": "describe",
+          "e": "🔌💻",
+          "ca": "electrònic / electrònica"
+        },
+        {
+          "w": "electric",
+          "k": "describe",
+          "e": "⚡🔌",
+          "ca": "elèctric / elèctrica"
+        },
+        {
+          "w": "electrical",
+          "k": "describe",
+          "e": "🔌",
+          "ca": "elèctric (aparell)"
+        },
+        {
+          "w": "mobile",
+          "k": "describe",
+          "ca": "mòbil",
+          "s": "mobile_phone"
         }
       ]
     },
@@ -5553,6 +7803,216 @@
           "k": "noun",
           "ca": "pijama",
           "s": "pyjamas"
+        },
+        {
+          "w": "clothing",
+          "k": "noun",
+          "e": "👚",
+          "ca": "roba"
+        },
+        {
+          "w": "jewellery",
+          "k": "noun",
+          "ca": "joies",
+          "s": "jewellery"
+        },
+        {
+          "w": "ring",
+          "k": "noun",
+          "ca": "anell",
+          "s": "ring"
+        },
+        {
+          "w": "suit",
+          "k": "noun",
+          "ca": "vestit (americana i pantalons)",
+          "s": "suit_-_mans"
+        },
+        {
+          "w": "cap",
+          "k": "noun",
+          "ca": "gorra",
+          "s": "cap"
+        },
+        {
+          "w": "tie",
+          "k": "noun",
+          "ca": "corbata / lligar",
+          "s": "tie"
+        },
+        {
+          "w": "costume",
+          "k": "noun",
+          "e": "🦸‍♂️",
+          "ca": "disfressa"
+        },
+        {
+          "w": "underwear",
+          "k": "noun",
+          "e": "🩲",
+          "ca": "roba interior"
+        },
+        {
+          "w": "cotton",
+          "k": "noun",
+          "e": "🧵",
+          "ca": "cotó"
+        },
+        {
+          "w": "wool",
+          "k": "noun",
+          "ca": "llana",
+          "s": "wool"
+        },
+        {
+          "w": "leather",
+          "k": "noun",
+          "e": "👞",
+          "ca": "pell (cuir)"
+        },
+        {
+          "w": "cloth",
+          "k": "noun",
+          "e": "🧶",
+          "ca": "tela / drap"
+        },
+        {
+          "w": "fashion",
+          "k": "noun",
+          "e": "👠",
+          "ca": "moda"
+        },
+        {
+          "w": "style",
+          "k": "noun",
+          "e": "🕶️✨",
+          "ca": "estil"
+        },
+        {
+          "w": "beauty",
+          "k": "noun",
+          "e": "🌸✨",
+          "ca": "bellesa"
+        },
+        {
+          "w": "diamond",
+          "k": "noun",
+          "e": "💎",
+          "ca": "diamant"
+        },
+        {
+          "w": "gold",
+          "k": "noun",
+          "e": "🥇",
+          "ca": "or / daurat"
+        },
+        {
+          "w": "silver",
+          "k": "noun",
+          "e": "🥈",
+          "ca": "plata / platejat"
+        },
+        {
+          "w": "washing",
+          "k": "noun",
+          "e": "🧺",
+          "ca": "la roba per rentar"
+        },
+        {
+          "w": "fold",
+          "k": "verb",
+          "ca": "plegar",
+          "s": "fold_clothes_,_to"
+        },
+        {
+          "w": "fasten",
+          "k": "verb",
+          "ca": "cordar / lligar",
+          "s": "fasten_,_to"
+        },
+        {
+          "w": "hang",
+          "k": "verb",
+          "ca": "penjar",
+          "s": "hang_coat_,_to"
+        },
+        {
+          "w": "fashionable",
+          "k": "describe",
+          "e": "👠✨",
+          "ca": "de moda"
+        },
+        {
+          "w": "old-fashioned",
+          "k": "describe",
+          "e": "👴👔",
+          "ca": "antiquat / passat de moda"
+        },
+        {
+          "w": "dressed",
+          "k": "describe",
+          "e": "👔✅",
+          "ca": "vestit / vestida"
+        },
+        {
+          "w": "tight",
+          "k": "describe",
+          "e": "👖😬",
+          "ca": "estret / estreta"
+        },
+        {
+          "w": "coloured",
+          "k": "describe",
+          "e": "🖍️",
+          "ca": "de colors"
+        },
+        {
+          "w": "curly",
+          "k": "describe",
+          "ca": "arrissat / arrissada",
+          "s": "curly"
+        },
+        {
+          "w": "bright",
+          "k": "describe",
+          "ca": "brillant / lluminós",
+          "s": "bright"
+        },
+        {
+          "w": "pale",
+          "k": "describe",
+          "e": "⬜🙂",
+          "ca": "pàl·lid / pàl·lida"
+        },
+        {
+          "w": "shiny",
+          "k": "describe",
+          "ca": "lluent",
+          "s": "shiny"
+        },
+        {
+          "w": "smooth",
+          "k": "describe",
+          "ca": "llis / llisa",
+          "s": "smooth"
+        },
+        {
+          "w": "rough",
+          "k": "describe",
+          "e": "🪨✋",
+          "ca": "aspre / brusc"
+        },
+        {
+          "w": "soft",
+          "k": "describe",
+          "ca": "tou / suau",
+          "s": "soft"
+        },
+        {
+          "w": "medium",
+          "k": "describe",
+          "e": "M",
+          "ca": "mitjà / mitjana"
         }
       ]
     },
@@ -5753,6 +8213,360 @@
           "k": "verb",
           "ca": "reciclar",
           "s": "recycle_logo"
+        },
+        {
+          "w": "climate",
+          "k": "noun",
+          "e": "🌍🌡️",
+          "ca": "clima"
+        },
+        {
+          "w": "coast",
+          "k": "noun",
+          "e": "🏖️",
+          "ca": "costa"
+        },
+        {
+          "w": "desert",
+          "k": "noun",
+          "e": "🏜️",
+          "ca": "desert"
+        },
+        {
+          "w": "earth",
+          "k": "noun",
+          "e": "🌎",
+          "ca": "Terra / terra"
+        },
+        {
+          "w": "field",
+          "k": "noun",
+          "ca": "camp",
+          "s": "field"
+        },
+        {
+          "w": "grass",
+          "k": "noun",
+          "ca": "herba / gespa",
+          "s": "grass"
+        },
+        {
+          "w": "hill",
+          "k": "noun",
+          "e": "⛰️",
+          "ca": "turó"
+        },
+        {
+          "w": "moon",
+          "k": "noun",
+          "e": "🌕",
+          "ca": "lluna"
+        },
+        {
+          "w": "ocean",
+          "k": "noun",
+          "e": "🌊🌊",
+          "ca": "oceà"
+        },
+        {
+          "w": "planet",
+          "k": "noun",
+          "e": "🪐",
+          "ca": "planeta"
+        },
+        {
+          "w": "sky",
+          "k": "noun",
+          "e": "🌤️",
+          "ca": "cel"
+        },
+        {
+          "w": "space",
+          "k": "noun",
+          "e": "🌌",
+          "ca": "espai"
+        },
+        {
+          "w": "valley",
+          "k": "noun",
+          "e": "🏞️⛰️",
+          "ca": "vall"
+        },
+        {
+          "w": "rock",
+          "k": "noun",
+          "e": "🪨",
+          "ca": "roca / rock (música)"
+        },
+        {
+          "w": "sand",
+          "k": "noun",
+          "e": "🟨🏖️",
+          "ca": "sorra"
+        },
+        {
+          "w": "soil",
+          "k": "noun",
+          "e": "🌱🟫",
+          "ca": "terra (sòl)"
+        },
+        {
+          "w": "dirt",
+          "k": "noun",
+          "e": "🟫",
+          "ca": "brutícia / terra"
+        },
+        {
+          "w": "mud",
+          "k": "noun",
+          "e": "🟤💧",
+          "ca": "fang"
+        },
+        {
+          "w": "dust",
+          "k": "noun",
+          "e": "💨🟫",
+          "ca": "pols"
+        },
+        {
+          "w": "leaf",
+          "k": "noun",
+          "ca": "fulla",
+          "s": "leaf"
+        },
+        {
+          "w": "branch",
+          "k": "noun",
+          "ca": "branca",
+          "s": "branch"
+        },
+        {
+          "w": "seed",
+          "k": "noun",
+          "e": "🌰",
+          "ca": "llavor"
+        },
+        {
+          "w": "stick",
+          "k": "noun",
+          "ca": "pal / bastó",
+          "s": "stick"
+        },
+        {
+          "w": "hole",
+          "k": "noun",
+          "e": "🕳️",
+          "ca": "forat"
+        },
+        {
+          "w": "bubble",
+          "k": "noun",
+          "e": "🫧",
+          "ca": "bombolla"
+        },
+        {
+          "w": "ground",
+          "k": "noun",
+          "ca": "el terra / terreny",
+          "s": "ground"
+        },
+        {
+          "w": "energy",
+          "k": "noun",
+          "e": "⚡🔋",
+          "ca": "energia"
+        },
+        {
+          "w": "gas",
+          "k": "noun",
+          "e": "🫧🔥",
+          "ca": "gas"
+        },
+        {
+          "w": "coal",
+          "k": "noun",
+          "e": "⚫⛏️",
+          "ca": "carbó"
+        },
+        {
+          "w": "pollution",
+          "k": "noun",
+          "e": "🏭💨",
+          "ca": "contaminació"
+        },
+        {
+          "w": "earthquake",
+          "k": "noun",
+          "e": "🌍💥",
+          "ca": "terratrèmol"
+        },
+        {
+          "w": "flood",
+          "k": "noun",
+          "e": "🌊🏠",
+          "ca": "inundació / inundar"
+        },
+        {
+          "w": "hurricane",
+          "k": "noun",
+          "e": "🌀",
+          "ca": "huracà"
+        },
+        {
+          "w": "countryside",
+          "k": "noun",
+          "e": "🌾🏡",
+          "ca": "camp (zona rural)"
+        },
+        {
+          "w": "farming",
+          "k": "noun",
+          "e": "🚜🌾",
+          "ca": "agricultura"
+        },
+        {
+          "w": "nature",
+          "k": "noun",
+          "e": "🌿",
+          "ca": "natura"
+        },
+        {
+          "w": "liquid",
+          "k": "noun",
+          "e": "💧🧪",
+          "ca": "líquid"
+        },
+        {
+          "w": "powder",
+          "k": "noun",
+          "e": "⚪✨",
+          "ca": "pols (producte en pols)"
+        },
+        {
+          "w": "substance",
+          "k": "noun",
+          "e": "🧪🔬",
+          "ca": "substància"
+        },
+        {
+          "w": "chemical",
+          "k": "noun",
+          "e": "🧪⚠️",
+          "ca": "producte químic / químic"
+        },
+        {
+          "w": "waste",
+          "k": "noun",
+          "e": "🚮",
+          "ca": "residus / malbaratar"
+        },
+        {
+          "w": "wave",
+          "k": "noun",
+          "e": "🏄",
+          "ca": "onada / saludar amb la mà"
+        },
+        {
+          "w": "heat",
+          "k": "noun",
+          "ca": "calor / escalfar",
+          "s": "heat_,_to"
+        },
+        {
+          "w": "freeze",
+          "k": "verb",
+          "e": "🥶",
+          "ca": "glaçar(-se) / congelar"
+        },
+        {
+          "w": "shine",
+          "k": "verb",
+          "e": "☀️✨",
+          "ca": "brillar"
+        },
+        {
+          "w": "burn",
+          "k": "verb",
+          "ca": "cremar",
+          "s": "burn_2_,_to"
+        },
+        {
+          "w": "blow",
+          "k": "verb",
+          "ca": "bufar",
+          "s": "blow_,_to"
+        },
+        {
+          "w": "flow",
+          "k": "verb",
+          "e": "🏞️➡️",
+          "ca": "fluir / córrer (l'aigua)"
+        },
+        {
+          "w": "sink",
+          "k": "verb",
+          "ca": "enfonsar-se",
+          "s": "sink_,_to"
+        },
+        {
+          "w": "rise",
+          "k": "verb",
+          "e": "🌅⬆️",
+          "ca": "pujar / sortir (el sol)"
+        },
+        {
+          "w": "natural",
+          "k": "describe",
+          "e": "🍃✅",
+          "ca": "natural"
+        },
+        {
+          "w": "sunny",
+          "k": "describe",
+          "e": "🌞",
+          "ca": "assolellat / assolellada"
+        },
+        {
+          "w": "mild",
+          "k": "describe",
+          "e": "🌤️🙂",
+          "ca": "suau (temps)"
+        },
+        {
+          "w": "environmental",
+          "k": "describe",
+          "e": "🌳♻️",
+          "ca": "ambiental"
+        },
+        {
+          "w": "renewable",
+          "k": "describe",
+          "e": "♻️⚡",
+          "ca": "renovable"
+        },
+        {
+          "w": "nuclear",
+          "k": "describe",
+          "e": "☢️",
+          "ca": "nuclear"
+        },
+        {
+          "w": "wooden",
+          "k": "describe",
+          "e": "🪵",
+          "ca": "de fusta"
+        },
+        {
+          "w": "living",
+          "k": "describe",
+          "e": "🌱💓",
+          "ca": "viu / que viu"
+        },
+        {
+          "w": "solid",
+          "k": "describe",
+          "e": "🧱🧱",
+          "ca": "sòlid / sòlida"
         }
       ]
     },
@@ -6151,6 +8965,30 @@
           "k": "describe",
           "e": "🐺🌲",
           "ca": "salvatge"
+        },
+        {
+          "w": "fur",
+          "k": "noun",
+          "e": "🐻🧶",
+          "ca": "pèl / pelatge"
+        },
+        {
+          "w": "tail",
+          "k": "noun",
+          "e": "🐕〰️",
+          "ca": "cua"
+        },
+        {
+          "w": "shell",
+          "k": "noun",
+          "e": "🐚",
+          "ca": "petxina / closca"
+        },
+        {
+          "w": "hunt",
+          "k": "verb",
+          "ca": "caçar",
+          "s": "hunt_,_to"
         }
       ]
     },
@@ -6627,6 +9465,468 @@
           "k": "verb",
           "ca": "copiar",
           "s": "copy_,_to"
+        },
+        {
+          "w": "biology",
+          "k": "noun",
+          "e": "🧬",
+          "ca": "biologia"
+        },
+        {
+          "w": "chemistry",
+          "k": "noun",
+          "e": "⚗️",
+          "ca": "química"
+        },
+        {
+          "w": "physics",
+          "k": "noun",
+          "e": "⚛️",
+          "ca": "física"
+        },
+        {
+          "w": "essay",
+          "k": "noun",
+          "e": "📝📃",
+          "ca": "redacció / assaig"
+        },
+        {
+          "w": "lecture",
+          "k": "noun",
+          "e": "🧑‍🏫🎤",
+          "ca": "classe magistral / conferència"
+        },
+        {
+          "w": "knowledge",
+          "k": "noun",
+          "e": "🧠📚",
+          "ca": "coneixement"
+        },
+        {
+          "w": "education",
+          "k": "noun",
+          "e": "🎓📚",
+          "ca": "educació"
+        },
+        {
+          "w": "research",
+          "k": "noun",
+          "e": "🔬📚",
+          "ca": "recerca / investigar"
+        },
+        {
+          "w": "experiment",
+          "k": "noun",
+          "e": "🧪🔥",
+          "ca": "experiment"
+        },
+        {
+          "w": "lab",
+          "k": "noun",
+          "e": "🥼",
+          "ca": "laboratori"
+        },
+        {
+          "w": "degree",
+          "k": "noun",
+          "e": "🎓📜",
+          "ca": "grau (títol / temperatura)"
+        },
+        {
+          "w": "grade",
+          "k": "noun",
+          "e": "🅰️",
+          "ca": "nota / curs"
+        },
+        {
+          "w": "assignment",
+          "k": "noun",
+          "e": "📋✏️",
+          "ca": "tasca / treball"
+        },
+        {
+          "w": "chapter",
+          "k": "noun",
+          "e": "📖1️⃣",
+          "ca": "capítol"
+        },
+        {
+          "w": "definition",
+          "k": "noun",
+          "e": "📖💬",
+          "ca": "definició"
+        },
+        {
+          "w": "diagram",
+          "k": "noun",
+          "e": "📐📊",
+          "ca": "diagrama"
+        },
+        {
+          "w": "literature",
+          "k": "noun",
+          "e": "📚✒️",
+          "ca": "literatura"
+        },
+        {
+          "w": "poem",
+          "k": "noun",
+          "e": "📜✒️",
+          "ca": "poema"
+        },
+        {
+          "w": "poetry",
+          "k": "noun",
+          "e": "✒️🌹",
+          "ca": "poesia"
+        },
+        {
+          "w": "novel",
+          "k": "noun",
+          "e": "📘",
+          "ca": "novel·la"
+        },
+        {
+          "w": "fiction",
+          "k": "noun",
+          "e": "🐉📖",
+          "ca": "ficció"
+        },
+        {
+          "w": "narrative",
+          "k": "noun",
+          "e": "📖🗣️",
+          "ca": "narració"
+        },
+        {
+          "w": "writing",
+          "k": "noun",
+          "e": "✍️📄",
+          "ca": "escriptura / escrit"
+        },
+        {
+          "w": "drawing",
+          "k": "noun",
+          "e": "🖼️✏️",
+          "ca": "dibuix"
+        },
+        {
+          "w": "learning",
+          "k": "noun",
+          "e": "🧠📈",
+          "ca": "aprenentatge"
+        },
+        {
+          "w": "teaching",
+          "k": "noun",
+          "e": "🧑‍🏫📖",
+          "ca": "ensenyament"
+        },
+        {
+          "w": "understanding",
+          "k": "noun",
+          "e": "💡🧠",
+          "ca": "comprensió"
+        },
+        {
+          "w": "explanation",
+          "k": "noun",
+          "e": "🗣️💡",
+          "ca": "explicació"
+        },
+        {
+          "w": "introduction",
+          "k": "noun",
+          "e": "👋📖",
+          "ca": "introducció"
+        },
+        {
+          "w": "description",
+          "k": "noun",
+          "e": "📝🔍",
+          "ca": "descripció"
+        },
+        {
+          "w": "discussion",
+          "k": "noun",
+          "e": "💬💬",
+          "ca": "debat / discussió"
+        },
+        {
+          "w": "summary",
+          "k": "noun",
+          "e": "📄🔽",
+          "ca": "resum"
+        },
+        {
+          "w": "analysis",
+          "k": "noun",
+          "e": "📊🔍",
+          "ca": "anàlisi"
+        },
+        {
+          "w": "quotation",
+          "k": "noun",
+          "e": "❝❞",
+          "ca": "cita"
+        },
+        {
+          "w": "clause",
+          "k": "noun",
+          "e": "📝🧩",
+          "ca": "oració / clàusula"
+        },
+        {
+          "w": "reference",
+          "k": "noun",
+          "e": "📚🔖",
+          "ca": "referència"
+        },
+        {
+          "w": "section",
+          "k": "noun",
+          "e": "§",
+          "ca": "secció / apartat"
+        },
+        {
+          "w": "column",
+          "k": "noun",
+          "e": "▥",
+          "ca": "columna"
+        },
+        {
+          "w": "statement",
+          "k": "noun",
+          "e": "📢📝",
+          "ca": "declaració / afirmació"
+        },
+        {
+          "w": "report",
+          "k": "noun",
+          "e": "📊📝",
+          "ca": "informe / informar"
+        },
+        {
+          "w": "survey",
+          "k": "noun",
+          "e": "📋❓",
+          "ca": "enquesta"
+        },
+        {
+          "w": "sample",
+          "k": "noun",
+          "e": "🧪🔍",
+          "ca": "mostra"
+        },
+        {
+          "w": "intelligence",
+          "k": "noun",
+          "e": "🧠✨",
+          "ca": "intel·ligència"
+        },
+        {
+          "w": "talent",
+          "k": "noun",
+          "e": "🌟🎨",
+          "ca": "talent"
+        },
+        {
+          "w": "invention",
+          "k": "noun",
+          "e": "💡⚙️",
+          "ca": "invent"
+        },
+        {
+          "w": "discovery",
+          "k": "noun",
+          "e": "🔭",
+          "ca": "descobriment"
+        },
+        {
+          "w": "journal",
+          "k": "noun",
+          "e": "📔",
+          "ca": "revista (especialitzada) / diari"
+        },
+        {
+          "w": "diary",
+          "k": "noun",
+          "e": "📒",
+          "ca": "diari / agenda"
+        },
+        {
+          "w": "board",
+          "k": "noun",
+          "e": "🟫📌",
+          "ca": "tauler / pissarra"
+        },
+        {
+          "w": "comment",
+          "k": "noun",
+          "e": "💬✍️",
+          "ca": "comentari / comentar"
+        },
+        {
+          "w": "review",
+          "k": "noun",
+          "e": "⭐📝",
+          "ca": "ressenya / revisar"
+        },
+        {
+          "w": "researcher",
+          "k": "person",
+          "e": "🔬🧑",
+          "ca": "investigador / investigadora"
+        },
+        {
+          "w": "professor",
+          "k": "person",
+          "e": "🧑‍🏫🎓",
+          "ca": "professor / professora d'universitat"
+        },
+        {
+          "w": "poet",
+          "k": "person",
+          "e": "✒️🧑",
+          "ca": "poeta"
+        },
+        {
+          "w": "analyse",
+          "k": "verb",
+          "e": "🔍📊",
+          "ca": "analitzar"
+        },
+        {
+          "w": "define",
+          "k": "verb",
+          "e": "📖❓",
+          "ca": "definir"
+        },
+        {
+          "w": "summarise",
+          "k": "verb",
+          "e": "✂️📄",
+          "ca": "resumir"
+        },
+        {
+          "w": "quote",
+          "k": "verb",
+          "e": "💬❝",
+          "ca": "citar"
+        },
+        {
+          "w": "examine",
+          "k": "verb",
+          "e": "🔍📝",
+          "ca": "examinar"
+        },
+        {
+          "w": "concentrate",
+          "k": "verb",
+          "e": "🎯🧠",
+          "ca": "concentrar-se"
+        },
+        {
+          "w": "educate",
+          "k": "verb",
+          "e": "🎓➡️",
+          "ca": "educar"
+        },
+        {
+          "w": "graduate",
+          "k": "verb",
+          "e": "🎓🙌",
+          "ca": "graduar-se / graduat"
+        },
+        {
+          "w": "mark",
+          "k": "verb",
+          "e": "✔️✏️",
+          "ca": "corregir / nota"
+        },
+        {
+          "w": "invent",
+          "k": "verb",
+          "e": "💡🔧",
+          "ca": "inventar"
+        },
+        {
+          "w": "discover",
+          "k": "verb",
+          "e": "🔦",
+          "ca": "descobrir"
+        },
+        {
+          "w": "intelligent",
+          "k": "describe",
+          "e": "🧠⭐",
+          "ca": "intel·ligent"
+        },
+        {
+          "w": "clever",
+          "k": "describe",
+          "e": "💡🙂",
+          "ca": "llest / llesta"
+        },
+        {
+          "w": "talented",
+          "k": "describe",
+          "e": "🌟🙌",
+          "ca": "amb talent"
+        },
+        {
+          "w": "educated",
+          "k": "describe",
+          "e": "🎓✅",
+          "ca": "culte / amb estudis"
+        },
+        {
+          "w": "educational",
+          "k": "describe",
+          "e": "📚👍",
+          "ca": "educatiu / educativa"
+        },
+        {
+          "w": "academic",
+          "k": "describe",
+          "e": "🎓📖",
+          "ca": "acadèmic / acadèmica"
+        },
+        {
+          "w": "primary",
+          "k": "describe",
+          "e": "1️⃣🏫",
+          "ca": "primari / primària"
+        },
+        {
+          "w": "secondary",
+          "k": "describe",
+          "e": "2️⃣🏫",
+          "ca": "secundari / secundària"
+        },
+        {
+          "w": "scientific",
+          "k": "describe",
+          "e": "🔬✅",
+          "ca": "científic / científica"
+        },
+        {
+          "w": "spoken",
+          "k": "describe",
+          "e": "🗣️💬",
+          "ca": "oral (parlat)"
+        },
+        {
+          "w": "written",
+          "k": "describe",
+          "e": "✍️✅",
+          "ca": "escrit / escrita"
+        },
+        {
+          "w": "correctly",
+          "k": "describe",
+          "e": "✅✏️",
+          "ca": "correctament"
         }
       ]
     },
@@ -6971,6 +10271,522 @@
           "k": "verb",
           "e": "🥅⚽",
           "ca": "marcar (un gol)"
+        },
+        {
+          "w": "adventure",
+          "k": "noun",
+          "e": "🗺️🧗",
+          "ca": "aventura"
+        },
+        {
+          "w": "expedition",
+          "k": "noun",
+          "e": "🧭🏔️",
+          "ca": "expedició"
+        },
+        {
+          "w": "baseball",
+          "k": "noun",
+          "e": "⚾",
+          "ca": "beisbol"
+        },
+        {
+          "w": "basketball",
+          "k": "noun",
+          "ca": "bàsquet",
+          "s": "basketball"
+        },
+        {
+          "w": "golf",
+          "k": "noun",
+          "ca": "golf",
+          "s": "golf"
+        },
+        {
+          "w": "hockey",
+          "k": "noun",
+          "e": "🏑",
+          "ca": "hoquei"
+        },
+        {
+          "w": "rugby",
+          "k": "noun",
+          "e": "🏉",
+          "ca": "rugbi"
+        },
+        {
+          "w": "skiing",
+          "k": "noun",
+          "e": "⛷️",
+          "ca": "esquí"
+        },
+        {
+          "w": "sailing",
+          "k": "noun",
+          "e": "⛵🌊",
+          "ca": "vela (esport)"
+        },
+        {
+          "w": "camping",
+          "k": "noun",
+          "e": "🏕️",
+          "ca": "càmping / acampada"
+        },
+        {
+          "w": "tent",
+          "k": "noun",
+          "e": "⛺",
+          "ca": "tenda de campanya"
+        },
+        {
+          "w": "fishing",
+          "k": "noun",
+          "e": "🎣",
+          "ca": "pesca"
+        },
+        {
+          "w": "running",
+          "k": "noun",
+          "e": "👟💨",
+          "ca": "córrer (atletisme)"
+        },
+        {
+          "w": "race",
+          "k": "noun",
+          "ca": "cursa / raça",
+          "s": "race_athletics"
+        },
+        {
+          "w": "racing",
+          "k": "noun",
+          "e": "🏎️",
+          "ca": "curses (de cotxes)"
+        },
+        {
+          "w": "goal",
+          "k": "noun",
+          "ca": "gol / objectiu",
+          "s": "goal"
+        },
+        {
+          "w": "net",
+          "k": "noun",
+          "e": "🥅",
+          "ca": "xarxa"
+        },
+        {
+          "w": "row",
+          "k": "noun",
+          "e": "🚣",
+          "ca": "fila / remar"
+        },
+        {
+          "w": "programme",
+          "k": "noun",
+          "e": "📺📋",
+          "ca": "programa (de tele)"
+        },
+        {
+          "w": "cartoon",
+          "k": "noun",
+          "e": "🎞️🐭",
+          "ca": "dibuixos animats"
+        },
+        {
+          "w": "comedy",
+          "k": "noun",
+          "e": "🤡",
+          "ca": "comèdia"
+        },
+        {
+          "w": "drama",
+          "k": "noun",
+          "ca": "drama / teatre",
+          "s": "drama"
+        },
+        {
+          "w": "jazz",
+          "k": "noun",
+          "e": "🎷",
+          "ca": "jazz"
+        },
+        {
+          "w": "pop",
+          "k": "noun",
+          "e": "🎧🎶",
+          "ca": "pop (música)"
+        },
+        {
+          "w": "album",
+          "k": "noun",
+          "e": "💿",
+          "ca": "àlbum"
+        },
+        {
+          "w": "series",
+          "k": "noun",
+          "e": "🎞️🔢",
+          "ca": "sèrie"
+        },
+        {
+          "w": "episode",
+          "k": "noun",
+          "e": "📺1️⃣",
+          "ca": "episodi"
+        },
+        {
+          "w": "documentary",
+          "k": "noun",
+          "e": "🎥🌍",
+          "ca": "documental"
+        },
+        {
+          "w": "horror",
+          "k": "noun",
+          "e": "😱",
+          "ca": "terror (gènere)"
+        },
+        {
+          "w": "mystery",
+          "k": "noun",
+          "e": "🕵️‍♀️❓",
+          "ca": "misteri"
+        },
+        {
+          "w": "magic",
+          "k": "noun",
+          "e": "🪄",
+          "ca": "màgia"
+        },
+        {
+          "w": "ghost",
+          "k": "noun",
+          "ca": "fantasma",
+          "s": "ghost"
+        },
+        {
+          "w": "musical",
+          "k": "noun",
+          "e": "🎼",
+          "ca": "musical"
+        },
+        {
+          "w": "instrument",
+          "k": "noun",
+          "e": "🎻",
+          "ca": "instrument"
+        },
+        {
+          "w": "drum",
+          "k": "noun",
+          "ca": "tambor / bateria",
+          "s": "drum"
+        },
+        {
+          "w": "singing",
+          "k": "noun",
+          "e": "🎙️🎶",
+          "ca": "cant"
+        },
+        {
+          "w": "event",
+          "k": "noun",
+          "e": "🎟️📅",
+          "ca": "esdeveniment"
+        },
+        {
+          "w": "entertainment",
+          "k": "noun",
+          "e": "🎡",
+          "ca": "entreteniment"
+        },
+        {
+          "w": "leisure",
+          "k": "noun",
+          "e": "🛋️📖",
+          "ca": "lleure"
+        },
+        {
+          "w": "exhibition",
+          "k": "noun",
+          "e": "🖼️👀",
+          "ca": "exposició"
+        },
+        {
+          "w": "celebration",
+          "k": "noun",
+          "ca": "celebració",
+          "s": "celebration"
+        },
+        {
+          "w": "ceremony",
+          "k": "noun",
+          "e": "🎊",
+          "ca": "cerimònia"
+        },
+        {
+          "w": "surprise",
+          "k": "noun",
+          "e": "🎉😮",
+          "ca": "sorpresa / sorprendre"
+        },
+        {
+          "w": "folk",
+          "k": "noun",
+          "e": "🪕",
+          "ca": "música popular / folk"
+        },
+        {
+          "w": "prize",
+          "k": "noun",
+          "e": "🎁🏆",
+          "ca": "premi"
+        },
+        {
+          "w": "award",
+          "k": "noun",
+          "e": "🎖️",
+          "ca": "guardó / premiar"
+        },
+        {
+          "w": "stage",
+          "k": "noun",
+          "e": "🎤💡",
+          "ca": "escenari / etapa"
+        },
+        {
+          "w": "scene",
+          "k": "noun",
+          "e": "🎬🌆",
+          "ca": "escena"
+        },
+        {
+          "w": "script",
+          "k": "noun",
+          "e": "📜🎬",
+          "ca": "guió"
+        },
+        {
+          "w": "plot",
+          "k": "noun",
+          "e": "📖🧵",
+          "ca": "argument (trama)"
+        },
+        {
+          "w": "photography",
+          "k": "noun",
+          "e": "📷🎞️",
+          "ca": "fotografia"
+        },
+        {
+          "w": "portrait",
+          "k": "noun",
+          "e": "🖼️👤",
+          "ca": "retrat"
+        },
+        {
+          "w": "poster",
+          "k": "noun",
+          "e": "🪧",
+          "ca": "pòster / cartell"
+        },
+        {
+          "w": "flying",
+          "k": "noun",
+          "e": "🪁",
+          "ca": "volar (el vol)"
+        },
+        {
+          "w": "joke",
+          "k": "noun",
+          "e": "😜💬",
+          "ca": "acudit / fer broma"
+        },
+        {
+          "w": "laughter",
+          "k": "noun",
+          "e": "🤣",
+          "ca": "rialla"
+        },
+        {
+          "w": "collection",
+          "k": "noun",
+          "e": "🗃️⭐",
+          "ca": "col·lecció"
+        },
+        {
+          "w": "track",
+          "k": "noun",
+          "e": "🏁🛤️",
+          "ca": "pista / via / cançó"
+        },
+        {
+          "w": "athlete",
+          "k": "person",
+          "e": "🏅🏃",
+          "ca": "atleta"
+        },
+        {
+          "w": "runner",
+          "k": "person",
+          "e": "🏃‍♂️",
+          "ca": "corredor / corredora"
+        },
+        {
+          "w": "champion",
+          "k": "person",
+          "e": "🏆🙋",
+          "ca": "campió / campiona"
+        },
+        {
+          "w": "competitor",
+          "k": "person",
+          "e": "🏁👤",
+          "ca": "competidor / competidora"
+        },
+        {
+          "w": "winner",
+          "k": "person",
+          "ca": "guanyador / guanyadora",
+          "s": "winner"
+        },
+        {
+          "w": "musician",
+          "k": "person",
+          "ca": "músic / música",
+          "s": "musician_1a"
+        },
+        {
+          "w": "dancer",
+          "k": "person",
+          "e": "🩰",
+          "ca": "ballarí / ballarina"
+        },
+        {
+          "w": "hike",
+          "k": "verb",
+          "ca": "fer una excursió (a peu)",
+          "s": "hike_,_to"
+        },
+        {
+          "w": "ski",
+          "k": "verb",
+          "ca": "esquiar",
+          "s": "ski_,_to"
+        },
+        {
+          "w": "sail",
+          "k": "verb",
+          "e": "⛵💨",
+          "ca": "navegar (a vela)"
+        },
+        {
+          "w": "camp",
+          "k": "verb",
+          "ca": "acampar",
+          "s": "camp_,_to"
+        },
+        {
+          "w": "cycle",
+          "k": "verb",
+          "ca": "anar amb bicicleta",
+          "s": "cycle_,_to"
+        },
+        {
+          "w": "kick",
+          "k": "verb",
+          "ca": "xutar / donar una puntada",
+          "s": "kick_ball_,_to"
+        },
+        {
+          "w": "catch",
+          "k": "verb",
+          "ca": "agafar / atrapar",
+          "s": "catch_,_to"
+        },
+        {
+          "w": "hit",
+          "k": "verb",
+          "ca": "picar / colpejar",
+          "s": "hit_,_to"
+        },
+        {
+          "w": "beat",
+          "k": "verb",
+          "e": "🥇🆚",
+          "ca": "guanyar (a algú) / batec"
+        },
+        {
+          "w": "compete",
+          "k": "verb",
+          "e": "🏃🏃",
+          "ca": "competir"
+        },
+        {
+          "w": "celebrate",
+          "k": "verb",
+          "ca": "celebrar",
+          "s": "celebrate_1_,_to"
+        },
+        {
+          "w": "perform",
+          "k": "verb",
+          "e": "🎻🙋",
+          "ca": "actuar / interpretar"
+        },
+        {
+          "w": "act",
+          "k": "verb",
+          "e": "🎬🙋",
+          "ca": "actuar / acte"
+        },
+        {
+          "w": "entertain",
+          "k": "verb",
+          "e": "🤹",
+          "ca": "entretenir"
+        },
+        {
+          "w": "kiss",
+          "k": "verb",
+          "e": "💋",
+          "ca": "fer un petó / petó"
+        },
+        {
+          "w": "decorate",
+          "k": "verb",
+          "ca": "decorar",
+          "s": "decorate_,_to"
+        },
+        {
+          "w": "competitive",
+          "k": "describe",
+          "e": "🏆💪",
+          "ca": "competitiu / competitiva"
+        },
+        {
+          "w": "scary",
+          "k": "describe",
+          "ca": "que fa por (terrorífic)",
+          "s": "scary"
+        },
+        {
+          "w": "frightening",
+          "k": "describe",
+          "e": "👻😱",
+          "ca": "que fa por"
+        },
+        {
+          "w": "giant",
+          "k": "describe",
+          "e": "🧍⬆️⬆️",
+          "ca": "gegant"
+        },
+        {
+          "w": "imaginary",
+          "k": "describe",
+          "e": "💭🦄",
+          "ca": "imaginari / imaginària"
         }
       ]
     },
@@ -7375,6 +11191,486 @@
           "k": "little",
           "e": "→📍",
           "ca": "cap a"
+        },
+        {
+          "w": "because of",
+          "k": "little",
+          "e": "↩️❗",
+          "ca": "a causa de / per culpa de"
+        },
+        {
+          "w": "according to",
+          "k": "little",
+          "e": "📖👉",
+          "ca": "segons"
+        },
+        {
+          "w": "along",
+          "k": "little",
+          "e": "➡️〰️",
+          "ca": "al llarg de"
+        },
+        {
+          "w": "among",
+          "k": "little",
+          "e": "👤👥",
+          "ca": "entre (molts)"
+        },
+        {
+          "w": "including",
+          "k": "little",
+          "e": "➕📦",
+          "ca": "inclòs / incloent-hi"
+        },
+        {
+          "w": "inside",
+          "k": "little",
+          "ca": "a dins",
+          "s": "inside_room"
+        },
+        {
+          "w": "instead of",
+          "k": "little",
+          "e": "🔀",
+          "ca": "en lloc de"
+        },
+        {
+          "w": "onto",
+          "k": "little",
+          "e": "⤵️",
+          "ca": "a sobre de (cap a)"
+        },
+        {
+          "w": "per",
+          "k": "little",
+          "e": "/1",
+          "ca": "per (cada)"
+        },
+        {
+          "w": "despite",
+          "k": "little",
+          "e": "☔🚶",
+          "ca": "malgrat"
+        },
+        {
+          "w": "nor",
+          "k": "little",
+          "e": "🚫🚫",
+          "ca": "ni"
+        },
+        {
+          "w": "though",
+          "k": "little",
+          "e": "💭↔️",
+          "ca": "tot i que / però"
+        },
+        {
+          "w": "throughout",
+          "k": "little",
+          "e": "🔄📍",
+          "ca": "durant tot / per tot"
+        },
+        {
+          "w": "till",
+          "k": "little",
+          "e": "→⏹",
+          "ca": "fins a / fins que"
+        },
+        {
+          "w": "within",
+          "k": "little",
+          "e": "⊂",
+          "ca": "dins de"
+        },
+        {
+          "w": "whatever",
+          "k": "little",
+          "e": "🤷‍♀️",
+          "ca": "el que sigui"
+        },
+        {
+          "w": "whenever",
+          "k": "little",
+          "e": "🕒🤷",
+          "ca": "sempre que / quan sigui"
+        },
+        {
+          "w": "whether",
+          "k": "little",
+          "e": "❔↔️",
+          "ca": "si (o no)"
+        },
+        {
+          "w": "unlike",
+          "k": "little",
+          "e": "≠",
+          "ca": "a diferència de"
+        },
+        {
+          "w": "such",
+          "k": "little",
+          "e": "👉✨",
+          "ca": "tal / tan"
+        },
+        {
+          "w": "several",
+          "k": "little",
+          "e": "🔢🤏",
+          "ca": "diversos / diverses"
+        },
+        {
+          "w": "least",
+          "k": "little",
+          "e": "⬇️⬇️",
+          "ca": "el mínim / menys"
+        },
+        {
+          "w": "none",
+          "k": "little",
+          "e": "0️⃣❌",
+          "ca": "cap / ningú"
+        },
+        {
+          "w": "plenty",
+          "k": "little",
+          "e": "➕➕",
+          "ca": "molt / de sobres"
+        },
+        {
+          "w": "apart",
+          "k": "little",
+          "e": "↔️",
+          "ca": "a part / separats"
+        },
+        {
+          "w": "ahead",
+          "k": "little",
+          "ca": "al davant / endavant",
+          "s": "ahead"
+        },
+        {
+          "w": "backwards",
+          "k": "little",
+          "ca": "cap enrere",
+          "s": "backwards"
+        },
+        {
+          "w": "forward",
+          "k": "little",
+          "ca": "cap endavant",
+          "s": "forward"
+        },
+        {
+          "w": "everywhere",
+          "k": "little",
+          "e": "🌍📍",
+          "ca": "pertot arreu"
+        },
+        {
+          "w": "abroad",
+          "k": "little",
+          "e": "✈️🌍",
+          "ca": "a l'estranger"
+        },
+        {
+          "w": "straight",
+          "k": "little",
+          "ca": "recte / directament",
+          "s": "straight"
+        },
+        {
+          "w": "round",
+          "k": "little",
+          "e": "⭕",
+          "ca": "rodó / al voltant"
+        },
+        {
+          "w": "front",
+          "k": "little",
+          "e": "⬆️🧍",
+          "ca": "davant / part del davant"
+        },
+        {
+          "w": "middle",
+          "k": "little",
+          "ca": "mig / centre",
+          "s": "middle"
+        },
+        {
+          "w": "bottom",
+          "k": "little",
+          "ca": "part de baix / cul",
+          "s": "bottom"
+        },
+        {
+          "w": "top",
+          "k": "little",
+          "ca": "part de dalt / dalt",
+          "s": "top"
+        },
+        {
+          "w": "side",
+          "k": "little",
+          "ca": "costat",
+          "s": "side"
+        },
+        {
+          "w": "edge",
+          "k": "little",
+          "e": "⬛▕",
+          "ca": "vora"
+        },
+        {
+          "w": "anyway",
+          "k": "little",
+          "e": "🤷‍♂️",
+          "ca": "de totes maneres"
+        },
+        {
+          "w": "actually",
+          "k": "little",
+          "e": "☝️💡",
+          "ca": "de fet / en realitat"
+        },
+        {
+          "w": "almost",
+          "k": "little",
+          "e": "◑",
+          "ca": "gairebé"
+        },
+        {
+          "w": "nearly",
+          "k": "little",
+          "e": "🤏✔️",
+          "ca": "quasi"
+        },
+        {
+          "w": "certainly",
+          "k": "little",
+          "e": "✅✅",
+          "ca": "certament / és clar"
+        },
+        {
+          "w": "definitely",
+          "k": "little",
+          "e": "💯✅",
+          "ca": "segur / sens dubte"
+        },
+        {
+          "w": "especially",
+          "k": "little",
+          "e": "⭐👉",
+          "ca": "especialment"
+        },
+        {
+          "w": "fortunately",
+          "k": "little",
+          "e": "🍀",
+          "ca": "per sort"
+        },
+        {
+          "w": "unfortunately",
+          "k": "little",
+          "e": "☹️👉",
+          "ca": "per desgràcia"
+        },
+        {
+          "w": "indeed",
+          "k": "little",
+          "e": "✔️💬",
+          "ca": "de fet / realment"
+        },
+        {
+          "w": "obviously",
+          "k": "little",
+          "e": "👀✅",
+          "ca": "òbviament"
+        },
+        {
+          "w": "perhaps",
+          "k": "little",
+          "e": "🤔❓",
+          "ca": "potser"
+        },
+        {
+          "w": "possibly",
+          "k": "little",
+          "e": "🤔🎲",
+          "ca": "possiblement"
+        },
+        {
+          "w": "therefore",
+          "k": "little",
+          "e": "∴",
+          "ca": "per tant"
+        },
+        {
+          "w": "firstly",
+          "k": "little",
+          "e": "1️⃣👉",
+          "ca": "en primer lloc"
+        },
+        {
+          "w": "secondly",
+          "k": "little",
+          "e": "2️⃣👉",
+          "ca": "en segon lloc"
+        },
+        {
+          "w": "personally",
+          "k": "little",
+          "e": "🙋💭",
+          "ca": "personalment"
+        },
+        {
+          "w": "any more",
+          "k": "little",
+          "e": "🚫🔁",
+          "ca": "ja no / més"
+        },
+        {
+          "w": "generally",
+          "k": "little",
+          "e": "📊👌",
+          "ca": "generalment"
+        },
+        {
+          "w": "mainly",
+          "k": "little",
+          "e": "⭐📌",
+          "ca": "principalment"
+        },
+        {
+          "w": "mostly",
+          "k": "little",
+          "e": "📊⬆️",
+          "ca": "sobretot / majoritàriament"
+        },
+        {
+          "w": "particularly",
+          "k": "little",
+          "e": "🔍⭐",
+          "ca": "particularment"
+        },
+        {
+          "w": "specifically",
+          "k": "little",
+          "e": "🎯👉",
+          "ca": "específicament"
+        },
+        {
+          "w": "typically",
+          "k": "little",
+          "e": "📊🔁",
+          "ca": "normalment / típicament"
+        },
+        {
+          "w": "surely",
+          "k": "little",
+          "e": "🤨✅",
+          "ca": "segur que"
+        },
+        {
+          "w": "simply",
+          "k": "little",
+          "e": "✨👌",
+          "ca": "simplement"
+        },
+        {
+          "w": "rather",
+          "k": "little",
+          "e": "◔",
+          "ca": "bastant / més aviat"
+        },
+        {
+          "w": "hardly",
+          "k": "little",
+          "e": "🤏❓",
+          "ca": "amb prou feines / gairebé no"
+        },
+        {
+          "w": "naturally",
+          "k": "little",
+          "e": "🍃👌",
+          "ca": "naturalment / és clar"
+        },
+        {
+          "w": "necessarily",
+          "k": "little",
+          "e": "❗✅",
+          "ca": "necessàriament"
+        },
+        {
+          "w": "originally",
+          "k": "little",
+          "e": "🌱⏪",
+          "ca": "originalment"
+        },
+        {
+          "w": "similarly",
+          "k": "little",
+          "e": "🟰👉",
+          "ca": "de manera semblant"
+        },
+        {
+          "w": "normally",
+          "k": "little",
+          "e": "👌📅",
+          "ca": "normalment"
+        },
+        {
+          "w": "quickly",
+          "k": "describe",
+          "e": "⚡👉",
+          "ca": "ràpidament"
+        },
+        {
+          "w": "slowly",
+          "k": "describe",
+          "e": "🐌👉",
+          "ca": "a poc a poc"
+        },
+        {
+          "w": "carefully",
+          "k": "describe",
+          "e": "👀✋",
+          "ca": "amb compte"
+        },
+        {
+          "w": "easily",
+          "k": "describe",
+          "e": "😌👌",
+          "ca": "fàcilment"
+        },
+        {
+          "w": "loudly",
+          "k": "describe",
+          "e": "📢👉",
+          "ca": "fort (en veu alta)"
+        },
+        {
+          "w": "quietly",
+          "k": "describe",
+          "e": "🤫👉",
+          "ca": "fluixet / en silenci"
+        },
+        {
+          "w": "happily",
+          "k": "describe",
+          "e": "😊👉",
+          "ca": "feliçment / amb alegria"
+        },
+        {
+          "w": "sadly",
+          "k": "describe",
+          "e": "😢👉",
+          "ca": "tristament / per desgràcia"
+        },
+        {
+          "w": "badly",
+          "k": "describe",
+          "e": "🙁👉",
+          "ca": "malament"
         }
       ]
     },
@@ -7563,6 +11859,42 @@
           "k": "noun",
           "e": "🤟LSC",
           "ca": "llengua de signes catalana"
+        },
+        {
+          "w": "translation",
+          "k": "noun",
+          "e": "📄⇄",
+          "ca": "traducció"
+        },
+        {
+          "w": "expression",
+          "k": "noun",
+          "e": "💬✨",
+          "ca": "expressió"
+        },
+        {
+          "w": "voice",
+          "k": "noun",
+          "e": "🗣️🎵",
+          "ca": "veu"
+        },
+        {
+          "w": "speech",
+          "k": "noun",
+          "e": "🎤📜",
+          "ca": "discurs / parla"
+        },
+        {
+          "w": "communication",
+          "k": "noun",
+          "e": "📡💬",
+          "ca": "comunicació"
+        },
+        {
+          "w": "native",
+          "k": "describe",
+          "e": "🏡🗣️",
+          "ca": "nadiu / nadiua (llengua materna)"
         }
       ]
     },
@@ -7817,6 +12149,126 @@
           "k": "noun",
           "ca": "Veneçuela",
           "s": "flag_Venezuela"
+        },
+        {
+          "w": "culture",
+          "k": "noun",
+          "e": "🎎",
+          "ca": "cultura"
+        },
+        {
+          "w": "tradition",
+          "k": "noun",
+          "e": "🎎📜",
+          "ca": "tradició"
+        },
+        {
+          "w": "custom",
+          "k": "noun",
+          "e": "🎎🙏",
+          "ca": "costum"
+        },
+        {
+          "w": "continent",
+          "k": "noun",
+          "e": "🌍🗺️",
+          "ca": "continent"
+        },
+        {
+          "w": "nation",
+          "k": "noun",
+          "e": "🏳️",
+          "ca": "nació"
+        },
+        {
+          "w": "border",
+          "k": "noun",
+          "e": "🚧🗺️",
+          "ca": "frontera"
+        },
+        {
+          "w": "flag",
+          "k": "noun",
+          "e": "🚩",
+          "ca": "bandera"
+        },
+        {
+          "w": "immigrant",
+          "k": "person",
+          "e": "🧳🏠",
+          "ca": "immigrant"
+        },
+        {
+          "w": "foreign",
+          "k": "describe",
+          "e": "🌐🧳",
+          "ca": "estranger / estrangera"
+        },
+        {
+          "w": "national",
+          "k": "describe",
+          "e": "🏳️🏠",
+          "ca": "nacional"
+        },
+        {
+          "w": "international",
+          "k": "describe",
+          "e": "🌐🤝",
+          "ca": "internacional"
+        },
+        {
+          "w": "cultural",
+          "k": "describe",
+          "e": "🎎✨",
+          "ca": "cultural"
+        },
+        {
+          "w": "traditional",
+          "k": "describe",
+          "e": "🎎🏠",
+          "ca": "tradicional"
+        },
+        {
+          "w": "global",
+          "k": "describe",
+          "e": "🌍🌐",
+          "ca": "mundial / global"
+        },
+        {
+          "w": "worldwide",
+          "k": "describe",
+          "e": "🌎🌐",
+          "ca": "a tot el món"
+        },
+        {
+          "w": "eastern",
+          "k": "describe",
+          "e": "🧭➡️",
+          "ca": "oriental (de l'est)"
+        },
+        {
+          "w": "western",
+          "k": "describe",
+          "e": "🧭⬅️",
+          "ca": "occidental (de l'oest)"
+        },
+        {
+          "w": "northern",
+          "k": "describe",
+          "e": "🧭⬆️",
+          "ca": "del nord"
+        },
+        {
+          "w": "southern",
+          "k": "describe",
+          "e": "🧭⬇️",
+          "ca": "del sud"
+        },
+        {
+          "w": "united",
+          "k": "describe",
+          "e": "🔗🤝",
+          "ca": "unit / unida"
         }
       ]
     },
@@ -7939,6 +12391,138 @@
           "k": "describe",
           "e": "🛒❌",
           "ca": "exhaurit / exhaurida"
+        },
+        {
+          "w": "product",
+          "k": "noun",
+          "e": "📦🏷️",
+          "ca": "producte"
+        },
+        {
+          "w": "brand",
+          "k": "noun",
+          "e": "™️",
+          "ca": "marca"
+        },
+        {
+          "w": "sale",
+          "k": "noun",
+          "e": "🏷️⬇️",
+          "ca": "rebaixes / venda"
+        },
+        {
+          "w": "goods",
+          "k": "noun",
+          "e": "📦📦",
+          "ca": "mercaderies / productes"
+        },
+        {
+          "w": "credit",
+          "k": "noun",
+          "e": "💳✅",
+          "ca": "crèdit"
+        },
+        {
+          "w": "account",
+          "k": "noun",
+          "e": "🏦👤",
+          "ca": "compte"
+        },
+        {
+          "w": "currency",
+          "k": "noun",
+          "e": "💱",
+          "ca": "moneda (divisa)"
+        },
+        {
+          "w": "coin",
+          "k": "noun",
+          "e": "🪙🪙",
+          "ca": "moneda (peça)"
+        },
+        {
+          "w": "penny",
+          "k": "noun",
+          "e": "1p",
+          "ca": "penic"
+        },
+        {
+          "w": "payment",
+          "k": "noun",
+          "e": "💳💸",
+          "ca": "pagament"
+        },
+        {
+          "w": "luxury",
+          "k": "noun",
+          "e": "💎👑",
+          "ca": "luxe"
+        },
+        {
+          "w": "value",
+          "k": "noun",
+          "e": "💰⚖️",
+          "ca": "valor"
+        },
+        {
+          "w": "spending",
+          "k": "noun",
+          "e": "💸",
+          "ca": "despesa"
+        },
+        {
+          "w": "rent",
+          "k": "noun",
+          "e": "🏠💶",
+          "ca": "lloguer / llogar"
+        },
+        {
+          "w": "service",
+          "k": "noun",
+          "e": "🛎️",
+          "ca": "servei"
+        },
+        {
+          "w": "stamp",
+          "k": "noun",
+          "e": "✉️🔖",
+          "ca": "segell"
+        },
+        {
+          "w": "consumer",
+          "k": "person",
+          "e": "🛒👤",
+          "ca": "consumidor / consumidora"
+        },
+        {
+          "w": "consume",
+          "k": "verb",
+          "e": "🛒➡️",
+          "ca": "consumir"
+        },
+        {
+          "w": "store",
+          "k": "verb",
+          "e": "🗄️📦",
+          "ca": "guardar / emmagatzemar"
+        },
+        {
+          "w": "invest",
+          "k": "verb",
+          "e": "💰🌱",
+          "ca": "invertir"
+        },
+        {
+          "w": "valuable",
+          "k": "describe",
+          "e": "💎💰",
+          "ca": "valuós / valuosa"
+        },
+        {
+          "w": "worth",
+          "k": "describe",
+          "e": "💰✅",
+          "ca": "que val (la pena)"
         }
       ]
     },
@@ -8073,6 +12657,3584 @@
           "k": "describe",
           "e": "💼🔍",
           "ca": "a l'atur"
+        },
+        {
+          "w": "actress",
+          "k": "person",
+          "e": "🎭👩",
+          "ca": "actriu"
+        },
+        {
+          "w": "author",
+          "k": "person",
+          "e": "✍️📕",
+          "ca": "autor / autora"
+        },
+        {
+          "w": "architect",
+          "k": "person",
+          "e": "📐🏗️",
+          "ca": "arquitecte / arquitecta"
+        },
+        {
+          "w": "assistant",
+          "k": "person",
+          "e": "🧑‍💼📋",
+          "ca": "assistent / ajudant"
+        },
+        {
+          "w": "businessman",
+          "k": "person",
+          "e": "👨‍💼",
+          "ca": "home de negocis"
+        },
+        {
+          "w": "chef",
+          "k": "person",
+          "e": "👨‍🍳",
+          "ca": "xef / cap de cuina"
+        },
+        {
+          "w": "designer",
+          "k": "person",
+          "e": "🎨✏️",
+          "ca": "dissenyador / dissenyadora"
+        },
+        {
+          "w": "detective",
+          "k": "person",
+          "e": "🕵️",
+          "ca": "detectiu / detectiva"
+        },
+        {
+          "w": "director",
+          "k": "person",
+          "e": "🎬🧑",
+          "ca": "director / directora"
+        },
+        {
+          "w": "engineer",
+          "k": "person",
+          "e": "🧑‍🔧",
+          "ca": "enginyer / enginyera"
+        },
+        {
+          "w": "expert",
+          "k": "person",
+          "e": "🎓⭐",
+          "ca": "expert / experta"
+        },
+        {
+          "w": "instructor",
+          "k": "person",
+          "e": "📣🧑‍🏫",
+          "ca": "instructor / instructora"
+        },
+        {
+          "w": "journalist",
+          "k": "person",
+          "e": "📰✍️",
+          "ca": "periodista"
+        },
+        {
+          "w": "lawyer",
+          "k": "person",
+          "e": "⚖️👔",
+          "ca": "advocat / advocada"
+        },
+        {
+          "w": "manager",
+          "k": "person",
+          "e": "📊👔",
+          "ca": "gerent / encarregat"
+        },
+        {
+          "w": "officer",
+          "k": "person",
+          "e": "👮‍♀️",
+          "ca": "agent / oficial"
+        },
+        {
+          "w": "painter",
+          "k": "person",
+          "e": "🧑‍🎨🖌️",
+          "ca": "pintor / pintora"
+        },
+        {
+          "w": "pilot",
+          "k": "person",
+          "e": "🧑‍✈️",
+          "ca": "pilot"
+        },
+        {
+          "w": "reporter",
+          "k": "person",
+          "e": "🎙️📰",
+          "ca": "reporter"
+        },
+        {
+          "w": "secretary",
+          "k": "person",
+          "ca": "secretari / secretària",
+          "s": "secretary_1a"
+        },
+        {
+          "w": "trainer",
+          "k": "person",
+          "e": "🏋️🧑",
+          "ca": "entrenador / entrenadora"
+        },
+        {
+          "w": "agent",
+          "k": "person",
+          "e": "🕴️",
+          "ca": "agent"
+        },
+        {
+          "w": "captain",
+          "k": "person",
+          "e": "⚓🧑‍✈️",
+          "ca": "capità / capitana"
+        },
+        {
+          "w": "client",
+          "k": "person",
+          "e": "🤝👤",
+          "ca": "client / clienta"
+        },
+        {
+          "w": "editor",
+          "k": "person",
+          "e": "📝✂️",
+          "ca": "editor / editora"
+        },
+        {
+          "w": "photographer",
+          "k": "person",
+          "e": "📸🧑",
+          "ca": "fotògraf / fotògrafa"
+        },
+        {
+          "w": "producer",
+          "k": "person",
+          "e": "🎬💰",
+          "ca": "productor / productora"
+        },
+        {
+          "w": "sailor",
+          "k": "person",
+          "ca": "mariner / marinera",
+          "s": "sailor_1a"
+        },
+        {
+          "w": "staff",
+          "k": "person",
+          "e": "👥🪪",
+          "ca": "personal (plantilla)"
+        },
+        {
+          "w": "organiser",
+          "k": "person",
+          "e": "📋🙋",
+          "ca": "organitzador / organitzadora"
+        },
+        {
+          "w": "candidate",
+          "k": "person",
+          "e": "🙋📄",
+          "ca": "candidat / candidata"
+        },
+        {
+          "w": "model",
+          "k": "person",
+          "e": "🧍✨",
+          "ca": "model (persona) / maqueta"
+        },
+        {
+          "w": "career",
+          "k": "noun",
+          "e": "📈💼",
+          "ca": "carrera professional"
+        },
+        {
+          "w": "employment",
+          "k": "noun",
+          "e": "💼✅",
+          "ca": "ocupació (feina)"
+        },
+        {
+          "w": "unemployment",
+          "k": "noun",
+          "e": "💼❌",
+          "ca": "atur"
+        },
+        {
+          "w": "profession",
+          "k": "noun",
+          "e": "👷👩‍⚕️",
+          "ca": "professió"
+        },
+        {
+          "w": "qualification",
+          "k": "noun",
+          "e": "📜✅",
+          "ca": "titulació"
+        },
+        {
+          "w": "factory",
+          "k": "noun",
+          "e": "🏭",
+          "ca": "fàbrica"
+        },
+        {
+          "w": "industry",
+          "k": "noun",
+          "e": "🏭⚙️",
+          "ca": "indústria"
+        },
+        {
+          "w": "engineering",
+          "k": "noun",
+          "e": "⚙️📐",
+          "ca": "enginyeria"
+        },
+        {
+          "w": "department",
+          "k": "noun",
+          "e": "🏢🚪",
+          "ca": "departament"
+        },
+        {
+          "w": "conference",
+          "k": "noun",
+          "e": "🎤👥",
+          "ca": "congrés"
+        },
+        {
+          "w": "management",
+          "k": "noun",
+          "e": "📊👥",
+          "ca": "gestió / direcció"
+        },
+        {
+          "w": "marketing",
+          "k": "noun",
+          "e": "📣📊",
+          "ca": "màrqueting"
+        },
+        {
+          "w": "advertising",
+          "k": "noun",
+          "e": "📢📺",
+          "ca": "publicitat"
+        },
+        {
+          "w": "advertisement",
+          "k": "noun",
+          "e": "📰📢",
+          "ca": "anunci (publicitari)"
+        },
+        {
+          "w": "ad",
+          "k": "noun",
+          "e": "📢",
+          "ca": "anunci"
+        },
+        {
+          "w": "production",
+          "k": "noun",
+          "e": "🏭📦",
+          "ca": "producció"
+        },
+        {
+          "w": "profit",
+          "k": "noun",
+          "e": "💰📈",
+          "ca": "benefici / guany"
+        },
+        {
+          "w": "trade",
+          "k": "noun",
+          "e": "🤝📦",
+          "ca": "comerç"
+        },
+        {
+          "w": "export",
+          "k": "noun",
+          "e": "📦➡️🌍",
+          "ca": "exportació / exportar"
+        },
+        {
+          "w": "import",
+          "k": "noun",
+          "e": "🌍➡️📦",
+          "ca": "importació / importar"
+        },
+        {
+          "w": "equipment",
+          "k": "noun",
+          "e": "🧰",
+          "ca": "equip (material)"
+        },
+        {
+          "w": "design",
+          "k": "noun",
+          "e": "✏️📐",
+          "ca": "disseny / dissenyar"
+        },
+        {
+          "w": "planning",
+          "k": "noun",
+          "e": "🗓️🧠",
+          "ca": "planificació"
+        },
+        {
+          "w": "resource",
+          "k": "noun",
+          "e": "🗃️",
+          "ca": "recurs"
+        },
+        {
+          "w": "printing",
+          "k": "noun",
+          "e": "🖨️",
+          "ca": "impressió"
+        },
+        {
+          "w": "employ",
+          "k": "verb",
+          "e": "🤝💼",
+          "ca": "contractar / donar feina"
+        },
+        {
+          "w": "hire",
+          "k": "verb",
+          "e": "📝🤝",
+          "ca": "llogar / contractar"
+        },
+        {
+          "w": "manage",
+          "k": "verb",
+          "e": "📊✔️",
+          "ca": "gestionar / aconseguir"
+        },
+        {
+          "w": "retire",
+          "k": "verb",
+          "ca": "jubilar-se",
+          "s": "retire_,_to"
+        },
+        {
+          "w": "qualify",
+          "k": "verb",
+          "e": "📜🙋",
+          "ca": "obtenir el títol / classificar-se"
+        },
+        {
+          "w": "assist",
+          "k": "verb",
+          "e": "🤲🧑",
+          "ca": "ajudar / assistir"
+        },
+        {
+          "w": "promote",
+          "k": "verb",
+          "e": "📢⬆️",
+          "ca": "promocionar / ascendir"
+        },
+        {
+          "w": "professional",
+          "k": "describe",
+          "e": "👔⭐",
+          "ca": "professional"
+        },
+        {
+          "w": "experienced",
+          "k": "describe",
+          "e": "💼⭐",
+          "ca": "amb experiència"
+        },
+        {
+          "w": "qualified",
+          "k": "describe",
+          "e": "📜👍",
+          "ca": "qualificat / titulat"
+        },
+        {
+          "w": "retired",
+          "k": "describe",
+          "ca": "jubilat / jubilada",
+          "s": "retired"
+        },
+        {
+          "w": "commercial",
+          "k": "describe",
+          "e": "🏪💰",
+          "ca": "comercial"
+        }
+      ]
+    },
+    {
+      "id": "more-actions",
+      "name": "More actions",
+      "icon": "🤸",
+      "ca": "Més accions",
+      "words": [
+        {
+          "w": "attend",
+          "k": "verb",
+          "e": "🙋📅",
+          "ca": "assistir (a)"
+        },
+        {
+          "w": "appear",
+          "k": "verb",
+          "e": "✨🧍",
+          "ca": "aparèixer / semblar"
+        },
+        {
+          "w": "avoid",
+          "k": "verb",
+          "e": "↪️🚧",
+          "ca": "evitar"
+        },
+        {
+          "w": "achieve",
+          "k": "verb",
+          "e": "🎯✅",
+          "ca": "aconseguir"
+        },
+        {
+          "w": "argue",
+          "k": "verb",
+          "e": "🗯️",
+          "ca": "discutir"
+        },
+        {
+          "w": "arrange",
+          "k": "verb",
+          "e": "🗂️📅",
+          "ca": "organitzar / arranjar"
+        },
+        {
+          "w": "advertise",
+          "k": "verb",
+          "e": "📢📦",
+          "ca": "anunciar (fer publicitat)"
+        },
+        {
+          "w": "affect",
+          "k": "verb",
+          "e": "👉💥",
+          "ca": "afectar"
+        },
+        {
+          "w": "behave",
+          "k": "verb",
+          "e": "🧒👍",
+          "ca": "comportar-se"
+        },
+        {
+          "w": "belong",
+          "k": "verb",
+          "e": "🎒👤",
+          "ca": "pertànyer / ser de"
+        },
+        {
+          "w": "chat",
+          "k": "verb",
+          "e": "💬🙂",
+          "ca": "xerrar"
+        },
+        {
+          "w": "complain",
+          "k": "verb",
+          "e": "🗯️😠",
+          "ca": "queixar-se"
+        },
+        {
+          "w": "cover",
+          "k": "verb",
+          "e": "☂️⬇️",
+          "ca": "tapar / cobrir"
+        },
+        {
+          "w": "disappear",
+          "k": "verb",
+          "e": "🫥",
+          "ca": "desaparèixer"
+        },
+        {
+          "w": "connect",
+          "k": "verb",
+          "e": "🔌🔗",
+          "ca": "connectar"
+        },
+        {
+          "w": "consider",
+          "k": "verb",
+          "e": "🤔💭",
+          "ca": "considerar / pensar-s'ho"
+        },
+        {
+          "w": "contain",
+          "k": "verb",
+          "e": "🫙📥",
+          "ca": "contenir"
+        },
+        {
+          "w": "depend",
+          "k": "verb",
+          "e": "🔗❓",
+          "ca": "dependre"
+        },
+        {
+          "w": "continue",
+          "k": "verb",
+          "e": "▶️➡️",
+          "ca": "continuar"
+        },
+        {
+          "w": "destroy",
+          "k": "verb",
+          "e": "💥🏚️",
+          "ca": "destruir"
+        },
+        {
+          "w": "pull",
+          "k": "verb",
+          "ca": "estirar (de)",
+          "s": "pull_,_to"
+        },
+        {
+          "w": "push",
+          "k": "verb",
+          "ca": "empènyer",
+          "s": "push_,_to"
+        },
+        {
+          "w": "hide",
+          "k": "verb",
+          "e": "🫣",
+          "ca": "amagar(-se)"
+        },
+        {
+          "w": "throw",
+          "k": "verb",
+          "e": "🤾",
+          "ca": "llançar / tirar"
+        },
+        {
+          "w": "shout",
+          "k": "verb",
+          "ca": "cridar",
+          "s": "shout_,_to"
+        },
+        {
+          "w": "develop",
+          "k": "verb",
+          "e": "🌱📈",
+          "ca": "desenvolupar"
+        },
+        {
+          "w": "deal",
+          "k": "verb",
+          "e": "🤝💬",
+          "ca": "tractar (amb) / acord"
+        },
+        {
+          "w": "drop",
+          "k": "verb",
+          "e": "🫳⬇️",
+          "ca": "deixar caure"
+        },
+        {
+          "w": "expect",
+          "k": "verb",
+          "e": "⏳👀",
+          "ca": "esperar (que passi)"
+        },
+        {
+          "w": "express",
+          "k": "verb",
+          "e": "🗣️💭",
+          "ca": "expressar"
+        },
+        {
+          "w": "fit",
+          "k": "verb",
+          "e": "🧩✅",
+          "ca": "anar bé (de mida)"
+        },
+        {
+          "w": "fail",
+          "k": "verb",
+          "e": "❌📝",
+          "ca": "suspendre / fallar"
+        },
+        {
+          "w": "focus",
+          "k": "verb",
+          "e": "🎯👀",
+          "ca": "centrar-se"
+        },
+        {
+          "w": "exist",
+          "k": "verb",
+          "e": "✨🌍",
+          "ca": "existir"
+        },
+        {
+          "w": "identify",
+          "k": "verb",
+          "e": "🔍👤",
+          "ca": "identificar"
+        },
+        {
+          "w": "greet",
+          "k": "verb",
+          "e": "👋🙂",
+          "ca": "saludar"
+        },
+        {
+          "w": "increase",
+          "k": "verb",
+          "e": "⬆️📊",
+          "ca": "augmentar"
+        },
+        {
+          "w": "knock",
+          "k": "verb",
+          "ca": "trucar (a la porta) / cop",
+          "s": "knock_,_to"
+        },
+        {
+          "w": "lead",
+          "k": "verb",
+          "e": "🚩➡️",
+          "ca": "portar / dirigir"
+        },
+        {
+          "w": "mention",
+          "k": "verb",
+          "e": "💬☝️",
+          "ca": "esmentar"
+        },
+        {
+          "w": "organise",
+          "k": "verb",
+          "e": "📋✅",
+          "ca": "organitzar"
+        },
+        {
+          "w": "notice",
+          "k": "verb",
+          "e": "👀❗",
+          "ca": "adonar-se / avís"
+        },
+        {
+          "w": "realise",
+          "k": "verb",
+          "e": "💡❗",
+          "ca": "adonar-se (de)"
+        },
+        {
+          "w": "pick",
+          "k": "verb",
+          "ca": "triar / collir",
+          "s": "pick_,_to"
+        },
+        {
+          "w": "protect",
+          "k": "verb",
+          "ca": "protegir",
+          "s": "protect_,_to"
+        },
+        {
+          "w": "provide",
+          "k": "verb",
+          "e": "🤲📦",
+          "ca": "proporcionar"
+        },
+        {
+          "w": "recognise",
+          "k": "verb",
+          "e": "👀✔️",
+          "ca": "reconèixer"
+        },
+        {
+          "w": "predict",
+          "k": "verb",
+          "e": "🔮",
+          "ca": "predir"
+        },
+        {
+          "w": "recommend",
+          "k": "verb",
+          "e": "👍💬",
+          "ca": "recomanar"
+        },
+        {
+          "w": "publish",
+          "k": "verb",
+          "e": "📰➡️",
+          "ca": "publicar"
+        },
+        {
+          "w": "reduce",
+          "k": "verb",
+          "e": "⬇️➖",
+          "ca": "reduir"
+        },
+        {
+          "w": "refer",
+          "k": "verb",
+          "e": "👉📄",
+          "ca": "referir-se"
+        },
+        {
+          "w": "prevent",
+          "k": "verb",
+          "e": "🛡️❌",
+          "ca": "prevenir / impedir"
+        },
+        {
+          "w": "raise",
+          "k": "verb",
+          "e": "🙋⬆️",
+          "ca": "aixecar / pujar"
+        },
+        {
+          "w": "produce",
+          "k": "verb",
+          "e": "🏭➡️",
+          "ca": "produir"
+        },
+        {
+          "w": "remove",
+          "k": "verb",
+          "ca": "treure",
+          "s": "remove_,_to"
+        },
+        {
+          "w": "reach",
+          "k": "verb",
+          "ca": "arribar a / abastar",
+          "s": "reach_for_,_to"
+        },
+        {
+          "w": "react",
+          "k": "verb",
+          "e": "😮⚡",
+          "ca": "reaccionar"
+        },
+        {
+          "w": "replace",
+          "k": "verb",
+          "e": "🔄📦",
+          "ca": "substituir"
+        },
+        {
+          "w": "reply",
+          "k": "verb",
+          "e": "↩️💬",
+          "ca": "respondre / resposta"
+        },
+        {
+          "w": "respond",
+          "k": "verb",
+          "e": "🗨️↩️",
+          "ca": "respondre / reaccionar"
+        },
+        {
+          "w": "shake",
+          "k": "verb",
+          "ca": "sacsejar / tremolar",
+          "s": "shake_,_to"
+        },
+        {
+          "w": "shut",
+          "k": "verb",
+          "e": "🚪🔒",
+          "ca": "tancar"
+        },
+        {
+          "w": "seem",
+          "k": "verb",
+          "e": "🤔🪞",
+          "ca": "semblar"
+        },
+        {
+          "w": "succeed",
+          "k": "verb",
+          "e": "🏆✅",
+          "ca": "tenir èxit / aconseguir"
+        },
+        {
+          "w": "support",
+          "k": "verb",
+          "e": "🤝💪",
+          "ca": "donar suport"
+        },
+        {
+          "w": "suppose",
+          "k": "verb",
+          "e": "🤔💬",
+          "ca": "suposar"
+        },
+        {
+          "w": "wish",
+          "k": "verb",
+          "e": "⭐🙏",
+          "ca": "desitjar / desig"
+        },
+        {
+          "w": "worry",
+          "k": "verb",
+          "e": "😟💭",
+          "ca": "preocupar-se"
+        },
+        {
+          "w": "attract",
+          "k": "verb",
+          "ca": "atraure",
+          "s": "attract_,_to"
+        },
+        {
+          "w": "aim",
+          "k": "verb",
+          "e": "🎯➡️",
+          "ca": "apuntar / tenir com a objectiu"
+        },
+        {
+          "w": "appreciate",
+          "k": "verb",
+          "e": "🙏💖",
+          "ca": "agrair / valorar"
+        },
+        {
+          "w": "admire",
+          "k": "verb",
+          "e": "😍👏",
+          "ca": "admirar"
+        },
+        {
+          "w": "admit",
+          "k": "verb",
+          "e": "🙋✔️",
+          "ca": "admetre"
+        },
+        {
+          "w": "announce",
+          "k": "verb",
+          "e": "📢❗",
+          "ca": "anunciar"
+        },
+        {
+          "w": "advise",
+          "k": "verb",
+          "e": "💡🗣️",
+          "ca": "aconsellar"
+        },
+        {
+          "w": "annoy",
+          "k": "verb",
+          "e": "😤👉",
+          "ca": "molestar"
+        },
+        {
+          "w": "bend",
+          "k": "verb",
+          "ca": "doblegar / ajupir-se",
+          "s": "bend_,_to"
+        },
+        {
+          "w": "bury",
+          "k": "verb",
+          "e": "⚰️⬇️",
+          "ca": "enterrar"
+        },
+        {
+          "w": "combine",
+          "k": "verb",
+          "e": "➕🔗",
+          "ca": "combinar"
+        },
+        {
+          "w": "bother",
+          "k": "verb",
+          "e": "😩",
+          "ca": "amoïnar / molestar"
+        },
+        {
+          "w": "claim",
+          "k": "verb",
+          "e": "🗣️📄",
+          "ca": "afirmar / reclamar"
+        },
+        {
+          "w": "conclude",
+          "k": "verb",
+          "e": "🏁💭",
+          "ca": "concloure"
+        },
+        {
+          "w": "confirm",
+          "k": "verb",
+          "e": "✅📞",
+          "ca": "confirmar"
+        },
+        {
+          "w": "confuse",
+          "k": "verb",
+          "e": "😕❓",
+          "ca": "confondre"
+        },
+        {
+          "w": "consist",
+          "k": "verb",
+          "e": "🧩📦",
+          "ca": "consistir (en)"
+        },
+        {
+          "w": "dislike",
+          "k": "verb",
+          "e": "👎❤️",
+          "ca": "no agradar"
+        },
+        {
+          "w": "convince",
+          "k": "verb",
+          "e": "🗣️✅",
+          "ca": "convèncer"
+        },
+        {
+          "w": "determine",
+          "k": "verb",
+          "e": "🎯🔍",
+          "ca": "determinar"
+        },
+        {
+          "w": "expand",
+          "k": "verb",
+          "e": "↔️⬆️",
+          "ca": "ampliar"
+        },
+        {
+          "w": "escape",
+          "k": "verb",
+          "ca": "escapar-se",
+          "s": "escape_,_to"
+        },
+        {
+          "w": "fancy",
+          "k": "verb",
+          "e": "😍❓",
+          "ca": "venir de gust / elegant"
+        },
+        {
+          "w": "encourage",
+          "k": "verb",
+          "e": "📣💪",
+          "ca": "animar (encoratjar)"
+        },
+        {
+          "w": "ignore",
+          "k": "verb",
+          "e": "🙉",
+          "ca": "ignorar"
+        },
+        {
+          "w": "frighten",
+          "k": "verb",
+          "e": "👻😨",
+          "ca": "espantar"
+        },
+        {
+          "w": "highlight",
+          "k": "verb",
+          "e": "🖊️✨",
+          "ca": "destacar / subratllar"
+        },
+        {
+          "w": "indicate",
+          "k": "verb",
+          "e": "👉❗",
+          "ca": "indicar"
+        },
+        {
+          "w": "gather",
+          "k": "verb",
+          "e": "👥⭕",
+          "ca": "reunir(-se) / recollir"
+        },
+        {
+          "w": "intend",
+          "k": "verb",
+          "e": "🎯💭",
+          "ca": "tenir intenció de"
+        },
+        {
+          "w": "investigate",
+          "k": "verb",
+          "e": "🕵️🔍",
+          "ca": "investigar"
+        },
+        {
+          "w": "locate",
+          "k": "verb",
+          "e": "📍🔍",
+          "ca": "localitzar"
+        },
+        {
+          "w": "lay",
+          "k": "verb",
+          "e": "🫳",
+          "ca": "posar / estendre / pondre"
+        },
+        {
+          "w": "occur",
+          "k": "verb",
+          "e": "⚡📅",
+          "ca": "passar / ocórrer"
+        },
+        {
+          "w": "participate",
+          "k": "verb",
+          "e": "🙋👥",
+          "ca": "participar"
+        },
+        {
+          "w": "persuade",
+          "k": "verb",
+          "e": "🗣️👉",
+          "ca": "persuadir"
+        },
+        {
+          "w": "pretend",
+          "k": "verb",
+          "e": "🎭🙂",
+          "ca": "fer veure"
+        },
+        {
+          "w": "reject",
+          "k": "verb",
+          "e": "✋❌",
+          "ca": "rebutjar (no acceptar)"
+        },
+        {
+          "w": "relate",
+          "k": "verb",
+          "e": "🔗💭",
+          "ca": "relacionar"
+        },
+        {
+          "w": "release",
+          "k": "verb",
+          "e": "🕊️➡️",
+          "ca": "alliberar / publicar"
+        },
+        {
+          "w": "remain",
+          "k": "verb",
+          "e": "⏸️",
+          "ca": "quedar-se / romandre"
+        },
+        {
+          "w": "represent",
+          "k": "verb",
+          "e": "🧑‍💼👥",
+          "ca": "representar"
+        },
+        {
+          "w": "require",
+          "k": "verb",
+          "e": "🔑📋",
+          "ca": "requerir"
+        },
+        {
+          "w": "set",
+          "k": "verb",
+          "e": "⬇️📍",
+          "ca": "posar / establir / joc"
+        },
+        {
+          "w": "roll",
+          "k": "verb",
+          "ca": "rodar / tirar (els daus)",
+          "s": "roll_dice_,_to"
+        },
+        {
+          "w": "spread",
+          "k": "verb",
+          "ca": "estendre / escampar",
+          "s": "spread_,_to"
+        },
+        {
+          "w": "tend",
+          "k": "verb",
+          "e": "📈🔁",
+          "ca": "tendir a"
+        },
+        {
+          "w": "stick",
+          "k": "verb",
+          "e": "📎🩹",
+          "ca": "enganxar / clavar"
+        },
+        {
+          "w": "warn",
+          "k": "verb",
+          "e": "⚠️🗣️",
+          "ca": "avisar / advertir"
+        },
+        {
+          "w": "wonder",
+          "k": "verb",
+          "e": "💭❔",
+          "ca": "preguntar-se / meravella"
+        },
+        {
+          "w": "hurry",
+          "k": "verb",
+          "e": "🏃💨",
+          "ca": "afanyar-se / pressa"
+        },
+        {
+          "w": "involve",
+          "k": "verb",
+          "e": "🔗🙋",
+          "ca": "implicar"
+        },
+        {
+          "w": "pass",
+          "k": "verb",
+          "e": "➡️✅",
+          "ca": "passar / aprovar"
+        },
+        {
+          "w": "prove",
+          "k": "verb",
+          "e": "🔍✅",
+          "ca": "demostrar"
+        },
+        {
+          "w": "reflect",
+          "k": "verb",
+          "e": "🪞💭",
+          "ca": "reflectir / reflexionar"
+        },
+        {
+          "w": "quit",
+          "k": "verb",
+          "e": "🚪🏃",
+          "ca": "deixar (de fer) / plegar"
+        },
+        {
+          "w": "search",
+          "k": "verb",
+          "e": "🔍❓",
+          "ca": "buscar / cerca"
+        },
+        {
+          "w": "sort",
+          "k": "verb",
+          "ca": "ordenar / mena",
+          "s": "sort_,_to"
+        },
+        {
+          "w": "dream",
+          "k": "verb",
+          "ca": "somiar / somni",
+          "s": "dream_,_to"
+        },
+        {
+          "w": "fix",
+          "k": "verb",
+          "e": "🛠️",
+          "ca": "arreglar"
+        },
+        {
+          "w": "shall",
+          "k": "verb",
+          "e": "🤝❔",
+          "ca": "(proposta) Shall we…? → Hi anem?"
+        },
+        {
+          "w": "ought",
+          "k": "verb",
+          "e": "☝️📋",
+          "ca": "hauria de"
+        }
+      ]
+    },
+    {
+      "id": "more-describe",
+      "name": "More describing",
+      "icon": "🖍️",
+      "ca": "Més per descriure",
+      "words": [
+        {
+          "w": "able",
+          "k": "describe",
+          "e": "💪✅",
+          "ca": "capaç"
+        },
+        {
+          "w": "attractive",
+          "k": "describe",
+          "e": "😍",
+          "ca": "atractiu / atractiva"
+        },
+        {
+          "w": "awful",
+          "k": "describe",
+          "e": "🤮",
+          "ca": "espantós / fatal"
+        },
+        {
+          "w": "alone",
+          "k": "describe",
+          "e": "🙍",
+          "ca": "sol / sola"
+        },
+        {
+          "w": "active",
+          "k": "describe",
+          "e": "🏃⚡",
+          "ca": "actiu / activa"
+        },
+        {
+          "w": "based",
+          "k": "describe",
+          "e": "📍🧱",
+          "ca": "basat / amb seu a"
+        },
+        {
+          "w": "careful",
+          "k": "describe",
+          "e": "⚠️👀",
+          "ca": "prudent / amb compte"
+        },
+        {
+          "w": "classical",
+          "k": "describe",
+          "e": "🎻🏛️",
+          "ca": "clàssic / clàssica"
+        },
+        {
+          "w": "clear",
+          "k": "describe",
+          "e": "💧✨",
+          "ca": "clar / clara"
+        },
+        {
+          "w": "brilliant",
+          "k": "describe",
+          "e": "💡🌟",
+          "ca": "brillant / genial"
+        },
+        {
+          "w": "certain",
+          "k": "describe",
+          "e": "✅💯",
+          "ca": "segur / cert"
+        },
+        {
+          "w": "direct",
+          "k": "describe",
+          "e": "➡️🎯",
+          "ca": "directe / directa"
+        },
+        {
+          "w": "deep",
+          "k": "describe",
+          "ca": "profund / profunda",
+          "s": "deep"
+        },
+        {
+          "w": "creative",
+          "k": "describe",
+          "e": "🎨💡",
+          "ca": "creatiu / creativa"
+        },
+        {
+          "w": "connected",
+          "k": "describe",
+          "e": "🔗✅",
+          "ca": "connectat / connectada"
+        },
+        {
+          "w": "enormous",
+          "k": "describe",
+          "e": "🐳",
+          "ca": "enorme"
+        },
+        {
+          "w": "extreme",
+          "k": "describe",
+          "e": "🌶️🔥",
+          "ca": "extrem / extrema"
+        },
+        {
+          "w": "fair",
+          "k": "describe",
+          "e": "⚖️🙂",
+          "ca": "just / justa"
+        },
+        {
+          "w": "following",
+          "k": "describe",
+          "e": "➡️⏭️",
+          "ca": "següent"
+        },
+        {
+          "w": "excellent",
+          "k": "describe",
+          "e": "🏆✨",
+          "ca": "excel·lent"
+        },
+        {
+          "w": "wide",
+          "k": "describe",
+          "e": "↔️↔️",
+          "ca": "ample / ampla"
+        },
+        {
+          "w": "disappointing",
+          "k": "describe",
+          "e": "😞👎",
+          "ca": "decebedor / decebedora"
+        },
+        {
+          "w": "keen",
+          "k": "describe",
+          "e": "🙋✨",
+          "ca": "interessat / amb ganes"
+        },
+        {
+          "w": "crazy",
+          "k": "describe",
+          "e": "🤪",
+          "ca": "boig / boja"
+        },
+        {
+          "w": "mad",
+          "k": "describe",
+          "e": "🤬",
+          "ca": "boig / molt enfadat"
+        },
+        {
+          "w": "lazy",
+          "k": "describe",
+          "e": "🦥",
+          "ca": "mandrós / mandrosa"
+        },
+        {
+          "w": "formal",
+          "k": "describe",
+          "e": "🤵📝",
+          "ca": "formal"
+        },
+        {
+          "w": "informal",
+          "k": "describe",
+          "e": "👕💬",
+          "ca": "informal"
+        },
+        {
+          "w": "ideal",
+          "k": "describe",
+          "e": "💯🌟",
+          "ca": "ideal"
+        },
+        {
+          "w": "helpful",
+          "k": "describe",
+          "e": "🤝🙂",
+          "ca": "útil / servicial"
+        },
+        {
+          "w": "impossible",
+          "k": "describe",
+          "e": "🙅",
+          "ca": "impossible"
+        },
+        {
+          "w": "further",
+          "k": "describe",
+          "e": "➡️➡️",
+          "ca": "més lluny / més"
+        },
+        {
+          "w": "included",
+          "k": "describe",
+          "e": "✅📦",
+          "ca": "inclòs / inclosa"
+        },
+        {
+          "w": "incredible",
+          "k": "describe",
+          "e": "😲🌟",
+          "ca": "increïble"
+        },
+        {
+          "w": "independent",
+          "k": "describe",
+          "e": "🧍✊",
+          "ca": "independent"
+        },
+        {
+          "w": "general",
+          "k": "describe",
+          "e": "🌐📋",
+          "ca": "general"
+        },
+        {
+          "w": "huge",
+          "k": "describe",
+          "e": "🏔️",
+          "ca": "immens / enorme"
+        },
+        {
+          "w": "major",
+          "k": "describe",
+          "e": "⭐⬆️",
+          "ca": "important / principal"
+        },
+        {
+          "w": "likely",
+          "k": "describe",
+          "e": "👍🎲",
+          "ca": "probable"
+        },
+        {
+          "w": "loud",
+          "k": "describe",
+          "ca": "fort (so)",
+          "s": "loud"
+        },
+        {
+          "w": "lovely",
+          "k": "describe",
+          "e": "🥰",
+          "ca": "preciós / encantador"
+        },
+        {
+          "w": "low",
+          "k": "describe",
+          "e": "⬇️📏",
+          "ca": "baix / baixa"
+        },
+        {
+          "w": "lucky",
+          "k": "describe",
+          "ca": "afortunat / tenir sort",
+          "s": "lucky"
+        },
+        {
+          "w": "necessary",
+          "k": "describe",
+          "e": "❗📋",
+          "ca": "necessari / necessària"
+        },
+        {
+          "w": "missing",
+          "k": "describe",
+          "e": "❓🧩",
+          "ca": "que falta / desaparegut"
+        },
+        {
+          "w": "particular",
+          "k": "describe",
+          "e": "🔍☝️",
+          "ca": "concret / particular"
+        },
+        {
+          "w": "normal",
+          "k": "describe",
+          "e": "👌📏",
+          "ca": "normal"
+        },
+        {
+          "w": "ordinary",
+          "k": "describe",
+          "e": "⚪🙂",
+          "ca": "corrent / normal"
+        },
+        {
+          "w": "original",
+          "k": "describe",
+          "e": "🌱💡",
+          "ca": "original"
+        },
+        {
+          "w": "narrow",
+          "k": "describe",
+          "e": "↔️🤏",
+          "ca": "estret (poc ample)"
+        },
+        {
+          "w": "separate",
+          "k": "describe",
+          "ca": "separat / separar",
+          "s": "separate_,_to"
+        },
+        {
+          "w": "simple",
+          "k": "describe",
+          "e": "1️⃣👌",
+          "ca": "senzill / senzilla"
+        },
+        {
+          "w": "serious",
+          "k": "describe",
+          "e": "😐",
+          "ca": "seriós / seriosa"
+        },
+        {
+          "w": "secret",
+          "k": "describe",
+          "e": "🤐",
+          "ca": "secret / secreta"
+        },
+        {
+          "w": "strange",
+          "k": "describe",
+          "e": "👽",
+          "ca": "estrany / estranya"
+        },
+        {
+          "w": "tidy",
+          "k": "describe",
+          "ca": "endreçat / endreçar",
+          "s": "tidy_up_,_to"
+        },
+        {
+          "w": "specific",
+          "k": "describe",
+          "e": "🎯📌",
+          "ca": "específic / específica"
+        },
+        {
+          "w": "stupid",
+          "k": "describe",
+          "e": "🤦",
+          "ca": "estúpid / ximple"
+        },
+        {
+          "w": "successful",
+          "k": "describe",
+          "e": "🏆😊",
+          "ca": "d'èxit"
+        },
+        {
+          "w": "surprising",
+          "k": "describe",
+          "e": "🎁😮",
+          "ca": "sorprenent"
+        },
+        {
+          "w": "thick",
+          "k": "describe",
+          "ca": "gruixut / gruixuda",
+          "s": "thick"
+        },
+        {
+          "w": "thin",
+          "k": "describe",
+          "ca": "prim / prima",
+          "s": "thin"
+        },
+        {
+          "w": "unusual",
+          "k": "describe",
+          "e": "🦄",
+          "ca": "poc habitual"
+        },
+        {
+          "w": "weak",
+          "k": "describe",
+          "e": "🥀",
+          "ca": "feble"
+        },
+        {
+          "w": "usual",
+          "k": "describe",
+          "e": "🔁👌",
+          "ca": "habitual"
+        },
+        {
+          "w": "working",
+          "k": "describe",
+          "e": "⚙️✅",
+          "ca": "que funciona / laboral"
+        },
+        {
+          "w": "typical",
+          "k": "describe",
+          "e": "📋👌",
+          "ca": "típic / típica"
+        },
+        {
+          "w": "worst",
+          "k": "describe",
+          "e": "👎👎",
+          "ca": "el pitjor"
+        },
+        {
+          "w": "whole",
+          "k": "describe",
+          "ca": "sencer / tot",
+          "s": "whole"
+        },
+        {
+          "w": "aware",
+          "k": "describe",
+          "e": "💡👀",
+          "ca": "conscient"
+        },
+        {
+          "w": "ambitious",
+          "k": "describe",
+          "e": "🚀🎯",
+          "ca": "ambiciós / ambiciosa"
+        },
+        {
+          "w": "basic",
+          "k": "describe",
+          "e": "1️⃣🧱",
+          "ca": "bàsic / bàsica"
+        },
+        {
+          "w": "advanced",
+          "k": "describe",
+          "e": "🚀📈",
+          "ca": "avançat / avançada"
+        },
+        {
+          "w": "annoying",
+          "k": "describe",
+          "e": "😤💢",
+          "ca": "molest (que molesta)"
+        },
+        {
+          "w": "careless",
+          "k": "describe",
+          "e": "🙈⚠️",
+          "ca": "descuidat / descuidada"
+        },
+        {
+          "w": "central",
+          "k": "describe",
+          "e": "🎯⭕",
+          "ca": "central"
+        },
+        {
+          "w": "complex",
+          "k": "describe",
+          "e": "🧩🧩",
+          "ca": "complex / complexa"
+        },
+        {
+          "w": "covered",
+          "k": "describe",
+          "e": "🧥✅",
+          "ca": "cobert / coberta"
+        },
+        {
+          "w": "definite",
+          "k": "describe",
+          "e": "✅📌",
+          "ca": "definit / clar"
+        },
+        {
+          "w": "cruel",
+          "k": "describe",
+          "e": "👿",
+          "ca": "cruel"
+        },
+        {
+          "w": "convenient",
+          "k": "describe",
+          "e": "👍🕒",
+          "ca": "convenient / còmode"
+        },
+        {
+          "w": "determined",
+          "k": "describe",
+          "e": "✊🎯",
+          "ca": "decidit / decidida"
+        },
+        {
+          "w": "expected",
+          "k": "describe",
+          "e": "📅✅",
+          "ca": "previst / esperat"
+        },
+        {
+          "w": "effective",
+          "k": "describe",
+          "e": "✅🎯",
+          "ca": "eficaç"
+        },
+        {
+          "w": "essential",
+          "k": "describe",
+          "e": "🔑❗",
+          "ca": "essencial"
+        },
+        {
+          "w": "fixed",
+          "k": "describe",
+          "e": "📌🔒",
+          "ca": "fix / fixa"
+        },
+        {
+          "w": "familiar",
+          "k": "describe",
+          "e": "👀🙂",
+          "ca": "conegut / familiar"
+        },
+        {
+          "w": "fascinating",
+          "k": "describe",
+          "e": "🤩🔍",
+          "ca": "fascinant"
+        },
+        {
+          "w": "embarrassing",
+          "k": "describe",
+          "e": "😳",
+          "ca": "vergonyós / que fa vergonya"
+        },
+        {
+          "w": "impressive",
+          "k": "describe",
+          "e": "👏✨",
+          "ca": "impressionant"
+        },
+        {
+          "w": "horrible",
+          "k": "describe",
+          "e": "👹",
+          "ca": "horrible"
+        },
+        {
+          "w": "indirect",
+          "k": "describe",
+          "e": "↪️",
+          "ca": "indirecte / indirecta"
+        },
+        {
+          "w": "indoor",
+          "k": "describe",
+          "e": "🏠🏀",
+          "ca": "interior (a cobert)"
+        },
+        {
+          "w": "indoors",
+          "k": "describe",
+          "e": "🏠👈",
+          "ca": "a dins (de casa)"
+        },
+        {
+          "w": "outdoor",
+          "k": "describe",
+          "e": "🌳🏀",
+          "ca": "a l'aire lliure"
+        },
+        {
+          "w": "outdoors",
+          "k": "describe",
+          "e": "🌳👉",
+          "ca": "a fora"
+        },
+        {
+          "w": "gentle",
+          "k": "describe",
+          "e": "🕊️",
+          "ca": "suau / delicat"
+        },
+        {
+          "w": "involved",
+          "k": "describe",
+          "e": "🙋🔗",
+          "ca": "implicat / implicada"
+        },
+        {
+          "w": "leading",
+          "k": "describe",
+          "e": "🥇➡️",
+          "ca": "principal / capdavanter"
+        },
+        {
+          "w": "odd",
+          "k": "describe",
+          "e": "🧦❓",
+          "ca": "estrany / senar"
+        },
+        {
+          "w": "peaceful",
+          "k": "describe",
+          "e": "☮️",
+          "ca": "tranquil / pacífic"
+        },
+        {
+          "w": "organised",
+          "k": "describe",
+          "e": "🗂️",
+          "ca": "organitzat / organitzada"
+        },
+        {
+          "w": "obvious",
+          "k": "describe",
+          "e": "👀💯",
+          "ca": "evident"
+        },
+        {
+          "w": "proper",
+          "k": "describe",
+          "e": "✔️👔",
+          "ca": "correcte / de debò"
+        },
+        {
+          "w": "powerful",
+          "k": "describe",
+          "e": "⚡💪",
+          "ca": "poderós / poderosa"
+        },
+        {
+          "w": "practical",
+          "k": "describe",
+          "e": "🛠️👍",
+          "ca": "pràctic / pràctica"
+        },
+        {
+          "w": "prepared",
+          "k": "describe",
+          "e": "🎒✅",
+          "ca": "preparat / preparada"
+        },
+        {
+          "w": "pleasant",
+          "k": "describe",
+          "e": "😊🌼",
+          "ca": "agradable"
+        },
+        {
+          "w": "related",
+          "k": "describe",
+          "e": "🔗📎",
+          "ca": "relacionat / relacionada"
+        },
+        {
+          "w": "relaxing",
+          "k": "describe",
+          "e": "🛀",
+          "ca": "relaxant"
+        },
+        {
+          "w": "reliable",
+          "k": "describe",
+          "e": "🤝🔒",
+          "ca": "fiable"
+        },
+        {
+          "w": "rare",
+          "k": "describe",
+          "e": "💎❓",
+          "ca": "rar / poc freqüent"
+        },
+        {
+          "w": "repeated",
+          "k": "describe",
+          "e": "🔂",
+          "ca": "repetit / repetida"
+        },
+        {
+          "w": "sensible",
+          "k": "describe",
+          "e": "🧠👍",
+          "ca": "assenyat / sensat"
+        },
+        {
+          "w": "silly",
+          "k": "describe",
+          "e": "🙃",
+          "ca": "ximple / ridícul"
+        },
+        {
+          "w": "responsible",
+          "k": "describe",
+          "e": "🙋📋",
+          "ca": "responsable"
+        },
+        {
+          "w": "sharp",
+          "k": "describe",
+          "ca": "esmolat / punxegut",
+          "s": "sharp"
+        },
+        {
+          "w": "smart",
+          "k": "describe",
+          "e": "🤓",
+          "ca": "llest / elegant"
+        },
+        {
+          "w": "silent",
+          "k": "describe",
+          "e": "🔇",
+          "ca": "silenciós / en silenci"
+        },
+        {
+          "w": "tiny",
+          "k": "describe",
+          "e": "🐁🤏",
+          "ca": "petitó / diminut"
+        },
+        {
+          "w": "technical",
+          "k": "describe",
+          "e": "🔧⚙️",
+          "ca": "tècnic / tècnica"
+        },
+        {
+          "w": "sudden",
+          "k": "describe",
+          "e": "⚡😮",
+          "ca": "sobtat / sobtada"
+        },
+        {
+          "w": "suitable",
+          "k": "describe",
+          "e": "👍✔️",
+          "ca": "adequat / apropiat"
+        },
+        {
+          "w": "unpleasant",
+          "k": "describe",
+          "e": "😣👎",
+          "ca": "desagradable"
+        },
+        {
+          "w": "used",
+          "k": "describe",
+          "e": "♻️✔️",
+          "ca": "usat / usada"
+        },
+        {
+          "w": "various",
+          "k": "describe",
+          "e": "🎨🔢",
+          "ca": "variat / diversos"
+        },
+        {
+          "w": "ugly",
+          "k": "describe",
+          "ca": "lleig / lletja",
+          "s": "ugly"
+        },
+        {
+          "w": "unable",
+          "k": "describe",
+          "e": "🚫✋",
+          "ca": "incapaç"
+        },
+        {
+          "w": "unfair",
+          "k": "describe",
+          "e": "⚖️❌",
+          "ca": "injust / injusta"
+        },
+        {
+          "w": "unlikely",
+          "k": "describe",
+          "e": "👎🎲",
+          "ca": "poc probable"
+        },
+        {
+          "w": "unnecessary",
+          "k": "describe",
+          "e": "❌📋",
+          "ca": "innecessari / innecessària"
+        },
+        {
+          "w": "light",
+          "k": "describe",
+          "ca": "lleuger / lleugera",
+          "s": "light"
+        },
+        {
+          "w": "little",
+          "k": "describe",
+          "ca": "petit / petita (little)",
+          "s": "little"
+        },
+        {
+          "w": "common",
+          "k": "describe",
+          "e": "👥✅",
+          "ca": "comú / freqüent"
+        },
+        {
+          "w": "main",
+          "k": "describe",
+          "e": "⭐1️⃣",
+          "ca": "principal"
+        },
+        {
+          "w": "negative",
+          "k": "describe",
+          "e": "➖👎",
+          "ca": "negatiu / negativa"
+        },
+        {
+          "w": "quick",
+          "k": "describe",
+          "e": "⚡🏃",
+          "ca": "ràpid / ràpida"
+        },
+        {
+          "w": "positive",
+          "k": "describe",
+          "e": "➕👍",
+          "ca": "positiu / positiva"
+        },
+        {
+          "w": "similar",
+          "k": "describe",
+          "e": "🟰🤏",
+          "ca": "semblant"
+        },
+        {
+          "w": "clearly",
+          "k": "describe",
+          "e": "💡👉",
+          "ca": "clarament"
+        },
+        {
+          "w": "completely",
+          "k": "describe",
+          "e": "🌕✅",
+          "ca": "completament"
+        },
+        {
+          "w": "differently",
+          "k": "describe",
+          "e": "🔀👉",
+          "ca": "de manera diferent"
+        },
+        {
+          "w": "extremely",
+          "k": "describe",
+          "e": "‼️🔥",
+          "ca": "extremadament"
+        },
+        {
+          "w": "absolutely",
+          "k": "describe",
+          "e": "💯💯",
+          "ca": "absolutament"
+        },
+        {
+          "w": "directly",
+          "k": "describe",
+          "e": "➡️👉",
+          "ca": "directament"
+        },
+        {
+          "w": "effectively",
+          "k": "describe",
+          "e": "✅⚙️",
+          "ca": "eficaçment"
+        },
+        {
+          "w": "fairly",
+          "k": "describe",
+          "e": "◑🙂",
+          "ca": "bastant / amb justícia"
+        },
+        {
+          "w": "heavily",
+          "k": "describe",
+          "e": "🏋️👉",
+          "ca": "molt / amb força (pes)"
+        },
+        {
+          "w": "highly",
+          "k": "describe",
+          "e": "⬆️⬆️",
+          "ca": "molt / altament"
+        },
+        {
+          "w": "incredibly",
+          "k": "describe",
+          "e": "🤯👉",
+          "ca": "increïblement"
+        },
+        {
+          "w": "perfectly",
+          "k": "describe",
+          "e": "👌✨",
+          "ca": "perfectament"
+        },
+        {
+          "w": "properly",
+          "k": "describe",
+          "e": "✔️👉",
+          "ca": "bé / correctament"
+        },
+        {
+          "w": "seriously",
+          "k": "describe",
+          "e": "😐👉",
+          "ca": "seriosament"
+        },
+        {
+          "w": "slightly",
+          "k": "describe",
+          "e": "🤏👉",
+          "ca": "una mica / lleugerament"
+        },
+        {
+          "w": "strongly",
+          "k": "describe",
+          "e": "💪👉",
+          "ca": "amb força"
+        },
+        {
+          "w": "successfully",
+          "k": "describe",
+          "e": "🏆👉",
+          "ca": "amb èxit"
+        },
+        {
+          "w": "totally",
+          "k": "describe",
+          "e": "💯👉",
+          "ca": "totalment"
+        }
+      ]
+    },
+    {
+      "id": "society",
+      "name": "Society",
+      "icon": "🏛️",
+      "ca": "Societat",
+      "words": [
+        {
+          "w": "government",
+          "k": "noun",
+          "e": "🏛️👥",
+          "ca": "govern"
+        },
+        {
+          "w": "law",
+          "k": "noun",
+          "e": "⚖️📜",
+          "ca": "llei / dret"
+        },
+        {
+          "w": "crime",
+          "k": "noun",
+          "e": "🚔",
+          "ca": "delicte / crim"
+        },
+        {
+          "w": "election",
+          "k": "noun",
+          "e": "🗳️",
+          "ca": "eleccions"
+        },
+        {
+          "w": "politics",
+          "k": "noun",
+          "e": "🏛️🗣️",
+          "ca": "política"
+        },
+        {
+          "w": "war",
+          "k": "noun",
+          "e": "⚔️💥",
+          "ca": "guerra"
+        },
+        {
+          "w": "army",
+          "k": "noun",
+          "e": "🪖",
+          "ca": "exèrcit"
+        },
+        {
+          "w": "battle",
+          "k": "noun",
+          "e": "⚔️",
+          "ca": "batalla"
+        },
+        {
+          "w": "fighting",
+          "k": "noun",
+          "e": "🥊",
+          "ca": "lluita / baralla"
+        },
+        {
+          "w": "peace",
+          "k": "noun",
+          "e": "☮️🕊️",
+          "ca": "pau"
+        },
+        {
+          "w": "weapon",
+          "k": "noun",
+          "e": "🗡️",
+          "ca": "arma"
+        },
+        {
+          "w": "gun",
+          "k": "noun",
+          "e": "🔫",
+          "ca": "pistola / arma de foc"
+        },
+        {
+          "w": "bomb",
+          "k": "noun",
+          "e": "💣",
+          "ca": "bomba"
+        },
+        {
+          "w": "explosion",
+          "k": "noun",
+          "e": "💥🔥",
+          "ca": "explosió"
+        },
+        {
+          "w": "attack",
+          "k": "noun",
+          "e": "⚔️🎯",
+          "ca": "atac / atacar"
+        },
+        {
+          "w": "killing",
+          "k": "noun",
+          "e": "☠️⚔️",
+          "ca": "matança"
+        },
+        {
+          "w": "murder",
+          "k": "noun",
+          "e": "🔪🩸",
+          "ca": "assassinat / assassinar"
+        },
+        {
+          "w": "prison",
+          "k": "noun",
+          "e": "⛓️🏢",
+          "ca": "presó"
+        },
+        {
+          "w": "court",
+          "k": "noun",
+          "e": "⚖️🏛️",
+          "ca": "tribunal / pista (esport)"
+        },
+        {
+          "w": "punishment",
+          "k": "noun",
+          "e": "⛔⚖️",
+          "ca": "càstig"
+        },
+        {
+          "w": "policy",
+          "k": "noun",
+          "e": "📜🏛️",
+          "ca": "política (normes)"
+        },
+        {
+          "w": "campaign",
+          "k": "noun",
+          "e": "📣🗳️",
+          "ca": "campanya"
+        },
+        {
+          "w": "protest",
+          "k": "noun",
+          "e": "✊📢",
+          "ca": "protesta / protestar"
+        },
+        {
+          "w": "union",
+          "k": "noun",
+          "e": "🤝✊",
+          "ca": "sindicat / unió"
+        },
+        {
+          "w": "state",
+          "k": "noun",
+          "e": "🏛️🗺️",
+          "ca": "estat"
+        },
+        {
+          "w": "society",
+          "k": "noun",
+          "e": "👥🏛️",
+          "ca": "societat"
+        },
+        {
+          "w": "community",
+          "k": "noun",
+          "e": "🏘️🤝",
+          "ca": "comunitat"
+        },
+        {
+          "w": "population",
+          "k": "noun",
+          "e": "👥🔢",
+          "ca": "població"
+        },
+        {
+          "w": "poverty",
+          "k": "noun",
+          "e": "🪙❌",
+          "ca": "pobresa"
+        },
+        {
+          "w": "economy",
+          "k": "noun",
+          "e": "📈💶",
+          "ca": "economia"
+        },
+        {
+          "w": "tax",
+          "k": "noun",
+          "e": "🧾💶",
+          "ca": "impost"
+        },
+        {
+          "w": "religion",
+          "k": "noun",
+          "e": "🛐",
+          "ca": "religió"
+        },
+        {
+          "w": "God",
+          "k": "noun",
+          "e": "🙏✨",
+          "ca": "Déu"
+        },
+        {
+          "w": "prayer",
+          "k": "noun",
+          "ca": "oració (pregària)",
+          "s": "prayer"
+        },
+        {
+          "w": "authority",
+          "k": "noun",
+          "e": "👮🏛️",
+          "ca": "autoritat"
+        },
+        {
+          "w": "power",
+          "k": "noun",
+          "e": "⚡👑",
+          "ca": "poder / energia"
+        },
+        {
+          "w": "security",
+          "k": "noun",
+          "e": "🔐🛡️",
+          "ca": "seguretat (protecció)"
+        },
+        {
+          "w": "media",
+          "k": "noun",
+          "e": "📡📰",
+          "ca": "mitjans de comunicació"
+        },
+        {
+          "w": "headline",
+          "k": "noun",
+          "e": "📰🔠",
+          "ca": "titular"
+        },
+        {
+          "w": "issue",
+          "k": "noun",
+          "e": "❗📰",
+          "ca": "tema / problema"
+        },
+        {
+          "w": "charity",
+          "k": "noun",
+          "e": "💝🤲",
+          "ca": "organització benèfica"
+        },
+        {
+          "w": "organisation",
+          "k": "noun",
+          "e": "🏢🤝",
+          "ca": "organització"
+        },
+        {
+          "w": "sex",
+          "k": "noun",
+          "e": "⚧️",
+          "ca": "sexe"
+        },
+        {
+          "w": "announcement",
+          "k": "noun",
+          "e": "📢🔔",
+          "ca": "anunci / avís"
+        },
+        {
+          "w": "identity",
+          "k": "noun",
+          "e": "🪪",
+          "ca": "identitat"
+        },
+        {
+          "w": "soldier",
+          "k": "person",
+          "ca": "soldat",
+          "s": "soldier_1a"
+        },
+        {
+          "w": "politician",
+          "k": "person",
+          "e": "🎙️🏛️",
+          "ca": "polític / política"
+        },
+        {
+          "w": "president",
+          "k": "person",
+          "e": "🏛️👔",
+          "ca": "president / presidenta"
+        },
+        {
+          "w": "criminal",
+          "k": "person",
+          "e": "🦹‍♂️",
+          "ca": "delinqüent"
+        },
+        {
+          "w": "thief",
+          "k": "person",
+          "e": "🦹",
+          "ca": "lladre"
+        },
+        {
+          "w": "victim",
+          "k": "person",
+          "e": "🩹👤",
+          "ca": "víctima"
+        },
+        {
+          "w": "prisoner",
+          "k": "person",
+          "e": "⛓️👤",
+          "ca": "pres / presa"
+        },
+        {
+          "w": "judge",
+          "k": "person",
+          "e": "🧑‍⚖️",
+          "ca": "jutge / jutgessa"
+        },
+        {
+          "w": "priest",
+          "k": "person",
+          "e": "⛪🧑",
+          "ca": "capellà / sacerdot"
+        },
+        {
+          "w": "guard",
+          "k": "person",
+          "e": "💂",
+          "ca": "guàrdia / vigilar"
+        },
+        {
+          "w": "vote",
+          "k": "verb",
+          "ca": "votar / vot",
+          "s": "vote_,_to"
+        },
+        {
+          "w": "arrest",
+          "k": "verb",
+          "ca": "detenir",
+          "s": "arrest_,_to"
+        },
+        {
+          "w": "steal",
+          "k": "verb",
+          "ca": "robar",
+          "s": "steal_,_to"
+        },
+        {
+          "w": "kill",
+          "k": "verb",
+          "ca": "matar",
+          "s": "kill_,_to"
+        },
+        {
+          "w": "shoot",
+          "k": "verb",
+          "ca": "disparar",
+          "s": "shoot_,_to"
+        },
+        {
+          "w": "fight",
+          "k": "verb",
+          "ca": "lluitar / barallar-se",
+          "s": "fight_,_to"
+        },
+        {
+          "w": "explode",
+          "k": "verb",
+          "e": "💥",
+          "ca": "explotar"
+        },
+        {
+          "w": "ban",
+          "k": "verb",
+          "e": "🚫📜",
+          "ca": "prohibir"
+        },
+        {
+          "w": "punish",
+          "k": "verb",
+          "e": "😠☝️",
+          "ca": "castigar"
+        },
+        {
+          "w": "pray",
+          "k": "verb",
+          "ca": "resar",
+          "s": "pray_,_to"
+        },
+        {
+          "w": "commit",
+          "k": "verb",
+          "e": "🙋📜",
+          "ca": "cometre / comprometre's"
+        },
+        {
+          "w": "cheat",
+          "k": "verb",
+          "ca": "fer trampa / enganyar",
+          "s": "cheat_,_to"
+        },
+        {
+          "w": "donate",
+          "k": "verb",
+          "e": "🎁🤲",
+          "ca": "fer un donatiu"
+        },
+        {
+          "w": "political",
+          "k": "describe",
+          "e": "🗳️🏛️",
+          "ca": "polític / política"
+        },
+        {
+          "w": "public",
+          "k": "describe",
+          "e": "👥🌐",
+          "ca": "públic / pública"
+        },
+        {
+          "w": "social",
+          "k": "describe",
+          "e": "👥🎉",
+          "ca": "social"
+        },
+        {
+          "w": "illegal",
+          "k": "describe",
+          "e": "🚫⚖️",
+          "ca": "il·legal"
+        },
+        {
+          "w": "legal",
+          "k": "describe",
+          "e": "✅⚖️",
+          "ca": "legal"
+        },
+        {
+          "w": "guilty",
+          "k": "describe",
+          "e": "👉😞",
+          "ca": "culpable"
+        },
+        {
+          "w": "innocent",
+          "k": "describe",
+          "e": "👼",
+          "ca": "innocent"
+        },
+        {
+          "w": "official",
+          "k": "describe",
+          "e": "🏛️✅",
+          "ca": "oficial"
+        },
+        {
+          "w": "religious",
+          "k": "describe",
+          "e": "🛐🙏",
+          "ca": "religiós / religiosa"
+        },
+        {
+          "w": "royal",
+          "k": "describe",
+          "e": "👑",
+          "ca": "reial"
+        },
+        {
+          "w": "sexual",
+          "k": "describe",
+          "e": "⚧️❤️",
+          "ca": "sexual"
+        },
+        {
+          "w": "violent",
+          "k": "describe",
+          "e": "👊",
+          "ca": "violent / violenta"
+        },
+        {
+          "w": "economic",
+          "k": "describe",
+          "e": "📊💶",
+          "ca": "econòmic / econòmica"
+        },
+        {
+          "w": "financial",
+          "k": "describe",
+          "e": "💶🏦",
+          "ca": "financer / financera"
+        }
+      ]
+    },
+    {
+      "id": "ideas",
+      "name": "Ideas",
+      "icon": "💡",
+      "ca": "Idees",
+      "words": [
+        {
+          "w": "action",
+          "k": "noun",
+          "e": "🎬⚡",
+          "ca": "acció"
+        },
+        {
+          "w": "detail",
+          "k": "noun",
+          "e": "🔍🤏",
+          "ca": "detall"
+        },
+        {
+          "w": "feeling",
+          "k": "noun",
+          "e": "💗💭",
+          "ca": "sentiment"
+        },
+        {
+          "w": "fact",
+          "k": "noun",
+          "e": "📌✔️",
+          "ca": "fet"
+        },
+        {
+          "w": "interest",
+          "k": "noun",
+          "e": "⭐👀",
+          "ca": "interès / interessar"
+        },
+        {
+          "w": "situation",
+          "k": "noun",
+          "e": "📍🙂",
+          "ca": "situació"
+        },
+        {
+          "w": "success",
+          "k": "noun",
+          "e": "🏆🙂",
+          "ca": "èxit"
+        },
+        {
+          "w": "ability",
+          "k": "noun",
+          "e": "💪🧠",
+          "ca": "capacitat"
+        },
+        {
+          "w": "attention",
+          "k": "noun",
+          "e": "👁️❗",
+          "ca": "atenció"
+        },
+        {
+          "w": "appearance",
+          "k": "noun",
+          "e": "🪞👤",
+          "ca": "aparença / aparició"
+        },
+        {
+          "w": "argument",
+          "k": "noun",
+          "e": "🗯️🗯️",
+          "ca": "discussió / argument"
+        },
+        {
+          "w": "alternative",
+          "k": "noun",
+          "e": "🔀❔",
+          "ca": "alternativa"
+        },
+        {
+          "w": "arrangement",
+          "k": "noun",
+          "e": "🗂️🤝",
+          "ca": "acord / arranjament"
+        },
+        {
+          "w": "advantage",
+          "k": "noun",
+          "e": "➕⭐",
+          "ca": "avantatge"
+        },
+        {
+          "w": "disadvantage",
+          "k": "noun",
+          "e": "➖⭐",
+          "ca": "desavantatge"
+        },
+        {
+          "w": "background",
+          "k": "noun",
+          "e": "🖼️⬅️",
+          "ca": "fons / origen"
+        },
+        {
+          "w": "behaviour",
+          "k": "noun",
+          "e": "🧒💭",
+          "ca": "comportament"
+        },
+        {
+          "w": "case",
+          "k": "noun",
+          "e": "💼❔",
+          "ca": "cas / maleta"
+        },
+        {
+          "w": "cause",
+          "k": "noun",
+          "e": "➡️💥",
+          "ca": "causa / causar"
+        },
+        {
+          "w": "effect",
+          "k": "noun",
+          "e": "💥⬅️",
+          "ca": "efecte"
+        },
+        {
+          "w": "benefit",
+          "k": "noun",
+          "e": "👍💰",
+          "ca": "benefici"
+        },
+        {
+          "w": "chance",
+          "k": "noun",
+          "e": "🎲🍀",
+          "ca": "oportunitat / probabilitat"
+        },
+        {
+          "w": "bit",
+          "k": "noun",
+          "e": "🤏🧩",
+          "ca": "tros / una mica"
+        },
+        {
+          "w": "choice",
+          "k": "noun",
+          "e": "☝️❔",
+          "ca": "elecció"
+        },
+        {
+          "w": "condition",
+          "k": "noun",
+          "e": "📋🙂",
+          "ca": "condició / estat"
+        },
+        {
+          "w": "decision",
+          "k": "noun",
+          "e": "⚖️☝️",
+          "ca": "decisió"
+        },
+        {
+          "w": "danger",
+          "k": "noun",
+          "e": "⚠️💀",
+          "ca": "perill"
+        },
+        {
+          "w": "disaster",
+          "k": "noun",
+          "e": "🌪️",
+          "ca": "desastre"
+        },
+        {
+          "w": "context",
+          "k": "noun",
+          "e": "🖼️🔍",
+          "ca": "context"
+        },
+        {
+          "w": "control",
+          "k": "noun",
+          "e": "🎛️",
+          "ca": "control / controlar"
+        },
+        {
+          "w": "evidence",
+          "k": "noun",
+          "e": "🔎📄",
+          "ca": "proves"
+        },
+        {
+          "w": "factor",
+          "k": "noun",
+          "e": "🧩🔢",
+          "ca": "factor"
+        },
+        {
+          "w": "fear",
+          "k": "noun",
+          "e": "😨💭",
+          "ca": "por"
+        },
+        {
+          "w": "feature",
+          "k": "noun",
+          "e": "✨📌",
+          "ca": "característica"
+        },
+        {
+          "w": "habit",
+          "k": "noun",
+          "e": "🔁🙂",
+          "ca": "hàbit"
+        },
+        {
+          "w": "gap",
+          "k": "noun",
+          "e": "⬜↔️",
+          "ca": "buit / espai"
+        },
+        {
+          "w": "image",
+          "k": "noun",
+          "e": "🖼️✨",
+          "ca": "imatge"
+        },
+        {
+          "w": "lifestyle",
+          "k": "noun",
+          "e": "🧘🏡",
+          "ca": "estil de vida"
+        },
+        {
+          "w": "luck",
+          "k": "noun",
+          "e": "🍀✨",
+          "ca": "sort"
+        },
+        {
+          "w": "manner",
+          "k": "noun",
+          "e": "🎩🙇",
+          "ca": "manera / maneres"
+        },
+        {
+          "w": "matter",
+          "k": "noun",
+          "e": "❓💬",
+          "ca": "assumpte / importar"
+        },
+        {
+          "w": "memory",
+          "k": "noun",
+          "e": "🧠🕰️",
+          "ca": "memòria / record"
+        },
+        {
+          "w": "mind",
+          "k": "noun",
+          "e": "🧠💡",
+          "ca": "ment"
+        },
+        {
+          "w": "movement",
+          "k": "noun",
+          "e": "🏃➰",
+          "ca": "moviment"
+        },
+        {
+          "w": "opportunity",
+          "k": "noun",
+          "e": "🚪✨",
+          "ca": "oportunitat"
+        },
+        {
+          "w": "option",
+          "k": "noun",
+          "e": "🔘",
+          "ca": "opció"
+        },
+        {
+          "w": "pattern",
+          "k": "noun",
+          "e": "🔷🔶",
+          "ca": "patró / dibuix"
+        },
+        {
+          "w": "permission",
+          "k": "noun",
+          "e": "✅🙋",
+          "ca": "permís"
+        },
+        {
+          "w": "possibility",
+          "k": "noun",
+          "e": "🎲❔",
+          "ca": "possibilitat"
+        },
+        {
+          "w": "progress",
+          "k": "noun",
+          "e": "📶⬆️",
+          "ca": "progrés"
+        },
+        {
+          "w": "purpose",
+          "k": "noun",
+          "e": "🎯❔",
+          "ca": "propòsit"
+        },
+        {
+          "w": "quality",
+          "k": "noun",
+          "e": "⭐⭐",
+          "ca": "qualitat"
+        },
+        {
+          "w": "request",
+          "k": "noun",
+          "e": "🙋📝",
+          "ca": "petició / demanar"
+        },
+        {
+          "w": "role",
+          "k": "noun",
+          "e": "🎭👤",
+          "ca": "paper (funció)"
+        },
+        {
+          "w": "sense",
+          "k": "noun",
+          "e": "👃👀",
+          "ca": "sentit"
+        },
+        {
+          "w": "solution",
+          "k": "noun",
+          "e": "🧩💡",
+          "ca": "solució"
+        },
+        {
+          "w": "source",
+          "k": "noun",
+          "e": "🚰📍",
+          "ca": "font (origen)"
+        },
+        {
+          "w": "strategy",
+          "k": "noun",
+          "e": "♟️",
+          "ca": "estratègia"
+        },
+        {
+          "w": "structure",
+          "k": "noun",
+          "e": "🏗️🧱",
+          "ca": "estructura"
+        },
+        {
+          "w": "suggestion",
+          "k": "noun",
+          "e": "💡🗨️",
+          "ca": "suggeriment"
+        },
+        {
+          "w": "system",
+          "k": "noun",
+          "e": "⚙️🔗",
+          "ca": "sistema"
+        },
+        {
+          "w": "target",
+          "k": "noun",
+          "e": "🎯",
+          "ca": "objectiu / diana"
+        },
+        {
+          "w": "term",
+          "k": "noun",
+          "e": "📖🔤",
+          "ca": "terme / trimestre"
+        },
+        {
+          "w": "thought",
+          "k": "noun",
+          "e": "💭",
+          "ca": "pensament"
+        },
+        {
+          "w": "tip",
+          "k": "noun",
+          "e": "💡👆",
+          "ca": "consell / propina"
+        },
+        {
+          "w": "trouble",
+          "k": "noun",
+          "e": "😩⚠️",
+          "ca": "problemes"
+        },
+        {
+          "w": "variety",
+          "k": "noun",
+          "e": "🌈🔢",
+          "ca": "varietat"
+        },
+        {
+          "w": "view",
+          "k": "noun",
+          "e": "🏞️👀",
+          "ca": "vista / opinió"
+        },
+        {
+          "w": "attitude",
+          "k": "noun",
+          "e": "😤🙂",
+          "ca": "actitud"
+        },
+        {
+          "w": "agreement",
+          "k": "noun",
+          "e": "🤝✅",
+          "ca": "acord"
+        },
+        {
+          "w": "access",
+          "k": "noun",
+          "e": "🔑🚪",
+          "ca": "accés"
+        },
+        {
+          "w": "achievement",
+          "k": "noun",
+          "e": "🏅✨",
+          "ca": "èxit / assoliment"
+        },
+        {
+          "w": "addition",
+          "k": "noun",
+          "e": "➕📄",
+          "ca": "addició / suma"
+        },
+        {
+          "w": "ambition",
+          "k": "noun",
+          "e": "🚀💭",
+          "ca": "ambició"
+        },
+        {
+          "w": "atmosphere",
+          "k": "noun",
+          "e": "🌫️🙂",
+          "ca": "ambient / atmosfera"
+        },
+        {
+          "w": "balance",
+          "k": "noun",
+          "e": "⚖️🧘",
+          "ca": "equilibri / saldo"
+        },
+        {
+          "w": "base",
+          "k": "noun",
+          "e": "🧱⬇️",
+          "ca": "base"
+        },
+        {
+          "w": "basis",
+          "k": "noun",
+          "e": "🧱📋",
+          "ca": "base (fonament)"
+        },
+        {
+          "w": "belief",
+          "k": "noun",
+          "e": "🙏💭",
+          "ca": "creença"
+        },
+        {
+          "w": "category",
+          "k": "noun",
+          "e": "🗂️🏷️",
+          "ca": "categoria"
+        },
+        {
+          "w": "challenge",
+          "k": "noun",
+          "e": "⛰️💪",
+          "ca": "repte"
+        },
+        {
+          "w": "clue",
+          "k": "noun",
+          "e": "🔍🧩",
+          "ca": "pista"
+        },
+        {
+          "w": "comparison",
+          "k": "noun",
+          "e": "⚖️🔍",
+          "ca": "comparació"
+        },
+        {
+          "w": "complaint",
+          "k": "noun",
+          "e": "🗯️📝",
+          "ca": "queixa"
+        },
+        {
+          "w": "conclusion",
+          "k": "noun",
+          "e": "🏁📝",
+          "ca": "conclusió"
+        },
+        {
+          "w": "connection",
+          "k": "noun",
+          "ca": "connexió",
+          "s": "connection"
+        },
+        {
+          "w": "consequence",
+          "k": "noun",
+          "e": "➡️⚠️",
+          "ca": "conseqüència"
+        },
+        {
+          "w": "contact",
+          "k": "noun",
+          "e": "📇",
+          "ca": "contacte"
+        },
+        {
+          "w": "content",
+          "k": "noun",
+          "e": "📦📝",
+          "ca": "contingut"
+        },
+        {
+          "w": "contrast",
+          "k": "noun",
+          "e": "⚫⚪",
+          "ca": "contrast"
+        },
+        {
+          "w": "damage",
+          "k": "noun",
+          "e": "🔨💔",
+          "ca": "dany / malmetre"
+        },
+        {
+          "w": "development",
+          "k": "noun",
+          "e": "🌱🌳",
+          "ca": "desenvolupament"
+        },
+        {
+          "w": "difficulty",
+          "k": "noun",
+          "e": "🧗⚠️",
+          "ca": "dificultat"
+        },
+        {
+          "w": "doubt",
+          "k": "noun",
+          "e": "🤔❔",
+          "ca": "dubte / dubtar"
+        },
+        {
+          "w": "effort",
+          "k": "noun",
+          "e": "😤💪",
+          "ca": "esforç"
+        },
+        {
+          "w": "element",
+          "k": "noun",
+          "e": "🧪🔣",
+          "ca": "element"
+        },
+        {
+          "w": "emotion",
+          "k": "noun",
+          "e": "😢😊",
+          "ca": "emoció"
+        },
+        {
+          "w": "excitement",
+          "k": "noun",
+          "e": "🤩🎉",
+          "ca": "emoció (il·lusió)"
+        },
+        {
+          "w": "favour",
+          "k": "noun",
+          "e": "🙏🤝",
+          "ca": "favor"
+        },
+        {
+          "w": "force",
+          "k": "noun",
+          "e": "💨💪",
+          "ca": "força"
+        },
+        {
+          "w": "function",
+          "k": "noun",
+          "e": "⚙️❔",
+          "ca": "funció"
+        },
+        {
+          "w": "growth",
+          "k": "noun",
+          "e": "🌱⬆️",
+          "ca": "creixement"
+        },
+        {
+          "w": "happiness",
+          "k": "noun",
+          "e": "😊🌈",
+          "ca": "felicitat"
+        },
+        {
+          "w": "impact",
+          "k": "noun",
+          "e": "💥🎯",
+          "ca": "impacte"
+        },
+        {
+          "w": "importance",
+          "k": "noun",
+          "e": "❗⭐",
+          "ca": "importància"
+        },
+        {
+          "w": "impression",
+          "k": "noun",
+          "e": "👀💭",
+          "ca": "impressió"
+        },
+        {
+          "w": "improvement",
+          "k": "noun",
+          "e": "📈✨",
+          "ca": "millora"
+        },
+        {
+          "w": "influence",
+          "k": "noun",
+          "e": "🧲👥",
+          "ca": "influència"
+        },
+        {
+          "w": "intention",
+          "k": "noun",
+          "e": "🎯🙂",
+          "ca": "intenció"
+        },
+        {
+          "w": "lack",
+          "k": "noun",
+          "e": "🫙❌",
+          "ca": "manca / faltar"
+        },
+        {
+          "w": "loss",
+          "k": "noun",
+          "e": "📉💔",
+          "ca": "pèrdua"
+        },
+        {
+          "w": "mess",
+          "k": "noun",
+          "e": "🌀🧦",
+          "ca": "desordre"
+        },
+        {
+          "w": "mood",
+          "k": "noun",
+          "e": "🌦️🙂",
+          "ca": "estat d'ànim"
+        },
+        {
+          "w": "occasion",
+          "k": "noun",
+          "e": "🎉📅",
+          "ca": "ocasió"
+        },
+        {
+          "w": "passion",
+          "k": "noun",
+          "e": "🔥❤️",
+          "ca": "passió"
+        },
+        {
+          "w": "pleasure",
+          "k": "noun",
+          "e": "😊✨",
+          "ca": "plaer / gust"
+        },
+        {
+          "w": "pressure",
+          "k": "noun",
+          "e": "🗜️",
+          "ca": "pressió"
+        },
+        {
+          "w": "prediction",
+          "k": "noun",
+          "e": "🔮📝",
+          "ca": "predicció"
+        },
+        {
+          "w": "reaction",
+          "k": "noun",
+          "e": "😮💥",
+          "ca": "reacció"
+        },
+        {
+          "w": "reality",
+          "k": "noun",
+          "e": "🌍👁️",
+          "ca": "realitat"
+        },
+        {
+          "w": "recommendation",
+          "k": "noun",
+          "e": "👍📝",
+          "ca": "recomanació"
+        },
+        {
+          "w": "respect",
+          "k": "noun",
+          "e": "🙇🤝",
+          "ca": "respecte / respectar"
+        },
+        {
+          "w": "responsibility",
+          "k": "noun",
+          "e": "🙋⚖️",
+          "ca": "responsabilitat"
+        },
+        {
+          "w": "duty",
+          "k": "noun",
+          "e": "📋✔️",
+          "ca": "deure / obligació"
+        },
+        {
+          "w": "risk",
+          "k": "noun",
+          "e": "⚠️🎲",
+          "ca": "risc"
+        },
+        {
+          "w": "setting",
+          "k": "noun",
+          "e": "🏞️🎬",
+          "ca": "entorn / ambientació"
+        },
+        {
+          "w": "similarity",
+          "k": "noun",
+          "e": "🟰🔍",
+          "ca": "semblança"
+        },
+        {
+          "w": "spirit",
+          "k": "noun",
+          "e": "👻✨",
+          "ca": "esperit"
+        },
+        {
+          "w": "strength",
+          "k": "noun",
+          "e": "💪🏋️",
+          "ca": "força (física)"
+        },
+        {
+          "w": "supply",
+          "k": "noun",
+          "e": "📦🚚",
+          "ca": "subministrament / proveir"
+        },
+        {
+          "w": "surface",
+          "k": "noun",
+          "e": "🌊⬜",
+          "ca": "superfície"
+        },
+        {
+          "w": "theme",
+          "k": "noun",
+          "e": "🏷️💭",
+          "ca": "tema"
+        },
+        {
+          "w": "trend",
+          "k": "noun",
+          "e": "📈🔥",
+          "ca": "tendència"
+        },
+        {
+          "w": "trick",
+          "k": "noun",
+          "e": "🎩🃏",
+          "ca": "truc / enganyar"
+        },
+        {
+          "w": "truth",
+          "k": "noun",
+          "e": "✅💬",
+          "ca": "veritat"
+        },
+        {
+          "w": "warning",
+          "k": "noun",
+          "e": "⚠️📢",
+          "ca": "avís"
+        },
+        {
+          "w": "care",
+          "k": "noun",
+          "e": "🤲💗",
+          "ca": "cura / importar"
+        },
+        {
+          "w": "process",
+          "k": "noun",
+          "e": "⚙️➡️",
+          "ca": "procés"
+        },
+        {
+          "w": "position",
+          "k": "noun",
+          "e": "📍🧍",
+          "ca": "posició / lloc"
+        },
+        {
+          "w": "possession",
+          "k": "noun",
+          "e": "🎒🔑",
+          "ca": "possessió"
+        },
+        {
+          "w": "response",
+          "k": "noun",
+          "e": "💬↪️",
+          "ca": "resposta"
+        },
+        {
+          "w": "thinking",
+          "k": "noun",
+          "e": "💭💭",
+          "ca": "pensament (pensar)"
+        },
+        {
+          "w": "spot",
+          "k": "noun",
+          "e": "🔴",
+          "ca": "lloc / taca"
+        },
+        {
+          "w": "standard",
+          "k": "noun",
+          "e": "📏✅",
+          "ca": "nivell / estàndard"
+        },
+        {
+          "w": "block",
+          "k": "noun",
+          "e": "🧱",
+          "ca": "bloc / bloquejar"
+        },
+        {
+          "w": "layer",
+          "k": "noun",
+          "e": "≣",
+          "ca": "capa"
+        },
+        {
+          "w": "noise",
+          "k": "noun",
+          "e": "💥👂",
+          "ca": "soroll"
+        },
+        {
+          "w": "error",
+          "k": "noun",
+          "e": "⛔📝",
+          "ca": "error"
+        },
+        {
+          "w": "symbol",
+          "k": "noun",
+          "e": "🔣",
+          "ca": "símbol"
+        },
+        {
+          "w": "theory",
+          "k": "noun",
+          "e": "💭📐",
+          "ca": "teoria"
+        },
+        {
+          "w": "method",
+          "k": "noun",
+          "e": "📋⚙️",
+          "ca": "mètode"
+        },
+        {
+          "w": "technique",
+          "k": "noun",
+          "e": "🛠️✨",
+          "ca": "tècnica"
         }
       ]
     }
