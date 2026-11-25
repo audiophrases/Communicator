@@ -275,7 +275,8 @@ export default function App() {
         while (start > 0 && cursor - start < 2 && tokens[start - 1].typed) start--;
         return typedQuery(board, [...tokens.slice(start, cursor).map(t => t.w), draft].join(' '));
     }, [board, tokens, cursor, draft]);
-    const chosenHit = found && foundChoice.query === found.query ? Math.min(foundChoice.index, found.hits.length - 1) : 0;
+    // None (-1) when only buttons spelt nearly like it were found: Enter keeps the word as typed ("went" is not "want").
+    const chosenHit = !found ? 0 : foundChoice.query === found.query ? Math.min(foundChoice.index, found.hits.length - 1) : found.hits[0].near ? -1 : 0;
     useEffect(() => { foundRow.current?.children[chosenHit]?.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }, [found, chosenHit]);
     const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setSettings(current => ({ ...current, [key]: value }));
     const keyStep = KEY_SIZES.indexOf(settings.keySize);
@@ -623,7 +624,7 @@ export default function App() {
             if (event.key === 'Escape' && originalWord.current) {
                 event.preventDefault();
                 insertWords([originalWord.current]);
-            } else if ((event.key === 'Enter' || event.key === 'Tab') && found) {
+            } else if ((event.key === 'Enter' || event.key === 'Tab') && found && chosenHit >= 0) {
                 event.preventDefault();
                 pick(found.hits[chosenHit], found.words);
             } else if ((event.key === 'ArrowRight' || event.key === 'ArrowLeft') && found

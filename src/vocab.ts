@@ -187,7 +187,7 @@ const FIRST_BOARD: Board = {
             ...row('noun', `socks=@socks=mitjons|scarf=@scarf=bufanda|gloves=@gloves=guants|belt=@belt=cinturó|pocket=@pocket=butxaca|zip=@zip=cremallera|raincoat=@raincoat=impermeable|pyjamas=@pyjamas=pijama`)
         ]) },
         { id: 'nature', name: 'Nature & weather', ca: 'Natura i clima', icon: '⛅', words: [...withSymbols('nature', [
-            ...row('noun', `weather=🌦️=el temps (meteo)|sun==sol|rain==pluja|snow==neu|cloud==núvol|wind=💨=vent|ice=🧊❄️=gel|fire=🔥=foc|spring==primavera|summer==estiu|autumn==tardor|winter==hivern`),
+            ...row('noun', `weather=🌦️=el temps (meteo)|sun==sol|rain==pluja / ploure|snow==neu / nevar|cloud==núvol|wind=💨=vent|ice=🧊❄️=gel|fire=🔥=foc|spring==primavera|summer==estiu|autumn==tardor|winter==hivern`),
             ...row('describe', `warm=@scene_warm=càlid`)]), ...fromCore('hot', 'cold'), ...withSymbols('nature', row('noun', `sea=🌊=mar|river=🏞️=riu|mountain==muntanya|island=🏝️=illa|tree==arbre|flower==flor|plant=🪴=planta|star=🌟=estrella|air=@scene_air=aire|land=@scene_land=terra`)),
             ...row('noun', `storm=@thunder_storm=tempesta|fog=🌫️=boira|forest=🌲🌳=bosc|lake=🏞️💧=llac|environment=🌍🌱=medi ambient|rubbish=🗑️🛍️=deixalles`),
             ...row('verb', `recycle=@recycle_logo=reciclar`)

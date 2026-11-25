@@ -8,7 +8,11 @@ matching buttons appear under the text box, narrowing as you type. Letters typed
 text box, even right after tapping buttons. Tap a match, or press **Enter** for the highlighted one: the first,
 or another chosen with **→** and **←**. **Ctrl+Z** undoes the last change to the sentence or the story (a word added,
 typed, moved or deleted, a sentence finished), and **Ctrl+Y** redoes it. `?` stands for
-one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are optional (`germa` → germà).
+one letter and `*` for any number (`h?t` → hot, `*ppy` → happy); accents are optional (`germa` → germà). A Catalan
+verb's forms find its button too (`plou`, `plovia` → rain, whose Catalan shows only `pluja / ploure`;
+[src/catalanVerbs.ts](src/catalanVerbs.ts)). After the matches come up to four buttons spelt nearly like the word
+(`watter` → water, `plutja` → rain), with nothing to mark them. When only those are found, none is highlighted and
+**Enter** keeps the word as typed, so `went` does not become `want`.
 
 `I` `want` `go` `doctor` `tomorrow` → ✨ **I want to go to the doctor tomorrow.** 🔊
 

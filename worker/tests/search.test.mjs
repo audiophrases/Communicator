@@ -23,6 +23,31 @@ test('Catalan finds the English button, with or without accents', () => {
     assert.ok(words("d'hora").includes('early'));
 });
 
+test('the forms of a Catalan verb find its button, which shows only its Catalan', () => {
+    for (const form of ['plou', 'plovia', 'ploure']) assert.equal(words(form)[0], 'rain', form);
+    for (const form of ['neva', 'nevava', 'nevarà']) assert.equal(words(form)[0], 'snow', form);
+    assert.equal(words('vull')[0], 'want');
+    assert.equal(words('puc')[0], 'can');
+    assert.equal(words('mengem')[0], 'eat'); // menjar: j → g before e
+    assert.ok(words('surto').includes('leave'));
+    const rain = DEFAULT_BOARD.pages.flatMap(page => page.words).find(word => word.w === 'rain');
+    assert.equal(rain.ca, 'pluja / ploure');
+});
+
+test('buttons spelt nearly like the word come after the ones that match it', () => {
+    const near = query => findButtons(DEFAULT_BOARD, query).filter(hit => hit.near).map(hit => hit.word.w);
+    assert.equal(near('watter')[0], 'water');
+    assert.ok(near('freind').includes('friend'));
+    assert.ok(near('plutja').includes('rain')); // Catalan too
+    const want = findButtons(DEFAULT_BOARD, 'want');
+    assert.ok(want[0].word.w === 'want' && !want[0].near);
+    assert.ok(want.some(hit => hit.near)); // even when a button matches
+    assert.ok(want.findIndex(hit => hit.near) > want.findLastIndex(hit => !hit.near));
+    assert.deepEqual(near('wan'), []); // not under 4 letters
+    assert.deepEqual(near('wa?t'), []); // nor with wildcards
+    assert.ok(typedQuery(DEFAULT_BOARD, 'I went').hits.every(hit => hit.near)); // the board keeps "went" on Enter
+});
+
 test('? is one letter, * is any number of letters', () => {
     const hot = words('h?t');
     assert.ok(hot.includes('hot') && hot.includes('hurt') === false, hot.join(', '));
