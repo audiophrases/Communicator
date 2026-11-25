@@ -65,18 +65,22 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 .or { color: var(--soft); font-size: .95rem; padding: 0 4px; }
 
 /* Pages */
-/* On a laptop or tablet the pages wrap onto as many rows as they need. On the board the size buttons join the same
-   flow, at the right end of the last row, so they take room from that row only. A phone keeps the pages on one
-   scrolling row (see the end of this file): more rows would push the words down. */
+/* On a laptop or tablet the board's pages wrap onto at most 3 rows, and scroll when they need more. The size
+   buttons float at the top right, so they take room from the first row only and never get a row of their own.
+   A phone keeps the pages on one scrolling row (see the end of this file): more rows would push the words down. */
 .tabs, .tab-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 4px 10px 8px; }
+.tab-row { --tab-h: max(44px, 2rem + 10px); display: block; padding-bottom: 2px;
+    max-height: calc(2px + 3 * (var(--tab-h) + 6px)); overflow-y: auto; scrollbar-width: thin; }
 .tab-row > .tabs { display: contents; }
+.tab-row .tab { vertical-align: top; margin: 0 6px 6px 0; }
 .create .tabs { flex: none; }
-.key-size { flex: none; display: flex; gap: 4px; margin-left: auto; }
+.key-size { flex: none; display: flex; gap: 4px; float: right; margin: 1px 0 0 6px; }
 .key-size button { min-width: 42px; height: 42px; border: 2px solid var(--line); background: var(--panel); border-radius: 999px;
     font-size: 1.35rem; font-weight: 700; line-height: 1; }
 .tab { flex: none; min-height: 44px; white-space: nowrap; border: 2px solid var(--line); background: var(--panel); border-radius: 999px; padding: 8px 14px; font-weight: 700; }
 /* On the board, each page's picture is big: some students cannot read yet and find a page by its picture alone. */
-.app .tab { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 14px 3px 8px; }
+.app .tab { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 14px 3px 8px; height: var(--tab-h); }
+.app .tab[data-page="settings"] { padding-inline: 8px; }
 .tab-icon { font-size: 2rem; line-height: 1; }
 /* Topic accents stay with their pages when the teacher reorders them. */
 .tab[data-page="places"] { background: #b5e3df; }
@@ -278,9 +282,10 @@ button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px s
 /* Phones, upright or sideways: the pages stay on one row that scrolls, with the size buttons beside it. */
 @media (max-width: 600px), (max-height: 500px) {
     .tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
-    .tab-row { flex-wrap: nowrap; align-items: flex-start; padding: 0 10px 0 0; }
+    .tab-row { display: flex; flex-wrap: nowrap; align-items: flex-start; padding: 0 10px 0 0; max-height: none; overflow: visible; }
     .tab-row > .tabs { display: flex; flex: 1; min-width: 0; }
-    .key-size { padding-top: 4px; }
+    .tab-row .tab { margin: 0; }
+    .key-size { float: none; order: 1; margin: 0; padding-top: 4px; }
 }
 
 @media (max-width: 480px) {

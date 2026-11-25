@@ -591,10 +591,11 @@ export default function App() {
     const toggleSaved = (text: string) => setSaved(current => current.includes(text) ? current.filter(item => item !== text) : [text, ...current]);
 
     // Use the same topic tabs and ordering as the editor.
-    const tabs: { id: string; name: string; ca?: string; icon: string; kind?: Kind }[] = [
+    // Saved and recent phrases are on the Quick page. Settings is its picture alone, so the − and + fit beside the pages.
+    const tabs: { id: string; name: string; ca?: string; icon: string; kind?: Kind; iconOnly?: boolean }[] = [
         { id: 'core', name: 'Core', ca: 'Paraules bàsiques', icon: '⭐' },
         ...pageTabs(board, 'Quick'),
-        { id: 'saved', name: 'Saved', ca: 'Frases desades', icon: '⭐', kind: 'social' }, { id: 'settings', name: 'Settings', ca: 'Configuració', icon: '⚙️' }
+        { id: 'settings', name: 'Settings', ca: 'Configuració', icon: '⚙️', iconOnly: true }
     ];
     // Back to Core when the teacher removed the page this device was on.
     const tab = tabs.some(item => item.id === chosenTab) ? chosenTab : 'core';
@@ -731,35 +732,44 @@ export default function App() {
                 )}
             </header>
 
+            {/* The size buttons come first so they float at the top right, beside the first row of pages. */}
             <div className="tab-row">
-                <nav className="tabs" aria-label="Pages">
-                    {tabs.map(item => (
-                        <button key={item.id} data-page={item.id} aria-current={tab === item.id ? 'page' : undefined} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}>
-                            <span className="tab-icon" aria-hidden="true">{item.icon}</span>{item.name}
-                        </button>
-                    ))}
-                </nav>
                 <div className="key-size" role="group" aria-label="Button size">
                     <button onClick={() => set('keySize', KEY_SIZES[keyStep - 1])} disabled={keyStep === 0}
                         aria-label="Smaller buttons" title={`${Math.round(settings.keySize * 100)}%`} data-ca="Botons més petits">−</button>
                     <button onClick={() => set('keySize', KEY_SIZES[keyStep + 1])} disabled={keyStep === KEY_SIZES.length - 1}
                         aria-label="Bigger buttons" title={`${Math.round(settings.keySize * 100)}%`} data-ca="Botons més grans">+</button>
                 </div>
+                <nav className="tabs" aria-label="Pages">
+                    {tabs.map(item => (
+                        <button key={item.id} data-page={item.id} aria-current={tab === item.id ? 'page' : undefined} className={`tab ${item.kind ? `k-${item.kind}` : 'plain'}${tab === item.id ? ' on' : ''}`} onClick={() => setTab(item.id)} data-ca={item.ca || undefined}
+                            aria-label={item.iconOnly ? item.name : undefined}>
+                            <span className="tab-icon" aria-hidden="true">{item.icon}</span>{!item.iconOnly && item.name}
+                        </button>
+                    ))}
+                </nav>
             </div>
 
             <main className="board">
                 {tab === 'core' && <div className="grid core">{board.core.map((word, index) => <Key key={index} word={word} onTap={() => tap(word)} />)}</div>}
                 {page && <div className="grid">{page.words.map((word, index) => <Key key={index} word={word} onTap={() => tap(word)} />)}</div>}
-                {tab === 'quick' && <div className="phrases">{board.quick.map(item => phraseRow(item.t))}</div>}
-                {tab === 'saved' && (
-                    <div className="phrases">
-                        {saved.length === 0 && recent.length === 0 && <p className="hint">Phrases you speak appear here. Press ☆ to keep one.</p>}
-                        {saved.length > 0 && <h2>Saved</h2>}
-                        {saved.map(phraseRow)}
-                        {recent.some(text => !saved.includes(text)) && <h2>Recent <button className="link" onClick={() => setRecent([])} data-ca="Esborra les recents">clear</button></h2>}
-                        {recent.filter(text => !saved.includes(text)).map(phraseRow)}
-                    </div>
-                )}
+                {/* ☆ moves a phrase to the top, under Saved; taking the star off puts a quick phrase back in its place.
+                    Each phrase shows once. */}
+                {tab === 'quick' && (() => {
+                    const quick = board.quick.map(item => item.t).filter(text => !saved.includes(text));
+                    const others = recent.filter(text => !saved.includes(text) && !quick.includes(text));
+                    return (
+                        <div className="phrases">
+                            {saved.length > 0 && <h2>Saved</h2>}
+                            {saved.map(phraseRow)}
+                            {saved.length > 0 && quick.length > 0 && <h2>Quick phrases</h2>}
+                            {quick.map(phraseRow)}
+                            {others.length > 0 && <h2>Recent <button className="link" onClick={() => setRecent([])} data-ca="Esborra les recents">clear</button></h2>}
+                            {others.map(phraseRow)}
+                            {saved.length === 0 && others.length === 0 && <p className="hint">Phrases you speak appear here too. Press ☆ to keep one at the top.</p>}
+                        </div>
+                    );
+                })()}
                 {tab === 'settings' && (
                     <div className="settings">
                         <label>Voice
