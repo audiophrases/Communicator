@@ -31,7 +31,7 @@ Phone Mirror.
 
 ## In this project
 
-- **Online student Fix and Catalan** use xKiro's free `qwen/qwen3.8-max:free` under the xKiro account (its key is
+- **Online student Fix and Catalan** use xKiro's free `qwen/qwen3.7-flash:free` under the xKiro account (its key is
   refused xKiro's paid models, such as `openai/gpt-6-luna`). When xKiro fails, the backup is `gpt-4o-mini` on this
   account's key: free within the 2.5 million list.
 - **Laptop Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
