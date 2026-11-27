@@ -31,9 +31,9 @@ Phone Mirror.
 
 ## In this project
 
-- **Online student Fix and Catalan** use `openai/gpt-6-luna` through xKiro, under the xKiro account (xKiro prices it as
-  OpenAI does: $0.10 / $0.50 per million tokens). When xKiro fails, the backup is `gpt-4o-mini` on this account's key:
-  free within the 2.5 million list.
+- **Online student Fix and Catalan** use xKiro's free `qwen/qwen3.8-max:free` under the xKiro account (its key is
+  refused xKiro's paid models, such as `openai/gpt-6-luna`). When xKiro fails, the backup is `gpt-4o-mini` on this
+  account's key: free within the 2.5 million list.
 - **Laptop Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
   `gpt-6-luna` with thinking off, **billed** ($0.10 / $0.50 per million tokens): about 0.01 cents a Fix, so about
   5 cents for a busy lesson. Chosen after side-by-side tests on 2026-11-16 (`worker/model.ts`): it got Catalan

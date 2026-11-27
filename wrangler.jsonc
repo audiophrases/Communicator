@@ -37,8 +37,9 @@
       },
       "vars": {
         "BOARD_REPOSITORY": "audiophrases/Communicator",
-        // xKiro dropped Mistral in November 2026 (404s). The laptop's model, so both boards answer alike.
-        "XKIRO_MODEL": "openai/gpt-6-luna",
+        // A free xKiro model: xKiro dropped Mistral in November 2026 (404) and refuses its paid models to this key
+        // (403 for openai/gpt-6-luna). Free models are listed at https://api.xkiro.com/v1/models ("access_tier": "free").
+        "XKIRO_MODEL": "qwen/qwen3.8-max:free",
         "OPENAI_FALLBACK_MODEL": "gpt-4o-mini"
       },
       "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } },

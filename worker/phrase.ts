@@ -124,9 +124,12 @@ export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<Phr
         const content = ((await response.json()) as { choices?: { message?: { content?: string } }[] }).choices?.[0]?.message?.content;
         const answer = content ? JSON.parse(content) : null;
         const fix = clean(input.text, answer);
+        if (!fix) console.log(`phrase: ${modelOf(env)} unusable answer`);
         // Unsure counts as "used", so an answer that may depend on one student's sentence is not shared.
         return fix && { fix, contextUsed: !!input.context && answer?.context_used !== false };
-    } catch {
+    } catch (error) {
+        // The error's name only (TimeoutError, SyntaxError…): a parse error's message can quote the answer.
+        console.log(`phrase: ${modelOf(env)} ${error instanceof Error ? error.name : 'error'}`);
         return null;
     }
 }
