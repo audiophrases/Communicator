@@ -15,7 +15,7 @@ there again before relying on it: the offer and its list of models can change.
 
 ## What it means for the apps
 
-- **Free:** a model on the 2.5 million list, within the day's amount. HelloChat and Pixel Plaza use `gpt-4o-mini`. Communicator uses the billed `gpt-6-luna` on the laptop. A grammar
+- **Free:** a model on the 2.5 million list, within the day's amount. HelloChat, Pixel Plaza and Communicator's online board use `gpt-4o-mini`. Communicator uses the billed `gpt-6-luna` on the laptop. A grammar
   correction or hint is about 700 tokens, so the free amount covers a few thousand a day, shared by every app on the
   account.
 - **Billed:** every model not on those lists, such as `gpt-6-luna`, `gpt-5.6-*` and `gpt-6.1-*`, and audio and
@@ -31,9 +31,9 @@ Phone Mirror.
 
 ## In this project
 
-- **Online student Fix and Catalan** use xKiro's free `qwen/qwen3.7-flash:free` under the xKiro account (its key is
-  refused xKiro's paid models, such as `openai/gpt-6-luna`). When xKiro fails, the backup is `gpt-4o-mini` on this
-  account's key: free within the 2.5 million list.
+- **Online student Fix and Catalan** (open to anyone, 24/7): `gpt-4o-mini` on the online Worker's key, **free** within
+  the 2.5 million list, shared with HelloChat and Pixel Plaza. Past the day's amount it is billed at $0.15 / $0.60 per
+  million tokens (about 0.02 cents a Fix). Saved answers cost nothing.
 - **Laptop Fix** (`worker/phrase.ts`: the correction and its Catalan) and the editor's translation (`worker/translate.ts`):
   `gpt-6-luna` with thinking off, **billed** ($0.10 / $0.50 per million tokens): about 0.01 cents a Fix, so about
   5 cents for a busy lesson. Chosen after side-by-side tests on 2026-11-16 (`worker/model.ts`): it got Catalan

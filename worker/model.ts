@@ -8,7 +8,8 @@
 //    "I want to like you more" → "Vull que m'agradis més". Free gpt-5.4-mini got about 9 and varied from run to run;
 //    with "low" thinking gpt-6-luna got 12–13 but took about 2 s.
 // OPENAI_PHRASE_MODEL in .dev.vars overrides it, e.g. OPENAI_PHRASE_MODEL=gpt-5.4-mini to keep it free.
-// The online board uses a free xKiro model instead (XKIRO_MODEL in wrangler.jsonc).
+// The online board, open to anyone 24/7, uses gpt-4o-mini instead: free within the daily data-sharing tokens
+// (OPENAI_PHRASE_MODEL in wrangler.jsonc).
 
 export const DEFAULT_MODEL = 'gpt-6-luna';
 

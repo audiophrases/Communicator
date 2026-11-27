@@ -15,7 +15,9 @@ const TIMEOUT_MS = 8000;
 // How long a refused key or model (any 4xx but 429) sends Fix to the backup provider before trying again.
 const REFUSED_PAUSE_MS = 10 * 60_000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
-const FIX_VERSION = 9; // 9: linked sentences share a paragraph's tense
+// 9: linked sentences share a paragraph's tense. 10: no new instructions; drops the gpt-4o-mini answers saved online
+// while it was xKiro's backup in the November 2026 outage, among them "Good day." → "Bona dia." (Bon dia).
+const FIX_VERSION = 10;
 
 // Catalan "agradar" and verbs like it work backwards from English, and small models get the people the wrong way
 // round ("I want to like you more" came back as "Vull agradar-te més", which means the opposite). Shared with the

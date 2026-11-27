@@ -60,13 +60,16 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 ### Always-online student board
 
 The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English and translates
-the result into Catalan using xKiro's free `qwen/qwen3.7-flash:free` (`XKIRO_MODEL` in `wrangler.jsonc`; the xKiro key
-is refused xKiro's paid models). The laptop uses OpenAI's `gpt-6-luna` by default. When xKiro fails, online Fix uses
-OpenAI's `gpt-4o-mini` with a separate key. After a quota or rate limit (429) it waits for xKiro's retry interval. After
-a refused key or model (another 4xx: xKiro answers 404 for a model it has dropped, as it did with Mistral in November
-2026, and 403 for a paid one) it waits ten minutes. Any other failure uses the backup for that sentence only. Each
-failure is logged with the model, never the words (`phrase: qwen/qwen3.7-flash:free HTTP 404`, `… TimeoutError`,
-`… unusable answer`), so a Fix with no `phrase:` line was answered by xKiro. Saved corrections are reused by model.
+the result into Catalan using OpenAI's `gpt-4o-mini` (`OPENAI_PHRASE_MODEL` in `wrangler.jsonc`), with its own key.
+It is free within the account's daily data-sharing tokens, so the board, open to anyone around the clock, cannot run
+up a bill for the better `gpt-6-luna`, which the laptop keeps. Its Catalan is weaker (about one button word in four
+wrong in the November 2026 tests). Failures are logged with the model, never the words (`phrase: gpt-4o-mini HTTP 429`,
+`… TimeoutError`, `… unusable answer`). Saved corrections are reused by model.
+
+xKiro can come back as the first choice by setting `XKIRO_MODEL` and `OPENAI_FALLBACK_MODEL` in the online
+environment: OpenAI then takes over whenever xKiro fails, for xKiro's retry interval after a 429, for ten minutes after
+another 4xx (a refused key or model), or for that sentence after a timeout. In November 2026 xKiro dropped Mistral
+(404), refused its paid models to this key (403), and its free Qwen models took 3–10 s, half past the 8 s timeout.
 Online, both word taps and sentences use PinPlay's English Edge TTS voices, with device speech as a fallback.
 A tapped word is sent to the voice in quotes: Emma and the other multilingual voices otherwise swallow short words
 such as "I" and "it".
