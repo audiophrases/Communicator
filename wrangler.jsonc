@@ -37,7 +37,8 @@
       },
       "vars": {
         "BOARD_REPOSITORY": "audiophrases/Communicator",
-        "XKIRO_MODEL": "mistralai/mistral-large-2512",
+        // xKiro dropped Mistral in November 2026 (404s). The laptop's model, so both boards answer alike.
+        "XKIRO_MODEL": "openai/gpt-6-luna",
         "OPENAI_FALLBACK_MODEL": "gpt-4o-mini"
       },
       "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } },

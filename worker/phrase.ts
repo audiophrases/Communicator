@@ -12,6 +12,8 @@ export type PhraseResult = { fix: Fix; contextUsed: boolean };
 export type PhraseAttempt = PhraseResult | { retryAt: number } | null;
 
 const TIMEOUT_MS = 8000;
+// How long a refused key or model (any 4xx but 429) sends Fix to the backup provider before trying again.
+const REFUSED_PAUSE_MS = 10 * 60_000;
 // Change it whenever the instructions change, so saved answers from the old ones are not reused.
 const FIX_VERSION = 9; // 9: linked sentences share a paragraph's tense
 
@@ -107,13 +109,16 @@ export async function fixPhrase(input: PhraseInput, env: PhraseEnv): Promise<Phr
             signal: AbortSignal.timeout(TIMEOUT_MS)
         });
         if (!response.ok) {
-            console.log(`phrase: HTTP ${response.status}`); // never the speaker's words
+            console.log(`phrase: ${modelOf(env)} HTTP ${response.status}`); // never the speaker's words
+            const now = Date.now();
             if (response.status === 429) {
-                const now = Date.now();
                 const header = response.headers.get('Retry-After')?.trim();
                 const delay = header && /^\d+$/.test(header) ? Number(header) * 1000 : Date.parse(header ?? '') - now;
                 return { retryAt: now + (Number.isFinite(delay) ? Math.max(1000, delay) : 60_000) };
             }
+            // The key or the model was refused (xKiro answers 404 for a model it no longer offers). Every sentence
+            // would get the same refusal, so this is a setting to fix, not a moment's trouble.
+            if (response.status >= 400 && response.status < 500) return { retryAt: now + REFUSED_PAUSE_MS };
             return null;
         }
         const content = ((await response.json()) as { choices?: { message?: { content?: string } }[] }).choices?.[0]?.message?.content;

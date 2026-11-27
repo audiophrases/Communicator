@@ -64,13 +64,15 @@ function entriesOf(board: Board): Entry[] {
     return list;
 }
 
-// How well a button matches: 0 for not at all. Its whole English word beats the start of it, which beats a later
-// word in it; then the same for its Catalan (each "/" alternative and each word in it); then a form of its verb.
+// How well a button matches: 0 for not at all. Its whole English word beats its whole Catalan (each "/"
+// alternative), which beats the start of the English: a student typing "com" means how (com), not come, company and
+// the twenty other English words that start with it. Then a later English word, the start of the Catalan and a later
+// word in it, then a form of its verb.
 function score(entry: Entry, start: RegExp, whole: RegExp): number {
     if (whole.test(entry.english)) return 100;
+    if (entry.catalan.some(text => whole.test(text))) return 90;
     if (start.test(entry.english)) return 80;
     if (entry.englishLater.some(part => start.test(part))) return 60;
-    if (entry.catalan.some(text => whole.test(text))) return 70;
     if (entry.catalan.some(text => start.test(text))) return 50;
     if (entry.catalanLater.some(part => start.test(part))) return 40;
     if (entry.forms.some(text => whole.test(text))) return 35;

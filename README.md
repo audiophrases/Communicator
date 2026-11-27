@@ -60,9 +60,12 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 ### Always-online student board
 
 The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English and translates
-the result into Catalan using xKiro's `mistralai/mistral-large-2512`. The laptop uses OpenAI's `gpt-6-luna` by default.
-When xKiro returns a quota or rate limit, online Fix automatically uses OpenAI's `gpt-4o-mini` with a separate key.
-It automatically tries xKiro again after the retry interval. Saved corrections are reused by model.
+the result into Catalan using `openai/gpt-6-luna` through xKiro (`XKIRO_MODEL` in `wrangler.jsonc`), the same model
+the laptop uses from OpenAI. When xKiro fails, online Fix uses OpenAI's `gpt-4o-mini` with a separate key. After a quota
+or rate limit (429) it waits for xKiro's retry interval. After a refused key or model (another 4xx: xKiro answers 404
+for a model it has dropped, as it did with Mistral in November 2026) it waits ten minutes. Any other failure uses the
+backup for that sentence only. The Worker log names the model and status (`phrase: openai/gpt-6-luna HTTP 404`).
+Saved corrections are reused by model.
 Online, both word taps and sentences use PinPlay's English Edge TTS voices, with device speech as a fallback.
 A tapped word is sent to the voice in quotes: Emma and the other multilingual voices otherwise swallow short words
 such as "I" and "it".

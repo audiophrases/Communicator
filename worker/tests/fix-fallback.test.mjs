@@ -58,12 +58,60 @@ test('a quota response uses the separate OpenAI key, caches the backup, and retu
     assert.equal(calls.length, 4);
 });
 
-test('a rejection by the app or an xKiro auth error does not spend OpenAI quota', async t => {
-    const fetchMock = t.mock.method(globalThis, 'fetch', async () => new Response(null, { status: 401 }));
-    const store = memory();
-    assert.equal(await correctSentence(input, xkiro, openai, store, async () => false), 'limited');
+test('a rejection by the app asks no one', async t => {
+    const fetchMock = t.mock.method(globalThis, 'fetch', async () => answer());
+    assert.equal(await correctSentence(input, xkiro, openai, memory(), async () => false), 'limited');
     assert.equal(fetchMock.mock.callCount(), 0);
-    assert.equal(await correctSentence(input, xkiro, openai, store, async () => true), 'unavailable');
-    assert.equal(fetchMock.mock.callCount(), 1);
-    assert.match(fetchMock.mock.calls[0].arguments[0], /^https:\/\/api\.xkiro\.com\//);
+});
+
+test('a model or key xKiro refuses hands Fix to OpenAI for ten minutes', async t => {
+    let now = Date.now();
+    t.mock.method(Date, 'now', () => now);
+    for (const status of [400, 401, 403, 404]) {
+        const urls = [];
+        t.mock.method(globalThis, 'fetch', async url => {
+            urls.push(url);
+            return url.startsWith(xkiro.OPENAI_BASE_URL) ? new Response(null, { status }) : answer();
+        });
+        const store = memory();
+        let allowances = 0;
+        const allow = async () => { allowances++; return true; };
+        assert.deepEqual(await correctSentence(input, xkiro, openai, store, allow), { fix: correction, cache: 'miss' }, `${status}`);
+        assert.equal(allowances, 1); // one sentence, one allowance, though two providers were asked
+        assert.equal(store.xkiroRetryAt(), now + 10 * 60_000);
+        // The next sentence does not wait for the same refusal.
+        await correctSentence({ ...input, text: 'I go home yesterday' }, xkiro, openai, store, allow);
+        assert.deepEqual(urls.map(url => new URL(url).host), ['api.xkiro.com', 'api.openai.com', 'api.openai.com']);
+        t.mock.restoreAll();
+        t.mock.method(Date, 'now', () => now);
+    }
+});
+
+test('a passing xKiro failure tries OpenAI for that sentence without pausing xKiro', async t => {
+    for (const failure of [() => new Response(null, { status: 500 }), () => { throw new DOMException('timed out', 'TimeoutError'); },
+        () => Response.json({ choices: [{ message: { content: 'not json' } }] })]) {
+        const urls = [];
+        t.mock.method(globalThis, 'fetch', async url => {
+            urls.push(url);
+            return url.startsWith(xkiro.OPENAI_BASE_URL) ? failure() : answer();
+        });
+        const store = memory();
+        assert.deepEqual(await correctSentence(input, xkiro, openai, store, async () => true), { fix: correction, cache: 'miss' });
+        assert.equal(store.xkiroRetryAt(), 0);
+        assert.deepEqual(urls.map(url => new URL(url).host), ['api.xkiro.com', 'api.openai.com']);
+        t.mock.restoreAll();
+    }
+});
+
+test('without a backup, a refused model is still "no suggestion"', async t => {
+    t.mock.method(globalThis, 'fetch', async () => new Response(null, { status: 404 }));
+    assert.equal(await correctSentence(input, xkiro, undefined, memory(), async () => true), 'unavailable');
+});
+
+test('xKiro\'s OpenAI models get thinking off too', async () => {
+    const { thinking } = await import('../model.ts');
+    assert.deepEqual(thinking('openai/gpt-6-luna'), { reasoning_effort: 'none' });
+    assert.deepEqual(thinking('gpt-6-luna'), { reasoning_effort: 'none' });
+    assert.deepEqual(thinking('gpt-4o-mini'), {});
+    assert.deepEqual(thinking('qwen/qwen3.8-max:free'), {});
 });

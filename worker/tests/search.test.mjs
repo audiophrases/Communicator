@@ -23,6 +23,14 @@ test('Catalan finds the English button, with or without accents', () => {
     assert.ok(words("d'hora").includes('early'));
 });
 
+test('a whole Catalan word comes before English words that only start with it', () => {
+    // 25 English buttons start with "com" (come, company, compare…): "how" (com) was 26th, past the 12 shown.
+    assert.deepEqual(words('com').slice(0, 2), ['how', 'as']);
+    assert.ok(words('com').includes('come'));
+    assert.equal(words('on')[0], 'on'); // the whole English word still first, then "where" (on)
+    assert.equal(words('on')[1], 'where');
+});
+
 test('the forms of a Catalan verb find its button, which shows only its Catalan', () => {
     for (const form of ['plou', 'plovia', 'ploure']) assert.equal(words(form)[0], 'rain', form);
     for (const form of ['neva', 'nevava', 'nevarà']) assert.equal(words(form)[0], 'snow', form);

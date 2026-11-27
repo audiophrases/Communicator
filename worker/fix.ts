@@ -45,10 +45,12 @@ export async function correctSentence(
         if (!(await allow())) return 'limited';
         alreadyAllowed = true;
         const attempt = await fixPhrase(input, primary);
-        if (!fallback || !attempt || !('retryAt' in attempt)) return save(attempt, primaryKeys);
-        // xKiro uses HTTP 429 for both the daily free-token quota and request rate limits.
-        // Share its cooldown across students so the next uncached sentence goes straight to OpenAI.
-        await store.pauseXkiroUntil(attempt.retryAt);
+        if (!fallback || (attempt && 'fix' in attempt)) return save(attempt, primaryKeys);
+        // xKiro uses HTTP 429 for both the daily free-token quota and request rate limits, and another 4xx for a key
+        // or model it refuses. Share its pause across students so the next uncached sentence goes straight to OpenAI.
+        if (attempt) await store.pauseXkiroUntil(attempt.retryAt);
+        // Any other failure (a timeout, a server error, an answer that is not a sentence) tries OpenAI for this
+        // sentence only.
     }
 
     const fallbackKeys = await keysFor(input, fallback);
