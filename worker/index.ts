@@ -1,13 +1,13 @@
 import { correctSentence } from './fix.ts';
 import { synthesize, warmVoiceBridge } from './speech.ts';
-import type { PhraseEnv } from './phrase.ts';
+import { fixLanguage, type PhraseEnv } from './phrase.ts';
 import { readPublishedImage, type PublishedBoard } from './published.ts';
 import { BoardStore } from './store.ts';
 import { newSession, passwordMatches, sessionValid, sha256Hex } from './teacher.ts';
 import { caSeed, MAX_ITEMS, toCatalan, type Item } from './translate.ts';
 import { boardImages, LIMITS, sanitizeBoard, type Board } from '../shared/board.ts';
 import { imageContentType, isUploadedImage, MAX_IMAGE_BYTES, uploadedImageName } from '../shared/images.ts';
-import { isLanguage, isLevel, MAX_LINKED_SENTENCES, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
+import { isLevel, MAX_LINKED_SENTENCES, MAX_TEXT, type Level, type Status, type TeacherSettings } from '../shared/options.ts';
 import { bridgeRate, DEFAULT_VOICE, isEnglishVoice } from '../shared/voices.ts';
 
 export { BoardStore };
@@ -21,6 +21,8 @@ export interface Env {
     OPENAI_FALLBACK_MODEL?: string;
     XKIRO_API_KEY?: string;
     XKIRO_MODEL?: string;
+    // "off": Fix answers in English only, with no translation (the online board, in wrangler.jsonc).
+    FIX_TRANSLATION?: string;
     // The teacher's password for /create, the same as PinPlay's.
     CREATE_PASSWORD_HASH?: string;
     // Optional override for PinPlay's Render Edge TTS bridge.
@@ -229,14 +231,16 @@ async function handle(request: Request, env: Env, ctx: ExecutionContext): Promis
         if (env.BOARD_REPOSITORY && url.searchParams.get('warmVoice') === '1') {
             ctx.waitUntil(board.claimVoiceWarmup().then(claimed => claimed ? warmVoiceBridge(env) : undefined).catch(() => {}));
         }
-        return json({ fix: !!phraseEnv.OPENAI_API_KEY && await board.fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY } satisfies Status);
+        return json({ fix: !!phraseEnv.OPENAI_API_KEY && await board.fixOn(), naturalWordVoice: !!env.BOARD_REPOSITORY,
+            translate: env.FIX_TRANSLATION !== 'off' } satisfies Status);
     }
     if (path === '/api/board' && request.method === 'GET') {
         // The board's half-minute check also says whether Fix is on (in a header, so an unchanged board's 304 says it
         // too): one request instead of two, and one call to the store.
         const check = await store(env).boardCheck(env.BOARD_REPOSITORY, !!env.BOARD_REPOSITORY && url.searchParams.get('warmVoice') === '1');
         if (check.wakeVoice) ctx.waitUntil(warmVoiceBridge(env));
-        const status: Status = { fix: !!phraseEnv.OPENAI_API_KEY && check.fixOn, naturalWordVoice: !!env.BOARD_REPOSITORY };
+        const status: Status = { fix: !!phraseEnv.OPENAI_API_KEY && check.fixOn, naturalWordVoice: !!env.BOARD_REPOSITORY,
+            translate: env.FIX_TRANSLATION !== 'off' };
         const response = await boardFor(request, env, check.published);
         const answer = new Response(response.body, response);
         answer.headers.set('X-Status', JSON.stringify(status));
@@ -297,7 +301,7 @@ async function speakOrFix(request: Request, env: Env, path: string, phraseEnv: P
     if (Array.isArray(context) && (!context.length || context.length > MAX_LINKED_SENTENCES || context.some(line => !line))) {
         return json({ error: 'Invalid paragraph context.' }, 400);
     }
-    const input = { text: words, level, language: isLanguage(body.language) ? body.language : undefined, ...(context ? { context } : {}) };
+    const input = { text: words, level, language: fixLanguage(body.language, env.FIX_TRANSLATION), ...(context ? { context } : {}) };
     const fallback = env.XKIRO_MODEL && env.OPENAI_FALLBACK_MODEL && env.OPENAI_API_KEY ? {
         OPENAI_API_KEY: env.OPENAI_API_KEY,
         OPENAI_PHRASE_MODEL: env.OPENAI_FALLBACK_MODEL

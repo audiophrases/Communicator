@@ -2,12 +2,17 @@
 // speaker most likely means ("I want to go to the doctor tomorrow."). It only ever suggests:
 // the page always lets the speaker say their own words instead. No Workers-only APIs, so tests run it in node.
 
-import { MAX_TEXT, type Fix, type Level } from '../shared/options.ts';
+import { isLanguage, MAX_TEXT, type Fix, type Level } from '../shared/options.ts';
 import { modelOf, thinking } from './model.ts';
 
 export type PhraseEnv = { OPENAI_API_KEY?: string; OPENAI_BASE_URL?: string; OPENAI_PHRASE_MODEL?: string };
 // Linked sentences arrive in paragraph order. Older clients send a single recent sentence.
 export type PhraseInput = { text: string; level: Level; language?: string; context?: string | string[] };
+
+// The language Fix translates into: the one the speaker chose, unless this board's Fix answers in English only
+// (FIX_TRANSLATION=off: the online board, whatever an open page still asks for).
+export const fixLanguage = (requested: unknown, translation?: string) =>
+    translation !== 'off' && isLanguage(requested) ? requested : undefined;
 export type PhraseResult = { fix: Fix; contextUsed: boolean };
 export type PhraseAttempt = PhraseResult | { retryAt: number } | null;
 

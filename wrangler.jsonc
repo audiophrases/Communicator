@@ -42,7 +42,10 @@
         // xKiro was tried in November 2026: Mistral was dropped (404), paid models are refused to this key (403), and
         // the free Qwen models took 3–10 s, half past the 8 s timeout. Setting XKIRO_MODEL (with XKIRO_API_KEY) and
         // OPENAI_FALLBACK_MODEL brings xKiro back as the first choice.
-        "OPENAI_PHRASE_MODEL": "gpt-4o-mini"
+        "OPENAI_PHRASE_MODEL": "gpt-4o-mini",
+        // Online Fix answers in English only: gpt-4o-mini's Catalan was wrong about one sentence in four. The laptop
+        // still translates.
+        "FIX_TRANSLATION": "off"
       },
       "observability": { "enabled": true, "traces": { "enabled": true, "head_sampling_rate": 0.01 } },
       "durable_objects": {

@@ -796,13 +796,14 @@ export default function App() {
                             </select>
                             <small>{status.fix ? 'Fix uses words for this level.' : 'Fix is switched off by your teacher.'}</small>
                         </label>
-                        <label>My language
+                        {/* The online board's Fix answers in English only. */}
+                        {status.translate !== false && <label>My language
                             <select value={settings.language} onChange={event => { const language = event.target.value; resetFix(); setSettings(current => ({ ...current, language, languageChosen: true })); }}>
                                 <option value="">Do not translate</option>
                                 {LANGUAGES.map(language => <option key={language} value={language}>{language === 'Catalan' ? 'Catalan (català)' : language}</option>)}
                             </select>
                             <small>Fix shows the sentence in your language, so you can check the meaning.</small>
-                        </label>
+                        </label>}
                         <label className="check">
                             <input type="checkbox" checked={settings.tapSound} onChange={event => set('tapSound', event.target.checked)} />
                             Say each word when I tap it

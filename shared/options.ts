@@ -16,8 +16,9 @@ export const ONLINE_BOARD_URL = 'https://communicator-online.eugenime.workers.de
 export const MAX_LINKED_SENTENCES = 8;
 
 export type Fix = { sentence: string; alternatives: string[]; translation: string };
-// fix: the teacher has Fix switched on and there is an OpenAI key.
-export type Status = { fix: boolean; naturalWordVoice?: boolean };
+// fix: the teacher has Fix switched on and there is an OpenAI key. translate: false when Fix answers in English only
+// (the online board), so the page does not offer a language.
+export type Status = { fix: boolean; naturalWordVoice?: boolean; translate?: boolean };
 export type BoardSync = { revision?: string; sync?: 'synced' | 'offline' | 'conflict' };
 // Answers kept on the laptop so the same question is not paid for twice: corrections, Catalan, voice clips.
 export type Saved = { fix: number; ca: number; speech: number; reused: number };

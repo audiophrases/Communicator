@@ -59,11 +59,11 @@ While changing the code: `npm run dev:worker` in one terminal and `npm run dev` 
 
 ### Always-online student board
 
-The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English and translates
-the result into Catalan using OpenAI's `gpt-4o-mini` (`OPENAI_PHRASE_MODEL` in `wrangler.jsonc`), with its own key.
-It is free within the account's daily data-sharing tokens, so the board, open to anyone around the clock, cannot run
-up a bill for the better `gpt-6-luna`, which the laptop keeps. Its Catalan is weaker (about one button word in four
-wrong in the November 2026 tests). Failures are logged with the model, never the words (`phrase: gpt-4o-mini HTTP 429`,
+The Cloudflare Worker serves the board while the laptop is off. **Fix** corrects English using OpenAI's `gpt-4o-mini`
+(`OPENAI_PHRASE_MODEL` in `wrangler.jsonc`), with its own key. It is free within the account's daily data-sharing
+tokens, so the board, open to anyone around the clock, cannot run up a bill for the better `gpt-6-luna`, which the
+laptop keeps. Online Fix gives no Catalan translation (`FIX_TRANSLATION: "off"`), and Settings hides "My language":
+`gpt-4o-mini` got about one Catalan sentence in four wrong in the November 2026 tests. The laptop still translates. Failures are logged with the model, never the words (`phrase: gpt-4o-mini HTTP 429`,
 `… TimeoutError`, `… unusable answer`). Saved corrections are reused by model.
 
 xKiro can come back as the first choice by setting `XKIRO_MODEL` and `OPENAI_FALLBACK_MODEL` in the online

@@ -1,7 +1,14 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { CATALAN_RULE, clean, fixPhrase, fixSeed } from '../phrase.ts';
+import { CATALAN_RULE, clean, fixLanguage, fixPhrase, fixSeed } from '../phrase.ts';
 import { caSeed, toCatalan } from '../translate.ts';
+
+test('FIX_TRANSLATION=off (the online board) answers in English only, whatever the page asks for', () => {
+    assert.equal(fixLanguage('Catalan'), 'Catalan'); // the laptop
+    assert.equal(fixLanguage('Catalan', 'off'), undefined);
+    assert.equal(fixLanguage('', undefined), undefined); // "Do not translate"
+    assert.equal(fixLanguage('Klingon'), undefined);
+});
 
 test('the same question shares one saved answer; a different one does not', () => {
     const env = {};
